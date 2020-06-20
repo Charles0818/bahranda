@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import UIReducer from './UI';
-export default allReducers = combineReducers({
+const allReducers = combineReducers({
   UIReducer,
 })
+
+export default allReducers

@@ -35,8 +35,7 @@ const validateLength = (value, min, max) => {
   return value.length > 0
 }
 
-const FormValidation = (name, value, setError) => {
-  const { validateWithLuhn, validateCardExpiryDate } = creditCardValidation();
+const FormValidation = (name, value, setError) => {;
   const input_types = {
     email: /^([a-zA-Z\d-]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,8})(\.[a-zA-Z]{2,8})?$/,
     password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d][\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/,
@@ -100,14 +99,6 @@ const FormValidation = (name, value, setError) => {
       isValid = validateWithRegex(value, date) && validateLength(value)
       !isValid ? setError(dateErr) : setError('')
       return isValid;
-    case 'CC-digits':
-      isValid = validateWithLuhn(value)
-      !isValid ? setError(CC_digitsErr) : setError('')
-      return isValid;
-    case 'Expiry date':
-      isValid = validateCardExpiryDate(value)
-      !isValid ? setError(CC_dateErr) : setError('')
-      return isValid
     default:
       isValid = validateWithRegex(value, alphanumeric) && validateLength(value)
       !isValid ? setError(`${name} is invalid `) : setError('')

@@ -1,7 +1,8 @@
 import React, { Fragment, lazy } from 'react';
+import { Route } from 'react-router-dom';
 const ResetPassword = lazy(() => import('./ResetPassword'))
 const ForgotPassword = lazy(() => import('./ForgotPassword'));
-export default Auth = ({ match: { path } }) => {
+const Auth = ({ match: { path } }) => {
   return (
     <Fragment>
       <Route path={`${path}/reset-password`} component={ResetPassword} />
@@ -9,3 +10,5 @@ export default Auth = ({ match: { path } }) => {
     </Fragment>
   )
 }
+
+export default Auth;

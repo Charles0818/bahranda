@@ -47,8 +47,8 @@
   }
 }
 
-h3 { @extend .font-lg };
-h2 { @extend .font-md }
+h2 { @extend .font-lg };
+h3, h4 { @extend .font-md };
 
 .fadeIn_animation {
   animation: fadeIn .5s ease 0s 1;
@@ -81,6 +81,10 @@ h2 { @extend .font-md }
 
 .bg-color1 {
   background: $color1;
+}
+
+.bg-color1-opacity {
+  background: $color1-opacity
 }
 
 .bg-dark {
@@ -230,6 +234,10 @@ h2 { @extend .font-md }
   @include padding-horizontal(40px)
 }
 
+.padding-horizontal-xlg {
+  @include padding-horizontal(60px)
+}
+
 .padding-vertical-xsm {
   @include padding-vertical(5px)
 }
@@ -298,6 +306,10 @@ h2 { @extend .font-md }
 
 .margin-horizontal-lg {
   @include margin-horizontal(40px)
+}
+
+.margin-horizontal-xlg {
+  @include margin-horizontal(60px)
 }
 
 .font-weight-bold {
@@ -454,7 +466,7 @@ h2 { @extend .font-md }
 
 .btn-color1 {
   @extend .btn;
-  background: $color;
+  background: $color1;
 }
 
 .btn-color-disabled {
@@ -505,9 +517,22 @@ h2 { @extend .font-md }
   background: transparent;
 }
 
+.footer-links {
+  @extend .d-flex;
+  @extend .slim-border-bottom;
+  @extend .padding-bottom-md;
+  .footer-link {
+    flex: 1;
+    .title {
+      @extend .margin-bottom-sm
+    };
+
+  }
+}
+
 @media (max-width: 1199.98px) {
   .mobile {
-      display: inline-block;
+    display: inline-block;
   }
 }
 

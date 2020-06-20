@@ -4,7 +4,7 @@ const { START_LOADING, STOP_LOADING } = UI;
 const initialState = {
   isLoading: false,
 }
-export default UIReducer = (prevState = initialState, { type, payload }) => {
+const UIReducer = (prevState = initialState, { type, payload }) => {
   switch (type) {
     case START_LOADING:
       return {
@@ -21,3 +21,4 @@ export default UIReducer = (prevState = initialState, { type, payload }) => {
     return prevState
   }
 }
+export default UIReducer

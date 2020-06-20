@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ClipLoader from "react-spinners/ClipLoader";
 import DotLoader from "react-spinners/DotLoader";
 
 export const useFullScreenSpinner = (bool) => {
   const [isLoading, setIsLoading] = useState(bool ? bool : false);
   const LoadingSpinner = isLoading &&  (
-    <div className="modalRoot bg-dark d-flex align-items--center justify-content--center">
+    <div className="modalRoot bg-dark d-flex align-items-center justify-content--center">
       <DotLoader
         size={75}
         color={"#069801"}
@@ -19,7 +19,7 @@ export const useFullScreenSpinner = (bool) => {
 export const useSectionSpinner = (bool) => {
   const [isLoading, setIsLoading] = useState(bool ? bool : false);
   const LoadingSpinner =  isLoading && (
-    <div className="d-flex align-items--center justify-content--center">
+    <div className="d-flex align-items-center justify-content--center">
       <DotLoader
         size={75}
         color={"#069801"}
