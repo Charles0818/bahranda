@@ -1,10 +1,8 @@
 import React, { Fragment, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, RouteProps, Switch } from 'react-router-dom';
 import logo from './logo.svg';
-import { Home } from './pages';
+import { Home, Auth } from './pages';
 import { IconContext } from "react-icons";
-// const { Home }= lazy(() => import('./pages'));
-// const {  } = pages;
 import { Footer, Header, ErrorBoundary } from './components';
 import './styles/App.scss';
 
@@ -16,6 +14,7 @@ function App() {
           <Header />
           <Switch>
             <Route path="/" component={Home} exact={true} />
+            <Route path="/auth" component={Auth} />
           </Switch>
           <Footer />
         </IconContext.Provider>

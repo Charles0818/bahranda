@@ -1,5 +1,26 @@
 @import 'breakpoints';
 @import 'variables';
+
+@mixin padding-horizontal ($value) {
+  padding-right: $value;
+  padding-left: $value;
+}
+
+@mixin padding-vertical ($value) {
+  padding-top: $value;
+  padding-bottom: $value;
+}
+
+@mixin margin-horizontal ($value) {
+  margin-right: $value;
+  margin-left: $value;
+}
+
+@mixin margin-vertical ($value) {
+  margin-top: $value;
+  margin-bottom: $value;
+}
+
 @keyframes scale {
   from{
     opacity: 0;
@@ -26,30 +47,8 @@
   }
 }
 
-@keyframes slideInPage {
-  0% {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-  40% {
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0%);
-    opacity: 1;
-  }
-}
-
-@keyframes slideOutPage {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-}
+h3 { @extend .font-lg };
+h2 { @extend .font-md }
 
 .fadeIn_animation {
   animation: fadeIn .5s ease 0s 1;
@@ -58,11 +57,6 @@
 .scale_animation {
   animation: scale .5s ease 0s 1;
   -webkit-animation: scale .5s ease 0s 1;
-}
-
-.main-wrapper {
-  width: 95%;
-  margin: auto;
 }
 
 .slim-border {
@@ -75,12 +69,6 @@
 
 .slim-border-bottom {
   border-bottom: $slim-border;
-}
-
-.wrap-list-item {
-  border: $slim-border;
-  background: $dark;
-  padding: 10px;
 }
 
 .product-card {
@@ -121,10 +109,6 @@
 
 .color-gray2 {
   color: $gray-color2;
-}
-
-.linear-grad-bg {
-  background: $linear-grdient-background;
 }
 
 .italic {
@@ -230,6 +214,38 @@
   padding-right: 50px;
 }
 
+.padding-horizontal-xsm {
+  @include padding-horizontal(5px)
+}
+
+.padding-horizontal-sm {
+  @include padding-horizontal(10px)
+}
+
+.padding-horizontal-md {
+  @include padding-horizontal(30px)
+}
+
+.padding-horizontal-lg {
+  @include padding-horizontal(40px)
+}
+
+.padding-vertical-xsm {
+  @include padding-vertical(5px)
+}
+
+.padding-vertical-sm {
+  @include padding-vertical(10px)
+}
+
+.padding-vertical-md {
+  @include padding-vertical(30px)
+}
+
+.padding-vertical-lg {
+  @include padding-vertical(40px)
+}
+
 .margin-bottom-sm {
   margin-bottom: 10px;
 }
@@ -268,6 +284,22 @@
 .margin-top-sm {
   margin-top: 10px;
 }
+.margin-horizontal-xsm {
+  @include margin-horizontal(5px)
+}
+
+.margin-horizontal-sm {
+  @include margin-horizontal(10px)
+}
+
+.margin-horizontal-md {
+  @include margin-horizontal(30px)
+}
+
+.margin-horizontal-lg {
+  @include margin-horizontal(40px)
+}
+
 .font-weight-bold {
   font-weight: bold;
 }

@@ -1,2 +1,3 @@
 import * as ajax from "./ajax";
-export { ajax, }
+import { types, store, actions } from './redux';
+export { ajax, types, store, actions }
