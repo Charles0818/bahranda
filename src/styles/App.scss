@@ -47,8 +47,8 @@
   }
 }
 
-h2 { @extend .font-lg };
-h3, h4 { @extend .font-md };
+// h2 { @extend .font-lg };
+// h3, h4 { @extend .font-md };
 
 .fadeIn_animation {
   animation: fadeIn .5s ease 0s 1;
@@ -120,13 +120,15 @@ h3, h4 { @extend .font-md };
 }
 
 .text-content {
-  font-family: $font-family-3;
+  font-family: $font-family-1;
+  font-style: normal;
+  font-weight: normal;
   word-wrap: break-word;
   word-break: keep-all;
   writing-mode: horizontal-tb;
   text-align: left;
   text-overflow: ellipsis;
-  line-height: 30px;
+  line-height: 29px;
 }
 
 .uppercase {
@@ -328,6 +330,10 @@ h3, h4 { @extend .font-md };
   margin-right: 10px;
 }
 
+.round-icon {
+  padding: 8px;
+}
+
 .position-relative {
   position: relative;
 }
@@ -462,6 +468,7 @@ h3, h4 { @extend .font-md };
   border: none;
   border-radius: 5px;
   padding: 10px 8px;
+  @extend .cursor-pointer
 }
 
 .btn-color1 {
@@ -517,88 +524,50 @@ h3, h4 { @extend .font-md };
   background: transparent;
 }
 
+.logo-lg {
+  width: 200px;
+  height: auto
+}
+
+.dealer {
+  @extend .d-flex;
+  @extend .d-flex.align-items-center;
+  h3 {
+    font-size: 3em
+  }
+  .dealer-btn, .truck {
+    flex: 1;
+  }
+  @include media-breakpoint-down(sm) {
+    flex-direction: column;
+    .truck {
+      width: 100%;
+      max-height: 100%;
+      height: auto;
+    }
+    h3 {
+      font-size: 2em
+    }
+  }
+}
 .footer-links {
   @extend .d-flex;
   @extend .slim-border-bottom;
   @extend .padding-bottom-md;
   .footer-link {
     flex: 1;
+    @extend .margin-bottom-md;
     .title {
       @extend .margin-bottom-sm
     };
-
+    @include media-breakpoint-down(md) {
+      flex-basis: 49%;
+    }
+    @include media-breakpoint-down(xs) {
+      flex-basis: 100%;
+    }
   }
 }
-
-@media (max-width: 1199.98px) {
-  .mobile {
-    display: inline-block;
-  }
-}
-
-@media screen and (max-width: 1050px) {
-  .main-wrapper {
-    width: 95%;
-  }
-}
-@media screen and (min-width: 850px) {
-
-}
-
-@media screen and (max-width: 991.98px) {
-
-  .font-lg {
-    font-size: 1em;
-  }
-
-  .font-xlg {
-    font-size: 1.1em;
-  }
-
-  .font-md {
-    font-size: .8em;
-  }
-  .show-page {
-    animation: fadeIn .5s ease 0s 1;
-  }
-
-  .page.padding-left-lg {
-    padding-left: 10px;
-  }
-  .d-flex.main-wrapper {
-    flex-direction: column;
-  }
-
-  .transform.scale_animation {
-    animation: fadeIn .5s ease 0s 1;
-    -webkit-animation: fadeIn .5s ease 0s 1;
-  }
-
-}
-
-@media screen and (max-width: 890px) {
-  
-}
-
-@media screen and (max-width: 767.98px) {
-  .card {
-    width: 48%;
-  }
-
-  .card.card-2 {
-    width: 100%
-  }
-}
-
-@media screen and (max-width: 575.98px) {
-  .col-2.box,
-  .col-2,
-  .card,
-  .project {
-    width: 100%;
-  }
-}
-
 
 @include media-breakpoint-up(sm) {  }
 @include media-breakpoint-up(md) {  }
@@ -607,7 +576,11 @@ h3, h4 { @extend .font-md };
 
 @include media-breakpoint-down(xs) {  }
 @include media-breakpoint-down(sm) {  }
-@include media-breakpoint-down(md) {  }
+@include media-breakpoint-down(md) { 
+  .logo-lg {
+    width: 150px
+  }
+ }
 @include media-breakpoint-down(lg) {  }
 
 @include media-breakpoint-only(xs) {   }

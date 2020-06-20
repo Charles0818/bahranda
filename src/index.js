@@ -5,6 +5,13 @@ import './styles/index.scss';
 import App from './App';
 import { store } from './helpers';
 import * as serviceWorker from './serviceWorker';
+import WebFont from 'webfontloader';
+
+WebFont.load({
+  google: {
+    families: ['Montserrat', 'sans-serif']
+  }
+});
 
 ReactDOM.render(
   <React.StrictMode>
