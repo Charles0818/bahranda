@@ -59,6 +59,103 @@
   -webkit-animation: scale .5s ease 0s 1;
 }
 
+// Header before navigation menu
+Header {
+.Before-Nav {
+  width: auto;
+  height: 80px;
+  background-color: #069801;
+  display: flex;
+  justify-content: space-evenly;
+
+  div {
+    display: flex;
+    margin: 20px;
+    color: #fff;
+    margin-left: 30px;
+   
+
+    p {
+      margin-left: 20px;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 22px;
+      margin-top: 10px;
+    }
+  }
+  hr {
+    height: 60px;
+    margin-top: 10px;
+    margin-left: 30px;
+    border: 2px solid rgba(229, 229, 229, 0.31);
+  }
+  .socials {
+    margin-left: 40px;
+  }  
+  .search-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #FFFFFF;
+    box-sizing: border-box;
+    margin: 10px;
+    // margin-right: 40px;
+
+    .searchme {
+      margin-top: 12px;
+      margin-left: 12px;
+    }
+
+  }
+}
+nav {
+  width: auto;
+  height: 120px;
+  display: flex;
+  margin: 50px;
+  margin-bottom: 0px;
+  justify-content: space-evenly;
+  box-shadow: 0px 4px 4px rgba(229, 229, 229, 0.53);
+
+  .nav-link {
+  color: #2B2B2B;
+  font-size: 18px;
+}
+  img {
+left: 10.14%;
+right: 74.72%;
+top: 56.96%;
+bottom: 21.1%;
+width: 218px;
+height: 52px;
+  }
+  .home {
+    margin-left: 50px;
+  }
+  .sign-in {
+    margin-left: 70px;
+  }
+  .btn-color {
+    width: 140px;
+    height: 60px;
+    // padding: 15px;
+    background: #069801;
+    border-radius: 7px;
+    margin-top: -10px;
+    color: #fff;
+    font-weight: 600;
+font-size: 18px;
+line-height: 22px;
+  }
+div {
+  margin-top: 10px;
+}
+.current {
+  color: #069801;
+}
+
+}
+}
 .slim-border {
   border: $slim-border;
 }
