@@ -29,6 +29,8 @@ const Header = () => {
     <RiSearchEyeLine color="#fff" fontSize="2rem"  className="searchme"/>
     </div>
       </div>
+
+      
       <nav>
        <img src={logo}/>
       <div><NavLink color="#069801" to="/home" className="current home nav-link">Home</NavLink></div>
