@@ -50,6 +50,9 @@
 // h2 { @extend .font-lg };
 // h3, h4 { @extend .font-md };
 
+.card {
+  box-shadow: 2px 3px 5px #a0a0a0;
+}
 .fadeIn_animation {
   animation: fadeIn .5s ease 0s 1;
   -webkit-animation: fadeIn .5s ease 0s 1;
@@ -466,9 +469,10 @@
   transition: 0.5s all;
   outline: none;
   border: none;
-  border-radius: 5px;
-  padding: 10px 8px;
-  @extend .cursor-pointer
+  border-radius: 7px;
+  @extend .padding-md;
+  @extend .font-weight-600;
+  @extend .cursor-pointer;
 }
 
 .btn-color1 {
@@ -484,10 +488,10 @@
 .ripple {
   background-position: center;
   transition: background 0.8s;
-  :hover {
+  ::hover {
     background: $color1 radial-gradient(circle, transparent 1%, $color1-opacity 1%) center/15000%;
   }
-  :active {
+  ::active {
     background-color: $color1-opacity;
     background-size: 100%;
     transition: background 0s;
@@ -532,6 +536,8 @@
 .dealer {
   @extend .d-flex;
   @extend .d-flex.align-items-center;
+  background: $color1 url('../assets/Star.svg') no-repeat center;
+  background-size: contain;
   h3 {
     font-size: 3em
   }

@@ -1,0 +1,18 @@
+@import 'breakpoints';
+.newsletter {
+  transform: translateY(-40%);
+  width: 400px;
+  input {
+    background:  #F2FFF1;
+    border: 1px solid #F5FFFE;
+  }
+  @include media-breakpoint-down(sm) {
+    width: 100%;
+    margin: auto;
+  }
+}
+
+textarea {
+  height: auto;
+  max-height: 300px;
+}

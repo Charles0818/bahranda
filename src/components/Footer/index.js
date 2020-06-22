@@ -1,20 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaTwitter, FaFacebookF, FaInstagram } from 'react-icons/fa';
+import { useFormInput } from '../Form';
 import deliveryTruck from '../../assets/delivery-truck.png';
-import logo from '../../assets/baranda.png'
+import logo from '../../assets/baranda.png';
 const Footer = () => {
   return (
     <div>
       <section className="dealer padding-horizontal-xlg padding-vertical-lg bg-color1">
         <div className="dealer-btn margin-bottom-md">
           <h3 className="color-white font-xlg margin-bottom-md">Become a Dealer</h3>
-          <button className="btn bg-white color1 font-sm">Get started</button>
+          <button className="btn bg-white font-weight-600 color1 font-sm">Get started</button>
         </div>
         <img className="truck" src={deliveryTruck} alt="Bahranda van" />
       </section>
       <footer className="padding-horizontal-xlg padding-vertical-lg bg-dark">
-        <img src={logo} alt="Bahranda logo" className="margin-bottom-md logo-lg" />
+        <div className="d-flex justify-content-s-between">
+          <img src={logo} alt="Bahranda logo" className="margin-bottom-md logo-lg" />
+          <NewsLetter />
+        </div>
         <div className="footer-links">
           <div className="footer-link">
             <h4 className="color-white title">Company</h4>
@@ -61,4 +65,14 @@ const Footer = () => {
   )
 }
 
+const NewsLetter = () => {
+  const { input, handleUserInput, error } = useFormInput()
+  return (
+    <form className="d-flex column padding-horizontal-lg padding-vertical-md newsletter bg-white">
+      <span className="font-md margin-bottom-md">Subscribe to our mailing list</span>
+      <input name="email" value={input} placeholder="Enter email address" onChange={handleUserInput} className=" padding-md margin-bottom-sm" />
+      <button className="btn-color1 color-white">Subscribe</button>
+    </form>
+  )
+}
 export default Footer;

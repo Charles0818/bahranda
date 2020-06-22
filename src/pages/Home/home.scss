@@ -1,0 +1,15 @@
+@import 'variables';
+@import 'breakpoints';
+.who-we-are {
+  background: #000 url('./assets/farm-field.png') no-repeat center;
+  background-size: cover;
+  max-height: 400px;
+  width: 100%;
+  > div {
+    flex: 1
+  }
+  .images {
+    // background: #000;
+    height: 100%;
+  }
+}

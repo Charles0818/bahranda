@@ -5,7 +5,7 @@ import { Home, Auth } from './pages';
 import { IconContext } from "react-icons";
 import { Footer, Header, ErrorBoundary } from './components';
 import './styles/App.scss';
-
+import './styles/form.scss';
 function App() {
   return (
     <Router>
