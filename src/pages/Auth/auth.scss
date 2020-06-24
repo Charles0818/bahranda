@@ -1,0 +1,29 @@
+@import 'variables';
+@import 'breakpoints';
+
+.auth-container {
+  background: url('./assets/lady-in-farm.png') no-repeat center;
+  background-size: cover;
+  // @include media-breakpoint-up(lg) {  background-size: cover; }
+  width: 100%;
+  height: auto;
+  .auth-card {
+    background: $white;
+    max-width: 500px;
+    .card-title {
+      > * {
+        color: $dark;
+        flex: 1;
+        border-bottom:  2px solid $gray-color;
+        &.active {
+          color: $color1;
+          border-bottom:  2px solid $color1;
+        }
+      }
+    }
+  }
+}
+
+.checkbox * {
+  line-height: 1em;
+}

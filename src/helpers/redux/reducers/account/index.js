@@ -6,7 +6,8 @@ const initialState = {
 const accountReducer = (prevState = initialState, { type, payload }) => {
   switch(type) {
     case SIGN_IN_SUCCESS:
-      prevState = payload.data
+      prevState = payload.data;
+      return prevState
     default:
       return prevState;
   }

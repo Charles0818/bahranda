@@ -18,13 +18,13 @@ const authReducer = (prevState = initialState, { type, payload }) => {
       return { ...prevState, isLoading: false, email: payload.email }
     case SIGN_IN_ERROR:
       prevState.errors.signIn = payload.error;
-      return { ...prevState }
+      return { ...prevState, isLoading: false }
     case SIGN_UP_ERROR:
       prevState.errors.signUp = payload.error;
-      return { ...prevState }
+      return { ...prevState, isLoading: false }
     case PIN_ERROR:
       prevState.errors.pin = payload.error;
-      return { ...prevState }
+      return { ...prevState, isLoading: false }
     default:
       return prevState;
   }

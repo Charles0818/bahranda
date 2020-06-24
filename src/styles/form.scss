@@ -1,8 +1,10 @@
 @import 'breakpoints';
+@import 'variables';
 .newsletter {
   transform: translateY(-40%);
   width: 400px;
   input {
+    width: 100%;
     background:  #F2FFF1;
     border: 1px solid #F5FFFE;
   }
@@ -12,7 +14,37 @@
   }
 }
 
+form {
+  width: 100%
+}
+
+.input-container {
+  width: 100%;
+  color: #2B2B2B;
+  font-family: $font-family-1;
+  input {
+    width: 100%;
+    &::placeholder { 
+      color: rgba(0, 0, 0, 0.28);
+    }
+    &:focus {
+      border-color: $color1;
+      color: $color1
+    }
+  }
+  .field-check-icon {
+    position: absolute;
+    right: 15px;
+    top: 25%;
+  }
+}
+
 textarea {
   height: auto;
   max-height: 300px;
 }
+
+// .submit {
+//   .btn-text { flex: .8 };
+//   .spinner { flex: .2 }
+// }

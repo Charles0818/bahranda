@@ -11,7 +11,7 @@ const Auth = ({ match: { path } }) => {
   return (
     <Fragment>
       <Switch>
-        <Suspense fallback={<FullScreenSpinner isLoading={true} />}>
+        <Suspense fallback={<FullScreenSpinner isLoading={true} />} >
           <Route exact path={`${path}/signin`} component={SignIn} />
           <Route exact path={`${path}/register`} component={SignUp} />
           <Route exact path={`${path}/reset-password`} component={ResetPassword} />
