@@ -1,15 +1,36 @@
 @import 'variables';
 @import 'breakpoints';
 .who-we-are {
-  background: #000 url('./assets/farm-field.png') no-repeat center;
+  background: url('./assets/farm-field.png') no-repeat center;
   background-size: cover;
-  max-height: 400px;
+  height: 500px;
   width: 100%;
-  > div {
-    flex: 1
+  .content {
+    background: $dark-opacity;
+    .images {
+      width: 446px;
+      @include media-breakpoint-down(md) { flex-basis: 100% };
+      @include media-breakpoint-only(md) { flex-direction: row };
+      > img {
+        width: 100%;
+        &:nth-child(1) {transform: translateY(-40px)};
+        &:nth-child(2) {transform: translateY(-40px)}
+      }
+    }
+    .about {
+      flex: .8;
+    };
+    @include media-breakpoint-down(md) { 
+      flex-direction: column;
+      .about {
+        flex-basis: 100%;
+      }
+    };
   }
-  .images {
-    // background: #000;
-    height: 100%;
+  @include media-breakpoint-down(md) {
+    height: 420px;
+    .content {
+      .images, .about { flex: .5 }
+    }
   }
 }

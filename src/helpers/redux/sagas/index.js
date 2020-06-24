@@ -1,6 +1,6 @@
 // import account from './account';
 import { spawn } from 'redux-saga/effects';
-
+import authSagas from './auth';
 export default function* rootSaga() {
-  // yield spawn(serviceSagas)
+  yield spawn(authSagas)
 }

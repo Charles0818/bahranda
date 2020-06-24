@@ -21,4 +21,4 @@ const UIReducer = (prevState = initialState, { type, payload }) => {
     return prevState
   }
 }
-export default UIReducer
+export default UIReducer;

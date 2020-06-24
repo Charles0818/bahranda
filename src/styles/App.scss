@@ -21,6 +21,10 @@
   margin-bottom: $value;
 }
 
+@mixin position ($value) { position: #{$value} }
+
+/*End of @mixins*/
+
 @keyframes scale {
   from{
     opacity: 0;
@@ -61,6 +65,45 @@
   animation: scale .5s ease 0s 1;
   -webkit-animation: scale .5s ease 0s 1;
 }
+
+// Header before navigation menu
+header {
+  .before-nav {
+    .address {
+      border-right: 2px solid rgba(229, 229, 229, 0.31);
+      @extend .padding-right-lg;
+      p { line-height: 15px; }
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
+    }
+    .search-icon {
+      padding: 5px;
+      border: 1px solid #FFFFFF;
+    }
+    @include media-breakpoint-down(xs) {
+      .phone { display: none }
+    }
+  }
+
+  // navigation-menu
+  nav {
+    box-shadow: 0px 4px 4px rgba(229, 229, 229, 0.53);
+    .bar { display: none; }
+    @include media-breakpoint-down(md) {
+      @include padding-vertical(sm);
+      .bar { display: inline-block };
+      .nav-links {
+        transition: .5s all;
+        order: 4;
+        flex-basis: 100%;
+        flex-direction: column;
+        &.toggle { display: none; }
+      }
+    }
+  }
+}
+// End of Header 
 
 .slim-border {
   border: $slim-border;
@@ -337,10 +380,19 @@
   padding: 8px;
 }
 
-.position-relative {
-  position: relative;
-}
+.position-relative {  @include position(relative); }
 
+.position-absolute { @include position(absolute); }
+
+.position-absolute-overlay {
+  @extend .position-absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
 .cursor-pointer {
   cursor: pointer;
 }
@@ -480,7 +532,7 @@
   background: $color1;
 }
 
-.btn-color-disabled {
+.btn-disabled {
   @extend .btn;
   background: $gray-color;
 }
@@ -488,10 +540,10 @@
 .ripple {
   background-position: center;
   transition: background 0.8s;
-  ::hover {
+  &:hover {
     background: $color1 radial-gradient(circle, transparent 1%, $color1-opacity 1%) center/15000%;
   }
-  ::active {
+  &:active {
     background-color: $color1-opacity;
     background-size: 100%;
     transition: background 0s;
@@ -531,6 +583,15 @@
 .logo-lg {
   width: 200px;
   height: auto
+}
+
+.logo-md {
+  width: 80px;
+  flex-shrink: 1;
+  height: auto;
+  @include media-breakpoint-down(md) {
+    width: 80px;
+  }
 }
 
 .dealer {
@@ -581,12 +642,16 @@
 @include media-breakpoint-up(xl) {  }
 
 @include media-breakpoint-down(xs) {  }
-@include media-breakpoint-down(sm) {  }
+@include media-breakpoint-down(sm) { 
+  .padding-horizontal-xlg {
+    @include padding-horizontal(20px);
+  }
+}
 @include media-breakpoint-down(md) { 
   .logo-lg {
     width: 150px
   }
- }
+}
 @include media-breakpoint-down(lg) {  }
 
 @include media-breakpoint-only(xs) {   }

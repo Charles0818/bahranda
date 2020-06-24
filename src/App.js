@@ -10,7 +10,7 @@ function App() {
   return (
     <Router>
       <ErrorBoundary>
-        <IconContext.Provider value={{ color: "blue", className: "global-class-name" }}>
+        <IconContext.Provider value={{ className: "global-class-name" }}>
           <Header />
           <Switch>
             <Route path="/" component={Home} exact={true} />

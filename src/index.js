@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import './styles/index.scss';
 import App from './App';
-import { store } from './helpers';
+import { store, persistor } from './helpers';
+import { Spinners } from './components';
 import * as serviceWorker from './serviceWorker';
 import WebFont from 'webfontloader';
 
@@ -13,10 +15,13 @@ WebFont.load({
   }
 });
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate persistor={persistor} loading={<Spinners.FullScreenSpinner isLoading={true} />}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
