@@ -35,8 +35,10 @@ function* signUp({ payload: { data } }) {
     const email = yield call(authDBCalls.signUp, data);
     yield put(signUpSuccess(email))
   } catch (err) {
+    const { error } = err;
+    const errorMessage = !error ? 'No internet connection detected' : error;
     console.log('error found', err);
-    yield put(signUpError(err));
+    yield put(signUpError(errorMessage));
   }
 }
 

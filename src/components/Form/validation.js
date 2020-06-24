@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
-export const useFormInput = (value) => {
-  const [input, setInput] = useState(value ? value : '');
+export const useFormInput = (initialValue = '') => {
+  const [value, setValue] = useState(initialValue);
   const [error, setError] = useState('');
   const [isValid, setIsValid] = useState(value && value.length > 0 ? true : false)
   const handleUserInput = (event) => {
     const { target: { name, value } } = event;
-    setInput(value);
+    setValue(value);
     setIsValid(FormValidation(name, value, setError))
   };
-  return { input, setInput, handleUserInput, error, setError, isValid }
+  return { value, setValue, handleUserInput, error, setError, isValid }
 }
 
 export const useFileInput = () => {
