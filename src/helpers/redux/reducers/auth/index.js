@@ -1,5 +1,5 @@
 import { auth } from '../../types';
-const { SIGN_UP_SUCCESS ,SIGN_IN_ERROR, SIGN_UP_ERROR, PIN_ERROR } = auth;
+const { SIGN_UP_SUCCESS ,SIGN_IN_ERROR, SIGN_UP_ERROR, PIN_ERROR, ISLOADING } = auth;
 const initialState = {
   token: '',
   isLoading: false,

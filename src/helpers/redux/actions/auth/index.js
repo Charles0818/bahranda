@@ -3,7 +3,8 @@ import { auth } from '../../types';
 const {
   SIGN_IN_REQUEST, SIGN_UP_REQUEST,
   SIGN_IN_SUCCESS, SIGN_UP_SUCCESS,
-  SIGN_IN_ERROR, SIGN_UP_ERROR, PIN_ERROR
+  SIGN_IN_ERROR, SIGN_UP_ERROR, PIN_ERROR,
+  ISLOADING
 } = auth;
 
 
@@ -53,5 +54,12 @@ export const pinError = (error) => {
   return {
     type: PIN_ERROR,
     payload: { error }
+  }
+}
+
+export const setIsLoading = (isLoading) => {
+  return {
+    type: ISLOADING,
+    payload: { isLoading }
   }
 }

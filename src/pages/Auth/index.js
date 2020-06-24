@@ -6,6 +6,7 @@ import { Spinners } from '../../components';
 const ResetPassword = lazy(() => import('./ResetPassword'))
 const ForgotPassword = lazy(() => import('./ForgotPassword'));
 
+const { FullScreenSpinner } = Spinners;
 const Auth = ({ match: { path } }) => {
   return (
     <Fragment>

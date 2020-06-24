@@ -6,16 +6,16 @@ const {
   SIGN_IN_REQUEST, SIGN_IN_SUCCESS,
   SIGN_UP_REQUEST, SIGN_UP_SUCCESS,
   SIGN_IN_ERROR, SIGN_UP_ERROR,
-  CONFIRM_PIN, PIN_ERROR
+  CONFIRM_PIN, PIN_ERROR, ISLOADING
 } = auth;
 const {
-  signInRequest, signInSuccess, signInError,
-  signUpRequest, signUpSuccess, signUpError,
-  pinError
+  signInSuccess, signInError,
+  signUpSuccess, signUpError,
+  pinError, setIsLoading
 } = authActions;
 const authDBCalls = {
   signUp: async (data) => {
-    const response = await sendData(`${apiKey}/`, data, token);
+    const response = await sendData(`${apiKey}/`, data);
     return response
   },
   signIn: async (data) => {
@@ -31,6 +31,7 @@ const authDBCalls = {
 // All generators*
 function* signUp({ payload: { data } }) {
   try {
+    yield put(setIsLoading(true))
     const email = yield call(authDBCalls.signUp, data);
     yield put(signUpSuccess(email))
   } catch (err) {
@@ -41,6 +42,7 @@ function* signUp({ payload: { data } }) {
 
 function* signIn({ payload: { data } }) {
   try {
+    yield put(setIsLoading(true))
     const user = yield call(authDBCalls.signIn, data)
     yield put(signInSuccess(user))
   } catch (err) {
@@ -51,8 +53,8 @@ function* signIn({ payload: { data } }) {
 
 function* confirmPin({ payload: { data } }){
   try {
+    yield put(setIsLoading(true))
     const confirmed = yield call(authDBCalls.confirmPin, data)
-    // yield put(initializeServices(services))
   } catch (err) {
     console.log('error found', err);
     yield put(pinError(err))
