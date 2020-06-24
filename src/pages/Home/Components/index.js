@@ -1,4 +1,4 @@
-import whatwedo from './whatwedo'
+import WhatWeDo from './WhatWeDo'
 import WhoWeAre from './WhoWeAre';
 export { WhoWeAre };
-export { whatwedo }
+export { WhatWeDo }

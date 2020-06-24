@@ -1,6 +1,6 @@
 import React from "react";
 import webuy from "../../assets/webuy.png";
-import westore from "../../assets/westore.png"
+import westore from "../../assets/westore.png";
 
 const WhatWeDo = () => {
     return (
