@@ -6,6 +6,7 @@ import { IconContext } from "react-icons";
 import { Footer, Header, ErrorBoundary } from './components';
 import './styles/App.scss';
 import './styles/form.scss';
+import whatwedo from './components/whatwedo';
 function App() {
   return (
     <Router>
@@ -15,7 +16,9 @@ function App() {
           <Switch>
             <Route path="/" component={Home} exact={true} />
             <Route path="/auth" component={Auth} />
+            
           </Switch>
+          <whatwedo />
           <Footer />
         </IconContext.Provider>
       </ErrorBoundary>
