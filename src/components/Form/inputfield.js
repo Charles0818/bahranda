@@ -9,7 +9,8 @@ export const FormField = ({
     <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
       <span className="font-sm font-weight-500">{placeholder}</span>
       <div className="d-flex input-container position-relative" style={{width: '100%'}}>
-        <input type={type} name={name} ref={inputRef} value={value} onChange={onChange} placeholder={placeholder} className="border-r-5 padding-md padding-horizontal-md font-weight-500 bg-white slim-border font-sm" {...rest} />
+        <input type={type} name={name} ref={inputRef} value={value} onChange={onChange} placeholder={placeholder}
+          className="border-r-5 padding-md padding-horizontal-md font-weight-500 bg-white slim-border font-sm" {...rest} />
         <div className="field-check-icon">
           {!err && value.length > 0 && <FaCheckCircle className="font-md  bg-white color1 fadeIn-animation" /> }
         </div>
