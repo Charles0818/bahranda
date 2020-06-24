@@ -18,7 +18,6 @@ function App() {
             <Route path="/auth" component={Auth} />
             
           </Switch>
-          <whatwedo />
           <Footer />
         </IconContext.Provider>
       </ErrorBoundary>

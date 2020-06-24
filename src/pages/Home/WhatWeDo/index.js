@@ -2,11 +2,11 @@ import React from "react";
 import webuy from "../../assets/webuy.png";
 import westore from "../../assets/westore.png"
 
-const whatwedo = () => {
+const WhatWeDo = () => {
     return (
         <section>
             <h1>What we do</h1>
-            <div className="d-flex">
+            <div className="d-flex we-buy">
                 <div>
                    <img src={webuy}></img>
                    <h2>We Buy</h2>
@@ -19,9 +19,7 @@ const whatwedo = () => {
                     </div>
                     <div>
                         <h2>WE SELL</h2>
-                        <p>lorem16
-                            
-                        </p>
+                        <p>lorem16 </p>
                     </div>
 
             </div>
@@ -30,4 +28,4 @@ const whatwedo = () => {
     )
 }
 
-export default whatwedo;
+export default WhatWeDo;
