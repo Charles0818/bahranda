@@ -1,6 +1,7 @@
 import React from "react";
 import webuy from "../../assets/webuy.png";
 import westore from "../../assets/westore.png";
+import wesell from "../../assets/wesell.png";
 
 const WhatWeDo = () => {
     return (
@@ -23,7 +24,7 @@ const WhatWeDo = () => {
                     </div>
                     <div className="sub-div bg-white">
                         <div className="d-flex justify-content-s-between column flex-center">
-                    <img src={webuy} className="margin-left-md"></img>
+                    <img src={wesell} className="margin-left-md"></img>
                         <h2 className="margin-top-md">WE SELL</h2>
                         <p className="margin-top-md margin-left-md margin-right-md text-center"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a dui laoreet, eleifend felis nec, ultricies turpis. Sed sed lacus at nibh ultrices condimentum. Proin in interdum risus. Suspendisse</p>
                     </div>
