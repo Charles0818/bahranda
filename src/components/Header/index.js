@@ -38,8 +38,8 @@ const Header = () => {
           <NavLink  activeClassName="color1 font-weight-500" to="/home" className="color-dark font-md padding-md">Products</NavLink>
           <NavLink  activeClassName="color1 font-weight-500" to="/home" className="color-dark font-md padding-md">Contact Us</NavLink>
           <div className="d-flex align-items-center justify-content-s-between auth-links">
-            <NavLink to="/home" className="color-dark font-md margin-right-sm padding-md">Sign in</NavLink>
-            <NavLink to="/home" className="ripple padding-horizontal-sm font-weight-600 bg-color1 border-r-5 color-white font-sm margin-right-md">Register</NavLink>
+            <NavLink to="/auth/signin" className="color-dark font-md margin-right-sm padding-md">Sign in</NavLink>
+            <NavLink to="/auth/register" className="ripple padding-horizontal-sm font-weight-600 bg-color1 border-r-5 color-white font-sm margin-right-md">Register</NavLink>
           </div>
         </div>
         
