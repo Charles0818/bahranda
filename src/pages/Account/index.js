@@ -11,7 +11,7 @@ const Account = ({ match: { path } }) => {
     <Fragment>
       <section className="account d-flex">
         <LeftSideBar />
-        <div className="main">
+        <div className="main padding-horizontal-xlg padding-vertical-lg">
           <HorizontalNavbar />
           <main>
             <Switch>

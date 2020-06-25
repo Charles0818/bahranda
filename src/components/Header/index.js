@@ -30,7 +30,7 @@ const Header = () => {
           <RiSearchEyeLine color="#fff" className="font-md"/>
         </div>
       </div>
-      <nav className="d-flex align-items-center justify-content-s-between padding-horizontal-xlg padding-vertical-md">
+      <nav className="d-flex align-items-center justify-content-s-between padding-horizontal-xlg padding-vertical-md margin-bottom-md bg-white">
         <img src={logo} className="logo-md margin-right-md"/>
         <div ref={navRef} className="d-flex nav-links toggle align-items-center justify-content-s-between">
           <NavLink  activeClassName="color1 font-weight-500" to="/" className="color-dark padding-md">Home</NavLink>

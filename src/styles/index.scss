@@ -13,17 +13,18 @@
   font-family: $font-family-1
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  background: $bg-color2;
 }
+
 
 a {
   text-decoration: none;
 }
 
 a, span, p {
-  line-height: 29px
+  line-height: 29px;
+  font-style: normal;
 }
 
 li {
@@ -32,3 +33,5 @@ list-style: none;
 input, textarea {
   border: none;
 }
+
+h1, h2, h3, h4 { line-height: 37px }

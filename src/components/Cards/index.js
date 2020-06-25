@@ -1,2 +1,3 @@
 import TeamCard from './TeamCard';
-export { TeamCard }
+import ProductCard from './ProductCard';
+export { TeamCard, ProductCard };

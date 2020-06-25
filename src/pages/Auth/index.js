@@ -3,13 +3,14 @@ import { Route, Switch } from 'react-router-dom';
 import SignIn from './Signin';
 import SignUp from './SignUp';
 import { Spinners } from '../../components';
+import { PageWrapper } from '../components';
 const ResetPassword = lazy(() => import('./ResetPassword'))
 const ForgotPassword = lazy(() => import('./ForgotPassword'));
 
 const { FullScreenSpinner } = Spinners;
 const Auth = ({ match: { path } }) => {
   return (
-    <Fragment>
+    <PageWrapper>
       <Switch>
         <Suspense fallback={<FullScreenSpinner isLoading={true} />} >
           <Route exact path={`${path}/signin`} component={SignIn} />
@@ -18,7 +19,7 @@ const Auth = ({ match: { path } }) => {
           <Route exact path={`${path}/forgot-password`} component={ForgotPassword} />
         </Suspense>
       </Switch>
-    </Fragment>
+    </PageWrapper>
   )
 }
 
