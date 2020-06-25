@@ -1,5 +1,6 @@
 @import 'variables';
 @import 'breakpoints';
+
 .who-we-are {
   background: url('./assets/farm-field.png') no-repeat center;
   background-size: cover;
@@ -34,4 +35,32 @@
       .images, .about { flex: .5 }
     }
   }
+}
+
+// What-we-do section
+.What-we-do {
+  background-color: $bg-color2;
+  width: 100%;
+  height: 500px;
+  
+.flex-container {
+  width: 80%;
+  height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  .sub-div {
+    height: 412px;
+    width: 336px;
+    border: 1px solid rgba(6, 152, 1, 0.57);
+    box-shadow: 0px 5px 10px rgba(6, 152, 1, 0.29);
+    border-radius: 10px;
+
+  div {
+    // margin: auto;
+    height: inherit;
+  } 
+  }
+}
+  
 }
