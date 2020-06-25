@@ -1,0 +1,18 @@
+@import 'variables';
+@import 'breakpoints';
+@import 'flexbox';
+.account {
+  .sidebar {
+    flex: .15; height: 100vh;
+    .sidebar-item {
+      font-family: $font-family-1;
+      border-left: 2px solid transparent;
+      .icon { font-size: 1.5em; }
+      &:hover, .active {
+        border-left: 2px solid $white;
+        background: rgba(255, 255, 255, 0.33)
+      }
+    }
+  };
+  .main { flex: .85 };
+}

@@ -1,12 +1,14 @@
 import React from 'react';
-import { Carousel } from '../../components';
+import { PageWrapper } from '../components'
 import { WhoWeAre } from './Components';
 import './home.scss';
 const Home = () => {
   return (
-    <main>
-      <WhoWeAre />
-    </main>
+    <PageWrapper>
+      <main>
+        <WhoWeAre />
+      </main>
+    </PageWrapper>
   )
 }
 

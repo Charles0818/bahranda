@@ -3,18 +3,18 @@
 .who-we-are {
   background: url('./assets/farm-field.png') no-repeat center;
   background-size: cover;
-  height: 500px;
+  height: 550px;
   width: 100%;
   .content {
     background: $dark-opacity;
     .images {
-      width: 446px;
-      @include media-breakpoint-down(md) { flex-basis: 100% };
+      flex-basis: 446px;
+      // @include media-breakpoint-down(md) { flex-basis: 200px; };
       @include media-breakpoint-only(md) { flex-direction: row };
       > img {
         width: 100%;
-        &:nth-child(1) {transform: translateY(-40px)};
-        &:nth-child(2) {transform: translateY(-40px)}
+        &:nth-child(1) {transform: translateY(-10%)};
+        &:nth-child(2) {transform: translateY(-10%)}
       }
     }
     .about {
@@ -23,12 +23,13 @@
     @include media-breakpoint-down(md) { 
       flex-direction: column;
       .about {
+        flex: 0;
         flex-basis: 100%;
       }
     };
   }
   @include media-breakpoint-down(md) {
-    height: 420px;
+    height: 920px;
     .content {
       .images, .about { flex: .5 }
     }
