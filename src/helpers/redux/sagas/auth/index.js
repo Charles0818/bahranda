@@ -10,56 +10,73 @@ const {
 } = auth;
 const {
   signInSuccess, signInError,
-  signUpSuccess, signUpError,
-  pinError, setIsLoading
+  signUpSuccess, signUpError, pinError,
+  setIsLoading, confirmPinSuccess
 } = authActions;
+
+const networkErrorMessage = 'No internet connection detected';
 const authDBCalls = {
   signUp: async (data) => {
-    const response = await sendData(`${apiKey}/`, data);
+    const response = await sendData(`${apiKey}/auth/register`, data);
     return response
   },
   signIn: async (data) => {
-    const response = await sendData(`${apiKey}/`, data);
+    const response = await sendData(`${apiKey}/auth/login`, data);
     return response
   },
   confirmPin: async (data) => {
-    const response = await sendData(`${apiKey}`, data);
+    const response = await sendData(`${apiKey}/auth/activate`, data);
     return response
   }
 }
 
 // All generators*
-function* signUp({ payload: { data } }) {
+function* signUp({ payload: { data, redirect } }) {
   try {
     yield put(setIsLoading(true))
-    const email = yield call(authDBCalls.signUp, data);
-    yield put(signUpSuccess(email))
+    yield call(authDBCalls.signUp, data);
+    yield put(signUpSuccess(data.email));
+    yield call(redirect('/auth/activate'))
   } catch (err) {
-    const { error } = err;
-    const errorMessage = !error ? 'No internet connection detected' : error;
+    const { errors } = err;
+    const errorMessage = !errors ? 'No internet connection detected' : errors[0].title;
     console.log('error found', err);
     yield put(signUpError(errorMessage));
   }
 }
 
-function* signIn({ payload: { data } }) {
+function* signIn({ payload: { data, redirect } }) {
   try {
     yield put(setIsLoading(true))
-    const user = yield call(authDBCalls.signIn, data)
-    yield put(signInSuccess(user))
+    const user = yield call(authDBCalls.signIn, data);
+    yield put(signInSuccess(user));
+    yield call(redirect('/account'))
   } catch (err) {
+    const { errors } = err;
+    const errorMessage = errors
+      ? errors[0].status === 404
+      ? 'A user with the provided credentials does not exists'
+      : errors[0].title
+      : networkErrorMessage
     console.log('error found', err);
-    yield put(signInError(err))
+    yield put(signInError(errorMessage))
   }
 }
 
-function* confirmPin({ payload: { data } }){
+function* confirmPin({ payload: { data, redirect } }){
   try {
     yield put(setIsLoading(true))
-    const confirmed = yield call(authDBCalls.confirmPin, data)
+    const confirmed = yield call(authDBCalls.confirmPin, data);
+    console.log('returned pin response', confirmed)
+    yield put(confirmPinSuccess())
+    yield call(redirect('/account'))
   } catch (err) {
     console.log('error found', err);
-    yield put(pinError(err))
+    const { errors } = err;
+    const errorMessage = errors
+      ? errors[0].title
+      : networkErrorMessage
+    yield put(pinError(errorMessage))
   }
 }
 

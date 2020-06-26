@@ -31,7 +31,7 @@ export const sendHttpRequest = async (method, url, data, authToken ) => {
   return response.json()
 }
 
-const apiKey = 'http://bahranda.test/v1';
+const apiKey = 'http://167.99.21.76/v1';
 
 const getData = (url) => sendHttpRequest('GET', url, null)
 

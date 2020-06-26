@@ -11,7 +11,7 @@ import WebFont from 'webfontloader';
 
 WebFont.load({
   google: {
-    families: ['Montserrat', 'sans-serif']
+    families: ['Montserrat:400,500,600', 'sans-serif', 'Georgia']
   }
 });
 

@@ -3,15 +3,16 @@ import { auth } from '../../types';
 const {
   SIGN_IN_REQUEST, SIGN_UP_REQUEST,
   SIGN_IN_SUCCESS, SIGN_UP_SUCCESS,
-  SIGN_IN_ERROR, SIGN_UP_ERROR, PIN_ERROR,
-  ISLOADING
+  SIGN_IN_ERROR, SIGN_UP_ERROR,
+  PIN_ERROR, CONFIRM_PIN,
+  ISLOADING, CONFIRM_PIN_SUCCESS
 } = auth;
 
 
-export const signInRequest = (data) => {
+export const signInRequest = (data, redirect) => {
   return {
     type: SIGN_IN_REQUEST,
-    payload: { data }
+    payload: { data, redirect }
   }
 }
 
@@ -29,10 +30,10 @@ export const signInError = (error) => {
   }
 }
 
-export const signUpRequest = (data) => {
+export const signUpRequest = (data, redirect) => {
   return {
     type: SIGN_UP_REQUEST,
-    payload: { data }
+    payload: { data, redirect }
   }
 }
 
@@ -50,12 +51,27 @@ export const signUpError = (error) => {
   }
 }
 
+export const confirmPin = (data, redirect) => {
+  return {
+    type: CONFIRM_PIN,
+    payload: { data, redirect }
+  }
+}
+
+export const confirmPinSuccess = () => {
+  return {
+    type: CONFIRM_PIN_SUCCESS,
+  }
+}
+
 export const pinError = (error) => {
   return {
     type: PIN_ERROR,
     payload: { error }
   }
 }
+
+
 
 export const setIsLoading = (isLoading) => {
   return {

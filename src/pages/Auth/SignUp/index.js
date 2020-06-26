@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../helpers';
@@ -9,6 +9,7 @@ const { authActions: { signUpRequest } } = actions;
 const { useButtonSpinner } = Spinners;
 const { FormField, PasswordField, useFormInput, SubmitButton, useCheckbox } =Form;
 const SignUp = ({ signUp, isLoading, signUpError }) => {
+  const { replace } = useHistory();
   const { LoadingSpinner } = useButtonSpinner(isLoading);
   const { value: first_name, handleUserInput: setFirstName, error: firstNameErr, isValid: firstNameIsValid } = useFormInput();
   const { value: last_name, handleUserInput: setLastName, error: lastNameErr, isValid: lastNameIsValid } = useFormInput();
@@ -20,7 +21,7 @@ const SignUp = ({ signUp, isLoading, signUpError }) => {
   const validateFields = emailIsValid && passIsValid && firstNameIsValid &&
     lastNameIsValid &&  password === password_confirmation && checked;
 
-  const handleSubmit = () => signUp({ first_name, last_name, email, password, password_confirmation })
+  const handleSubmit = () => signUp({ first_name, last_name, email, password, password_confirmation }, replace)
   return (
     <main className="d-flex auth-container padding-horizontal-lg padding-vertical-md">
       <section className="auth-card border-r-10 padding-horizontal-lg padding-vertical-lg border_r_5">
@@ -38,12 +39,12 @@ const SignUp = ({ signUp, isLoading, signUpError }) => {
             <p className="font-weight-300">Pease fill in your details</p>
           </div>
           <div className="d-flex justify-content-s-between" style={{width: '100%'}}>
-            <FormField name="First name" value={first_name} onChange={setFirstName} placeholder="First name" err={firstNameErr} isValid={firstNameIsValid} className="flex-equal margin-right-sm" />
-            <FormField name="Last name" value={last_name} onChange={setLastName} placeholder="Last name" err={lastNameErr} isValid={lastNameIsValid} className="flex-equal" />
+            <FormField name="First name" value={first_name} onChange={setFirstName} placeholder="First name" err={firstNameErr}  className="flex-equal margin-right-sm" />
+            <FormField name="Last name" value={last_name} onChange={setLastName} placeholder="Last name" err={lastNameErr} className="flex-equal" />
           </div>
-          <FormField name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} isValid = {emailIsValid} />
-          <PasswordField name="password" value={password} onChange={setPassword} placeholder="Password" err={passwordErr} isValid={emailIsValid} />
-          <PasswordField name="password" value={password_confirmation} onChange={setPassword2} placeholder="Confirm password" err={validatePassword} />
+          <FormField name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} />
+          <PasswordField name="password" value={password} onChange={setPassword} placeholder="Password" err={passwordErr} />
+          <PasswordField name="password" value={password_confirmation} onChange={setPassword2} placeholder="Confirm password" />
           <div className="d-flex nowrap margin-bottom-md">
             <Checkbox checked={checked} />
             <div className="d-flex column checkbox">
