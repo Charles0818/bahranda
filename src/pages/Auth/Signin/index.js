@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../helpers';
@@ -9,12 +9,13 @@ const { authActions: { signInRequest } } = actions;
 const { useButtonSpinner } = Spinners;
 const { FormField, PasswordField, useFormInput, SubmitButton, useCheckbox } =Form;
 const SignIn = ({ signIn, isLoading, signInError }) => {
+  const { replace } = useHistory()
   const { LoadingSpinner } = useButtonSpinner(isLoading);
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
   const { value: password, handleUserInput: setPassword, error: passwordErr, isValid: passIsValid } = useFormInput();
   const { checked, Checkbox } = useCheckbox();
   const validateFields = emailIsValid && passIsValid;
-  const handleSubmit = () => signIn({ email, password })
+  const handleSubmit = () => signIn({ email, password }, replace)
   return (
     <main className="d-flex auth-container padding-horizontal-lg padding-vertical-md">
       <section className="auth-card border-r-10 padding-horizontal-lg padding-vertical-lg border_r_5">

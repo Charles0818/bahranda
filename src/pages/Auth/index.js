@@ -2,6 +2,7 @@ import React, { Fragment, Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import SignIn from './Signin';
 import SignUp from './SignUp';
+import ConfirmEmail from './ConfirmEmail';
 import { Spinners } from '../../components';
 import { PageWrapper } from '../components';
 const ResetPassword = lazy(() => import('./ResetPassword'))
@@ -15,6 +16,7 @@ const Auth = ({ match: { path } }) => {
         <Suspense fallback={<FullScreenSpinner isLoading={true} />} >
           <Route exact path={`${path}/signin`} component={SignIn} />
           <Route exact path={`${path}/register`} component={SignUp} />
+          <Route exact path={`${path}/activate`} component={ConfirmEmail} />
           <Route exact path={`${path}/reset-password`} component={ResetPassword} />
           <Route exact path={`${path}/forgot-password`} component={ForgotPassword} />
         </Suspense>

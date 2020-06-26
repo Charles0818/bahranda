@@ -1,5 +1,9 @@
 import { auth } from '../../types';
-const { SIGN_UP_SUCCESS ,SIGN_IN_ERROR, SIGN_UP_ERROR, PIN_ERROR, ISLOADING } = auth;
+const {
+  SIGN_UP_SUCCESS ,SIGN_IN_ERROR,
+  SIGN_UP_ERROR, PIN_ERROR,
+  ISLOADING, CONFIRM_PIN_SUCCESS
+} = auth;
 const initialState = {
   token: '',
   isLoading: false,
@@ -25,6 +29,9 @@ const authReducer = (prevState = initialState, { type, payload }) => {
     case PIN_ERROR:
       prevState.errors.pin = payload.error;
       return { ...prevState, isLoading: false }
+    case CONFIRM_PIN_SUCCESS:
+      initialState.token = prevState.token;
+      return initialState;
     default:
       return prevState;
   }
