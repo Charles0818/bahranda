@@ -355,7 +355,7 @@ header {
   z-index: -2;
   margin-top: -25px;
 }
-.details, .review {
+.details, .review, .view {
   // width: 100px;
   height: 70px;
 }
@@ -369,7 +369,16 @@ height: 40px;
 margin-top: -10px;
 border: none;
 }
+.view {
+  background-color: $color1;
+  color: $white;
 }
+.view-wrapper {
+  width: inherit;
+  margin-left: 30% ;
+}
+}
+
 // End of Product-details
 
 @include media-breakpoint-up(sm) {  }
