@@ -237,9 +237,9 @@ header {
   background: $white;
 }
 .activity {
-  width: 916px;
-  height: 412px;
-  border: 1px solid #C4C4C4;;
+  width: 1080px;
+  height: 420px;
+  // border: 1px solid #C4C4C4;
 }
 
 .user_avatar {
@@ -346,6 +346,31 @@ header {
     .categories { line-height: 17px }
   }
 }
+
+// Product-details
+.product-details {
+.product-info {
+  width: 926px;
+  height: 520px;
+  z-index: -2;
+  margin-top: -25px;
+}
+.details, .review {
+  // width: 100px;
+  height: 70px;
+}
+.review {
+  background-color: rgba(6, 152, 1, 0.29);
+ color: rgba(0, 0, 0, 0.36);
+}
+.white {
+  width: 127px;
+height: 40px;
+margin-top: -10px;
+border: none;
+}
+}
+// End of Product-details
 
 @include media-breakpoint-up(sm) {  }
 @include media-breakpoint-up(md) {  }

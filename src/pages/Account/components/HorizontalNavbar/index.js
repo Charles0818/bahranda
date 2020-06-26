@@ -16,7 +16,7 @@ const HorizontalNavbar = () => {
   <div className="user-avatar margin-left-md margin-right-md"><FaUserCircle className="font-xlg" color="rgba(0, 0, 0, 0.36)"/></div>
 <div className=""></div>
 </nav>
-<div className="slim-border-bottom margin-horizontal-xlg"></div>
+<div className="slim-border-bottom padding-horizontal-md"></div>
 </section>
   )
 }
