@@ -1,8 +1,12 @@
 import React from 'react';
-
+import { AccountSummary, MonthlyExpenditure } from './components';
 const Dashboard = () => {
   return (
-    <div></div>
+    <div>
+      <h1 className="padding-bottom-sm">Dashboard</h1>
+      <AccountSummary />
+      <MonthlyExpenditure />
+    </div>
   )
 }
 

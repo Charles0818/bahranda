@@ -14,5 +14,29 @@
       }
     }
   };
-  .main { flex: .85 };
+  .main {
+    flex: .85;
+    max-width: 1200px;
+    margin: 0 auto;
+  };
+}
+
+.summary {
+  > .d-flex .statement { flex: 1 }
+}
+
+.expenditure {
+  .indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    &.green { background: $color1 };
+    &.orange { background: $orange };
+    + span { letter-spacing: 0.01em }
+  };
+
+  // .linear-graph { 
+  //   height: 100px;
+  //   width: 100%;
+  // }
 }
