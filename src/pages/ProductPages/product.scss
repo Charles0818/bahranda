@@ -1,0 +1,8 @@
+@import 'variables';
+@import 'breakpoints';
+
+.thumbnail-slider, .details { flex: 1 };
+.thumbnail-slider { 
+  flex-basis: 446px;
+  max-width: 446px;
+}

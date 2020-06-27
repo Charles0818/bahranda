@@ -315,9 +315,9 @@ header {
 }
 
 .product-card {
-  flex-basis: 283px;
-  min-width: 230px;
-  max-width: 283px;
+  flex-basis: 270px;
+  min-width: 220px;
+  max-width: 220px;
   @include media-breakpoint-down(xs) { min-width: 100% }
   flex: 1;
   .thumbnail {

@@ -3,7 +3,7 @@ import { AccountSummary, MonthlyExpenditure } from './components';
 const Dashboard = () => {
   return (
     <div>
-      <h1 className="padding-bottom-sm">Dashboard</h1>
+      <h1 className="padding-bottom-sm font-lg">Dashboard</h1>
       <AccountSummary />
       <MonthlyExpenditure />
     </div>

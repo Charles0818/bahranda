@@ -1,4 +1,4 @@
-
+@import 'breakpoints';
 .uppercase {
   text-transform: uppercase;
 }
@@ -48,4 +48,12 @@
 
 .font-style-normal {
   font-style: normal;
+}
+
+@include media-breakpoint-down(md) {
+  .font-lg { font-size: 1em };
+  .font-md {
+    font-size: .85em;
+  }
+
 }

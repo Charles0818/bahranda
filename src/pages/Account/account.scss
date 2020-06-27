@@ -1,9 +1,13 @@
 @import 'variables';
 @import 'breakpoints';
-@import 'flexbox';
+@import 'spacings';
 .account {
   .sidebar {
     flex: .15; height: 100vh;
+    position: fixed;
+    left: 0;
+    transition: all .5s;
+    z-index: 99;
     .sidebar-item {
       font-family: $font-family-1;
       border-left: 2px solid transparent;
@@ -13,11 +17,28 @@
         background: rgba(255, 255, 255, 0.33)
       }
     }
+    @include media-breakpoint-down(md) {
+      // display: none;
+      &:hover {
+        .sidebar-item {
+          span { display: inline-block !important }
+        }
+      }
+      .store, .sidebar-item span { 
+        display: none;
+      }
+    }
   };
   .main {
-    flex: .85;
+    flex: 1;
     max-width: 1200px;
-    margin: 0 auto;
+    margin-left: .1 * 100vw;
+    @include padding-horizontal(120px);
+    @include media-breakpoint-down(md) {
+      // margin-left: 0;
+      // @include padding-horizontal(.2 * 100vw)
+      // padding-left: .2 * 100vw;
+    }
   };
 }
 
@@ -34,16 +55,5 @@
     &.orange { background: $orange };
     + span { letter-spacing: 0.01em }
   };
-
-  // .linear-graph { 
-  //   height: 100px;
-  //   width: 100%;
-  // }
-}
-// Horizontal-Navbar
-nav {
-  .shopping-cart {
-    margin-left: auto;
-  }
 }
 // End of Horizontal-Navbar

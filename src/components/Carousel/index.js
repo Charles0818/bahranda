@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from  'prop-types';
 import { FaArrowAltCircleRight,FaArrowAltCircleLeft } from 'react-icons/fa';
 import { useSwipeable } from 'react-swipeable';
-
+import './carousel.scss';
 export const useSlide = (length, slideWidth) => {
   const [distance, setDistance] = useState(0);
   const slideLeft = () => {
@@ -35,7 +35,7 @@ const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, dimensio
   })
   return (
     slides.length !== 0 && (
-      <div {...handlers} className="slider d-flex nowrap align-items--center position-relative overflow--h margin-bottom-sm" style={{width, height}}>
+      <div {...handlers} className="slider d-flex nowrap align-items-center position-relative overflow-h margin-bottom-sm" style={{width, height}}>
         { slides.map((Slide, index) => {
             return (
               <div key={index} className="slide" style={{minWidth: !cardAlign ? '100%' : 'auto', transform: `translateX(${distance}%)`}}>

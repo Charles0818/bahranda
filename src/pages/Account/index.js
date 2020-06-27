@@ -13,14 +13,14 @@ const Account = ({ match: { path } }) => {
         <LeftSideBar />
         <div className="main padding-horizontal-xlg padding-vertical-lg">
           <HorizontalNavbar />
-          <main>
+          <main className="">
             <Switch>
               <Route exact path={path} component={Dashboard} />
             </Switch>
           </main>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */}
     </Fragment>
   )
 }

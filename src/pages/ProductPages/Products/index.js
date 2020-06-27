@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
-import { Cards } from '../components';
-import tomatoes from '../../assets/tomatoes.png';
-import rice from '../../assets/rice.png';
-import soyabean from '../../assets/soyabean.png';
+import { Cards } from '../../components';
+import tomatoes from '../../../assets/tomatoes.png';
+import rice from '../../../assets/rice.png';
+import soyabean from '../../../assets/soyabean.png';
 const { ProductCard } = Cards;
 const Products = memo(() => {
   return (
