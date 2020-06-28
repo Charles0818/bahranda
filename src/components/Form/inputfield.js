@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import Select from 'react-select';
 import { BsEye, BsEyeSlash, BsCheckCircle } from 'react-icons/bs';
 import { FaCheckCircle } from 'react-icons/fa';
 export const FormField = ({
@@ -62,6 +63,31 @@ export const TextArea = ({
   )
 }
 
+export const SelectInput = (props) => {
+  const { labelName, name, value, onChange, options, placeholder, className, ...rest } = props;
+  return (
+    <label className={`d-flex column margin-bottom-md ${className ? className : ''}`}>
+      <span className="font-sm font-weight-600 ">{labelName}</span>
+      <Select name={name} className="form-control" value={value} options={options}
+      placeholder={placeholder} onChange={onChange} {...rest} />
+    </label>
+  )
+}
+
+export const useSelectInput = (initialValue) => {
+  const [value, setValue] = useState(initialValue);
+  const SelectInput = (props) => {
+    const { labelName, name, options, placeholder, className, ...rest } = props;
+    return (
+      <label className={`d-flex column margin-bottom-md ${className ? className : ''}`}>
+        <span className="font-sm font-weight-600 ">{labelName}</span>
+        <Select name={name} className="form-control" value={value} options={options}
+        placeholder={placeholder} onChange={setValue} {...rest} />
+      </label>
+    )
+  }
+  return { value, SelectInput }
+}
 export const SubmitButton = ({ spinner: Spinner, text, action, disabled, className = '', ...rest }) => {
   const buttonRef = useRef(null);
   const preventBeforeFire = (e) => {

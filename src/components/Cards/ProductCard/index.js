@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import { Link } from 'react-router-dom';
 import tomatoes from '../../../assets/tomatoes.png';
 import { MdShoppingCart } from 'react-icons/md'
 const ProductCard = memo(({ product }) => {
@@ -6,7 +7,7 @@ const ProductCard = memo(({ product }) => {
   return (
     <div className="product-card margin-bottom-md margin-right-md">
       <div className="thumbnail position-relative margin-bottom-sm">
-        <img src={thumbnail} alt="product thumbnail" />
+        <Link to="/products/1"><img src={thumbnail} alt="product thumbnail" /></Link>
         <span className="in-stock color-white font-weight-600 padding-sm uppercase position-absolute">SALE</span>
         <div className="add-to-cart-btn ripple bg-color1 padding-md cursor-pointer position-absolute">
           <MdShoppingCart className="color-white font-md" />

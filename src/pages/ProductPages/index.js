@@ -11,7 +11,7 @@ const ProductPages = ({ match: { path } }) => {
     <Fragment>
       <section className="account d-flex">
         <LeftSideBar />
-        <div className="main padding-horizontal-lg padding-vertical-lg">
+        <div className="main padding-horizontal-xlg padding-vertical-lg">
           <HorizontalNavbar />
           <main>
             <Switch>

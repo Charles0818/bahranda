@@ -1,3 +1,4 @@
 import AccountSummary from './AccountSummary';
 import MonthlyExpenditure from './MontlyExp';
-export { AccountSummary, MonthlyExpenditure };
+import Activity from './Activity';
+export { AccountSummary, MonthlyExpenditure, Activity };

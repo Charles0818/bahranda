@@ -7,8 +7,6 @@ import { ErrorBoundary, ProtectedRoute, Spinners } from './components';
 import './styles/App.scss';
 import './styles/form.scss';
 const Account = lazy(() => import('./pages/Account'));
-const Products = lazy(() => import('./pages/Products'));
-const ProductDetails = lazy(() => import('./pages/ProductDetails'));
 const ProductPages = lazy(() => import('./pages/ProductPages'))
 function App() {
   return (
@@ -19,8 +17,6 @@ function App() {
               <Switch>
                 <Route path="/" component={Home} exact={true} />
                 <Route path="/auth" component={Auth} />
-                {/* <Route exact path="/products" component={Products} /> */}
-                {/* <Route path="/products/:id" component={ProductDetails} /> */}
                 <ProtectedRoute auth={true} path="/products" redirectPath="/auth/signin" component={ProductPages} />
                 <ProtectedRoute auth={true} path="/account" redirectPath="/auth/signin" component={ Account } />
               </Switch>

@@ -61,7 +61,7 @@ const MonthlyExpenditure = () => {
         </div>
       </div>
       <section className="linear-graph">
-        <Bar data={data} options={options} />
+        <Bar data={data} options={options} height={100} />
       </section>
     </section>
   )

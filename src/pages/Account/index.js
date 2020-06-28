@@ -1,8 +1,8 @@
 import React, { Fragment, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Dashboard from './Dashboard';
+import Wallet from './Wallet';
 import { HorizontalNavbar, LeftSideBar } from './components';
-import { Footer } from '../components'
 import './account.scss';
 const Admin = lazy(() => import('./Admin'));
 
@@ -16,11 +16,11 @@ const Account = ({ match: { path } }) => {
           <main className="">
             <Switch>
               <Route exact path={path} component={Dashboard} />
+              <Route exact path={`${path}/wallet`} component={Wallet} />
             </Switch>
           </main>
         </div>
       </section>
-      {/* <Footer /> */}
     </Fragment>
   )
 }

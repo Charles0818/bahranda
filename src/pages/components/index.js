@@ -1,3 +1,3 @@
-import { ProtectedRoute, Header, Footer, Cards, Carousel } from '../../components';
+import { ProtectedRoute, Header, Footer, Cards, Carousel, Form } from '../../components';
 import PageWrapper from './PageWrapper';
-export { ProtectedRoute, Header, Footer, Cards, Carousel, PageWrapper };
+export { ProtectedRoute, Header, Footer, Cards, Carousel, PageWrapper, Form };

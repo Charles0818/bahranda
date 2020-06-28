@@ -19,7 +19,7 @@ export const useSlide = (length, slideWidth) => {
   return { slideLeft, distance, slideRight, bulletSlide }
 }
 
-const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, dimensions: { width, height }, bullet, controls }) => {
+const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, controls }) => {
   const { slideLeft, distance, slideRight, bulletSlide } = useSlide(slides.length, slideWidth);
   const handlers = useSwipeable({
     onSwipedLeft: () => slideRight(),
@@ -29,13 +29,13 @@ const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, dimensio
   });
   useEffect(() => {
     if(autoSlide) {
-        const interval = slides.length > 1 ? setInterval(() => slideRight(), duration) : null;
-        return () => clearInterval(interval)
+      const interval = slides.length > 1 ? setInterval(() => slideRight(), duration) : null;
+      return () => clearInterval(interval)
     }
   })
   return (
     slides.length !== 0 && (
-      <div {...handlers} className="slider d-flex nowrap align-items-center position-relative overflow-h margin-bottom-sm" style={{width, height}}>
+      <div {...handlers} className="slider d-flex nowrap align-items-center position-relative overflow-h margin-bottom-sm">
         { slides.map((Slide, index) => {
             return (
               <div key={index} className="slide" style={{minWidth: !cardAlign ? '100%' : 'auto', transform: `translateX(${distance}%)`}}>
@@ -56,10 +56,10 @@ const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, dimensio
         <div className="d-flex bullets">
         { bullet && (
           slides.map((_, index) => {
-              return (
-                <div key={index} onClick={() => bulletSlide(index)} className={`bullet ${index === Math.abs(distance / 100) ? 'active' : ''} margin-right-sm border-r-circle`} />
-              )
-            })
+            return (
+              <div key={index} onClick={() => bulletSlide(index)} className={`bullet ${index === Math.abs(distance / 100) ? 'active' : ''} margin-right-sm border-r-circle`} />
+            )
+          })
         )}
         </div>
       </div>

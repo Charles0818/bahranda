@@ -1,8 +1,11 @@
 import React from 'react';
-
+import { Profile, ChangePassword } from './components';
 const Settings = () => {
   return (
-    <div></div>
+    <div>
+      <Profile />
+      <ChangePassword />
+    </div>
   )
 }
 

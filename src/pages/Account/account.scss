@@ -12,7 +12,7 @@
       font-family: $font-family-1;
       border-left: 2px solid transparent;
       .icon { font-size: 1.5em; }
-      &:hover, .active {
+      &:hover, &.active {
         border-left: 2px solid $white;
         background: rgba(255, 255, 255, 0.33)
       }
@@ -32,18 +32,29 @@
   .main {
     flex: 1;
     max-width: 1200px;
-    margin-left: .1 * 100vw;
-    @include padding-horizontal(120px);
-    @include media-breakpoint-down(md) {
-      // margin-left: 0;
-      // @include padding-horizontal(.2 * 100vw)
-      // padding-left: .2 * 100vw;
+    margin-left: 120px;
+    // margin: 0 auto;
+    // @include padding-horizontal(120px);
+    @include media-breakpoint-down(sm) {
+      margin-left: 0;
+      padding-left: 100px;
     }
   };
 }
-
+// Horizontal-Navbar
+.greet {
+  @include media-breakpoint-down(sm) {
+    font-size: 1em;
+  }
+}
 .summary {
-  > .d-flex .statement { flex: 1 }
+  > .d-flex .statement {
+    flex: 1;
+    @include media-breakpoint-down(xs) {
+      border-right: none;
+      border-bottom: $slim-border
+    }
+  }
 }
 
 .expenditure {
@@ -56,4 +67,14 @@
     + span { letter-spacing: 0.01em }
   };
 }
+
 // End of Horizontal-Navbar
+// Dashboard
+// Activity Section
+.activity {
+  .headings > *:not(.remark), .data-row > *:not(.remark) { flex: 1 }
+  .headings > .remark, .data-row > .remark {
+    flex: 3;
+    @include media-breakpoint-down(sm) { flex: 1 }
+  }
+}
