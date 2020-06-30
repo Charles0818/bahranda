@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
-import Home, { Auth } from './pages';
+import Home, { Auth, PrivacyPolicy, TermsOfServices, Error404 } from './pages';
 import { IconContext } from "react-icons";
 import { ErrorBoundary, ProtectedRoute, Spinners } from './components';
 import './styles/App.scss';
@@ -19,6 +19,7 @@ function App() {
                 <Route path="/auth" component={Auth} />
                 <ProtectedRoute auth={true} path="/products" redirectPath="/auth/signin" component={ProductPages} />
                 <ProtectedRoute auth={true} path="/account" redirectPath="/auth/signin" component={ Account } />
+                <Route component={Error404} />
               </Switch>
             </Suspense>
           </Router>

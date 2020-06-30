@@ -40,6 +40,11 @@ form {
   }
 }
 
+.form-control {
+  width: 100%;
+  border-radius: 3px;
+  /* border: 2px solid #a0a0a0; */
+}
 textarea {
   height: auto;
   max-height: 300px;

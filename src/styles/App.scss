@@ -79,7 +79,6 @@ header {
         transition: .5s all;
         order: 4;
         flex-basis: 100%;
-       
         &.toggle { display: none; }
         &, > .auth-links {  flex-direction: column; };
         > .auth-links > a { margin-right: 0 }
@@ -318,7 +317,10 @@ header {
   flex-basis: 220px;
   min-width: 200px;
   max-width: 220px;
-  @include media-breakpoint-down(xs) { min-width: 100% }
+  @include media-breakpoint-down(xs) {
+    min-width: 100%;
+  }
+  @include media-breakpoint-down(sm) { min-width: 160px }
   flex: 1;
   .thumbnail {
     &, img { width: 100% };
@@ -395,6 +397,7 @@ header {
   .logo-lg {
     width: 150px
   }
+  .btn { @include padding-horizontal(10px) };
 }
 @include media-breakpoint-down(lg) {  }
 

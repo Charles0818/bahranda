@@ -3,11 +3,13 @@
 @import 'spacings';
 .account {
   .sidebar {
-    flex: .15; height: 100vh;
+    flex: .15;
+    height: 100vh;
     position: fixed;
     left: 0;
     transition: all .5s;
     z-index: 99;
+    .times { display: none }
     .sidebar-item {
       font-family: $font-family-1;
       border-left: 2px solid transparent;
@@ -18,14 +20,25 @@
       }
     }
     @include media-breakpoint-down(md) {
-      // display: none;
       &:hover {
         .sidebar-item {
-          span { display: inline-block !important }
+          span { display: inline-block }
         }
       }
       .store, .sidebar-item span { 
         display: none;
+      }
+    }
+    @include media-breakpoint-down(sm) {
+      width: 0px;
+      padding: 0;
+      &.toggle {
+        width: auto;
+        @include padding-horizontal(10px);
+        @include padding-vertical(40px)
+      }
+      .times { 
+        display: inline-block;
       }
     }
   };
@@ -37,7 +50,6 @@
     // @include padding-horizontal(120px);
     @include media-breakpoint-down(sm) {
       margin-left: 0;
-      padding-left: 100px;
     }
   };
 }
@@ -47,9 +59,20 @@
     font-size: 1em;
   }
 }
+
+@include media-breakpoint-up(md) { 
+  .bar { display: none }
+}
+
+
+// End of Horizontal-Navbar
+
 .summary {
   > .d-flex .statement {
     flex: 1;
+    @include media-breakpoint-down(sm) {
+      min-width: 100%;
+    }
     @include media-breakpoint-down(xs) {
       border-right: none;
       border-bottom: $slim-border
@@ -68,7 +91,6 @@
   };
 }
 
-// End of Horizontal-Navbar
 // Dashboard
 // Activity Section
 .activity {
@@ -77,4 +99,10 @@
     flex: 3;
     @include media-breakpoint-down(sm) { flex: 1 }
   }
+}
+
+.name-title { 
+  flex: .2;
+  min-width: 100px;
+  @include media-breakpoint-down(sm) { flex: 1 }
 }

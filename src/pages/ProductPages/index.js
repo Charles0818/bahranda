@@ -1,4 +1,4 @@
-import React, { Fragment, lazy, Suspense } from 'react';
+import React, { Fragment, lazy, Suspense, useRef } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import Products from './Products';
 import ProductDetails from './ProductDetails';
@@ -7,12 +7,13 @@ import { Footer } from '../components';
 import '../Account/account.scss';
 import './product.scss';
 const ProductPages = ({ match: { path } }) => {
+  const sidebarRef = useRef();
   return (
     <Fragment>
       <section className="account d-flex">
-        <LeftSideBar />
+        <LeftSideBar sidebarRef={sidebarRef} />
         <div className="main padding-horizontal-xlg padding-vertical-lg">
-          <HorizontalNavbar />
+          <HorizontalNavbar sidebarRef={sidebarRef} />
           <main>
             <Switch>
               <Route exact path={path} component={Products} />

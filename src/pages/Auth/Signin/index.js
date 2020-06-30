@@ -32,11 +32,12 @@ const SignIn = ({ signIn, isLoading, signInError }) => {
             <h1 className="font-weight-normal">Hello</h1>
             <p className="font-weight-300">Pease fill in your login details</p>
           </div>
-          <FormField name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} />
+          <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} />
           <PasswordField name="password" value={password} onChange={setPassword} placeholder="Password" err={passwordErr} />
           <div className="margin-bottom-sm">
             {signInError && <p className="font-sm danger-text font-weight-600">Error: {signInError}</p> }
           </div>
+          <Link to="/auth/forgot-password" className="color1 margin-bottom-sm">Forgot password ?</Link>
           <SubmitButton disabled={!validateFields} spinner={LoadingSpinner} text="Log in" action={handleSubmit} style={{width: '100%'}} />
         </form>
       </section>
