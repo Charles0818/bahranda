@@ -34,7 +34,7 @@ const History = () => {
 const HistoryRow = ({ amount, desc, date, status }) => {
   return (
     <div className="d-flex data-row slim-border-bottom padding-vertical-sm">
-      <span className="font-weight-500 font-style-normal font-md margin-right-sm remark">{desc}</span>
+      <span className="font-weight-500 font-style-normal font-md margin-right-sm capitalize remark">{desc}</span>
       <div className="d-flex justify-content-center">
         <span className="font-weight-500 font-style-normal font-md margin-right-sm">{date}</span>
       </div>
@@ -42,7 +42,7 @@ const HistoryRow = ({ amount, desc, date, status }) => {
         <span className="font-weight-500 font-style-normal font-md margin-right-sm">{amount}</span>
       </div>
       <div className="d-flex justify-content-end">
-      <span className={`font-weight-500 font-style-normal font-md margin-right-sm justify-self-end ${status !== 'debit' ? 'color1' : 'danger-text'}`}>{status}</span>
+      <span className={`font-weight-500 font-style-normal capitalize font-md margin-right-sm justify-self-end ${status !== 'debit' ? 'color1' : 'danger-text'}`}>{status}</span>
       </div>
     </div>
   )

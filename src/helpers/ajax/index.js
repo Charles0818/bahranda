@@ -3,7 +3,7 @@ export const sendHttpRequest = async (method, url, data, authToken ) => {
     const response = await fetch(url, {
       method:method,
       headers: {
-        'Authorization': authToken ? `Token ${authToken}` : ""
+        'Authorization': authToken ? `Bearer ${authToken}` : ""
       }
     })
     
@@ -15,15 +15,16 @@ export const sendHttpRequest = async (method, url, data, authToken ) => {
     console.log(response)
     return await response.json()
   }
+  console.log('data being sent along', data)
   const response =  await fetch(url, {
     method:method,
     body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': authToken ? `Token ${authToken}` : ""
+      'Authorization': authToken ? `Bearer ${authToken}` : ""
     }
   });
-  console.log(response)
+  console.log('response',response)
   if(response.status >= 400) {
     const err = await response.json();
     throw err
@@ -31,12 +32,12 @@ export const sendHttpRequest = async (method, url, data, authToken ) => {
   return response.json()
 }
 
-const apiKey = 'http://167.99.21.76/v1';
+const apiKey = 'https://bahranda.ml/v1';
 
-const getData = (url) => sendHttpRequest('GET', url, null)
+const getData = (url, token) => sendHttpRequest('GET', url, null, token)
 
-const sendData = (url, data, file) => sendHttpRequest('POST', url, data, file);
-const modifyData = (url, data, file) => sendHttpRequest('PATCH', url, data, file);
-const deleteData = (url) => sendHttpRequest('DELETE', url, null);
+const sendData = (url, data, token) => sendHttpRequest('POST', url, data, token);
+const modifyData = (url, data, token) => sendHttpRequest('PATCH', url, data, token);
+const deleteData = (url, token) => sendHttpRequest('DELETE', url, null, token);
 
 export { sendData, getData, modifyData, deleteData, apiKey }

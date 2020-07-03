@@ -17,6 +17,7 @@ const initialState = {
 const authReducer = (prevState = initialState, { type, payload }) => {
   switch(type) {
     case ISLOADING:
+      prevState.errors = payload.isLoading === true ? {} : prevState.errors;
       return { ...prevState, isLoading: payload.isLoading };
     case SIGN_UP_SUCCESS:
       return { ...prevState, isLoading: false, email: payload.email }

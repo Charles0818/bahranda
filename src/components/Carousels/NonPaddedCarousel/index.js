@@ -1,23 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from  'prop-types';
-import { FaArrowAltCircleRight,FaArrowAltCircleLeft } from 'react-icons/fa';
+import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
 import { useSwipeable } from 'react-swipeable';
-import './carousel.scss';
-export const useSlide = (length, slideWidth) => {
-  const [distance, setDistance] = useState(0);
-  const slideLeft = () => {
-    (distance === 0) ? setDistance(-slideWidth * (length - 1)) : setDistance(distance + slideWidth)
-  }
-  const slideRight = () => {
-    (distance === -slideWidth * (length - 1)) ? setDistance(0) : setDistance(distance - slideWidth);
-  }
-
-  const bulletSlide = (index) => {
-    setDistance(-slideWidth * index)
-  }
-
-  return { slideLeft, distance, slideRight, bulletSlide }
-}
+import '../carousel.scss';
+import useSlide from '../useSlide';
 
 const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, controls }) => {
   const { slideLeft, distance, slideRight, bulletSlide } = useSlide(slides.length, slideWidth);
@@ -45,22 +31,20 @@ const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, 
           }) }
         { controls && (
             <>
-              <button id="slide-right" onClick={slideRight} className="border-r-circle padding-md cursor-pointer">
-                <FaArrowAltCircleRight className="font-md color-white" />
+              <button id="slide-right" onClick={slideRight} className="bg-dark-opacity border-r-circle padding-horizontal-sm padding-vertical-sm cursor-pointer">
+                <MdKeyboardArrowRight className="font-lg color-white" />
               </button>
-              <button id="slide-left" onClick={slideLeft} className="border-r-circle padding-sm cursor-pointer">
-                <FaArrowAltCircleLeft className="font-md color-white" />
+              <button id="slide-left" onClick={slideLeft} className="bg-dark-opacity border-r-circle  padding-horizontal-sm padding-vertical-sm cursor-pointer">
+                <MdKeyboardArrowLeft className="font-lg color-white" />
               </button>
             </>
           )}
         <div className="d-flex bullets">
-        { bullet && (
-          slides.map((_, index) => {
-            return (
-              <div key={index} onClick={() => bulletSlide(index)} className={`bullet ${index === Math.abs(distance / 100) ? 'active' : ''} margin-right-sm border-r-circle`} />
-            )
-          })
-        )}
+        { bullet &&
+          slides.map((_, index) => (
+            <div key={index} onClick={() => bulletSlide(index)} className={`bullet ${index === Math.abs(distance / 100) ? 'active' : ''} margin-right-sm border-r-circle`} />
+          ))
+        }
         </div>
       </div>
     )

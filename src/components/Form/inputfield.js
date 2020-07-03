@@ -1,17 +1,17 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, memo } from 'react';
 import Select from 'react-select';
 import { BsEye, BsEyeSlash, BsCheckCircle } from 'react-icons/bs';
 import { FaCheckCircle } from 'react-icons/fa';
 export const FormField = ({
-  placeholder, value, onChange, err, name, type, className, ...rest
+  placeholder, value, onChange, err, name, type, className, disabled = false, ...rest
 }) => {
   const inputRef = useRef();
   return (
     <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
       <span className="font-sm font-weight-500">{placeholder}</span>
       <div className="d-flex input-container position-relative" style={{width: '100%'}}>
-        <input type={type} name={name} ref={inputRef} value={value} onChange={onChange} placeholder={placeholder}
-          className="border-r-5 padding-md padding-horizontal-md font-weight-500 bg-white slim-border font-sm" {...rest} />
+        <input type={type} name={name} ref={inputRef} value={value} onChange={onChange} placeholder={placeholder} disabled={disabled}
+          className={`border-r-5 padding-md padding-horizontal-md font-weight-500 ${!disabled ? 'bg-white' : 'bg-gray'} slim-border font-sm`} {...rest} />
         <div className="field-check-icon">
           {!err && value.length > 0 && <FaCheckCircle className="font-md  bg-white color1 fadeIn-animation" /> }
         </div>
@@ -30,7 +30,8 @@ export const PasswordField = ({
     <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
       <span className="font-sm">{placeholder}</span>
       <div className="d-flex input-container position-relative">
-        <input type={type} name={name} ref={inputRef} value={value} onChange={onChange} placeholder={placeholder} className="border-r-5 padding-md padding-horizontal-md font-weight-500 bg-white slim-border font-sm" {...rest} />
+        <input type={type} name={name} ref={inputRef} value={value} onChange={onChange} placeholder={placeholder}
+          className="border-r-5 padding-md padding-horizontal-md font-weight-500 bg-white slim-border font-sm" {...rest} />
         <div className="field-check-icon">
           {type === 'password'
           ? <BsEyeSlash className="font-md color-gray fadeIn-animation" onClick={() => setType('text')} />
@@ -53,39 +54,28 @@ export const useCheckbox = (bool = false) => {
 }
 
 export const TextArea = ({
-  placeholder, value, onChange, err, ...rest
+  placeholder, value, label, onChange, err, ...rest
 }) => {
   return (
     <label className="d-flex column">
-      <span className="font-sm">{placeholder}</span>
-      <textarea value={value} {...rest} />
-    </label>
-  )
-}
-
-export const SelectInput = (props) => {
-  const { labelName, name, value, onChange, options, placeholder, className, ...rest } = props;
-  return (
-    <label className={`d-flex column margin-bottom-md ${className ? className : ''}`}>
-      <span className="font-sm font-weight-600 ">{labelName}</span>
-      <Select name={name} className="form-control" value={value} options={options}
-      placeholder={placeholder} onChange={onChange} {...rest} />
+      <span className="font-sm">{label}</span>
+      <textarea value={value} {...rest} placeholder={placeholder} />
     </label>
   )
 }
 
 export const useSelectInput = (initialValue) => {
-  const [value, setValue] = useState(initialValue);
-  const SelectInput = (props) => {
-    const { labelName, name, options, placeholder, className, ...rest } = props;
+  const [value, setValue] = useState(initialValue ? {value: initialValue, label: initialValue} : undefined);
+  const SelectInput = memo((props) => {
+    const { label, name, options, placeholder, className = '', ...rest } = props;
     return (
-      <label className={`d-flex column margin-bottom-md ${className ? className : ''}`}>
-        <span className="font-sm font-weight-600 ">{labelName}</span>
-        <Select name={name} className="form-control" value={value} options={options}
+      <label className={`d-flex column margin-bottom-md ${className}`} style={{width: '100%'}}>
+        <span className="font-sm">{label}</span>
+        <Select name={name} className="form-control font-weight-500 bg-white font-sm" value={value} options={options.map(value => ({value, label: value}))}
         placeholder={placeholder} onChange={setValue} {...rest} />
       </label>
     )
-  }
+  })
   return { value, SelectInput }
 }
 export const SubmitButton = ({ spinner: Spinner, text, action, disabled, className = '', ...rest }) => {

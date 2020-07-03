@@ -4,6 +4,13 @@
 .account {
   .sidebar {
     flex: .15; height: 100vh;
+    flex: .15;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    transition: all .5s;
+    z-index: 99;
+    .times { display: none }
     .sidebar-item {
       font-family: $font-family-1;
       border-left: 2px solid transparent;
@@ -13,6 +20,38 @@
         background: rgba(255, 255, 255, 0.33)
       }
     }
+    @include media-breakpoint-down(md) {
+      &:hover {
+        .sidebar-item {
+          span { display: inline-block }
+        }
+      }
+      .store, .sidebar-item span { 
+        display: none;
+      }
+    }
+    @include media-breakpoint-down(sm) {
+      width: 0px;
+      padding: 0;
+      &.toggle {
+        width: auto;
+        @include padding-horizontal(10px);
+        @include padding-vertical(40px)
+      }
+      .times { 
+        display: inline-block;
+      }
+    }
+  };
+  .main {
+    flex: 1;
+    max-width: 1200px;
+    margin-left: 140px;
+    // margin: 0 auto;
+    // @include padding-horizontal(120px);
+    @include media-breakpoint-down(sm) {
+      margin-left: 0;
+    }
   };
   .main { flex: .85 };
 }
@@ -21,6 +60,24 @@ nav {
   .shopping-cart {
     margin-left: auto;
   }
+}
+
+@include media-breakpoint-up(md) { 
+  .bar { display: none }
+}
+
+// End of Horizontal-Navbar
+
+.summary {
+  > .d-flex .statement {
+    flex: 1;
+    @include media-breakpoint-down(sm) {
+      min-width: 100%;
+    }
+    @include media-breakpoint-down(xs) {
+      border-right: none;
+      border-bottom: $slim-border
+    }
   }
   .main {
     flex: .85;
@@ -44,26 +101,17 @@ nav {
   };
 }
 
-  // .linear-graph { 
-  //   height: 100px;
-  //   width: 100%;
-  // }
-  
-// End of Horizontal-Navbar
 // Dashboard
 // Activity Section
 .activity {
   .ongoing {
     color: $color1;
   }
-  .sort {
-    margin-left: 700px;
-    button {
-      color: $color1;
-    }
-  }
-  .end {
-    color: $danger;
-  }
 }
 
+.name-title { 
+  flex: .2;
+  min-width: 100px;
+  @include media-breakpoint-down(sm) { flex: 1 }
+}
+}
