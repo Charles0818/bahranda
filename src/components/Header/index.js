@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FaTwitter, FaFacebookF, FaInstagram, FaBars } from 'react-icons/fa';
 import {MdLocationOn, MdPhoneIphone} from 'react-icons/md';
 import logo from '../../assets/baranda.png';
@@ -30,13 +30,13 @@ const Header = () => {
           <RiSearchEyeLine color="#fff" className="font-md"/>
         </div>
       </div>
-      <nav className="d-flex align-items-center justify-content-s-between padding-horizontal-xlg padding-vertical-md margin-bottom-md bg-white">
+      <nav className="d-flex align-items-center justify-content-s-between padding-horizontal-xlg padding-vertical-md">
         <img src={logo} className="logo-md margin-right-md"/>
         <div ref={navRef} className="d-flex nav-links toggle align-items-center justify-content-s-between">
           <NavLink  activeClassName="color1 font-weight-500" to="/" className="color-dark padding-md">Home</NavLink>
           <NavLink  activeClassName="color1 font-weight-500" to="/home" className="color-dark font-md padding-md">How we work</NavLink>
           <NavLink  activeClassName="color1 font-weight-500" to="/home" className="color-dark font-md padding-md">Products</NavLink>
-          <NavLink  activeClassName="color1 font-weight-500" to="/home" className="color-dark font-md padding-md">Contact Us</NavLink>
+          <NavLink  activeClassName="color1 font-weight-500" to="/contact" className="color-dark font-md padding-md">Contact Us</NavLink>
           <div className="d-flex align-items-center justify-content-s-between auth-links">
             <NavLink to="/auth/signin" className="color-dark font-md margin-right-sm padding-md">Sign in</NavLink>
             <NavLink to="/auth/register" className="ripple padding-horizontal-sm font-weight-600 bg-color1 border-r-5 color-white font-sm margin-right-md">Register</NavLink>

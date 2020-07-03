@@ -12,21 +12,32 @@ const WhatWeDo = () => {
           <div className="d-flex justify-content-s-between column align-items-center padding-horizontal-md">
             <img src={webuy} alt="svg icon" className="margin-bottom-md" />
             <h2 className="capitalize margin-bottom-md">We Buy</h2>
-            <p className="text-center"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a dui laoreet, eleifend felis nec, ultricies turpis. Sed sed lacus at nibh ultrices condimentum. Proin in interdum risus. Suspendisse</p>
+            <p className="text-center">Bahranda partners with various Small Holder Farmer Groups as well as Mid-Size and Large
+Farms to purchase only quality raw materials that meet requirements of
+Processors/Manufacturers</p>
           </div>
         </div>
         <div className="bg-color1 sub-div margin-right-md padding-vertical-md border-r-10">
           <div className="d-flex justify-content-s-between column align-items-center padding-horizontal-md">
             <img src={westore} alt="svg icon" className="margin-bottom-md" />
             <h2 className="capitalize margin-bottom-md color-white">We Store</h2>
-            <p className="text-center color-white"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a dui laoreet, eleifend felis nec, ultricies turpis. Sed sed lacus at nibh ultrices condimentum. Proin in interdum risus. Suspendisse</p>
+            <p className="text-center color-white">The Storage of purchased raw materials is key to the Bahranda strategy aimed at providing
+value for dealers. Due to Nigeria’s seasonal approach to Farming, prices tend to increase as we
+move away from the harvest season. Therefore, timely storage helps to accrue value to the
+dealer due to price increases while Bahranda measures the Manufacturers needs in terms of
+Price Point at every demand cycle.</p>
           </div>
         </div>
         <div className="sub-div margin-bottom-md padding-vertical-md border-r-10 bg-white">
           <div className="d-flex justify-content-s-between column align-items-center padding-horizontal-md">
             <img src={wesell} className="margin-left-md" alt="svg icon" className="margin-bottom-md" />
             <h2 className="capitalize margin-bottom-md">we sell</h2>
-            <p className="text-center"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a dui laoreet, eleifend felis nec, ultricies turpis. Sed sed lacus at nibh ultrices condimentum. Proin in interdum risus. Suspendisse</p>
+            <p className="text-center">Since Manufacturers cannot purchase all the necessary raw materials they need all the year
+round at the beginning of the harvest season, Bahranda provides a method that evens out their
+timely demand with timely supply.
+Thus, the Sourcing, Psychological and Logistics challenges that come along with the
+Manufacturer supply chain is mitigated by the Bahranda model. We sell the right quantity and
+quality at the best rate.</p>
           </div>
         </div>
       </div>

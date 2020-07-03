@@ -1,60 +1,36 @@
 @import 'variables';
 @import 'breakpoints';
-@import 'spacings';
+@import 'flexbox';
 .account {
   .sidebar {
     flex: .15; height: 100vh;
-    position: fixed;
-    left: 0;
-    transition: all .5s;
-    z-index: 99;
     .sidebar-item {
       font-family: $font-family-1;
       border-left: 2px solid transparent;
       .icon { font-size: 1.5em; }
-      &:hover, &.active {
+      &:hover, .active {
         border-left: 2px solid $white;
         background: rgba(255, 255, 255, 0.33)
       }
     }
-    @include media-breakpoint-down(md) {
-      // display: none;
-      &:hover {
-        .sidebar-item {
-          span { display: inline-block !important }
-        }
-      }
-      .store, .sidebar-item span { 
-        display: none;
-      }
-    }
   };
-  .main {
-    flex: 1;
-    max-width: 1200px;
-    margin-left: 120px;
-    // margin: 0 auto;
-    // @include padding-horizontal(120px);
-    @include media-breakpoint-down(sm) {
-      margin-left: 0;
-      padding-left: 100px;
-    }
-  };
+  .main { flex: .85 };
 }
 // Horizontal-Navbar
-.greet {
-  @include media-breakpoint-down(sm) {
-    font-size: 1em;
+nav {
+  .shopping-cart {
+    margin-left: auto;
   }
-}
+  }
+  .main {
+    flex: .85;
+    max-width: 1200px;
+    margin: 0 auto;
+  };
+
+
 .summary {
-  > .d-flex .statement {
-    flex: 1;
-    @include media-breakpoint-down(xs) {
-      border-right: none;
-      border-bottom: $slim-border
-    }
-  }
+  > .d-flex .statement { flex: 1 }
 }
 
 .expenditure {
@@ -68,13 +44,26 @@
   };
 }
 
+  // .linear-graph { 
+  //   height: 100px;
+  //   width: 100%;
+  // }
+  
 // End of Horizontal-Navbar
 // Dashboard
 // Activity Section
 .activity {
-  .headings > *:not(.remark), .data-row > *:not(.remark) { flex: 1 }
-  .headings > .remark, .data-row > .remark {
-    flex: 3;
-    @include media-breakpoint-down(sm) { flex: 1 }
+  .ongoing {
+    color: $color1;
+  }
+  .sort {
+    margin-left: 700px;
+    button {
+      color: $color1;
+    }
+  }
+  .end {
+    color: $danger;
   }
 }
+

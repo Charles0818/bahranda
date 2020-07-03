@@ -1,13 +1,14 @@
 import React, { Fragment, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
-import Home, { Auth } from './pages';
+import Home, { Auth, ContactUs } from './pages';
 import { IconContext } from "react-icons";
 import { ErrorBoundary, ProtectedRoute, Spinners } from './components';
 import './styles/App.scss';
 import './styles/form.scss';
 const Account = lazy(() => import('./pages/Account'));
-const ProductPages = lazy(() => import('./pages/ProductPages'))
+const ProductPages = lazy(() => import('./pages/ProductPages'));
+
 function App() {
   return (
     <ErrorBoundary>
@@ -17,6 +18,8 @@ function App() {
               <Switch>
                 <Route path="/" component={Home} exact={true} />
                 <Route path="/auth" component={Auth} />
+                <Route path="/contact" component={ContactUs} exact={true} />
+
                 <ProtectedRoute auth={true} path="/products" redirectPath="/auth/signin" component={ProductPages} />
                 <ProtectedRoute auth={true} path="/account" redirectPath="/auth/signin" component={ Account } />
               </Switch>

@@ -4,7 +4,7 @@ import Activity from './components/Activity';
 const Dashboard = () => {
   return (
     <div>
-      <h1 className="padding-bottom-sm font-lg">Dashboard</h1>
+      <h1 className="padding-bottom-md margin-top-md font-xlg font-weight-bold">Dashboard</h1>
       <AccountSummary />
       <MonthlyExpenditure />
       <Activity />
