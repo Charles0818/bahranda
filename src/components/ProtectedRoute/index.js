@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-
-const ProtectedRoute = ({ component: Comp, auth, path, redirectPath = '/auth/login', ...rest }) => {
+import { connect } from 'react-redux';
+const ProtectedRoute = ({ component: Comp, auth, token, path, redirectPath = '/auth/login', ...rest }) => {
   useEffect(() => {
     let isSubscribed = true;
     
@@ -13,7 +13,7 @@ const ProtectedRoute = ({ component: Comp, auth, path, redirectPath = '/auth/log
       {...rest}
       render={props => {
         return auth ? (
-        <Comp {...props} />
+        <Comp {...props} token={token} />
         ) :  (
         <Redirect to={{
           pathname: redirectPath,
@@ -28,5 +28,9 @@ const ProtectedRoute = ({ component: Comp, auth, path, redirectPath = '/auth/log
     />
   )
 }
- 
-export default ProtectedRoute;
+
+const mapTokenToProps = state => {
+  return { token: state.authReducer.token }
+}
+
+export default connect(mapTokenToProps, null)(ProtectedRoute)

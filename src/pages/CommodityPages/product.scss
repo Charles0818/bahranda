@@ -3,6 +3,12 @@
 
 .thumbnail-slider, .details { flex: 1 };
 .thumbnail-slider { 
-  flex-basis: 446px;
-  max-width: 446px;
+  flex-basis: 246px;
+  max-width: 246px;
+
+  .controls {
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 }

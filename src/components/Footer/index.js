@@ -25,16 +25,16 @@ const Footer = () => {
             <div className="d-flex column">
               <Link className="font-sm color-white" to="/about">About us</Link>
               <Link className="font-sm color-white" to="/reviews">Reviews</Link>
-              <Link className="font-sm color-white" to="/products">Store</Link>
+              <Link className="font-sm color-white" to="/commodities">Store</Link>
               <Link className="font-sm color-white" to="/faq">Frequently asked questions</Link>
             </div>
           </div>
           <div className="footer-link">
-            <h4 className="color-white title">Product</h4>
+            <h4 className="color-white title">Commodity</h4>
             <div className="d-flex column">
               <Link className="font-sm color-white" to="/about">Trending</Link>
               <Link className="font-sm color-white" to="/reviews">Features</Link>
-              <Link className="font-sm color-white" to="/products">Pricing</Link>
+              <Link className="font-sm color-white" to="/commodities">Pricing</Link>
             </div>
           </div>
           <div className="footer-link">

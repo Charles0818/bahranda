@@ -52,12 +52,14 @@ function* signIn({ payload: { data, redirect } }) {
     yield put(signInSuccess(user));
     yield call(redirect('/account'))
   } catch (err) {
-    const { errors } = err;
-    const errorMessage = errors
-      ? errors[0].status === 404
-      ? 'A user with the provided credentials does not exists'
-      : errors[0].title
-      : networkErrorMessage
+    const { status, title } = err;
+    let errorMessage;
+    if(status) {
+      if(status === 400) errorMessage = title;
+      if(status === 422) errorMessage = 'Invalid email or password'
+    } else {
+      errorMessage = networkErrorMessage
+    }
     console.log('error found', err);
     yield put(signInError(errorMessage))
   }

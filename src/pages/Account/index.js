@@ -1,13 +1,19 @@
-import React, { Fragment, lazy, Suspense, useRef } from 'react';
+import React, { Fragment, lazy, Suspense, useRef, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Dashboard from './Dashboard';
 import Wallet from './Wallet';
 import Settings from './Settings';
 import { HorizontalNavbar, LeftSideBar } from './components';
+import { actions } from '../../helpers';
 import './account.scss';
 const Admin = lazy(() => import('./Admin'));
-
-const Account = ({ match: { path } }) => {
+const { dashboardActions: { getUserDashboardRequest } } = actions;
+const Account = ({ match: { path }, getUserDashboard, token }) => {
+  useEffect(() => {
+    getUserDashboard(token)
+  }, [])
   const sidebarRef = useRef();
   return (
     <Fragment>
@@ -28,4 +34,8 @@ const Account = ({ match: { path } }) => {
   )
 }
 
-export default Account;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getUserDashboard: getUserDashboardRequest }, dispatch)
+
+
+export default connect(null, mapDispatchToProps)(Account);

@@ -7,7 +7,7 @@ import { ErrorBoundary, ProtectedRoute, Spinners } from './components';
 import './styles/App.scss';
 import './styles/form.scss';
 const Account = lazy(() => import('./pages/Account'));
-const ProductPages = lazy(() => import('./pages/ProductPages'))
+const CommodityPages = lazy(() => import('./pages/CommodityPages'))
 function App() {
   return (
     <ErrorBoundary>
@@ -17,7 +17,7 @@ function App() {
               <Switch>
                 <Route path="/" component={Home} exact={true} />
                 <Route path="/auth" component={Auth} />
-                <ProtectedRoute auth={true} path="/products" redirectPath="/auth/signin" component={ProductPages} />
+                <ProtectedRoute auth={true} path="/commodities" redirectPath="/auth/signin" component={CommodityPages} />
                 <ProtectedRoute auth={true} path="/account" redirectPath="/auth/signin" component={ Account } />
                 <Route component={Error404} />
               </Switch>

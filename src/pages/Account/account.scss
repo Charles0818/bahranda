@@ -45,7 +45,7 @@
   .main {
     flex: 1;
     max-width: 1200px;
-    margin-left: 120px;
+    margin-left: 140px;
     // margin: 0 auto;
     // @include padding-horizontal(120px);
     @include media-breakpoint-down(sm) {
@@ -63,7 +63,6 @@
 @include media-breakpoint-up(md) { 
   .bar { display: none }
 }
-
 
 // End of Horizontal-Navbar
 

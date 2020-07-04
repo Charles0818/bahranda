@@ -1,4 +1,4 @@
 import WhatWeDo from './WhatWeDo'
 import WhoWeAre from './WhoWeAre';
-export { WhoWeAre };
-export { WhatWeDo }
+import HeaderSlides from './HeaderSlides';
+export { WhoWeAre, WhatWeDo, HeaderSlides };

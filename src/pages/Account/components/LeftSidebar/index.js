@@ -13,7 +13,7 @@ const LeftSidebar = forwardRef(({sidebarRef}) => {
       />
       </div>
       <SidebarItem link="/account" icon={FaWindows} text='dashboard' exact={true} />
-      <SidebarItem link="/products" icon={FaStore} text="products" />
+      <SidebarItem link="/commodities" icon={FaStore} text="commodities" />
       {/* <SidebarItem link="/account/investments" icon={MdAccountCircle} text='investments' /> */}
       <SidebarItem link="/account/wallet" icon={MdAccountBalanceWallet} text='wallet' />
       <SidebarItem link="/account/settings" icon={FiSettings} text='settings' />

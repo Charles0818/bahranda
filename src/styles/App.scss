@@ -5,6 +5,10 @@
 @import 'colors';
 @import 'fonts';
 @mixin position ($value) { position: #{$value} }
+@mixin border-top-radius ($value) {
+  border-top-right-radius:  #{$value};
+  border-top-left-radius:  #{$value}
+}
 /*End of @mixins*/
 
 @keyframes scale {
@@ -43,7 +47,7 @@
   animation: fadeIn .5s ease 0s 1;
   -webkit-animation: fadeIn .5s ease 0s 1;
 }
-.scale_animation {
+.scale-animation {
   animation: scale .5s ease 0s 1;
   -webkit-animation: scale .5s ease 0s 1;
 }
@@ -70,6 +74,7 @@ header {
 
   // navigation-menu
   nav {
+    z-index: 999;
     box-shadow: 0px 4px 4px rgba(229, 229, 229, 0.53);
     .bar { display: none; }
     @include media-breakpoint-down(md) {
@@ -163,7 +168,9 @@ header {
 .border-r-10 {
   border-radius: 10px;
 }
-
+.border-top-r-inherit {
+  @include border-top-radius(inherit)
+}
 .border-r-5 {
   border-radius: 5px;
 }
@@ -198,7 +205,7 @@ header {
   outline: none;
   border: none;
   border-radius: 7px;
-  @extend .padding-horizontal-md;
+  @extend .padding-horizontal-sm;
   @extend .padding-vertical-sm;
   @extend .font-weight-600;
   @extend .cursor-pointer;
@@ -218,6 +225,7 @@ header {
   background-position: center;
   transition: background 0.8s;
   &:hover {
+    color: $white;
     background: $color1 radial-gradient(circle, transparent 1%, $color1-opacity 1%) center/15000%;
   }
   &:active {
@@ -320,7 +328,9 @@ header {
   @include media-breakpoint-down(xs) {
     min-width: 100%;
   }
-  @include media-breakpoint-down(sm) { min-width: 160px }
+  @include media-breakpoint-down(sm) { 
+    min-width: 150px;
+   }
   flex: 1;
   .thumbnail {
     &, img { width: 100% };
@@ -344,39 +354,6 @@ header {
   }
 }
 
-// Product-details
-.product-details {
-  .product-info {
-    width: 926px;
-    height: 520px;
-    z-index: -2;
-    margin-top: -25px;
-  }
-  .details, .review, .view {
-    // width: 100px;
-    height: 70px;
-  }
-  .review {
-    background-color: rgba(6, 152, 1, 0.29);
-  color: rgba(0, 0, 0, 0.36);
-  }
-  .white {
-    width: 127px;
-  height: 40px;
-  margin-top: -10px;
-  border: none;
-  }
-  .view {
-    background-color: $color1;
-    color: $white;
-  }
-  .view-wrapper {
-    width: inherit;
-    margin-left: 30% ;
-  }
-}
-
-// End of Product-details
 
 @include media-breakpoint-up(sm) {  }
 @include media-breakpoint-up(md) {  }

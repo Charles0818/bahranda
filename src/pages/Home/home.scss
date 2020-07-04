@@ -1,5 +1,37 @@
 @import 'variables';
 @import 'breakpoints';
+@import 'spacings';
+.header-slide {
+  width: 100vw;
+  height: auto;
+  > img {
+    width: 100%;
+  }
+  .slide-content {
+    @include padding-horizontal(100px);
+    > div {
+      width: 50%;
+      h2 {
+        font-size: 45px;
+        line-height: 60px;
+        @include media-breakpoint-down(xs) {
+          font-size: 1em !important;
+          line-height: 23px !important;
+        }
+      }
+    }
+    @include media-breakpoint-down(md) {
+      @include padding-horizontal(50px);
+      > div {
+        width: 100%;
+        h2 {
+          font-size: 40px;
+          line-height: 50px;
+        }
+      }
+    }
+  }
+}
 
 .who-we-are {
   background: url('./assets/farm-field.png') no-repeat center;
@@ -39,7 +71,7 @@
 
 // What-we-do section
 .What-we-do {
-  height: 600px;
+  // height: 600px;
   
   .flex-container {
     // width: 80%;
