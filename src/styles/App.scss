@@ -239,11 +239,6 @@ header {
   background: $gray-color2;
 }
 
-.sideNav {
-  width: 70px;
-  background: $white;
-}
-
 .user_avatar {
   margin: 0 auto;
 }
@@ -354,6 +349,12 @@ header {
   }
 }
 
+/*How We Work section*/
+.how-we-work {
+  > section img {
+    max-width: 442px;
+  }
+}
 
 @include media-breakpoint-up(sm) {  }
 @include media-breakpoint-up(md) {  }

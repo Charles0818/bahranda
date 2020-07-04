@@ -5,6 +5,7 @@ import Error404 from './Error404';
 import PrivacyPolicy from './PrivacyPolicy';
 import TermsOfServices from './TermsOfServices';
 import ContactUs from './ContactUs';
-export { Auth, ContactUs, Account, Error404, PrivacyPolicy, TermsOfServices };
+import HowWeWork from './HowWeWork';
+export { Auth, ContactUs, Account, Error404, PrivacyPolicy, TermsOfServices, HowWeWork };
 export default Home;
 

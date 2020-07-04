@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
-import Home, { Auth, ContactUs, PrivacyPolicy, TermsOfServices, Error404 } from './pages';
+import Home, { Auth, ContactUs, HowWeWork, PrivacyPolicy, TermsOfServices, Error404 } from './pages';
 import { IconContext } from "react-icons";
 import { ErrorBoundary, ProtectedRoute, Spinners } from './components';
 import './styles/App.scss';
@@ -19,6 +19,7 @@ function App() {
                 <Route path="/" component={Home} exact={true} />
                 <Route path="/auth" component={Auth} />
                 <Route path="/contact" component={ContactUs} exact={true} />
+                <Route path="/how-we-work" component={HowWeWork} exact={true} />
                 <ProtectedRoute auth={true} path="/commodities" redirectPath="/auth/signin" component={CommodityPages} />
                 <ProtectedRoute auth={true} path="/account" redirectPath="/auth/signin" component={ Account } />
                 <Route component={Error404} />

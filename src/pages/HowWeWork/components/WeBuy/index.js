@@ -16,8 +16,8 @@ const WeBuy = () => {
         </p>
       </article>
       <div className="flex-equal">
-        <img src={} alt="farmers" />
-        <img src={} alt="farmers" />
+        {/* <img src={} alt="farmers" />
+        <img src={} alt="farmers" /> */}
       </div>
     </section>
   )

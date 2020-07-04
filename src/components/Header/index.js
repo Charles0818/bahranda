@@ -34,7 +34,7 @@ const Header = () => {
         <img src={logo} className="logo-md margin-right-md"/>
         <div ref={navRef} className="d-flex nav-links toggle align-items-center justify-content-s-between">
           <NavLink  activeClassName="color1 font-weight-500" to="/" className="color-dark padding-md">Home</NavLink>
-          <NavLink  activeClassName="color1 font-weight-500" to="/home" className="color-dark font-md padding-md">How we work</NavLink>
+          <NavLink  activeClassName="color1 font-weight-500" to="/how-we-work" className="color-dark font-md padding-md">How we work</NavLink>
           <NavLink  activeClassName="color1 font-weight-500" to="/commodities" className="color-dark font-md padding-md">Commodities</NavLink>
           <NavLink  activeClassName="color1 font-weight-500" to="/contact" className="color-dark font-md padding-md">Contact Us</NavLink>
           <div className="d-flex align-items-center justify-content-s-between auth-links">
