@@ -54,12 +54,13 @@ export const useCheckbox = (bool = false) => {
 }
 
 export const TextArea = ({
-  placeholder, value, label, onChange, err, ...rest
+  placeholder, value, label, onChange, err, className, disabled, ...rest
 }) => {
   return (
-    <label className="d-flex column">
+    <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
       <span className="font-sm">{label}</span>
-      <textarea value={value} {...rest} placeholder={placeholder} />
+      <textarea value={value} {...rest} placeholder={placeholder}
+        className={`border-r-5 padding-md padding-horizontal-md font-weight-500 ${!disabled ? 'bg-white' : 'bg-gray'} slim-border font-sm`} {...rest} />
     </label>
   )
 }
