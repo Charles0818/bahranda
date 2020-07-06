@@ -1,12 +1,12 @@
 import React from 'react';
-import soyabean from '../../../../assets/soyabean.png';
-import rice from '../../../../assets/rice.png';
+import soyabean from '../../assets/soyabean.png'
+import rice from '../../assets/rice.png';
 const WeSell = () => {
   return (
-    <section className="d-flex padding-vertical-md padding-horizontal-xlg">
-      <article className="flex-equal margin-right-md">
-        <h2 className="font-xlg margin-bottom-md">We Buy</h2>
-        <p className="text-content font-sm">
+    <section className="we-sell d-flex padding-vertical-md padding-horizontal-xlg">
+      <article className="flex-equal margin-right-md margin-bottom-md">
+        <h2 className="font-xlg margin-bottom-md">We Sell</h2>
+        <p className="text-content font-md">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           Nullam in tempus magna. Vestibulum et arcu mollis, elementum leo eget,
           porttitor elit. Curabitur nec lorem in justo posuere molestie a quis felis.
