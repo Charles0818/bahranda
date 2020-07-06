@@ -35,8 +35,8 @@
       padding: 0;
       &.toggle {
         width: auto;
-        @include padding-horizontal(10px);
-        @include padding-vertical(40px)
+        // @include padding-horizontal(10px);
+        // @include padding-vertical(40px)
       }
       .times { 
         display: inline-block;

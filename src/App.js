@@ -2,13 +2,13 @@ import React, { Fragment, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import Home, { Auth, ContactUs } from './pages';
-import Home, { Auth, PrivacyPolicy, TermsOfServices, Error404 } from './pages';
+import { PrivacyPolicy, TermsOfServices, Error404 } from './pages';
 import { IconContext } from "react-icons";
 import { ErrorBoundary, ProtectedRoute, Spinners } from './components';
 import './styles/App.scss';
 import './styles/form.scss';
 const Account = lazy(() => import('./pages/Account'));
-const ProductPages = lazy(() => import('./pages/ProductPages'));
+// const ProductPages = lazy(() => import('./pages/ProductPages'));
 
 const CommodityPages = lazy(() => import('./pages/CommodityPages'))
 function App() {
@@ -22,7 +22,7 @@ function App() {
                 <Route path="/auth" component={Auth} />
                 <Route path="/contact" component={ContactUs} exact={true} />
 
-                <ProtectedRoute auth={true} path="/products" redirectPath="/auth/signin" component={ProductPages} />
+                {/* <ProtectedRoute auth={true} path="/products" redirectPath="/auth/signin" component={ProductPages} /> */}
                 <ProtectedRoute auth={true} path="/commodities" redirectPath="/auth/signin" component={CommodityPages} />
                 <ProtectedRoute auth={true} path="/account" redirectPath="/auth/signin" component={ Account } />
                 <Route component={Error404} />
