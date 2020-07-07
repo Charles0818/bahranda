@@ -1,15 +1,16 @@
 import React from 'react';
-
+import store from '../../assets/store.png';
+import storeworkers from '../../assets/storeworkers.png';
 const WeStore = () => {
   return (
-    <section className="bg-color1 d-flex padding-vertical-md padding-horizontal-xlg">
-      <div className="flex-equal">
-        <img src={} alt="farmers" />
-        <img src={} alt="farmers" />
+    <section className="we-store d-flex padding-vertical-md padding-horizontal-xlg">
+      <div className="flex-equal margin-right-md">
+        <img src={storeworkers} alt="farmers" />
+        <img src={store} alt="farmers"/>
       </div>
-      <article className="flex-equal margin-right-md">
-        <h2 className="font-xlg margin-bottom-md">We Buy</h2>
-        <p className="text-content font-sm">
+      <article className="flex-equal">
+        <h2 className="font-xlg margin-bottom-md color-white">We Store</h2>
+        <p className="text-content font-md color-white">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           Nullam in tempus magna. Vestibulum et arcu mollis, elementum leo eget,
           porttitor elit. Curabitur nec lorem in justo posuere molestie a quis felis.

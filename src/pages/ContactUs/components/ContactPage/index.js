@@ -5,7 +5,7 @@ import {MdLocationOn, MdEmail} from 'react-icons/md';
 import {FaPhoneAlt, FaTwitter, FaFacebookF} from 'react-icons/fa';
 import {FiInstagram} from "react-icons/fi";
 import ContactMap from "../contactMap"
-const { FormField, useFormInput, SubmitButton, useCheckbox } =Form;
+const { FormField, useFormInput, SubmitButton, TextArea, useCheckbox } =Form;
 
 const ContactPage = () => {
     return (
@@ -18,8 +18,9 @@ const ContactPage = () => {
                 <FormField name="email" value={""}  placeholder="Email" className="margin-top-sm" />
                 <label className="margin-bottom-sm margin-top-sm">Message</label>
                 {/* <FormField name="text" value={""}  placeholder="Write your message" label="Message" /> */}
-                <textarea value={""} label="Message" placeholder="Type your message..." className="padding-lg slim-border border-r-10" style={{width: '100%'}}/> 
-                <SubmitButton text="SEND" style={{width: '30%'}} className="font-lg margin-top-md" />
+                <TextArea value={""} placeholder="Type your message..." />
+                {/* <textarea value={""} label="Message" placeholder="Type your message..." className="padding-lg slim-border border-r-10" style={{width: '100%'}}/>  */}
+                <SubmitButton text="SEND" className="padding-horizontal-lg" action={() => null }  />
                  </form>
             </div>
             <div className="d-flex column">

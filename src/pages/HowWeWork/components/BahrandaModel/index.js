@@ -2,9 +2,8 @@ import React from 'react';
 
 const BahrandaModel = () => {
   return (
-    <div>Hello there</div>
-    
+    <section></section>
   )
 }
 
-export default BahrandaModel;
+export default BahrandaModel
