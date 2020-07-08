@@ -11,13 +11,11 @@ const WeStore = () => {
       <article className="flex-equal">
         <h2 className="font-xlg margin-bottom-md color-white">We Store</h2>
         <p className="text-content font-md color-white">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Nullam in tempus magna. Vestibulum et arcu mollis, elementum leo eget,
-          porttitor elit. Curabitur nec lorem in justo posuere molestie a quis felis.
-          Quisque porta vestibulum finibus. Nullam vitae lobortis elit.
-          Nullam tristique sem sed felis imperdiet convallis.
-          In volutpat augue in turpis vestibulum, sit amet rutrum nisi mollis.
-          Nunc vestibulum fringilla tortor, eget fermentum urna vehicula eget.
+        The Storage of purchased raw materials is key to the Bahranda strategy aimed at providing
+value for dealers. Due to Nigeria’s seasonal approach to Farming, prices tend to increase as we
+move away from the harvest season. Therefore, timely storage helps to accrue value to the
+dealer due to price increases while Bahranda measures the Manufacturers needs in terms of
+Price Point at every demand cycle.
         </p>
       </article>
     </section>

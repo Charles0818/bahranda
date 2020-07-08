@@ -1,23 +1,20 @@
 import React from 'react';
-
+import mansquat from "../../assets/mansquat.png";
+import lady from "../../assets/lady.png";
 const WeBuy = () => {
   return (
     <section className="we-sell d-flex padding-vertical-md padding-horizontal-xlg">
-      <article className="flex-equal margin-right-md">
+      <article className="flex-equal margin-right-md padding-bottom-md">
         <h2 className="font-xlg margin-bottom-md">We Buy</h2>
         <p className="text-content font-md">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Nullam in tempus magna. Vestibulum et arcu mollis, elementum leo eget,
-          porttitor elit. Curabitur nec lorem in justo posuere molestie a quis felis.
-          Quisque porta vestibulum finibus. Nullam vitae lobortis elit.
-          Nullam tristique sem sed felis imperdiet convallis.
-          In volutpat augue in turpis vestibulum, sit amet rutrum nisi mollis.
-          Nunc vestibulum fringilla tortor, eget fermentum urna vehicula eget.
+        Bahranda partners with various Small Holder Farmer Groups as well as Mid-Size and Large
+        Farms to purchase only quality raw materials that meet requirements of
+        Processors/Manufacturers
         </p>
       </article>
       <div className="flex-equal">
-        {/* <img src={} alt="farmers" />
-        <img src={} alt="farmers" /> */}
+        <img src={mansquat} alt="farmers" />
+        <img src={lady} alt="farmers" />
       </div>
     </section>
   )

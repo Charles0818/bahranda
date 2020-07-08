@@ -7,13 +7,12 @@ const WeSell = () => {
       <article className="flex-equal margin-right-md margin-bottom-md">
         <h2 className="font-xlg margin-bottom-md">We Sell</h2>
         <p className="text-content font-md">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Nullam in tempus magna. Vestibulum et arcu mollis, elementum leo eget,
-          porttitor elit. Curabitur nec lorem in justo posuere molestie a quis felis.
-          Quisque porta vestibulum finibus. Nullam vitae lobortis elit.
-          Nullam tristique sem sed felis imperdiet convallis.
-          In volutpat augue in turpis vestibulum, sit amet rutrum nisi mollis.
-          Nunc vestibulum fringilla tortor, eget fermentum urna vehicula eget.
+        Since Manufacturers cannot purchase all the necessary raw materials they need all the year
+        round at the beginning of the harvest season, Bahranda provides a method that evens out their
+        timely demand with timely supply.
+        Thus, the Sourcing, Psychological and Logistics challenges that come along with the
+        Manufacturer supply chain is mitigated by the Bahranda model. We sell the right quantity and
+        quality at the best rate.
         </p>
       </article>
       <div className="flex-equal">
