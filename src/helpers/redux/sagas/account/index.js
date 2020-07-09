@@ -1,66 +1,101 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { account } from '../../types';
-import { serviceActions } from '../actions';
-import { sendData, getData, deleteData, apiKey } from './ajax';
+import { accountActions } from '../../actions';
+import { sendData, getData, modifyData, deleteData, apiKey } from '../ajax';
+const {
+  GET_ACCOUNT_DASHBOARD_REQUEST,
+  UPDATE_PROFILE_REQUEST,
+  CHANGE_PASSWORD_REQUEST
+} = account;
 
+const {
+  getAccountDashboardSuccess, getAccountDashboardFailure,
+  changePasswordFailure, updateProfileFailure,
+  changePasswordSuccess, updateProfileSuccess
+} = accountActions;
+
+const networkErrorMessage = 'No internet connection detected';
 const accountDBCalls = {
-  addService: async (data) => {
-    const response = await sendData(`${apiKey}/`, data, token);
+  getAccountDashboard: async (token) => {
+    const response = await getData(`${apiKey}/user/home`, token);
+    return response.data
+  },
+  changePassword: async ({ data, token }) => {
+    const response = await sendData(`${apiKey}/user/home`, data, token);
     return response
   },
-  removeService: async (id) => {
-    const response = await deleteData(`${apiKey}/id=${id}`, token);
-    return response
-  },
-  getServices: async () => {
-    const response = await getData(`${apiKey}`, token);
+  updateProfile: async ({ data, token }) => {
+    const response = await modifyData(`${apiKey}/user/home`, data, token);
     return response
   }
 }
 
 // All generators*
-function* addService({ payload: { service } }) {
+function* getAccountDashboard({ payload: { token } }) {
   try {
-    console.log('saga action', service);
-    const response = yield call(accountDBCalls.addService, service);
-    yield put(addServiceSuccess(response))
+    console.log('this function was called')
+    const dashboard = yield call(accountDBCalls.getAccountDashboard, token);
+    yield put(getAccountDashboardSuccess(dashboard));
   } catch (err) {
+    const { errors } = err;
+    const errorMessage = errors
+      ? errors[0].status === 404
+      ? 'A user with the provided credentials does not exists'
+      : errors[0].title
+      : networkErrorMessage
     console.log('error found', err);
+    yield put(getAccountDashboardFailure(errorMessage))
   }
 }
 
-function* removeService({ payload: { data } }) {
+function* updateProfile({ payload: { data, token } }) {
   try {
-    yield call(accountDBCalls.removeService, data)
-    yield put(removeServiceSuccess(data.id))
+    const profile = yield call(accountDBCalls.updateProfile, data, token);
+    yield put(updateProfileSuccess(profile));
+
   } catch (err) {
+    const { errors } = err;
+    const errorMessage = errors
+      ? errors[0].status === 404
+      ? 'A user with the provided credentials does not exists'
+      : errors[0].title
+      : networkErrorMessage
     console.log('error found', err);
+    yield put(updateProfileFailure(errorMessage))
   }
 }
 
-function* getServices(){
+function* changePassword({ payload: { data, token } }) {
   try {
-    const services = yield call(accountDBCalls.getServices, data)
-    yield put(initializeServices(services))
+    const message = yield call(accountDBCalls.changePassword, data, token);
+    yield put(changePasswordSuccess(message));
+
   } catch (err) {
+    const { errors } = err;
+    const errorMessage = errors
+      ? errors[0].status === 404
+      ? 'A user with the provided credentials does not exists'
+      : errors[0].title
+      : networkErrorMessage
     console.log('error found', err);
+    yield put(changePasswordFailure(errorMessage))
   }
 }
 
-function* addServiceRequest() {
-  yield takeLatest(ADD_SERVICE_REQUEST, addService)
+function* getAccountDashboardRequest() {
+  yield takeLatest(GET_ACCOUNT_DASHBOARD_REQUEST, getAccountDashboard)
 }
 
-function* removeServiceRequest() {
-  yield takeLatest(REMOVE_SERVICE_REQUEST, removeService)
+function* updateProfileRequest() {
+  yield takeLatest(UPDATE_PROFILE_REQUEST, updateProfile)
 }
 
-function* getServicesRequest() {
-  yield takeLatest(GET_SERVICES, getServices)
+function* changePasswordRequest() {
+  yield takeLatest(CHANGE_PASSWORD_REQUEST, changePassword)
 }
 
-export default function* serviceSagas() {
-  yield spawn(addServiceRequest)
-  yield spawn(removeServiceRequest)
-  yield spawn(getServicesRequest)
+export default function* accountSagas() {
+  yield spawn(getAccountDashboardRequest)
+  yield spawn(updateProfileRequest)
+  yield spawn(changePasswordRequest)
 }

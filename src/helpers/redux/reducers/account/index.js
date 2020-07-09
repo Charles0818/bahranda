@@ -1,13 +1,42 @@
-import { auth } from '../../types';
-const { SIGN_IN_SUCCESS } = auth;
+import { auth, account } from '../../types';
+const { SIGN_IN_SUCCESS, SIGN_OUT } = auth;
+const {
+  GET_ACCOUNT_DASHBOARD_SUCCESS,
+  UPDATE_PROFILE_SUCCESS, CHANGE_PASSWORD_FAILURE,
+  GET_ACCOUNT_DASHBOARD_FAILURE, UPDATE_PROFILE_FAILURE
+} = account;
 const initialState = {
- 
+ profile: {
+
+ },
+ errors: {
+   get: '',
+   updateProfile: '',
+   changePassword: ''
+ },
+ success: {
+   updateProfile: ''
+ }
 }
 const accountReducer = (prevState = initialState, { type, payload }) => {
   switch(type) {
     case SIGN_IN_SUCCESS:
-      prevState = payload.data;
+      prevState.profile = payload.user;
       return prevState
+    case SIGN_OUT:
+      return initialState
+    case GET_ACCOUNT_DASHBOARD_SUCCESS:
+      return { ...prevState, ...payload.dashboard }
+    case UPDATE_PROFILE_SUCCESS:
+      prevState.success.updateProfile = payload.message
+      prevState.profile = payload.profile;
+      return prevState;
+    case CHANGE_PASSWORD_FAILURE:
+      prevState.errors.changePassword = payload.error;
+      return prevState
+    case UPDATE_PROFILE_FAILURE:
+      prevState.errors.updateProfile = payload.error;
+      return prevState;
     default:
       return prevState;
   }

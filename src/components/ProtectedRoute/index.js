@@ -1,10 +1,17 @@
 import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-const ProtectedRoute = ({ component: Comp, auth, token, path, redirectPath = '/auth/login', ...rest }) => {
+import { bindActionCreators } from 'redux';
+import { actions } from '../../helpers';
+
+const { authActions: { getUserProfile } } = actions;
+const ProtectedRoute = ({
+  component: Comp, auth, token, isLoggedIn, getUserProfile, path, redirectPath = '/auth/login', ...rest
+}) => {
   useEffect(() => {
     let isSubscribed = true;
-    
+    // if(token && !isLoggedIn) getUserProfile(token);
+    console.log('token from protectedRoute', token)
     return () => isSubscribed = false;
   }, [auth]);
   return(
@@ -30,7 +37,9 @@ const ProtectedRoute = ({ component: Comp, auth, token, path, redirectPath = '/a
 }
 
 const mapTokenToProps = state => {
-  return { token: state.authReducer.token }
+  const { token, isLoggedIn } = state.authReducer;
+  return { token, isLoggedIn }
 }
-
-export default connect(mapTokenToProps, null)(ProtectedRoute)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getUserProfile }, dispatch)
+export default connect(mapTokenToProps, mapDispatchToProps)(ProtectedRoute)

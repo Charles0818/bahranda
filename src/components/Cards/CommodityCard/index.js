@@ -8,8 +8,8 @@ const CommodityCard = memo(({ product }) => {
     <div className="product-card margin-bottom-md margin-right-md">
       <div className="thumbnail position-relative margin-bottom-sm">
         <Link to="/commodities/1"><img src={thumbnail} alt="product thumbnail" /></Link>
-        <span className="in-stock color-white font-weight-600 padding-sm uppercase position-absolute">SALE</span>
-        <div className="add-to-cart-btn ripple bg-color1 padding-md cursor-pointer position-absolute">
+        <span className="font-md in-stock color-white font-weight-600 padding-sm uppercase position-absolute">SALE</span>
+        <div className="add-to-cart-btn ripple bg-color1 padding-sm cursor-pointer position-absolute">
           <MdShoppingCart className="color-white font-md" />
         </div>
       </div>

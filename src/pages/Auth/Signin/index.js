@@ -10,7 +10,7 @@ const { useButtonSpinner } = Spinners;
 const { FormField, PasswordField, useFormInput, SubmitButton, useCheckbox } =Form;
 const SignIn = ({ signIn, isLoading, signInError }) => {
   const { replace } = useHistory()
-  const { LoadingSpinner } = useButtonSpinner(isLoading);
+  const { isLoading: loading, LoadingSpinner } = useButtonSpinner(isLoading);
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
   const { value: password, handleUserInput: setPassword, error: passwordErr, isValid: passIsValid } = useFormInput();
   const { checked, Checkbox } = useCheckbox();
@@ -38,7 +38,7 @@ const SignIn = ({ signIn, isLoading, signInError }) => {
             {signInError && <p className="font-sm danger-text font-weight-600">Error: {signInError}</p> }
           </div>
           <Link to="/auth/forgot-password" className="color1 margin-bottom-sm">Forgot password ?</Link>
-          <SubmitButton disabled={!validateFields} spinner={LoadingSpinner} text="Log in" action={handleSubmit} style={{width: '100%'}} />
+          <SubmitButton isLoading={loading} disabled={!validateFields} spinner={LoadingSpinner} text="Log in" action={handleSubmit} style={{width: '100%'}} />
         </form>
       </section>
     </main>

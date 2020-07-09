@@ -79,7 +79,7 @@ export const useSelectInput = (initialValue) => {
   })
   return { value, SelectInput }
 }
-export const SubmitButton = ({ spinner: Spinner, text, action, disabled, className = '', ...rest }) => {
+export const SubmitButton = ({ isLoading, spinner: Spinner, text, action, disabled, className = '', ...rest }) => {
   const buttonRef = useRef(null);
   const preventBeforeFire = (e) => {
     e.preventDefault();
@@ -87,9 +87,10 @@ export const SubmitButton = ({ spinner: Spinner, text, action, disabled, classNa
   }
   return (
     <button disabled={disabled} ref={buttonRef} onClick={e => preventBeforeFire(e)} {...rest}
-      className={`submit d-flex flex-center btn margin-bottom-md ${disabled ? 'cursor-not-allowed bg-color1-opacity' : 'bg-color1 ripple'} ${className}`}>
-      <span className="btn-text font-sm color-white font-weight-600">{text}</span>
-      <div className="spinner">{Spinner}</div>
+      className={`submit d-flex flex-center btn margin-bottom-md ${disabled ? 'cursor-not-allowed bg-color1-opacity-2' : 'bg-color1 ripple'} ${className}`}>
+     {!isLoading
+      ? <span className="btn-text font-sm color-white font-weight-600">{text}</span>
+      : <div className="spinner">{Spinner}</div>}
     </button>
   )
 }

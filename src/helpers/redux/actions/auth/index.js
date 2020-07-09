@@ -5,7 +5,8 @@ const {
   SIGN_IN_SUCCESS, SIGN_UP_SUCCESS,
   SIGN_IN_ERROR, SIGN_UP_ERROR,
   PIN_ERROR, CONFIRM_PIN,
-  ISLOADING, CONFIRM_PIN_SUCCESS
+  ISLOADING, CONFIRM_PIN_SUCCESS,
+  SIGN_OUT, GET_USER_PROFILE
 } = auth;
 
 
@@ -16,10 +17,10 @@ export const signInRequest = (data, redirect) => {
   }
 }
 
-export const signInSuccess = (data) => {
+export const signInSuccess = (user, token) => {
   return {
     type: SIGN_IN_SUCCESS,
-    payload: { data }
+    payload: { user, token }
   }
 }
 
@@ -27,6 +28,12 @@ export const signInError = (error) => {
   return {
     type: SIGN_IN_ERROR,
     payload: { error }
+  }
+}
+
+export const signOut = () => {
+  return {
+    type: SIGN_OUT
   }
 }
 
@@ -77,5 +84,12 @@ export const setIsLoading = (isLoading) => {
   return {
     type: ISLOADING,
     payload: { isLoading }
+  }
+}
+
+export const getUserProfile = (token) => {
+  return {
+    type: GET_USER_PROFILE,
+    payload: { token }
   }
 }

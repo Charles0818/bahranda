@@ -3,10 +3,8 @@ import { auth } from '../../types';
 import { authActions } from '../../actions';
 import { sendData, getData, deleteData, apiKey } from '../ajax';
 const {
-  SIGN_IN_REQUEST, SIGN_IN_SUCCESS,
-  SIGN_UP_REQUEST, SIGN_UP_SUCCESS,
-  SIGN_IN_ERROR, SIGN_UP_ERROR,
-  CONFIRM_PIN, PIN_ERROR, ISLOADING
+  SIGN_IN_REQUEST, SIGN_UP_REQUEST,
+  CONFIRM_PIN, GET_USER_PROFILE
 } = auth;
 const {
   signInSuccess, signInError,
@@ -17,15 +15,20 @@ const {
 const networkErrorMessage = 'No internet connection detected';
 const authDBCalls = {
   signUp: async (data) => {
-    const response = await sendData(`${apiKey}/auth/register`, data);
+    const response = await sendData(`${apiKey}/auth/signup`, data);
     return response
   },
   signIn: async (data) => {
     const response = await sendData(`${apiKey}/auth/login`, data);
-    return response
+    console.log('login response',  response)
+    return response.user_data
   },
   confirmPin: async (data) => {
     const response = await sendData(`${apiKey}/auth/activate`, data);
+    return response
+  },
+  getUserProfile: async (token) => {
+    const response = await getData(`${apiKey}/auth/activate`, token);
     return response
   }
 }
@@ -36,10 +39,17 @@ function* signUp({ payload: { data, redirect } }) {
     yield put(setIsLoading(true))
     yield call(authDBCalls.signUp, data);
     yield put(signUpSuccess(data.email));
-    yield call(redirect('/auth/activate'))
+    yield redirect('/auth/activate')
   } catch (err) {
-    const { errors } = err;
-    const errorMessage = !errors ? 'No internet connection detected' : errors[0].title;
+    const { status, title } = err;
+    let errorMessage;
+    if(status) {
+      if(title.email) {
+        errorMessage = title.email[0]
+      }
+    } else {
+      errorMessage = networkErrorMessage
+    }
     console.log('error found', err);
     yield put(signUpError(errorMessage));
   }
@@ -48,15 +58,19 @@ function* signUp({ payload: { data, redirect } }) {
 function* signIn({ payload: { data, redirect } }) {
   try {
     yield put(setIsLoading(true))
-    const user = yield call(authDBCalls.signIn, data);
-    yield put(signInSuccess(user));
-    yield call(redirect('/account'))
+    const { access_token, user } = yield call(authDBCalls.signIn, data);
+    yield put(signInSuccess(user, access_token));
+    yield redirect('/account')
   } catch (err) {
     const { status, title } = err;
     let errorMessage;
     if(status) {
       if(status === 400) errorMessage = title;
-      if(status === 422) errorMessage = 'Invalid email or password'
+      if(status === 422) errorMessage = 'Invalid email or password';
+      if(status === 401) {
+        yield put(pinError(title))
+        redirect('/auth/activate');
+      }
     } else {
       errorMessage = networkErrorMessage
     }
@@ -71,14 +85,30 @@ function* confirmPin({ payload: { data, redirect } }){
     const confirmed = yield call(authDBCalls.confirmPin, data);
     console.log('returned pin response', confirmed)
     yield put(confirmPinSuccess())
-    yield call(redirect('/account'))
+    yield redirect('/auth/signin')
   } catch (err) {
     console.log('error found', err);
-    const { errors } = err;
-    const errorMessage = errors
-      ? errors[0].title
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
       : networkErrorMessage
     yield put(pinError(errorMessage))
+  }
+}
+
+function* getUserProfile({ payload: { token } }){
+  try {
+    yield put(setIsLoading(true))
+    const profile = yield call(authDBCalls.getUserProfile, token);
+    console.log('returned getProfile response', profile)
+    yield put(signInSuccess(profile, token))
+  } catch (err) {
+    console.log('error found', err);
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
+      : networkErrorMessage
+    // yield put(pinError(errorMessage))
   }
 }
 
@@ -94,8 +124,13 @@ function* confirmPinRequest() {
   yield takeLatest(CONFIRM_PIN, confirmPin)
 }
 
+function* getUserProfileRequest() {
+  yield takeLatest(GET_USER_PROFILE, getUserProfile)
+}
+
 export default function* authSagas() {
   yield spawn(signUpRequest)
   yield spawn(signInRequest)
   yield spawn(confirmPinRequest)
+  yield spawn(getUserProfileRequest)
 }

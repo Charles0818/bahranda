@@ -10,7 +10,8 @@ const { useButtonSpinner } = Spinners;
 const { FormField, useFormInput, SubmitButton } = Form;
 const ConfirmEmail = ({ confirmPin, isLoading, pinError, userEmail }) => {
   const { replace } = useHistory()
-  const { LoadingSpinner } = useButtonSpinner(isLoading);
+  const { isLoading: loading, LoadingSpinner } = useButtonSpinner(isLoading);
+  console.log('this is loading', loading)
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput(userEmail);
   const { value: pin, handleUserInput: setPin, error: pinErr, isValid: passIsValid } = useFormInput();
   const validateFields = emailIsValid && passIsValid;
@@ -28,7 +29,7 @@ const ConfirmEmail = ({ confirmPin, isLoading, pinError, userEmail }) => {
           <div className="margin-bottom-sm">
             {pinError && <p className="font-sm danger-text font-weight-600">Error: {pinError}</p> }
           </div>
-          <SubmitButton disabled={!validateFields} spinner={LoadingSpinner} text="Activate Account" action={handleSubmit} style={{width: '100%'}} />
+          <SubmitButton isLoading={loading} disabled={!validateFields} spinner={LoadingSpinner} text="Activate Account" action={handleSubmit} style={{width: '100%'}} />
         </form>
       </section>
     </main>

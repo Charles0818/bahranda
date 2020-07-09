@@ -1,15 +1,22 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { FaSignOutAlt, FaWindows, FaStore, FaTimes } from 'react-icons/fa';
 import { MdAccountCircle, MdAccountBalanceWallet } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
-const LeftSidebar = forwardRef(({sidebarRef}) => {
+import { Modal } from '../../../components';
+import { actions  } from '../../../../helpers';
+
+const { authActions: { signOut } } = actions;
+const { useConfirmation } = Modal;
+const LeftSidebar = forwardRef(({}, ref) => {
   return (
-    <aside ref={sidebarRef} className="sidebar bg-color1 padding-horizontal-sm padding-vertical-lg">
+    <aside ref={ref} className="sidebar bg-color1 padding-horizontal-sm padding-vertical-lg">
       <h3 className="text-center store font-lg color-white">Store</h3>
       <div className="d-flex justify-content-end margin-bottom-lg">
         <FaTimes className="color-white font-lg margin-right-sm times cursor-pointer"
-        onClick={() => sidebarRef.current.classList.remove('toggle')}
+        onClick={() => ref.current.classList.remove('toggle')}
       />
       </div>
       <SidebarItem link="/account" icon={FaWindows} text='dashboard' exact={true} />
@@ -31,12 +38,20 @@ const SidebarItem = ({ icon: Icon, text, link, ...rest }) => {
   )
 }
 
-const Logout = () => {
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ signOut }, dispatch)
+const Logout = connect(null, mapDispatchToProps)(({ signOut }) => {
+  const { ConfirmationChild, openModal } = useConfirmation();
   return (
-    <li className="d-flex align-items-center color-white sidebar-item padding-vertical-xsm padding-horizontal-sm">
-      <FaSignOutAlt className="margin-right-sm font-md" />
-      <span className="font-md">Log out</span>
-    </li>
+    <Fragment>
+      <li onClick={openModal} className="d-flex align-items-center color-white sidebar-item padding-vertical-xsm padding-horizontal-sm">
+        <FaSignOutAlt className="margin-right-sm font-md" />
+        <span className="font-md">Log out</span>
+      </li>
+      <ConfirmationChild action={signOut} heading={"Log out"}>
+        <p>Are you sure you want to logout ?</p>
+      </ConfirmationChild>
+    </Fragment>
   )
-}
+})
 export default LeftSidebar;

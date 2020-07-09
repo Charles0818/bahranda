@@ -12,6 +12,7 @@
     max-width: 500px;
     .card-title {
       > * {
+        background: $white;
         color: $dark;
         flex: 1;
         border-bottom:  2px solid $gray-color;

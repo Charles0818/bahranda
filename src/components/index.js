@@ -7,8 +7,9 @@ import * as Carousels from './Carousels';
 import * as Spinners from './Spinners';
 import * as Form from './Form';
 import * as Cards from './Cards';
+import * as Modal from './Modal';
 export {
   ProtectedRoute, Header, Footer, Cards,
   ErrorBoundary, Spinners, Form, Carousels,
-  Accordion
+  Accordion, Modal
 };

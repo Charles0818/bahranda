@@ -1,7 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Form } from '../../../components';
+import { actions } from '../../../../../helpers'
+const { FormField, useFormInput, useSelectInput, PasswordField, SubmitButton } = Form;
 
-const { FormField, useFormInput, useSelectInput, PasswordField, SubmitButton} = Form;
+const {  } = actions;
 const Profile = () => {
   const { value: title, SelectInput } = useSelectInput('Mr');
   const { value: address, handleUserInput: setAddress, isValid: addressIsValid, error: addressErr } = useFormInput();
@@ -27,4 +31,11 @@ const Profile = () => {
   )
 }
 
-export default Profile;
+const mapStateToProps = state => {
+  const { name, email } = state.accountReducer;
+  return { name, email }
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({  }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

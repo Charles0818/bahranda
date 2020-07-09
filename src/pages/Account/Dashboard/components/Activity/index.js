@@ -42,7 +42,7 @@ const ActivityRow = ({ amount, product, date, active }) => {
         <span className="font-weight-500 font-style-normal font-md margin-right-sm">{amount}</span>
       </div>
       <div className="d-flex justify-content-end">
-        <span className={`font-weight-500 font-style-normal font-md margin-right-sm justify-self-end ${active ? 'color1' : 'danger-text'}`}>{active ? 'ongoing' : 'ended'}</span>
+        <span className={`font-weight-500 font-style-normal font-md margin-right-sm  ${active ? 'color1' : 'danger-text'}`}>{active ? 'ongoing' : 'ended'}</span>
       </div>
     </div>
   )

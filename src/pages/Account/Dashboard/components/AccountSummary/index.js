@@ -1,6 +1,12 @@
 import React from 'react';
+import { utils } from '../../../helpers';
+const { formatting: { formatCurrency } } = utils;
+const AccountSummary = ({ summary }) => {
+  // total_deals_amount, withdrawn, active_deals
+  React.useEffect(() => {
 
-const AccountSummary = () => {
+  console.log('formatted amount', formatCurrency(5), 'account summary', summary)
+  }, [summary])
   return (
     <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
       <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom padding-vertical-sm">Account Summary</h2>

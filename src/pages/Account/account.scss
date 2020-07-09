@@ -3,7 +3,6 @@
 @import 'spacings';
 .account {
   .sidebar {
-    flex: .15; height: 100vh;
     flex: .15;
     height: 100vh;
     position: fixed;
@@ -15,12 +14,12 @@
       font-family: $font-family-1;
       border-left: 2px solid transparent;
       .icon { font-size: 1.5em; }
-      &:hover, .active {
+      &:hover, &.active {
         border-left: 2px solid $white;
         background: rgba(255, 255, 255, 0.33)
       }
     }
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-only(md) {
       &:hover {
         .sidebar-item {
           span { display: inline-block }
@@ -30,11 +29,18 @@
         display: none;
       }
     }
+    @include media-breakpoint-down(md) {
+      .store, { 
+        display: none;
+      }
+    }
     @include media-breakpoint-down(sm) {
       width: 0px;
+      display: none;
       padding: 0;
       &.toggle {
         width: auto;
+        display: block;
         @include padding-horizontal(10px);
         @include padding-vertical(40px)
       }
@@ -46,16 +52,18 @@
   .main {
     flex: 1;
     max-width: 1200px;
-    margin-left: 140px;
+    margin-left: 180px;
     // margin: 0 auto;
     // @include padding-horizontal(120px);
     @include media-breakpoint-down(sm) {
       margin-left: 0;
     }
   };
-  .main { flex: .85 };
 }
 // Horizontal-Navbar
+.greet {
+  @include media-breakpoint-down(sm) { font-size: 1em; }
+}
 nav {
   .shopping-cart {
     margin-left: auto;
@@ -68,26 +76,17 @@ nav {
 
 // End of Horizontal-Navbar
 
+// Dashboard
+// Activity Section
 .summary {
   > .d-flex .statement {
     flex: 1;
-    @include media-breakpoint-down(sm) {
-      min-width: 100%;
-    }
+    @include media-breakpoint-down(sm) { min-width: 100%; }
     @include media-breakpoint-down(xs) {
       border-right: none;
       border-bottom: $slim-border
     }
   }
-  .main {
-    flex: .85;
-    max-width: 1200px;
-    margin: 0 auto;
-  };
-
-
-.summary {
-  > .d-flex .statement { flex: 1 }
 }
 
 .expenditure {
@@ -101,9 +100,13 @@ nav {
   };
 }
 
-// Dashboard
-// Activity Section
+
 .activity {
+  .headings > *:not(.remark), .data-row > *:not(.remark) { flex: 1 }
+  .headings > .remark, .data-row > .remark {
+    flex: 3;
+    @include media-breakpoint-down(sm) { flex: 1 }
+  }
   .ongoing {
     color: $color1;
   }
@@ -113,5 +116,4 @@ nav {
   flex: .2;
   min-width: 100px;
   @include media-breakpoint-down(sm) { flex: 1 }
-}
 }
