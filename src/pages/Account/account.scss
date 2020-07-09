@@ -77,7 +77,6 @@ nav {
 // End of Horizontal-Navbar
 
 // Dashboard
-// Activity Section
 .summary {
   > .d-flex .statement {
     flex: 1;
@@ -100,7 +99,7 @@ nav {
   };
 }
 
-
+// Activity Section
 .activity {
   .headings > *:not(.remark), .data-row > *:not(.remark) { flex: 1 }
   .headings > .remark, .data-row > .remark {

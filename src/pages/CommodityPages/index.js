@@ -11,9 +11,9 @@ const CommodityPages = ({ match: { path } }) => {
   return (
     <Fragment>
       <section className="account d-flex">
-        <LeftSideBar sidebarRef={sidebarRef} />
+        <LeftSideBar ref={sidebarRef} />
         <div className="main padding-horizontal-xlg padding-vertical-lg">
-          <HorizontalNavbar sidebarRef={sidebarRef} />
+          <HorizontalNavbar ref={sidebarRef} />
           <main>
             <Switch>
               <Route exact path={path} component={Commodities} />
