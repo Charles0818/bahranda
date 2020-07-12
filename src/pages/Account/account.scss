@@ -7,7 +7,7 @@
     height: 100vh;
     position: fixed;
     left: 0;
-    transition: all .5s;
+    transition: transform .5s;
     z-index: 99;
     .times { display: none }
     .sidebar-item {
@@ -35,29 +35,18 @@
       }
     }
     @include media-breakpoint-down(sm) {
-      width: 0px;
-      display: none;
-      padding: 0;
-      &.toggle {
-        width: auto;
-        display: block;
-        @include padding-horizontal(10px);
-        @include padding-vertical(40px)
-      }
-      .times { 
-        display: inline-block;
-      }
+      transform: translateX(-100%);
+      &.toggle { transform: translateX(0); }
+      .times { display: inline-block; }
     }
   };
   .main {
     flex: 1;
+    flex-basis: 100%;
     max-width: 1200px;
     margin-left: 180px;
-    // margin: 0 auto;
-    // @include padding-horizontal(120px);
-    @include media-breakpoint-down(sm) {
-      margin-left: 0;
-    }
+    @include media-breakpoint-only(md) { margin-left: 70px; }
+    @include media-breakpoint-down(sm) { margin-left: 0; }
   };
 }
 // Horizontal-Navbar
@@ -115,4 +104,13 @@ nav {
   flex: .2;
   min-width: 100px;
   @include media-breakpoint-down(sm) { flex: 1 }
+}
+
+.investment {
+  .thumbnail {
+    flex: .3;
+  }
+  .details {
+    flex: .7;
+  }
 }

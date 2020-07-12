@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from  'prop-types';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
 import { useSwipeable } from 'react-swipeable';
 import '../carousel.scss';
 import useSlide from '../useSlide';
 
-const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, controls }) => {
+const LayerCarousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, controls }) => {
   const { slideLeft, distance, slideRight, bulletSlide } = useSlide(slides.length, slideWidth);
+  const slideRef = useRef();
+  const [displayingSlides, setDisplayingSlides] = useState(0)
+  const containerWidth = window.outerWidth - 120;
   const handlers = useSwipeable({
     onSwipedLeft: () => slideRight(),
     onSwipedRight: () => slideLeft(),
@@ -15,18 +18,21 @@ const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, 
   });
   const middleComponent =  slides[((slides.length - 1) / 2)]
   useEffect(() => {
+    setDisplayingSlides(parseInt(containerWidth / slideRef.current.scrollWidth));
+    console.log('displayingSlides', displayingSlides)
+    console.log('slideRef', slideRef.current.scrollWidth, window.outerWidth);
     if(autoSlide) {
       const interval = slides.length > 1 ? setInterval(() => slideRight(), duration) : null;
       return () => clearInterval(interval)
     }
-  })
+  }, [slideRef.current])
   return (
     slides.length !== 0 && (
-      <div {...handlers} className="padded-carousel padding-horizontal-xlg slider position-relative overflow-h margin-bottom-sm">
-        <div className="d-flex nowrap align-items-center justify-content-s-evenly overflow-h position-relative" style={{width: '100%'}}>
-          {slides.map((Slide, index) => {
+      <div  {...handlers} className="padded-carousel padding-horizontal-xlg slider position-relative overflow-h margin-bottom-sm cursor-pointer">
+        <div className="d-flex nowrap align-items-center overflow-h position-relative" style={{width: '100%'}}>
+          {slides.map((Slide, index, arr) => {
             return (
-              <div key={index} className="slide" style={{minWidth: !cardAlign ? '100%' : 'auto', transform: `translateX(${distance}%)`}}>
+              <div ref={slideRef} key={index} className="slide layer-carousel" style={{minWidth: !cardAlign ? '100%' : 'auto', transform: `translateX(${distance}%)`}}>
                 {Slide}
               </div>
             )
@@ -56,7 +62,7 @@ const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, 
   )
 }
 
-Carousel.propTypes = {
+LayerCarousel.propTypes = {
   duration: PropTypes.number.isRequired,
   bullet: PropTypes.bool,
   controls: PropTypes.bool,
@@ -64,7 +70,7 @@ Carousel.propTypes = {
   autoSlide: PropTypes.bool,
   cardAlign: PropTypes.bool,
 }
-Carousel.defaultProps = {
+LayerCarousel.defaultProps = {
   duration: 3500,
   bullet: false,
   controls: true,
@@ -72,4 +78,4 @@ Carousel.defaultProps = {
   autoSlide: true,
   cardAlign: false,
 }
-export default Carousel;
+export default LayerCarousel;

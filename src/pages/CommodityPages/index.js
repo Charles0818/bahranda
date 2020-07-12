@@ -4,17 +4,17 @@ import Commodities from './Commodities';
 import CommodityDetails from './CommodityDetails';
 import { HorizontalNavbar, LeftSideBar } from '../Account/components';
 import { Footer } from '../components';
-import '../Account/account.scss';
+// import '../Account/account.scss';
 import './product.scss';
 const CommodityPages = ({ match: { path } }) => {
-  const sidebarRef = useRef();
+  const sidebarRef = useRef(null);
   return (
     <Fragment>
-      <section className="account d-flex">
+      <section className="account ">
         <LeftSideBar ref={sidebarRef} />
         <div className="main padding-horizontal-xlg padding-vertical-lg">
           <HorizontalNavbar ref={sidebarRef} />
-          <main>
+          <main className="">
             <Switch>
               <Route exact path={path} component={Commodities} />
               <Route path={`${path}/:id`} component={CommodityDetails} />
