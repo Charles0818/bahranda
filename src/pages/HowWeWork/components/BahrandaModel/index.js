@@ -1,8 +1,11 @@
 import React from 'react';
+import model from '../../assets/model.svg'
 
 const BahrandaModel = () => {
   return (
-    <section></section>
+    <section>
+      <img src={model} alt="bahranda" />
+    </section>
   )
 }
 
