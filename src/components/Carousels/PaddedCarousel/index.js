@@ -22,7 +22,7 @@ const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, 
   return (
     slides.length !== 0 && (
       <div {...handlers} className="padded-carousel padding-horizontal-xlg slider position-relative overflow-h margin-bottom-sm">
-        <div className="d-flex nowrap align-items-center justify-content-s-evenly overflow-h position-relative" style={{width: '100%'}}>
+        <div className="d-flex nowrap align-items-center overflow-h position-relative" style={{width: '100%'}}>
           {slides.map((Slide, index) => {
             return (
               <div key={index} className="slide" style={{minWidth: !cardAlign ? '100%' : 'auto', transform: `translateX(${distance}%)`}}>

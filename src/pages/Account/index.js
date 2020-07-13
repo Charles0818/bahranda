@@ -5,8 +5,9 @@ import { bindActionCreators } from 'redux';
 import Dashboard from './Dashboard';
 import Wallet from './Wallet';
 import Settings from './Settings';
+import InvestmentHistory from './InvestmentHistory';
 import { HorizontalNavbar, LeftSideBar,  } from './components';
-import { Spinners } from '../components';
+import { Spinners, Error404 } from '../components';
 import { actions } from './helpers';
 import './account.scss';
 // const Admin = lazy(() => import('./Admin'));
@@ -31,6 +32,8 @@ const Account = ({ match: { path }, getAccountDashboard, token }) => {
                 <Route exact path={path} component={Dashboard} />
                 <Route exact path={`${path}/wallet`} component={Wallet} />
                 <Route exact path={`${path}/settings`} component={Settings} />
+                <Route exact path={`${path}/investments`} component={InvestmentHistory} />
+                <Route component={Error404} />
               </Switch>
             : LoadingSpinner
             }

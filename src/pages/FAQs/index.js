@@ -1,6 +1,6 @@
 import React from 'react';
-import { Accordion } from '../../../components';
-const FAQ = () => {
+import { Accordion, PageWrapper } from '../components';
+const FAQs = () => {
   const faqs = [
     {
       question: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
@@ -44,13 +44,15 @@ const FAQ = () => {
     }
   ]
   return (
-    <section className="padding-horizontal-xlg margin-bottom-md faqs">
-      <h2 className="text-center font-lg margin-bottom-md font-weight-normal font-style-normal">Frequently Asked Questions</h2>
-      {faqs.map((faq, index) => (
-        <Accordion title={faq.question} content={<p className="font-md text-content">{faq.answer}</p>} key={index} />
-      ))}
-    </section>
+    <PageWrapper>
+      <section className="padding-horizontal-xlg padding-vertical-lg">
+        <h2 className="text-center font-lg margin-bottom-md font-weight-normal font-style-normal">Frequently Asked Questions</h2>
+        {faqs.map((faq, index) => (
+          <Accordion title={faq.question} content={<p className="font-md text-content">{faq.answer}</p>} key={index} />
+        ))}
+      </section>
+    </PageWrapper>
   )
 }
 
-export default FAQ;
+export default FAQs;

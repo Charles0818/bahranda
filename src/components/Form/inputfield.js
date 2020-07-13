@@ -79,6 +79,16 @@ export const useSelectInput = (initialValue) => {
   })
   return { value, SelectInput }
 }
+
+export const CustomSelect = ({ onChange, value ='hello world', placeholder }) => {
+  return (
+    <select value={value} onChange={onChange} placeholder={placeholder}>
+      <option label="Option 1 label" value="Option 1 value">Option 1</option>
+      <option>Option 2</option>
+      <option>Option 3</option>
+    </select>
+  )
+}
 export const SubmitButton = ({ isLoading, spinner: Spinner, text, action, disabled, className = '', ...rest }) => {
   const buttonRef = useRef(null);
   const preventBeforeFire = (e) => {

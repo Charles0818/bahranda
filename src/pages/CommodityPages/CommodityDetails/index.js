@@ -11,27 +11,26 @@ const CommodityDetails = () => {
   const slides = [
     tomatoes, rice, soyabean
   ];
-
   const relatedCommodities = [
     <CommodityCard product={{thumbnail: rice, name: 'rice'}} />,
     <CommodityCard product={{thumbnail: soyabean, name: 'soyabeans'}} />,
     <CommodityCard product={{thumbnail: tomatoes, name: 'tomatoes'}} />,
-    // <CommodityCard product={{thumbnail: rice, name: 'rice'}} />,
-    // <CommodityCard product={{thumbnail: soyabean, name: 'soyabeans'}} />,
+    <CommodityCard product={{thumbnail: rice, name: 'rice'}} />,
+    <CommodityCard product={{thumbnail: soyabean, name: 'soyabeans'}} />,
     <CommodityCard product={{thumbnail: tomatoes, name: 'tomatoes'}} />
   ]
   return (
-    <article className="d-flex column ">
+    <article className="d-flex column" style={{width: '100%'}}>
       <h1 className="font-lg margin-bottom-sm">Commodity Details</h1>
       <div className="d-flex align-items-center justify-content-s-between thumbnail-details margin-bottom-md">
-        <div className="thumbnail-slider">
+        <div className="thumbnail-slider margin-right-md">
           <ThumbnailCarousel autoSlide={false} thumbnails={slides} />
         </div>
         <section className="details">
-        
+          
         </section>
       </div>
-      <main className="product-details">
+      <main className="product-details" style={{width: '100%'}}>
         <h2 className="uppercase font-md">description</h2>
         <div className="bg-white slim-border">
           <p className="font-sm padding-horizontal-md padding-vertical-md">
@@ -50,8 +49,8 @@ const CommodityDetails = () => {
             Fusce molestie ipsum non condimentum tempor.
           </p>
         </div>
-        <div className='padding-vertical-lg'>
-          <div className="bg-gray bg-color1 padding-horizontal-md padding-vertical-md">
+        <div className='padding-vertical-lg' style={{width: '100%'}}>
+          <div className="bg-gray bg-color1 padding-horizontal-md padding-vertical-md" style={{width: '100%'}}>
             <h3 className="font-lg margin-bottom-md">Related Commodities</h3>
             <PaddedCarousel slides={relatedCommodities} cardAlign={true} autoSlide={false} />
           </div>

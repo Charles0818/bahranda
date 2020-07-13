@@ -1,3 +1,3 @@
 import TeamCard from './TeamCard';
-import CommodityCard from './CommodityCard';
-export { TeamCard, CommodityCard };
+import CommodityCard, { PortraitCommodityCard } from './CommodityCard';
+export { TeamCard, CommodityCard, PortraitCommodityCard };

@@ -1,9 +1,9 @@
-import React, { forwardRef, Fragment } from 'react';
+import React, { forwardRef, Fragment, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FaSignOutAlt, FaWindows, FaStore, FaTimes } from 'react-icons/fa';
-import { MdAccountCircle, MdAccountBalanceWallet } from 'react-icons/md';
+import { MdAccountBalanceWallet } from 'react-icons/md';
 import { FiSettings } from 'react-icons/fi';
 import { Modal } from '../../../components';
 import { actions  } from '../../../../helpers';
@@ -11,6 +11,15 @@ import { actions  } from '../../../../helpers';
 const { authActions: { signOut } } = actions;
 const { useConfirmation } = Modal;
 const LeftSidebar = forwardRef(({}, ref) => {
+  useEffect(() => {
+    const event = window.addEventListener('click', e => {
+      if(ref.current) {
+        if(e.target.classList.contains('sidebar') || e.target.classList.contains('bar')) return;
+        ref.current.classList.remove('toggle')
+      }
+    });
+    // return () => window.removeEventListener(event);
+  }, [])
   return (
     <aside ref={ref} className="sidebar bg-color1 padding-horizontal-sm padding-vertical-lg">
       <h3 className="text-center store font-lg color-white">Store</h3>
@@ -23,6 +32,7 @@ const LeftSidebar = forwardRef(({}, ref) => {
       <SidebarItem link="/commodities" icon={FaStore} text="commodities" />
       {/* <SidebarItem link="/account/investments" icon={MdAccountCircle} text='investments' /> */}
       <SidebarItem link="/account/wallet" icon={MdAccountBalanceWallet} text='wallet' />
+      <SidebarItem link="/account/investments" icon={MdAccountBalanceWallet} text='investments' />
       <SidebarItem link="/account/settings" icon={FiSettings} text='settings' />
       <Logout />
     </aside>

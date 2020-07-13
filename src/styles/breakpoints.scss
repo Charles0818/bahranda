@@ -65,5 +65,5 @@
 }
 
 @mixin media-breakpoint-custom-down($value) {
-  @media (min-width: #{$value}) { @content; }
+  @media (max-width: #{$value}) { @content; }
 }

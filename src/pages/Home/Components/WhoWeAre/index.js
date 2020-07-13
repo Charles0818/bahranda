@@ -3,9 +3,9 @@ import carrier from '../../assets/carrier.png';
 import warehouse from '../../assets/warehouse.png';
 const WhoWeAre = () => {
   return (
-    <section className="who-we-are position-relative">
-      <div className="d-flex justify-content-s-between content padding-horizontal-xlg  position-absolute-overlay">
-        <div className="images d-flex column">
+    <section className="who-we-are position-relative margin-top-lg">
+      <div className="d-flex justify-content-s-between content padding-horizontal-xlg">
+        <div className="images d-flex ">
           <img src={carrier} alt="display" className="margin-bottom-md" />
           <img src={warehouse} alt="dispaly" className="margin-bottom-md" />
         </div>
