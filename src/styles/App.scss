@@ -9,7 +9,7 @@
   border-top-right-radius:  #{$value};
   border-top-left-radius:  #{$value}
 }
-/*End of @mixins*/
+// /End of @mixins/
 
 @keyframes scale {
   from{
@@ -193,7 +193,7 @@ header {
 .d-inline-block {
   display: inline-block;
 }
-/*Top Navigation bar*/
+// Top Navigation bar
 
 .sticky_nav {
   position: fixed;
@@ -351,7 +351,7 @@ header {
   }
 }
 
-/*How We Work section*/
+// How We Work section
 .how-we-work {
   header {
     background: url('../assets/warehouse.png') no-repeat center;
@@ -364,7 +364,7 @@ header {
     }
   }
   > section:not(.faqs) {
-    height: 500px;
+   &.we-store, &.we-buy, &.we-sell { height: 500px; }
     img {
       width: 50%;
       max-width: 282px;
@@ -378,14 +378,32 @@ header {
   .become-a-dealer {
     .step {
       article { flex: .9 }
+      img { max-width: 300px; }
       @include media-breakpoint-down(md) {
         > * {
           flex: 1;
-          width: 100% 
+          width: 100%;
+        }
+      }
+      @include media-breakpoint-down(sm) {
+        article, img {
+          flex-basis: 100%;
+          max-width: 100%;
+          margin-right: 0px;
+        }
+        article {
+          order: 1;
         }
       }
     }
-    @include media-breakpoint-down(sm) {
+  }
+  .model {
+    .bahranda-triangle {
+      max-width: 400px;
+      height: auto;
+      @include media-breakpoint-down(xs) {
+        width: 100%;
+      }
     }
   }
   .we-store {
