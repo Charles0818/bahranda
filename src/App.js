@@ -1,17 +1,25 @@
-import React, { Fragment, Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useLayoutEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import logo from './logo.svg';
 import Home, { Auth, ContactUs, HowWeWork, PrivacyPolicy, TermsOfServices, FAQs } from './pages';
 import { IconContext } from "react-icons";
-import { ErrorBoundary, ProtectedRoute, Spinners, Error404 } from './components';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { ErrorBoundary, ProtectedRoute, Spinners, Error404, NetworkError } from './components';
+import { actions } from './helpers';
 import './styles/App.scss';
 import './styles/form.scss';
 const Account = lazy(() => import('./pages/Account'));
+const CommodityPages = lazy(() => import('./pages/CommodityPages'));
+const { authActions: { getUserProfile } } = actions;
+function App({ token, isLoggedIn, getUserProfile, isLoading }) {
 
-const CommodityPages = lazy(() => import('./pages/CommodityPages'))
-function App() {
+  useLayoutEffect(() => {
+    if(token && !isLoggedIn) getUserProfile(token)
+  }, []);
+  if(isLoading) return <Spinners.FullScreenSpinner isLoading={isLoading} />;
   return (
     <ErrorBoundary>
+      <NetworkError>
       <IconContext.Provider value={{ className: "global-class-name" }}>
         <Router>
           <Suspense fallback={<Spinners.FullScreenSpinner isLoading={true} />}>
@@ -28,8 +36,16 @@ function App() {
           </Suspense>
         </Router>
       </IconContext.Provider>
+      </NetworkError>
     </ErrorBoundary>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  const { token, isLoggedIn } = state.authReducer;
+  const { isLoading } = state.UIReducer;
+  return { token, isLoggedIn, isLoading }
+}
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getUserProfile }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -92,6 +92,7 @@
       @include media-breakpoint-down(xs) {
         margin-right: 0;
         max-width: 100%;
+        height: auto;
       }
       div {
         img {

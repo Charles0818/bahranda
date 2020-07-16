@@ -1,18 +1,24 @@
 import { auth, account } from '../../types';
 const { SIGN_IN_SUCCESS, SIGN_OUT } = auth;
+
 const {
   GET_ACCOUNT_DASHBOARD_SUCCESS,
   UPDATE_PROFILE_SUCCESS, CHANGE_PASSWORD_FAILURE,
-  GET_ACCOUNT_DASHBOARD_FAILURE, UPDATE_PROFILE_FAILURE
+  GET_ACCOUNT_DASHBOARD_FAILURE, UPDATE_PROFILE_FAILURE,
+  UPDATE_BANK_INFO_SUCCESS, UPDATE_BANK_INFO_FAILURE
 } = account;
+
 const initialState = {
  profile: {
 
  },
+
+ bankInfo: {},
  errors: {
    get: '',
    updateProfile: '',
-   changePassword: ''
+   changePassword: '',
+   bankInfo: ''
  },
  success: {
    updateProfile: ''
@@ -37,6 +43,11 @@ const accountReducer = (prevState = initialState, { type, payload }) => {
     case UPDATE_PROFILE_FAILURE:
       prevState.errors.updateProfile = payload.error;
       return prevState;
+    case UPDATE_BANK_INFO_SUCCESS:
+      prevState.bankInfo = payload.bankInfo;
+      return prevState;
+    case UPDATE_BANK_INFO_FAILURE:
+      prevState.errors.bankInfo = payload.error;
     default:
       return prevState;
   }

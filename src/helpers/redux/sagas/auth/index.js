@@ -1,6 +1,6 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { auth } from '../../types';
-import { authActions } from '../../actions';
+import { authActions, UIActions } from '../../actions';
 import { sendData, getData, deleteData, apiKey } from '../ajax';
 const {
   SIGN_IN_REQUEST, SIGN_UP_REQUEST,
@@ -11,7 +11,7 @@ const {
   signUpSuccess, signUpError, pinError,
   setIsLoading, confirmPinSuccess
 } = authActions;
-
+const { startLoading, stopLoading, showNetworkError } = UIActions;
 const networkErrorMessage = 'No internet connection detected';
 const authDBCalls = {
   signUp: async (data) => {
@@ -28,8 +28,8 @@ const authDBCalls = {
     return response
   },
   getUserProfile: async (token) => {
-    const response = await getData(`${apiKey}/auth/activate`, token);
-    return response
+    const response = await getData(`${apiKey}/user/profile`, token);
+    return response.user
   }
 }
 
@@ -98,16 +98,18 @@ function* confirmPin({ payload: { data, redirect } }){
 
 function* getUserProfile({ payload: { token } }){
   try {
-    yield put(setIsLoading(true))
+    yield put(startLoading())
     const profile = yield call(authDBCalls.getUserProfile, token);
     console.log('returned getProfile response', profile)
     yield put(signInSuccess(profile, token))
+    yield put(stopLoading())
   } catch (err) {
     console.log('error found', err);
     const { status, title } = err;
     const errorMessage = status
       ? title
       : networkErrorMessage
+      yield put(stopLoading())
     // yield put(pinError(errorMessage))
   }
 }

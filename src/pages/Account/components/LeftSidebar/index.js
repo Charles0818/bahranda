@@ -54,7 +54,7 @@ const Logout = connect(null, mapDispatchToProps)(({ signOut }) => {
   const { ConfirmationChild, openModal } = useConfirmation();
   return (
     <Fragment>
-      <li onClick={openModal} className="d-flex align-items-center color-white sidebar-item padding-vertical-xsm padding-horizontal-sm">
+      <li onClick={openModal} className="d-flex align-items-center color-white sidebar-item padding-vertical-xsm padding-horizontal-sm cursor-pointer">
         <FaSignOutAlt className="margin-right-sm font-md" />
         <span className="font-md">Log out</span>
       </li>

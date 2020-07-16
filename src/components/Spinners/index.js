@@ -18,6 +18,17 @@ export const useFullScreenSpinner = (bool) => {
   return { LoadingSpinner, setIsLoading, isLoading }
 }
 
+export const SectionSpinner = ({ isLoading }) => {
+  return (
+    <div className="d-flex align-items-center justify-content-center" style={{height: '100%'}}>
+      <SyncLoader
+        size={25}
+        color={"#069801"}
+        loading={isLoading}
+      />
+    </div>
+  )
+}
 export const useSectionSpinner = (bool) => {
   const [isLoading, setIsLoading] = useState(bool ? bool : false);
   const LoadingSpinner =  isLoading && (

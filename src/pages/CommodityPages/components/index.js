@@ -1,2 +1,3 @@
 import ThumbnailCarousel from './ThumbnailCarousel';
-export { ThumbnailCarousel };
+import FillInvestment from './FillInvestment';
+export { ThumbnailCarousel, FillInvestment };

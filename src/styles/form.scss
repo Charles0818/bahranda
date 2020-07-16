@@ -53,7 +53,63 @@ textarea {
   resize: none;
 }
 
-// .submit {
-//   .btn-text { flex: .8 };
-//   .spinner { flex: .2 }
-// }
+// Custom radio button
+.container {
+  display: block;
+  user-select: none;
+  &:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  /* Hide the browser's default radio button */
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    /* When the radio button is checked, add a blue background */
+    &:checked {
+      ~ .checkmark {
+        background-color: $color1;
+        /* Show the indicator (dot/circle) when checked */
+        &:after { display: block; }
+      }
+    }
+  }
+  /* Create a custom radio button */
+  .checkmark {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40%;
+      height: 40%;
+      border-radius: 50%;
+      background: white;
+    }
+  }
+}
+
+.input-dropdown {
+  position: absolute;
+  height: 0px;
+  display: none;
+  transition: max-height .5s ease-in;
+  // background: black;
+  top: 100%;
+  left: 0;
+  right: 0;
+  &.open {
+    height: auto;
+    display: block;
+  }
+}

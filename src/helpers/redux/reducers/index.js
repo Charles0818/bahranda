@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage'
 import UIReducer from './UI';
 import accountReducer from './account';
 import authReducer from './auth';
+import commodityReducer from './commodity';
 
 const authPersistConfig = {
   key: 'auth',
@@ -13,6 +14,7 @@ const authPersistConfig = {
 const allReducers = combineReducers({
   authReducer: persistReducer(authPersistConfig, authReducer),
   accountReducer,
+  commodityReducer,
   UIReducer,
 })
 

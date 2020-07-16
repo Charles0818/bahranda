@@ -1,6 +1,6 @@
 import React from 'react';
 import { Cards, Carousels } from '../../components';
-import { ThumbnailCarousel } from '../components';
+import { ThumbnailCarousel, FillInvestment } from '../components';
 import thumbnail from '../../../assets/soyabean.png';
 import tomatoes from '../../../assets/tomatoes.png';
 import rice from '../../../assets/rice.png';
@@ -22,12 +22,12 @@ const CommodityDetails = () => {
   return (
     <article className="d-flex column" style={{width: '100%'}}>
       <h1 className="font-lg margin-bottom-sm">Commodity Details</h1>
-      <div className="d-flex align-items-center justify-content-s-between thumbnail-details margin-bottom-md">
+      <div className="d-flex align-items-center justify-content-s-between thumbnail-details margin-bottom-md" style={{width: '100%'}}>
         <div className="thumbnail-slider margin-right-md">
           <ThumbnailCarousel autoSlide={false} thumbnails={slides} />
         </div>
-        <section className="details">
-          
+        <section className="details flex-equal">
+          <FillInvestment />
         </section>
       </div>
       <main className="product-details" style={{width: '100%'}}>

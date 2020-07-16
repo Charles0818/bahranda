@@ -4,16 +4,14 @@ const {
   UPDATE_PROFILE_SUCCESS, CHANGE_PASSWORD_FAILURE,
   CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_SUCCESS,
   GET_ACCOUNT_DASHBOARD_FAILURE, GET_ACCOUNT_DASHBOARD_REQUEST,
-  GET_ACCOUNT_DASHBOARD_SUCCESS
+  GET_ACCOUNT_DASHBOARD_SUCCESS, UPDATE_BANK_INFO_FAILURE,
+  UPDATE_BANK_INFO_REQUEST, UPDATE_BANK_INFO_SUCCESS
 } = account;
-export const updateProfile = () => {
-  
-}
 
-export const changePasswordRequest = (data) => {
+export const changePasswordRequest = (data, token) => {
   return {
     type: CHANGE_PASSWORD_REQUEST,
-    payload: { data }
+    payload: { data, token }
   }
 }
 
@@ -31,10 +29,10 @@ export const changePasswordFailure = (error) => {
   }
 }
 
-export const updateProfileRequest = (data) => {
+export const updateProfileRequest = (data, token) => {
   return {
     type: UPDATE_PROFILE_REQUEST,
-    payload: { data }
+    payload: { data, token }
   }
 }
 
@@ -70,6 +68,27 @@ export const getAccountDashboardSuccess = (dashboard) => {
 export const getAccountDashboardFailure = (error) => {
   return {
     type: GET_ACCOUNT_DASHBOARD_FAILURE,
+    payload: { error }
+  }
+}
+
+export const updateBankInfoRequest = (data, token) => {
+  return {
+    type: UPDATE_BANK_INFO_REQUEST,
+    payload: { data, token }
+  }
+}
+
+export const updateBankInfoSuccess = (bankInfo) => {
+  return {
+    type: UPDATE_BANK_INFO_SUCCESS,
+    payload: { bankInfo }
+  }
+}
+
+export const updateBankInfoFailure = (error) => {
+  return {
+    type: UPDATE_BANK_INFO_FAILURE,
     payload: { error }
   }
 }
