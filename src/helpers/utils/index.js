@@ -1,2 +1,4 @@
 import * as formatting from './formatting';
-export { formatting };
+import { checkObjectProperties } from './objectFunctions';
+import bankNames from './bankNames';;
+export { formatting, bankNames, checkObjectProperties };

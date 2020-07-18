@@ -15,6 +15,7 @@ const Commodities = ({
 }) => {
   useEffect(() => {
     getCommoditiesRequest(pageNum, token)
+    console.log('current page number', pageNum)
   }, [pageNum, token]);
   const observer = useRef();
   const lastCommodity = useCallback(node => {
@@ -34,7 +35,7 @@ const Commodities = ({
       <main className="d-flex justify-items-self padding-vertical-lg">
       {commodities.map((commodity, index) => {
         if(index + 1 === commodities.length) {
-          return <div ref={lastCommodity}><CommodityCard commodity={commodity} key={commodity.id} /></div>
+          return <div key={commodity.id} ref={lastCommodity}><CommodityCard commodity={commodity} key={commodity.id} /></div>
         } else {
           return <CommodityCard commodity={commodity} key={commodity.id} />
         }

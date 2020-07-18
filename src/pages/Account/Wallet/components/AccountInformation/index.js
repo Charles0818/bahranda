@@ -1,22 +1,38 @@
 import React from 'react';
 import { Form } from '../../../components';
-
+import { utils, actions } from '../../../helpers';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 const { useSelectInput, FormField, useFormInput, SubmitButton } = Form;
-const AccountInformation = () => {
-  const { value, SelectInput } = useSelectInput();
-  const { value: accountNo, handleUserInput: setAccountNo, isValid: accountNoIsValid, error: accountNoErr } = useFormInput();
-  const { value: accountName, handleUserInput: setAccountName, isValid: accountNameIsValid, error: accountNameErr } = useFormInput();
+const { bankNames } = utils;
+const { walletActions: { updateBankInfoRequest } } = actions;
+const AccountInformation = ({ bankInfo, token, updateBankInfoRequest, loading }) => {
+  const { value: bankName, SelectInput } = useSelectInput(bankInfo.bank_name);
+  const { value: account_no, handleUserInput: setAccountNo, isValid: accountNoIsValid, error: accountNoErr } = useFormInput(bankInfo.account_no);
+  const { value: account_name, handleUserInput: setAccountName, isValid: accountNameIsValid, error: accountNameErr } = useFormInput(bankInfo.account_name);
+  const { value: pin, handleUserInput: setPin, isValid: pinIsValid, error: pinErr } = useFormInput();
+  const validateAllFields = bankName && pinIsValid && accountNoIsValid && accountNameIsValid
   return (
     <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white activity">
       <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom padding-vertical-sm margin-bottom-md">Account Information</h2>
       <div className="d-flex justify-content-s-between">
-        <SelectInput label="Bank name" placeholder="Select bank" options={['Guaranty Trust Bank', 'Access Bank']} className="flex-equal margin-right-sm" />
-        <FormField value={accountNo} onChange={setAccountNo} placeholder="Account number" err={accountNoErr} className="flex-equal margin-right-sm" />
-        <FormField value={accountName} onChange={setAccountName} placeholder="Account name" err={accountNameErr} className="flex-equal" />
+        <SelectInput label="Bank name" placeholder="Select bank" options={[...bankNames]} className="flex-equal margin-right-sm" />
+        <FormField value={account_no} onChange={setAccountNo} placeholder="Account number" err={accountNoErr} className="flex-equal margin-right-sm" />
+        <FormField value={account_name} onChange={setAccountName} placeholder="Account name" err={accountNameErr} className="flex-equal" />
       </div>
-      <SubmitButton text="SUBMIT CHANGES"/>
+      <FormField value={pin} onChange={setPin} placeholder="Withdrawal pin" err={pinErr} className="pin-field" />
+      <SubmitButton action={() => updateBankInfoRequest({ pin, account_name, account_no, bank_name: bankName.value }, token)}
+        text="SUBMIT CHANGES" isLoading={loading} disabled={!validateAllFields} />
     </section>
   )
 }
 
-export default AccountInformation;
+const mapBankDetailsToProps = state => {
+  const { bankInfo, loadingIndicators: { bankInfo: loading } } = state.walletReducer;
+  const { token } = state.authReducer;
+  return { bankInfo, token, loading }
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ updateBankInfoRequest }, dispatch)
+export default connect(mapBankDetailsToProps, mapDispatchToProps)(AccountInformation);

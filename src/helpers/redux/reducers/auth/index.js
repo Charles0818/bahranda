@@ -42,7 +42,18 @@ const authReducer = (prevState = initialState, { type, payload }) => {
       initialState.isLoggedIn = true
       return initialState;
     case SIGN_OUT: {
-      return initialState;
+      console.log('this is auth initialState', initialState)
+      return {
+        token: '',
+        isLoading: false,
+        isLoggedIn: false,
+        email: '',
+        errors: {
+          signIn: '',
+          signUp: '',
+          pin: ''
+        }
+      };
     }
     default:
       return prevState;

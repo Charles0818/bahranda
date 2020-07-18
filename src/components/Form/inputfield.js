@@ -1,4 +1,5 @@
 import React, { useRef, useState, memo } from 'react';
+import ClipLoader from "react-spinners/ClipLoader";
 import Select from 'react-select';
 import { BsEye, BsEyeSlash, BsCheckCircle } from 'react-icons/bs';
 import { MdKeyboardArrowDown } from 'react-icons/md';
@@ -136,18 +137,18 @@ export const CustomSelect = ({ onChange, value ='hello world', placeholder }) =>
   )
 }
 
-export const SubmitButton = ({ isLoading, spinner: Spinner, text, action, disabled, className = '', ...rest }) => {
+export const SubmitButton = ({ isLoading, text, action, disabled, className = '', ...rest }) => {
   const buttonRef = useRef(null);
   const preventBeforeFire = (e) => {
     e.preventDefault();
     action()
   }
   return (
-    <button disabled={disabled} ref={buttonRef} onClick={e => preventBeforeFire(e)} {...rest}
+    <button disabled={disabled} ref={buttonRef} onClick={e => preventBeforeFire(e)} style={{minWidth: '100px'}} {...rest}
       className={`submit d-flex flex-center btn margin-bottom-md ${disabled ? 'cursor-not-allowed bg-color1-opacity-2' : 'bg-color1 ripple'} ${className}`}>
      {!isLoading
       ? <span className="btn-text font-sm color-white font-weight-600">{text}</span>
-      : <div className="spinner">{Spinner}</div>}
+      : <ClipLoader size={20} color="#fff" loading={isLoading} />}
     </button>
   )
 }

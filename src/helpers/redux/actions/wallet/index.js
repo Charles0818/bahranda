@@ -4,9 +4,12 @@ const {
   GET_WALLET_SUCCESS, GET_WALLET_HISTORY_FAILURE,
   GET_WALLET_HISTORY_REQUEST, GET_WALLET_HISTORY_SUCCESS,
   REQUEST_WITHDRAWAL_FAILURE, REQUEST_WITHDRAWAL_REQUEST,
-  REQUEST_WITHDRAWAL_SUCCESS, GET_WITHDRAWAL_REQUESTS,
-  GET_WITHDRAWAL_REQUESTS_FAILURE, GET_WITHDRAWAL_REQUESTS_SUCCESS
-  // GET_WITHDRAWAL_REQUESTS
+  REQUEST_WITHDRAWAL_SUCCESS, GET_WALLET_REQUESTS,
+  GET_WALLET_REQUESTS_FAILURE, GET_WALLET_REQUESTS_SUCCESS,
+  UPDATE_BANK_INFO_SUCCESS, UPDATE_BANK_INFO_REQUEST,
+  UPDATE_BANK_INFO_FAILURE, SET_PIN_SUCCESS,
+  SET_PIN_FAILURE, SET_PIN_REQUEST,
+  INCREMENT_WALLET_HISTORY_PAGENUM
 } = wallet;
 
 export const getWalletRequest = (token) => {
@@ -30,17 +33,17 @@ export const getWalletFailure = (error) => {
   }
 }
 
-export const getWalletHistoryRequest = (token) => {
+export const getWalletHistoryRequest = (pageNum, token) => {
   return {
     type: GET_WALLET_HISTORY_REQUEST,
-    payload: { token }
+    payload: { pageNum, token }
   }
 }
 
-export const getWalletHistorySuccess = (walletHistory) => {
+export const getWalletHistorySuccess = (walletHistory, pageNum, hasNextPage) => {
   return {
     type: GET_WALLET_HISTORY_SUCCESS,
-    payload: { walletHistory }
+    payload: { walletHistory, pageNum, hasNextPage }
   }
 }
 
@@ -51,6 +54,12 @@ export const getWalletHistoryFailure = (error) => {
   }
 }
 
+export const incrementWalletHistoryPageNum = () => {
+  return {
+    type: INCREMENT_WALLET_HISTORY_PAGENUM
+  }
+}
+
 export const requestWithdrawalRequest = (data, token) => {
   return {
     type: REQUEST_WITHDRAWAL_REQUEST,
@@ -58,10 +67,10 @@ export const requestWithdrawalRequest = (data, token) => {
   }
 }
 
-export const requestWithdrawalSuccess = (request) => {
+export const requestWithdrawalSuccess = (request, message) => {
   return {
     type: REQUEST_WITHDRAWAL_SUCCESS,
-    payload: { request }
+    payload: { request, message }
   }
 }
 
@@ -72,23 +81,66 @@ export const requestWithdrawalFailure = (error) => {
   }
 }
 
-export const getWithdrawalRequests = (token) => {
+export const getWalletRequests = (token) => {
   return {
-    type: GET_WITHDRAWAL_REQUESTS,
+    type: GET_WALLET_REQUESTS,
     payload: { token }
   }
 }
 
-export const getWithdrawalRequestsSuccess = (requests) => {
+export const getWalletRequestsSuccess = (requests) => {
   return {
-    type: GET_WITHDRAWAL_REQUESTS_SUCCESS,
+    type: GET_WALLET_REQUESTS_SUCCESS,
     payload: { requests }
   }
 }
 
-export const getWithdrawalRequestsFailure = (error) => {
+export const getWalletRequestsFailure = (error) => {
   return {
-    type: GET_WITHDRAWAL_REQUESTS_FAILURE,
+    type: GET_WALLET_REQUESTS_FAILURE,
+    payload: { error }
+  }
+}
+
+
+export const updateBankInfoRequest = (data, token) => {
+  return {
+    type: UPDATE_BANK_INFO_REQUEST,
+    payload: { data, token }
+  }
+}
+
+export const updateBankInfoSuccess = (bankInfo) => {
+  return {
+    type: UPDATE_BANK_INFO_SUCCESS,
+    payload: { bankInfo }
+  }
+}
+
+export const updateBankInfoFailure = (error) => {
+  return {
+    type: UPDATE_BANK_INFO_FAILURE,
+    payload: { error }
+  }
+}
+
+export const setPinRequest = (data, token) => {
+  return {
+    type: SET_PIN_REQUEST,
+    payload: { data, token }
+  }
+}
+
+export const setPinSuccess = (message) => {
+  return {
+    type: SET_PIN_SUCCESS,
+    payload: { message }
+  }
+}
+
+export const setPinFailure = (error) => {
+  return {
+    type: SET_PIN_FAILURE,
     payload: { error }
   }
 }

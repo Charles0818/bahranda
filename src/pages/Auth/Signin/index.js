@@ -7,7 +7,7 @@ import { Spinners, Form } from '../../../components';
 import '../auth.scss';
 const { authActions: { signInRequest } } = actions;
 const { useButtonSpinner } = Spinners;
-const { FormField, PasswordField, useFormInput, SubmitButton, useCheckbox } =Form;
+const { FormField, PasswordField, useFormInput, SubmitButton, useCheckbox } = Form;
 const SignIn = ({ signIn, isLoading, signInError }) => {
   const { replace } = useHistory()
   const { isLoading: loading, LoadingSpinner } = useButtonSpinner(isLoading);
@@ -33,7 +33,7 @@ const SignIn = ({ signIn, isLoading, signInError }) => {
             <p className="font-weight-300">Pease fill in your login details</p>
           </div>
           <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} />
-          <PasswordField name="password" value={password} onChange={setPassword} placeholder="Password" err={passwordErr} />
+          <PasswordField name="Password" value={password} onChange={setPassword} placeholder="Password" err={passwordErr} />
           <div className="margin-bottom-sm">
             {signInError && <p className="font-sm danger-text font-weight-600">Error: {signInError}</p> }
           </div>

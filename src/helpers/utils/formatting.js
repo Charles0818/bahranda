@@ -5,3 +5,11 @@ export const formatCurrency = (amount) => {
   }).format(parseInt(amount));
   return formatter
 }
+
+new Intl.DateTimeFormat
+
+export const formatDate = (timestamp) => {
+  const date = new Date(timestamp)
+  const formatter = new Intl.DateTimeFormat('en-GB').format(date);
+  return formatter
+}

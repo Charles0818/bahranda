@@ -6,7 +6,7 @@ import Dashboard from './Dashboard';
 import Wallet from './Wallet';
 import Settings from './Settings';
 import InvestmentHistory from './InvestmentHistory';
-import { HorizontalNavbar, LeftSideBar,  } from './components';
+import { HorizontalNavbar, LeftSideBar } from './components';
 import { Spinners, Error404 } from '../components';
 import { actions } from './helpers';
 import './account.scss';
@@ -30,7 +30,7 @@ const Account = ({ match: { path }, getAccountDashboard, token }) => {
             {!isLoading
             ? <Switch>
                 <Route exact path={path} component={Dashboard} />
-                <Route exact path={`${path}/wallet`} component={Wallet} />
+                <Route path={`${path}/wallet`} component={Wallet} />
                 <Route exact path={`${path}/settings`} component={Settings} />
                 <Route exact path={`${path}/investments`} component={InvestmentHistory} />
                 <Route component={Error404} />

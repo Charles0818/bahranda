@@ -4,7 +4,7 @@ import {FaUserCircle, FaBars} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const HorizontalNavbar = forwardRef(({ name }, ref) => {
+const HorizontalNavbar = forwardRef(({ first_name, last_name }, ref) => {
   return (
     <nav className="d-flex nowrap justify-content-s-between align-items-center padding-bottom-md margin-bottom-md slim-border-bottom">
       <div className="d-flex align-items-center">
@@ -12,7 +12,7 @@ const HorizontalNavbar = forwardRef(({ name }, ref) => {
           onClick={() => ref.current.classList.toggle('toggle')}>
           <FaBars className="font-lg " />
         </div>
-        <h2 className="greet font-lg capitalize">Hello, {name}</h2>
+        <h2 className="greet font-lg capitalize">Hello, {`${first_name} ${last_name}`}</h2>
       </div>
       <div className="d-flex align-items-center">
         <Link to="/" className="margin-right-md">
@@ -25,8 +25,8 @@ const HorizontalNavbar = forwardRef(({ name }, ref) => {
 });
 
 const mapNameToProps = state => {
-  const { name } = state.accountReducer.profile;
-  return { name }
+  const { first_name, last_name } = state.accountReducer.profile;
+  return { first_name, last_name }
 }
 
 export default connect(mapNameToProps, null)(HorizontalNavbar);

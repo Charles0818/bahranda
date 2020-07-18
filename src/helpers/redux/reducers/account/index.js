@@ -3,28 +3,33 @@ const { SIGN_IN_SUCCESS, SIGN_OUT } = auth;
 
 const {
   GET_ACCOUNT_DASHBOARD_SUCCESS,
-  UPDATE_PROFILE_SUCCESS, CHANGE_PASSWORD_FAILURE,
-  GET_ACCOUNT_DASHBOARD_FAILURE, UPDATE_PROFILE_FAILURE,
-  UPDATE_BANK_INFO_SUCCESS, UPDATE_BANK_INFO_FAILURE
+  UPDATE_PROFILE_SUCCESS, CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_FAILURE, GET_ACCOUNT_DASHBOARD_FAILURE,
+  UPDATE_PROFILE_FAILURE,
+  UPDATE_PROFILE_INDICATOR, CHANGE_PASSWORD_INDICATOR
 } = account;
 
 const initialState = {
- profile: {
+  profile: {
 
- },
-
- bankInfo: {},
- errors: {
-   get: '',
-   updateProfile: '',
-   changePassword: '',
-   bankInfo: ''
- },
- success: {
-   updateProfile: ''
- }
+  },
+  errors: {
+    get: '',
+    updateProfile: '',
+    changePassword: '',
+    bankInfo: ''
+  },
+  success: {
+    updateProfile: '',
+    changePassword: '',
+  },
+  loadingIndicators: {
+    updateProfile: false,
+    changePassword: false
+  }
 }
 const accountReducer = (prevState = initialState, { type, payload }) => {
+  console.log('profile initialized', prevState.profile)
   switch(type) {
     case SIGN_IN_SUCCESS:
       prevState.profile = payload.user;
@@ -33,21 +38,33 @@ const accountReducer = (prevState = initialState, { type, payload }) => {
       return initialState
     case GET_ACCOUNT_DASHBOARD_SUCCESS:
       return { ...prevState, ...payload.dashboard }
+    case UPDATE_PROFILE_INDICATOR:
+      console.log('I got triggered for updateProfileRequest', prevState)
+      return {...prevState, loadingIndicators: { ...prevState.loadingIndicators, updateProfile: true }}
     case UPDATE_PROFILE_SUCCESS:
-      prevState.success.updateProfile = payload.message
-      prevState.profile = payload.profile;
+      prevState.success.updateProfile = payload.message;
+      prevState.loadingIndicators.updateProfile = false;
+      const profile = {...prevState.profile, ...payload.profile}
+      console.log('profile xxxxx', profile)
+      return { ...prevState, profile  };
+    case UPDATE_PROFILE_FAILURE:
+      prevState.loadingIndicators.updateProfile = false
       return prevState;
+    case CHANGE_PASSWORD_INDICATOR:
+      console.log('I got triggered for changePasswordRequest', prevState)
+      return {...prevState, loadingIndicators: { ...prevState.loadingIndicators, changePassword: true }}
+    case CHANGE_PASSWORD_SUCCESS:
+      prevState.success.changePassword = payload.message
+      prevState.loadingIndicators.changePassword = false;
+      return { ...prevState };
     case CHANGE_PASSWORD_FAILURE:
       prevState.errors.changePassword = payload.error;
-      return prevState
+      prevState.loadingIndicators.changePassword = false
+      console.log('this is prevState right now', prevState)
+      return {...prevState}
     case UPDATE_PROFILE_FAILURE:
       prevState.errors.updateProfile = payload.error;
       return prevState;
-    case UPDATE_BANK_INFO_SUCCESS:
-      prevState.bankInfo = payload.bankInfo;
-      return prevState;
-    case UPDATE_BANK_INFO_FAILURE:
-      prevState.errors.bankInfo = payload.error;
     default:
       return prevState;
   }
