@@ -7,21 +7,24 @@ import { Spinners, Form } from '../../../components';
 
 const { authActions: { signUpRequest } } = actions;
 const { useButtonSpinner } = Spinners;
-const { FormField, PasswordField, useFormInput, SubmitButton, useCheckbox } =Form;
+const { FormField, PasswordField, useFormInput, useSelectInput, SubmitButton, useCheckbox } =Form;
 const SignUp = ({ signUp, isLoading, signUpError }) => {
   const { replace } = useHistory();
   const { LoadingSpinner } = useButtonSpinner(isLoading);
   const { value: first_name, handleUserInput: setFirstName, error: firstNameErr, isValid: firstNameIsValid } = useFormInput();
+  const { value: phone, handleUserInput: setPhone, isValid: phoneIsValid, error: phoneErr } = useFormInput();
   const { value: last_name, handleUserInput: setLastName, error: lastNameErr, isValid: lastNameIsValid } = useFormInput();
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
   const { value: password, handleUserInput: setPassword, error: passwordErr, isValid: passIsValid } = useFormInput();
   const { value: password_confirmation, handleUserInput: setPassword2 } = useFormInput();
   const { checked, Checkbox } = useCheckbox();
+  const { value: sex, SelectInput } = useSelectInput();
+
   const validatePassword = password !== password_confirmation ? 'Passwords do not match' : '';
   const validateFields = emailIsValid && passIsValid && firstNameIsValid &&
     lastNameIsValid &&  password === password_confirmation && checked;
 
-  const handleSubmit = () => signUp({ first_name, last_name, email, password, password_confirmation }, replace)
+  const handleSubmit = () => signUp({ first_name, last_name, email, password, password_confirmation, phone, sex: sex.value }, replace)
   return (
     <main className="d-flex auth-container padding-horizontal-lg padding-vertical-md">
       <section className="auth-card border-r-10 padding-horizontal-lg padding-vertical-lg border_r_5">
@@ -43,6 +46,10 @@ const SignUp = ({ signUp, isLoading, signUpError }) => {
             <FormField name="Last name" value={last_name} onChange={setLastName} placeholder="Last name" err={lastNameErr} className="flex-equal" />
           </div>
           <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} />
+          <FormField type="tel" name="phone" value={phone} onChange={setPhone} placeholder="Phone" err={phoneErr} className="flex-equal margin-right-sm" />
+
+          <SelectInput label="Sex" options={['male', 'female']} className=" margin-right-sm name-title" />
+
           <PasswordField name="password" value={password} onChange={setPassword} placeholder="Password" err={passwordErr} />
           <PasswordField name="password" value={password_confirmation} onChange={setPassword2} placeholder="Confirm password" />
           <div className="d-flex nowrap margin-bottom-md">

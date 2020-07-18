@@ -30,3 +30,32 @@ export const incrementPageNum = () => {
     type: INCREMENT_PAGENUM
   }
 }
+
+// Get Single Commodity
+const {
+  GET_SINGLE_COMMODITY_REQUEST, GET_SINGLE_COMMODITY_SUCCESS, 
+  GET_SINGLE_COMMODITY_FAILURE
+} = commodity;
+
+export const getSingleCommodityRequest = (token, details) => {
+  return {
+    type: GET_SINGLE_COMMODITY_REQUEST,
+    payload: {token, details }
+  }
+}
+
+export const getSingleCommoditySuccess = (details) => {
+  return {
+    type: GET_SINGLE_COMMODITY_SUCCESS,
+    payload: {details}
+  }
+}
+
+
+
+export const getSingleCommodityFailure = (error) => {
+  return {
+    type:  GET_SINGLE_COMMODITY_FAILURE,
+    payload: { error }
+  }
+} 

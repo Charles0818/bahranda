@@ -2,7 +2,10 @@ import { commodity } from '../../types';
 const {
   GET_COMMODITIES_SUCCESS,
   GET_COMMODITIES_FAILURE,
-  INCREMENT_PAGENUM
+  INCREMENT_PAGENUM,
+  GET_SINGLE_COMMODITY_SUCCESS,
+  GET_SINGLE_COMMODITY_FAILURE,
+
 } = commodity;
 const initialState = {
  commodities: [],
@@ -25,6 +28,10 @@ const commodityReducer = (prevState = initialState, { type, payload }) => {
     return { ...prevState, pageNum: prevState.pageNum++, isLoading: true }
     default:
       return prevState;
+      // case  GET_SINGLE_COMMODITY_SUCCESS:
+      //   const {
+
+      //   }
   }
 }
 
