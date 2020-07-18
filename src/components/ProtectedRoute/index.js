@@ -9,18 +9,15 @@ const ProtectedRoute = ({
   component: Comp, auth, token, isLoggedIn, isLoading, startLoading, getUserProfile, path, redirectPath = '/auth/login', ...rest
 }) => {
 
-  // startLoading()
-  // useLayoutEffect(() => {
-  //   startLoading()
-  // })
   useLayoutEffect(() => {
+    // startLoading()
     let isSubscribed = true;
     if(token && !isLoggedIn) getUserProfile(token);
     console.log('token from protectedRoute', token)
     console.log('isLoggedIn new', isLoggedIn)
     return () => isSubscribed = false;
   }, [isLoggedIn, token]);
-  if(isLoading || !isLoggedIn) return <FullScreenSpinner isLoading={isLoading} />
+  if(isLoading || token && !isLoggedIn) return <FullScreenSpinner isLoading={isLoading} />
   return(
     <Route 
       path={path}
@@ -48,6 +45,7 @@ const ProtectedRoute = ({
 const mapTokenToProps = state => {
   const { token, isLoggedIn } = state.authReducer;
   const { isLoading } = state.UIReducer;
+  console.log('something changed at authReducer', state.authReducer)
   return { token, isLoggedIn, isLoading }
 }
 const mapDispatchToProps = dispatch =>

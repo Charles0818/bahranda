@@ -100,7 +100,7 @@ nav {
   }
 }
 
-.name-title { 
+.name-title, .pin-field { 
   flex: .2;
   min-width: 100px;
   @include media-breakpoint-down(sm) { flex: 1 }

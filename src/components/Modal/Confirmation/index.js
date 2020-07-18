@@ -4,6 +4,7 @@ import '../modal.scss';
 const Confirmation= (props) => {
   const { isOpen, closeModal, action, children: Children, heading } = props;
   const fireAction = () => {
+    console.log('action was fired from Confirmation Modal')
     action();
     closeModal();
   }
@@ -12,7 +13,7 @@ const Confirmation= (props) => {
       <div className={`modal bg-white overflow--h padding-md fadeIn-animation border-r-5`}>
         <div className="d-flex column">
           <h1 className="font-md font-weight-600">{heading}</h1>
-          <p className="font-sm color-dark padding-bottom-md">{Children}</p>
+          <div className="font-sm color-dark padding-bottom-md">{Children}</div>
           <div className="d-flex justify-content-end" style={{width: '100%'}}>
             <button className="padding-md margin-right-sm cursor-pointer font-sm font-weight-600 border-r-5 bg-danger color-white" onClick={fireAction}>
               Yes

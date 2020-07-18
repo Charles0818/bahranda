@@ -25,7 +25,7 @@ const commodityReducer = (prevState = initialState, { type, payload }) => {
       if(prevState.firstFetch) prevState.firstFetch = false;
       return { ...prevState, pageNum, hasNextPage, isLoading: false }
     case INCREMENT_PAGENUM:
-    return { ...prevState, pageNum: prevState.pageNum++, isLoading: true }
+      return { ...prevState, pageNum: prevState.pageNum + 1, isLoading: true }
     default:
       return prevState;
       // case  GET_SINGLE_COMMODITY_SUCCESS:

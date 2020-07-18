@@ -28,7 +28,7 @@ const BecomeADealer  = () => {
         <img src={event} alt="event" className="margin-right-md margin-bottom-md" />
         <article className="step-1">
           <p className="text-content font-md">
-          Sell and make profit once that Target market price is reached.
+            Sell and make profit once that Target market price is reached.
           </p>
         </article>
       </div>

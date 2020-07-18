@@ -12,12 +12,12 @@ const CommodityDetails = () => {
     tomatoes, rice, soyabean
   ];
   const relatedCommodities = [
-    <CommodityCard product={{thumbnail: rice, name: 'rice'}} />,
-    <CommodityCard product={{thumbnail: soyabean, name: 'soyabeans'}} />,
-    <CommodityCard product={{thumbnail: tomatoes, name: 'tomatoes'}} />,
-    <CommodityCard product={{thumbnail: rice, name: 'rice'}} />,
-    <CommodityCard product={{thumbnail: soyabean, name: 'soyabeans'}} />,
-    <CommodityCard product={{thumbnail: tomatoes, name: 'tomatoes'}} />
+    <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />,
+    <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />,
+    <CommodityCard commodity={{thumbnail: tomatoes, name: 'tomatoes'}} />,
+    <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />,
+    <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />,
+    <CommodityCard commodity={{thumbnail: tomatoes, name: 'tomatoes'}} />
   ]
   return (
     <article className="d-flex column" style={{width: '100%'}}>

@@ -44,7 +44,7 @@ export const useSectionSpinner = (bool) => {
 }
 
 
-export const useButtonSpinner = (bool = false, color = '#069801', size = 20) => {
+export const useButtonSpinner = (bool = false, color = '#fff', size = 20) => {
   const [isLoading, setIsLoading] = useState(bool);
   const LoadingSpinner = <ClipLoader size={size} color={color} loading={isLoading} />
   return { setIsLoading, isLoading, LoadingSpinner }

@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form } from '../../../components';
+import { Form, HttpStatusNotification } from '../../../components';
 import { actions } from '../../../../../helpers'
 const { FormField, useFormInput, useSelectInput, SubmitButton } = Form;
-
 const { accountActions: { updateProfileRequest } } = actions;
-const Profile = ({ profile, updateProfileRequest, token }) => {
+const Profile = ({ profile, updateProfileRequest, token, loading, success, error }) => {
+  console.log('is it loading?', loading)
   const { value: sex, SelectInput } = useSelectInput(profile.sex);
-  const { value: address, handleUserInput: setAddress, isValid: addressIsValid, error: addressErr } = useFormInput();
   const { value: first_name, handleUserInput: setFirstName, isValid: firstNameIsValid, error: firstNameErr } = useFormInput(profile.first_name);
   const { value: last_name, handleUserInput: setLastName, isValid: lastNameIsValid, error: lastNameErr } = useFormInput(profile.last_name);
   const { value: phone, handleUserInput: setPhone, isValid: phoneIsValid, error: phoneErr } = useFormInput(profile.phone ? profile.phone : '');
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput(profile.email);
+  const validateAllFields = firstNameIsValid && lastNameIsValid && phoneIsValid
   return (
     <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
       <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom margin-bottom-md padding-vertical-sm">Profile</h2>
@@ -25,18 +25,23 @@ const Profile = ({ profile, updateProfileRequest, token }) => {
         <FormField type="tel" name="phone" value={phone} onChange={setPhone} placeholder="Phone" err={phoneErr} className="flex-equal margin-right-sm" />
         <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} disabled={true} className="flex-equal" />
       </div>
-      <FormField name="Address" value={address} onChange={setAddress} placeholder="Address" err={addressErr} />
-      <SubmitButton text="SAVE CHANGES"
-        action={() => updateProfileRequest({ first_name, last_name, sex, phone }, token)}
+      <SubmitButton text="SAVE CHANGES" isLoading={loading} disabled={!validateAllFields}
+        action={() => updateProfileRequest({ first_name, last_name, sex: sex.value, phone }, token)}
       />
+      {(error || success) && <HttpStatusNotification  message={error || success} status={error ? 'error' : 'success'}  />}
     </section>
   )
 }
 
 const mapStateToProps = state => {
-  const { profile} = state.accountReducer;
+  const { profile, loadingIndicators: { updateProfile }, success, errors } = state.accountReducer;
   const { token } = state.authReducer;
-  return { profile, token }
+  console.log('profile changed', profile)
+  return {
+    profile, token, loading: updateProfile,
+    success: success.updateProfile,
+    error: errors.updateProfile
+  }
 }
 
 const mapDispatchToProps = dispatch =>

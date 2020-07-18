@@ -4,8 +4,7 @@ const {
   UPDATE_PROFILE_SUCCESS, CHANGE_PASSWORD_FAILURE,
   CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_SUCCESS,
   GET_ACCOUNT_DASHBOARD_FAILURE, GET_ACCOUNT_DASHBOARD_REQUEST,
-  GET_ACCOUNT_DASHBOARD_SUCCESS, UPDATE_BANK_INFO_FAILURE,
-  UPDATE_BANK_INFO_REQUEST, UPDATE_BANK_INFO_SUCCESS
+  GET_ACCOUNT_DASHBOARD_SUCCESS,
 } = account;
 
 export const changePasswordRequest = (data, token) => {
@@ -43,6 +42,8 @@ export const updateProfileSuccess = (profile, message) => {
   }
 }
 
+// export const updateProfileIndicator
+
 export const updateProfileFailure = (error) => {
   return {
     type: UPDATE_PROFILE_FAILURE,
@@ -68,27 +69,6 @@ export const getAccountDashboardSuccess = (dashboard) => {
 export const getAccountDashboardFailure = (error) => {
   return {
     type: GET_ACCOUNT_DASHBOARD_FAILURE,
-    payload: { error }
-  }
-}
-
-export const updateBankInfoRequest = (data, token) => {
-  return {
-    type: UPDATE_BANK_INFO_REQUEST,
-    payload: { data, token }
-  }
-}
-
-export const updateBankInfoSuccess = (bankInfo) => {
-  return {
-    type: UPDATE_BANK_INFO_SUCCESS,
-    payload: { bankInfo }
-  }
-}
-
-export const updateBankInfoFailure = (error) => {
-  return {
-    type: UPDATE_BANK_INFO_FAILURE,
     payload: { error }
   }
 }

@@ -1,4 +1,4 @@
-import React, { Fragment, lazy, Suspense, useRef, useEffect } from 'react';
+import React, { Fragment, lazy, Suspense, useRef, useEffect, useCallback } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,7 +6,7 @@ import Dashboard from './Dashboard';
 import Wallet from './Wallet';
 import Settings from './Settings';
 import InvestmentHistory from './InvestmentHistory';
-import { HorizontalNavbar, LeftSideBar,  } from './components';
+import { HorizontalNavbar, LeftSideBar } from './components';
 import { Spinners, Error404 } from '../components';
 import { actions } from './helpers';
 import './account.scss';
@@ -19,18 +19,19 @@ const Account = ({ match: { path }, getAccountDashboard, token }) => {
      console.log('received token', token)
     getAccountDashboard(token)
   }, [token])
-  const sidebarRef = useRef();
+  const sidebarRef = useRef(null);
+  const toggleSidebar = useCallback(() => sidebarRef.current.classList.toggle('toggle'), [sidebarRef.current])
   return (
     <Fragment>
       <section className="account d-flex">
         <LeftSideBar ref={sidebarRef} />
         <div className="main padding-horizontal-xlg padding-vertical-lg">
-          <HorizontalNavbar ref={sidebarRef} />
+          <HorizontalNavbar toggleSidebar={toggleSidebar} />
           <main className="">
             {!isLoading
             ? <Switch>
                 <Route exact path={path} component={Dashboard} />
-                <Route exact path={`${path}/wallet`} component={Wallet} />
+                <Route path={`${path}/wallet`} component={Wallet} />
                 <Route exact path={`${path}/settings`} component={Settings} />
                 <Route exact path={`${path}/investments`} component={InvestmentHistory} />
                 <Route component={Error404} />

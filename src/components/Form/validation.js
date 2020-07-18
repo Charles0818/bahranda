@@ -44,7 +44,7 @@ const FormValidation = (name, value, setError) => {;
     CC_date: /^(0?[1-9]|1[0-2])[/](\d{2})$/,
     CC_holderName: /^([a-zA-Z]{3,}) ([a-zA-Z]{3,})$/,
     text: /^[a-zA-Z]+$/,
-    alphanumeric: /^[a-zA-Z0-9\,\ \.]+$/g,
+    alphanumeric: /^[a-zA-Z0-9\,\ \.\_]+$/g,
     digits: /^\d+$/,
   }
   const errorMessage = {

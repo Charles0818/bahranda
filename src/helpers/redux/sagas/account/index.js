@@ -1,11 +1,13 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
+import { delay } from '../reusables';
 import { account } from '../../types';
-import { accountActions, UIActions } from '../../actions';
+import { accountActions, UIActions, authActions } from '../../actions';
+import { signOut } from '../../actions/auth';
 import { sendData, getData, modifyData, deleteData, apiKey } from '../ajax';
 const {
   GET_ACCOUNT_DASHBOARD_REQUEST,
-  UPDATE_PROFILE_REQUEST,
-  CHANGE_PASSWORD_REQUEST,
+  UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_INDICATOR,
+  CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_INDICATOR,
   UPDATE_BANK_INFO_REQUEST
 } = account;
 const { showNetworkError } = UIActions;
@@ -15,7 +17,6 @@ const {
   changePasswordSuccess, updateProfileSuccess,
   updateBankInfoFailure, updateBankInfoSuccess
 } = accountActions;
-
 const networkErrorMessage = 'No internet connection detected';
 const accountDBCalls = {
   getAccountDashboard: async (token) => {
@@ -23,10 +24,12 @@ const accountDBCalls = {
     return response.data
   },
   changePassword: async ({ data, token }) => {
-    const response = await sendData(`${apiKey}/user/profile/password/change`, data, token);
+    const response = await modifyData(`${apiKey}/user/profile/password/change`, data, token);
+    console.log('ChangePassord response', response)
     return response
   },
   updateProfile: async ({ data, token }) => {
+    console.log('update profile endpoint was triggered')
     const response = await modifyData(`${apiKey}/user/profile/update`, data, token);
     return response
   },
@@ -54,20 +57,23 @@ function* getAccountDashboard({ payload: { token } }) {
   }
 }
 
-function* updateProfile({ payload: { data, token } }) {
+function* updateProfile({ payload }) {
   try {
-    const profile = yield call(accountDBCalls.updateProfile, data, token);
-    yield put(updateProfileSuccess(profile));
-
+    console.log('update profile saga effect was triggered')
+    yield put({ type: UPDATE_PROFILE_INDICATOR })
+    yield call(accountDBCalls.updateProfile, payload);
+    yield put(updateProfileSuccess(payload.data, 'Profile updated successfully'));
+    yield call(delay, 3000)
+    yield put(updateProfileSuccess(payload.data, ''));
   } catch (err) {
-    const { errors } = err;
-    const errorMessage = errors
-      ? errors[0].status === 404
-      ? 'A user with the provided credentials does not exists'
-      : errors[0].title
+    const { title } = err;
+    const errorMessage = title
+      ? title
       : networkErrorMessage
     console.log('error found', err);
-    yield put(updateProfileFailure(errorMessage))
+    yield put(updateProfileFailure(errorMessage));
+    yield call(delay, 3000);
+    yield put(updateProfileFailure(''));
   }
 }
 
@@ -90,18 +96,20 @@ function* updateBankInfo({ payload: { data, token } }) {
 
 function* changePassword({ payload }) {
   try {
-    const message = yield call(accountDBCalls.changePassword, payload);
-    yield put(changePasswordSuccess(message));
-
+    yield put({ type: CHANGE_PASSWORD_INDICATOR })
+    const { title } = yield call(accountDBCalls.changePassword, payload);
+    yield put(changePasswordSuccess(title));
+    yield call(delay, 3000)
+    yield put(changePasswordSuccess(''));
   } catch (err) {
-    const { errors } = err;
-    const errorMessage = errors
-      ? errors[0].status === 404
-      ? 'A user with the provided credentials does not exists'
-      : errors[0].title
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
       : networkErrorMessage
     console.log('error found', err);
-    yield put(changePasswordFailure(errorMessage))
+    yield put(changePasswordFailure(errorMessage));
+    yield call(delay, 3000)
+    yield put(changePasswordFailure(''));
   }
 }
 

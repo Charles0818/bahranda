@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { MdShoppingCart } from 'react-icons/md';
 import { utils } from '../../../../helpers';
 
 const { formatting: { formatCurrency } } = utils;
@@ -11,8 +10,8 @@ const CommodityCard = memo(({ commodity }) => {
     <div className="product-card margin-bottom-md margin-right-md">
       <div className="thumbnail position-relative margin-bottom-sm">
         <Link to={`/commodities/${id}`}><img src={image} alt="product thumbnail" /></Link>
-        <span className={`font-sm ${parseInt(inStock, 10) >= 1 ? ' bg-yellow' : 'bg-danger'} in-stock color-white font-weight-600 padding-xsm uppercase position-absolute`}>
-          {parseInt(inStock, 10) >= 1 ? 'SALE' : 'SOLD'}
+        <span className={`font-sm bg-yellow in-stock color-white font-weight-600 padding-xsm uppercase position-absolute`}>
+          { 'SALE'}
         </span>
       </div>
       <div className="d-flex column details overflow-h">
