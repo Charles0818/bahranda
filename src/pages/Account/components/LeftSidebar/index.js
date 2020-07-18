@@ -12,6 +12,7 @@ const { authActions: { signOut } } = actions;
 const { useConfirmation } = Modal;
 const LeftSidebar = forwardRef(({}, ref) => {
   useEffect(() => {
+    console.log('leftsidebar ref', ref)
     const event = window.addEventListener('click', e => {
       if(ref.current) {
         if(e.target.classList.contains('sidebar') || e.target.classList.contains('bar')) return;
@@ -19,7 +20,7 @@ const LeftSidebar = forwardRef(({}, ref) => {
       }
     });
     // return () => window.removeEventListener(event);
-  }, [])
+  }, [ref.current])
   return (
     <aside ref={ref} className="sidebar bg-color1 padding-horizontal-sm padding-vertical-lg">
       <h3 className="text-center store font-lg color-white">Store</h3>
