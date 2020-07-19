@@ -9,13 +9,12 @@ import rice from '../../../assets/rice.png';
 import soyabean from '../../../assets/soyabean.png';
 const { CommodityCard } = Cards;
 const { SectionSpinner } = Spinners;
-const { commodityActions: { getCommoditiesRequest, getSingleCommodityRequest, incrementPageNum } } = actions;
+const { commodityActions: { getCommoditiesRequest,  incrementPageNum } } = actions;
 const Commodities = ({ 
   token, isLoading, firstFetch, commodities, pageNum, hasNextPage, error, getCommoditiesRequest, incrementPageNum
 }) => {
   useEffect(() => {
     getCommoditiesRequest(pageNum, token)
-    console.log('current page number', pageNum)
   }, [pageNum, token]);
   const observer = useRef();
   const lastCommodity = useCallback(node => {
@@ -35,7 +34,7 @@ const Commodities = ({
       <main className="d-flex justify-items-self padding-vertical-lg">
       {commodities.map((commodity, index) => {
         if(index + 1 === commodities.length) {
-          return <div key={commodity.id} ref={lastCommodity}><CommodityCard commodity={commodity} key={commodity.id} /></div>
+          return <div ref={lastCommodity}><CommodityCard commodity={commodity} key={commodity.id} /></div>
         } else {
           return <CommodityCard commodity={commodity} key={commodity.id} />
         }
@@ -67,11 +66,11 @@ const Commodities = ({
 };
 
 const mapStateToProps = state => {
-  const { isLoading, commodities, pageNum, hasNextPage, firstFetch, error, details: CommoditiesDetails } = state.commodityReducer;
+  const { isLoading, commodities, pageNum, hasNextPage, firstFetch, error } = state.commodityReducer;
   const { token } = state.authReducer;
-  return { token, isLoading, commodities, pageNum, hasNextPage, firstFetch, error, CommoditiesDetails }
+  return { token, isLoading, commodities, pageNum, hasNextPage, firstFetch, error }
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ getCommoditiesRequest, incrementPageNum, getSingleCommodityRequest }, dispatch)
+  bindActionCreators({ getCommoditiesRequest, incrementPageNum, }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Commodities)

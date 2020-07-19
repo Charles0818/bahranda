@@ -1,11 +1,15 @@
 import React from 'react';
 import { Cards, Carousels } from '../../components';
 import { ThumbnailCarousel, FillInvestment } from '../components';
+import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
+import {actions} from "../helpers"
 import thumbnail from '../../../assets/soyabean.png';
 import tomatoes from '../../../assets/tomatoes.png';
 import rice from '../../../assets/rice.png';
 import soyabean from '../../../assets/soyabean.png';
 const { CommodityCard } = Cards;
+const {commodityActions: {getSingleCommodityRequest}} = actions;
 const { PaddedCarousel } = Carousels;
 const CommodityDetails = () => {
   const slides = [
@@ -62,4 +66,13 @@ const CommodityDetails = () => {
     </article>
   )
 }
-export default CommodityDetails;
+const mapStateToProps = state => {
+  const { isLoading, error, details } = state.commodityReducer;
+  const { token } = state.authReducer;
+  return { token, isLoading, error, details }
+}
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getSingleCommodityRequest }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(CommodityDetails)
+
+

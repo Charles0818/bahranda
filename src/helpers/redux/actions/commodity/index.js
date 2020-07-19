@@ -37,10 +37,10 @@ const {
   GET_SINGLE_COMMODITY_FAILURE
 } = commodity;
 
-export const getSingleCommodityRequest = (token, details) => {
+export const getSingleCommodityRequest = (token, ) => {
   return {
     type: GET_SINGLE_COMMODITY_REQUEST,
-    payload: {token, details }
+    payload: {token}
   }
 }
 
