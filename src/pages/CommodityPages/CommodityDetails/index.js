@@ -1,4 +1,5 @@
 import React from 'react';
+import  { useState, useEffect } from 'react';
 import { Cards, Carousels } from '../../components';
 import { ThumbnailCarousel, FillInvestment } from '../components';
 import { bindActionCreators } from 'redux';
@@ -10,11 +11,22 @@ import rice from '../../../assets/rice.png';
 import soyabean from '../../../assets/soyabean.png';
 const { CommodityCard } = Cards;
 const {commodityActions: {getSingleCommodityRequest}} = actions;
+
 const { PaddedCarousel } = Carousels;
-const CommodityDetails = () => {
-  const slides = [
+const CommodityDetails = ({ getSingleCommodityRequest, token, match: {params}
+ }) => {
+  const [details, setDetails] = useState()
+   const slides = [
     tomatoes, rice, soyabean
   ];
+  useEffect(() => {
+    console.log("this is useEffect")
+    console.log(params.id)
+    console.log(token)
+
+
+    getSingleCommodityRequest(token, setDetails, params.id)
+  }, [token, setDetails, params.id]);
   const relatedCommodities = [
     <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />,
     <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />,
