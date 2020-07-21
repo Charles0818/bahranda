@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 export const useFormInput = (initialValue = '') => {
   const [value, setValue] = useState(initialValue);
@@ -9,7 +9,17 @@ export const useFormInput = (initialValue = '') => {
     setValue(value);
     setIsValid(FormValidation(name, value, setError))
   };
-  return { value, setValue, handleUserInput, error, setError, isValid }
+  const handleKeyDown = useCallback(e => {
+    const DELETE_KEY_CODE = 8;
+    const { key, keyCode } = e;
+    console.log('handleKeyDown', e,'key', key)
+    //  if (
+    //   ((value === 0 || value === '') && !VALID_FIRST.test(key))
+    // ) {
+    //   return;
+    // }
+  }, [value])
+  return { value, setValue, handleKeyDown, handleUserInput, error, setError, isValid }
 }
 
 export const useFileInput = () => {
@@ -46,6 +56,7 @@ const FormValidation = (name, value, setError) => {;
     text: /^[a-zA-Z]+$/,
     alphanumeric: /^[a-zA-Z0-9\,\ \.\_]+$/g,
     digits: /^\d+$/,
+    money: /^\d\.\,+$/,
   }
   const errorMessage = {
     emailErr: "Email should contain '@' and at least one '.'",
@@ -58,12 +69,13 @@ const FormValidation = (name, value, setError) => {;
     phoneErr: 'Incorrect phone number',
     CC_dateErr: 'Invalid expiry date',
     CC_digitsErr: 'Invalid card number',
-    zipcodeErr: 'Invalid zipcode, should be 5 digits'
+    zipcodeErr: 'Invalid zipcode, should be 5 digits',
+    accountErr: 'Account number is invalid'
   };
   Object.freeze([input_types, errorMessage])
 
-  const { emailErr, subject, dateErr, passwordErr, phoneErr, usernameErr, CC_digitsErr, CC_dateErr, zipcodeErr } = errorMessage;
-  const { email, text, date, password, phone, alphanumeric, digits, CC_holderName, CC_date } = input_types;
+  const { emailErr, subject, dateErr, passwordErr, phoneErr, usernameErr, zipcodeErr, accountErr } = errorMessage;
+  const { email, text, date, password, phone, alphanumeric, digits, money } = input_types;
   let isValid = null;
 
   switch(name) {
@@ -99,10 +111,17 @@ const FormValidation = (name, value, setError) => {;
       isValid = validateWithRegex(value, date) && validateLength(value)
       !isValid ? setError(dateErr) : setError('')
       return isValid;
+    case 'account':
+      isValid = validateWithRegex(value, digits) && validateLength(value, 10, 10)
+      !isValid ? setError(accountErr) : setError('')
+      return isValid;
+    case 'amount':
+      isValid = validateWithRegex(value, money) && validateLength(value)
+      !isValid ? setError('Invalid amount') : setError('')
+      return isValid;
     default:
       isValid = validateWithRegex(value, alphanumeric) && validateLength(value)
       !isValid ? setError(`${name} is invalid `) : setError('')
       return isValid;
   }
 }
-

@@ -8,7 +8,7 @@ import { AccountInformation, WalletStatus, SetPin } from './components';
 const { walletActions: { getWalletRequest } } = actions;
 const { SectionSpinner } = Spinners;
 const WalletHistory = lazy(() => import('./WalletHistory'));
-const Wallet = ({ getWalletRequest, token, loading, walletExists, match: { path } }) => {
+const Wallet = ({ getWalletRequest, token, loading, walletExists, hasPin, match: { path } }) => {
   useLayoutEffect(() => {
     if(!walletExists) getWalletRequest(token)
   }, [walletExists])
@@ -21,7 +21,7 @@ const Wallet = ({ getWalletRequest, token, loading, walletExists, match: { path 
           <h1 className="padding-bottom-sm font-lg">Wallet</h1>
           <WalletStatus />
           <AccountInformation />
-          <SetPin />
+         {!hasPin && <SetPin />}
           <History.default />
         </div>
       )} />
@@ -32,7 +32,8 @@ const Wallet = ({ getWalletRequest, token, loading, walletExists, match: { path 
 const mapTokenToProps = state => {
   const { token } = state.authReducer;
   const { wallet, loadingIndicators: { getWallet: loading } } = state.walletReducer;
-  return { token, loading, walletExists: Object.keys(wallet).length !== 0 }
+  const { has_set_pin: hasPin } = wallet;
+  return { token, loading, hasPin, walletExists: Object.keys(wallet).length !== 0 }
 }
 const mapDispatchToProps = dispatch => 
   bindActionCreators({ getWalletRequest }, dispatch)

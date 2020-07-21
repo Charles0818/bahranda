@@ -110,10 +110,10 @@ export const updateBankInfoRequest = (data, token) => {
   }
 }
 
-export const updateBankInfoSuccess = (bankInfo) => {
+export const updateBankInfoSuccess = (bankInfo, message) => {
   return {
     type: UPDATE_BANK_INFO_SUCCESS,
-    payload: { bankInfo }
+    payload: { bankInfo, message }
   }
 }
 

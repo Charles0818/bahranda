@@ -5,39 +5,49 @@ const {
   GET_ACCOUNT_DASHBOARD_SUCCESS,
   UPDATE_PROFILE_SUCCESS, CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAILURE, GET_ACCOUNT_DASHBOARD_FAILURE,
-  UPDATE_PROFILE_FAILURE,
+  UPDATE_PROFILE_FAILURE, GET_ACCOUNT_DASHBOARD_INDICATOR,
   UPDATE_PROFILE_INDICATOR, CHANGE_PASSWORD_INDICATOR
 } = account;
 
-const initialState = {
-  profile: {
-
-  },
-  errors: {
-    get: '',
-    updateProfile: '',
-    changePassword: '',
-    bankInfo: ''
-  },
-  success: {
-    updateProfile: '',
-    changePassword: '',
-  },
-  loadingIndicators: {
-    updateProfile: false,
-    changePassword: false
+const initialState = () => {
+  return {
+    profile: {  },
+    account_summary: '',
+    monthly_expenditure: '',
+    user_activities: [],
+    errors: {
+      get: '',
+      updateProfile: '',
+      changePassword: '',
+      bankInfo: ''
+    },
+    success: {
+      updateProfile: '',
+      changePassword: '',
+    },
+    loadingIndicators: {
+      updateProfile: false,
+      changePassword: false,
+      getDashboard: false
+    }
   }
 }
-const accountReducer = (prevState = initialState, { type, payload }) => {
-  console.log('profile initialized', prevState.profile)
+const accountReducer = (prevState = initialState(), { type, payload }) => {
   switch(type) {
     case SIGN_IN_SUCCESS:
       prevState.profile = payload.user;
-      return prevState
+      return {...prevState}
     case SIGN_OUT:
-      return initialState
+      return initialState();
+    case GET_ACCOUNT_DASHBOARD_INDICATOR:
+      prevState.loadingIndicators.getDashboard = true
+      return {...prevState }
     case GET_ACCOUNT_DASHBOARD_SUCCESS:
+      prevState.loadingIndicators.getDashboard = false
       return { ...prevState, ...payload.dashboard }
+    case GET_ACCOUNT_DASHBOARD_FAILURE:
+      prevState.loadingIndicators.getDashboard = false;
+      return { ...prevState }
     case UPDATE_PROFILE_INDICATOR:
       console.log('I got triggered for updateProfileRequest', prevState)
       return {...prevState, loadingIndicators: { ...prevState.loadingIndicators, updateProfile: true }}

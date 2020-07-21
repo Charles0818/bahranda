@@ -3,9 +3,11 @@ import authSagas from './auth';
 import accountSagas from './account';
 import commoditySagas from './commodities';
 import walletSagas from './wallet';
+import dealSagas from './deal';
 export default function* rootSaga() {
   yield spawn(authSagas)
   yield spawn(accountSagas)
   yield spawn(commoditySagas)
   yield spawn(walletSagas)
+  yield spawn(dealSagas)
 }

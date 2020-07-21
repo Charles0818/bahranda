@@ -6,7 +6,7 @@ import accountReducer from './account';
 import authReducer from './auth';
 import commodityReducer from './commodity';
 import walletReducer from './wallet';
-
+import dealReducer from './deal';
 const authPersistConfig = {
   key: 'auth',
   storage,
@@ -17,7 +17,8 @@ const allReducers = combineReducers({
   accountReducer,
   commodityReducer,
   UIReducer,
-  walletReducer
-})
+  walletReducer,
+  dealReducer
+});
 
 export default allReducers

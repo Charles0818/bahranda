@@ -114,3 +114,20 @@ nav {
     flex: .7;
   }
 }
+
+// Wallet section
+.request-withdrawal {
+  .chevron-icon {
+    display: none;
+    &.active { display: block }
+  }
+  .form-content {
+    transition: transform 0.6s ease;
+    display: none;
+    transform: scale(0);
+    &.active {
+      transform: scale(1);
+      display: flex;
+    }
+  }
+}

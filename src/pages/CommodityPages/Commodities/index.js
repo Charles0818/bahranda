@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import SyncLoader from 'react-spinners/SyncLoader'
 import { actions } from '../helpers';
 import { Cards, Spinners } from '../../components';
-import tomatoes from '../../../assets/tomatoes.png';
-import rice from '../../../assets/rice.png';
-import soyabean from '../../../assets/soyabean.png';
 const { CommodityCard } = Cards;
 const { SectionSpinner } = Spinners;
 const { commodityActions: { getCommoditiesRequest, incrementPageNum } } = actions;
@@ -33,31 +30,13 @@ const Commodities = ({
   return (
     <div>
       <main className="d-flex justify-items-self padding-vertical-lg">
-      {commodities.map((commodity, index) => {
-        if(index + 1 === commodities.length) {
-          return <div key={commodity.id} ref={lastCommodity}><CommodityCard commodity={commodity} key={commodity.id} /></div>
-        } else {
-          return <CommodityCard commodity={commodity} key={commodity.id} />
-        }
-      })}
-        {/* <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />
-        <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />
-        <CommodityCard commodity={{thumbnail: tomatoes, name: 'tomatoes'}} />
-        <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />
-        <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />
-        <CommodityCard commodity={{thumbnail: tomatoes, name: 'tomatoes'}} />
-        <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />
-        <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />
-        <CommodityCard commodity={{thumbnail: tomatoes, name: 'tomatoes'}} />
-        <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />
-        <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />
-        <CommodityCard commodity={{thumbnail: tomatoes, name: 'tomatoes'}} />
-        <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />
-        <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />
-        <CommodityCard commodity={{thumbnail: tomatoes, name: 'tomatoes'}} />
-        <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />
-        <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />
-        <CommodityCard commodity={{thumbnail: tomatoes, name: 'tomatoes'}} /> */}
+        {commodities.map((commodity, index) => {
+          if(index + 1 === commodities.length) {
+            return <div key={commodity.id} ref={lastCommodity}><CommodityCard commodity={commodity} key={commodity.id} /></div>
+          } else {
+            return <CommodityCard commodity={commodity} key={commodity.id} />
+          }
+        })}
       </main>
       <div className="margin-bottom-sm d-flex justify-content-center">
         <SyncLoader size={15} color={"#069801"} loading={isLoading} />

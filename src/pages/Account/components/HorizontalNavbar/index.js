@@ -1,18 +1,17 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import {MdHome} from 'react-icons/md';
 import {FaUserCircle, FaBars} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const HorizontalNavbar = forwardRef(({ first_name, last_name, toggleSidebar }) => {
-  // console.log('leftsidebar ref from horizontalNavbar ', ref)
+const HorizontalNavbar = ({ first_name, last_name, toggleSidebar }) => {
   return (
     <nav className="d-flex nowrap justify-content-s-between align-items-center padding-bottom-md margin-bottom-md slim-border-bottom">
       <div className="d-flex align-items-center">
-        <div className="bar padding-sm border-r-circle margin-right-md cursor-pointer"
+        <button className="bar border-r-circle margin-right-md cursor-pointer"
           onClick={toggleSidebar}>
-          <FaBars className="font-lg " />
-        </div>
+          <FaBars className="font-lg bar-icon" />
+        </button>
         <h2 className="greet font-lg capitalize">Hello, {`${first_name} ${last_name}`}</h2>
       </div>
       <div className="d-flex align-items-center">
@@ -23,7 +22,7 @@ const HorizontalNavbar = forwardRef(({ first_name, last_name, toggleSidebar }) =
       </div>
     </nav>
   )
-});
+};
 
 const mapNameToProps = state => {
   const { first_name, last_name } = state.accountReducer.profile;

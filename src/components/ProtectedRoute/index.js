@@ -1,11 +1,11 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, memo, useLayoutEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../helpers';
 import { FullScreenSpinner } from '../Spinners';
 const { authActions: { getUserProfile }, UIActions: { startLoading } } = actions;
-const ProtectedRoute = ({
+const ProtectedRoute = memo(({
   component: Comp, auth, token, isLoggedIn, isLoading, startLoading, getUserProfile, path, redirectPath = '/auth/login', ...rest
 }) => {
 
@@ -40,12 +40,11 @@ const ProtectedRoute = ({
       }}
     />
   )
-}
+})
 
 const mapTokenToProps = state => {
   const { token, isLoggedIn } = state.authReducer;
   const { isLoading } = state.UIReducer;
-  console.log('something changed at authReducer', state.authReducer)
   return { token, isLoggedIn, isLoading }
 }
 const mapDispatchToProps = dispatch =>

@@ -1,7 +1,7 @@
 import {
   FormField, PasswordField, useCheckbox,
   useSelectInput, SubmitButton, TextArea,
-  RadioButton, useRadioInputs
+  RadioButton, useRadioInputs, CurrencyInput
 } from './inputfield';
 import { useFileInput, useFormInput } from './validation';
 
@@ -9,5 +9,5 @@ export {
   useFileInput, useFormInput, FormField,
   PasswordField, useCheckbox, useSelectInput,
   SubmitButton, TextArea, RadioButton,
-  useRadioInputs
+  useRadioInputs, CurrencyInput
 };

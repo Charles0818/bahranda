@@ -1,0 +1,70 @@
+import { call, put, takeLatest, spawn } from 'redux-saga/effects';
+import { deal } from '../../types';
+import { dealActions } from '../../actions';
+import { getData, apiKey } from '../ajax';
+const {
+  GET_DEALS_INDICATOR, GET_DEALS_REQUEST,
+  GET_SINGLE_DEAL_REQUEST
+} = deal;
+
+const {
+  getDealsFailure, getDealsSuccess,
+} = dealActions;
+
+const networkErrorMessage = 'No internet connection detected';
+const dealDBCalls = {
+  getDeals: async ({pageNum, token}) => {
+    const { deals } = await getData(`${apiKey}/user/deals/all?page=${pageNum}`, token);
+    return deals
+  },
+  getSingleDeal: async ({ id, token }) => {
+    const data = await getData(`${apiKey}/user/deals/${id}/show`, token);
+    return data
+  }
+}
+
+// All generators*
+function* getDeals({ payload }) {
+  try {
+    yield put({ type: GET_DEALS_INDICATOR })
+    const deals = yield call(dealDBCalls.getDeals, payload);
+    console.log('deals data', deals)
+    yield put(getDealsSuccess(deals));
+  } catch (err) {
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
+      : networkErrorMessage
+    console.log('error found', err);
+    yield put(getDealsFailure(errorMessage))
+  }
+}
+
+function* getSingleDeal({ payload: { token, setState, id } }) {
+  try {
+    const deal = yield call(dealDBCalls.getSingleDeal, token, id);
+    setState(deal);
+  } catch (err) {
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
+      : networkErrorMessage
+    console.log('error found', err);
+    // yield put(getDealsFailure(errorMessage))
+  }
+}
+
+
+function* getDealsWatcher() {
+  yield takeLatest(GET_DEALS_REQUEST, getDeals)
+}
+
+function* getSingleDealWatcher() {
+  yield takeLatest(GET_SINGLE_DEAL_REQUEST, getSingleDeal)
+}
+
+
+export default function* dealSagas() {
+  yield spawn(getDealsWatcher)
+  yield spawn(getSingleDealWatcher)
+}

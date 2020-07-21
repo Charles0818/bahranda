@@ -8,7 +8,7 @@ const {
   GET_ACCOUNT_DASHBOARD_REQUEST,
   UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_INDICATOR,
   CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_INDICATOR,
-  UPDATE_BANK_INFO_REQUEST
+  UPDATE_BANK_INFO_REQUEST, GET_ACCOUNT_DASHBOARD_INDICATOR
 } = account;
 const { showNetworkError } = UIActions;
 const {
@@ -42,7 +42,7 @@ const accountDBCalls = {
 // All generators*
 function* getAccountDashboard({ payload: { token } }) {
   try {
-    console.log('this function was called')
+    yield put({ type: GET_ACCOUNT_DASHBOARD_INDICATOR })
     const dashboard = yield call(accountDBCalls.getAccountDashboard, token);
     yield put(getAccountDashboardSuccess(dashboard));
   } catch (err) {
@@ -113,25 +113,25 @@ function* changePassword({ payload }) {
   }
 }
 
-function* getAccountDashboardRequest() {
+function* getAccountDashboardWatcher() {
   yield takeLatest(GET_ACCOUNT_DASHBOARD_REQUEST, getAccountDashboard)
 }
 
-function* updateProfileRequest() {
+function* updateProfileWatcher() {
   yield takeLatest(UPDATE_PROFILE_REQUEST, updateProfile)
 }
 
-function* changePasswordRequest() {
+function* changePasswordWatcher() {
   yield takeLatest(CHANGE_PASSWORD_REQUEST, changePassword)
 }
 
-function* updateBankInfoRequest() {
+function* updateBankInfoWatcher() {
   yield takeLatest(UPDATE_BANK_INFO_REQUEST, updateBankInfo)
 }
 
 export default function* accountSagas() {
-  yield spawn(getAccountDashboardRequest)
-  yield spawn(updateProfileRequest)
-  yield spawn(changePasswordRequest)
-  yield spawn(updateBankInfoRequest)
+  yield spawn(getAccountDashboardWatcher)
+  yield spawn(updateProfileWatcher)
+  yield spawn(changePasswordWatcher)
+  yield spawn(updateBankInfoWatcher)
 }

@@ -2,12 +2,11 @@ import React, { useCallback } from 'react';
 import { utils, actions } from '../../../helpers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import RequestWithdrawal from '../RequestWithdrawal';
 const { formatting: { formatCurrency }, checkObjectProperties } = utils;
 const { walletActions: { requestWithdrawalRequest } } = actions;
-const WalletStatus = ({ wallet_balance, amount_withdrawn, hasBankInfo, requestWithdrawal, token }) => {
+const WalletStatus = ({ wallet_balance, amount_withdrawn }) => {
   console.log('these are the balances', wallet_balance, amount_withdrawn );
-  // const handleWithdrawal = useCallback(() => 
-  // requestWithdrawal(token))
   return (
     <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
       <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom padding-vertical-sm">Account Summary</h2>
@@ -21,18 +20,16 @@ const WalletStatus = ({ wallet_balance, amount_withdrawn, hasBankInfo, requestWi
           <span className="uppercase font-sm font-weight-300 text-center">withdrawn</span>
         </div>
       </div>
-      <button className="btn-color1 ripple color-white border-r-5 margin-bottom-md">Request withdrawal</button>
+      <RequestWithdrawal />
     </section>
   )
 }
 
 
 const mapWalletToProps = state => {
-  const { wallet: { wallet_balance, amount_withdrawn }, bankInfo } = state.walletReducer;
-  const { token } = state.authReducer;
-  const hasBankInfo = checkObjectProperties(bankInfo)
+  const { wallet: { wallet_balance, amount_withdrawn } } = state.walletReducer;
   console.log('walletReducer', state.walletReducer)
-  return { wallet_balance, amount_withdrawn, token, hasBankInfo  }
+  return { wallet_balance, amount_withdrawn  }
 }
 
 const mapDispatchToProps = dispatch =>

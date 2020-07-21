@@ -2,12 +2,14 @@ import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { wallet } from '../../types';
 import { walletActions, UIActions } from '../../actions';
 import { sendData, getData, modifyData, deleteData, apiKey } from '../ajax';
+import { delay } from '../reusables';
 const {
   UPDATE_BANK_INFO_REQUEST, GET_WALLET_HISTORY_REQUEST,
   REQUEST_WITHDRAWAL_REQUEST, GET_WALLET_REQUESTS,
   GET_WALLET_REQUEST, SET_PIN_REQUEST,
   UPDATE_BANK_INFO_INDICATOR, GET_WALLET_INDICATOR,
-  GET_WALLET_HISTORY_INDICATOR
+  GET_WALLET_HISTORY_INDICATOR, REQUEST_WITHDRAWAL_INDICATOR,
+  SET_PIN_INDICATOR
 } = wallet;
 const { showNetworkError } = UIActions;
 const {
@@ -16,7 +18,7 @@ const {
   getWalletRequestsFailure,getWalletRequestsSuccess,
   requestWithdrawalSuccess, requestWithdrawalFailure,
   updateBankInfoFailure, updateBankInfoSuccess,
-  setPinRequest, setPinSuccess, setPinFailure
+  setPinSuccess, setPinFailure
 } = walletActions;
 
 const networkErrorMessage = 'No internet connection detected';
@@ -43,11 +45,11 @@ const walletDBCalls = {
   },
   setPin: async ({data, token}) => {
     const response = await modifyData(`${apiKey}/user/wallet/set-pin`, data, token);
-    console.log('wallet history gotten', response)
+    console.log('pin response', response)
     return response
   },
   updateBankInfo: async ({ data, token }) => {
-    const response = await modifyData(`${apiKey}/user/wallet/wallet-information`, data, token);
+    const response = await modifyData(`${apiKey}/user/wallet/account-information`, data, token);
     console.log('updateBankInfo response', response)
     return response
   }
@@ -101,43 +103,91 @@ function* getWalletRequests({ payload: { token } }) {
   }
 }
 
+function* requestWithdrawal({ payload }) {
+  try {
+    yield put({ type: REQUEST_WITHDRAWAL_INDICATOR })
+    const requests = yield call(walletDBCalls.requestWithdrawal, payload);
+    yield put(requestWithdrawalSuccess(requests));
+  } catch (err) {
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
+      : networkErrorMessage
+    console.log('error found', err);
+    yield put(requestWithdrawalFailure(errorMessage));
+    yield call(delay, 4000);
+    yield put(requestWithdrawalFailure(''))
+  }
+}
+
+function* setPin({ payload }) {
+  try {
+    yield put({ type: SET_PIN_INDICATOR })
+    const { title } = yield call(walletDBCalls.setPin, payload);
+    yield put(setPinSuccess(title));
+    yield call(delay, 4000);
+    yield put(setPinSuccess(''))
+  } catch (err) {
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
+      : networkErrorMessage
+    console.log('error found', err);
+    yield put(setPinFailure(errorMessage));
+    yield call(delay, 4000);
+    yield put(setPinFailure(''))
+  }
+}
+
 function* updateBankInfo({ payload }) {
   try {
     yield put({ type: UPDATE_BANK_INFO_INDICATOR })
     const bankInfo = yield call(walletDBCalls.updateBankInfo, payload);
-    yield put(updateBankInfoSuccess(bankInfo));
-
+    yield put(updateBankInfoSuccess(payload.data, 'Account information updated successfully'));
+    yield call(delay, 4000);
+    yield put(updateBankInfoSuccess(payload.data, ''))
   } catch (err) {
-    const { errors } = err;
-    const errorMessage = errors
-      ? errors[0].status === 404
-      ? 'A user with the provided credentials does not exists'
-      : errors[0].title
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
       : networkErrorMessage
     console.log('error found', err);
-    yield put(updateBankInfoFailure(errorMessage))
+    yield put(updateBankInfoFailure(errorMessage));
+    yield call(delay, 4000);
+    yield put(updateBankInfoFailure(''));
   }
 }
 
-function* updateBankInfoRequest() {
+function* updateBankInfoWatcher() {
   yield takeLatest(UPDATE_BANK_INFO_REQUEST, updateBankInfo)
 }
 
-function* getWalletRequest() {
+function* getWalletWatcher() {
   yield takeLatest(GET_WALLET_REQUEST, getWallet)
 }
 
-function* watchGetWalletRequests() {
+function* getWalletRequestsWatcher() {
   yield takeLatest(GET_WALLET_REQUESTS, getWalletRequests)
 }
 
-function* getWalletHistoryRequest() {
+function* getWalletHistoryWatcher() {
   yield takeLatest(GET_WALLET_HISTORY_REQUEST, getWalletHistory)
 }
 
+function* requestWithdrawalWatcher() {
+  yield takeLatest(REQUEST_WITHDRAWAL_REQUEST, requestWithdrawal)
+}
+function* setPinWatcher() {
+  yield takeLatest(SET_PIN_REQUEST, setPin)
+}
+
+
+
 export default function* walletSagas() {
-  yield spawn(updateBankInfoRequest)
-  yield spawn(getWalletRequest)
-  yield spawn(getWalletHistoryRequest)
-  yield spawn(watchGetWalletRequests)
+  yield spawn(updateBankInfoWatcher)
+  yield spawn(getWalletWatcher)
+  yield spawn(getWalletHistoryWatcher)
+  yield spawn(getWalletRequestsWatcher)
+  yield spawn(requestWithdrawalWatcher)
+  yield spawn(setPinWatcher)
 }

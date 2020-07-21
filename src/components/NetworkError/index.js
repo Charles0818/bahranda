@@ -8,6 +8,7 @@ const { UIActions: { eraseNetworkError } } = actions;
 const NetworkError = ({ networkError, eraseNetworkError, children }) => {
   const [state, setState] = useState(window.navigator.onLine)
   const { show, action } = networkError;
+  // const dispatch = useDispatch
   useEffect(() => {
     const online = window.addEventListener('online', () => {
       setState(true)

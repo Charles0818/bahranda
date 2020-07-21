@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Cards, Carousels } from '../../components';
+import { actions } from '../helpers'
 import { ThumbnailCarousel, FillInvestment } from '../components';
-import thumbnail from '../../../assets/soyabean.png';
 import tomatoes from '../../../assets/tomatoes.png';
 import rice from '../../../assets/rice.png';
 import soyabean from '../../../assets/soyabean.png';
 const { CommodityCard } = Cards;
 const { PaddedCarousel } = Carousels;
+const { commodityActions: { getRelatedCommoditiesRequest } } = actions;
 const CommodityDetails = () => {
   const slides = [
     tomatoes, rice, soyabean
@@ -21,8 +24,8 @@ const CommodityDetails = () => {
   ]
   return (
     <article className="d-flex column" style={{width: '100%'}}>
-      <h1 className="font-lg margin-bottom-sm">Commodity Details</h1>
-      <div className="d-flex align-items-center justify-content-s-between thumbnail-details margin-bottom-md" style={{width: '100%'}}>
+      {/* <h1 className="font-lg margin-bottom-sm">Commodity Details</h1> */}
+      <div className="d-flex justify-content-s-between thumbnail-details margin-bottom-md" style={{width: '100%'}}>
         <div className="thumbnail-slider margin-right-md">
           <ThumbnailCarousel autoSlide={false} thumbnails={slides} />
         </div>
@@ -62,4 +65,30 @@ const CommodityDetails = () => {
     </article>
   )
 }
+
+const mapDispatchToRelatedCommodities = dispatch =>
+  bindActionCreators({ getRelatedCommoditiesRequest }, dispatch)
+const RelatedCommodities = connect(null, mapDispatchToRelatedCommodities)(({
+  token, getRelatedCommoditiesRequest
+}) => {
+  const [state, setState] = useState([])
+  useEffect(() => {
+    getRelatedCommoditiesRequest(token, setState)
+  }, [])
+  return (
+    <div className='padding-vertical-lg' style={{width: '100%'}}>
+      <div className="bg-gray bg-color1 padding-horizontal-md padding-vertical-md" style={{width: '100%'}}>
+        <h3 className="font-lg margin-bottom-md">Related Commodities</h3>
+        <PaddedCarousel
+          slides={state.map(commodity => <CommodityCard commodity={commodity} />)}
+          cardAlign={true}
+          autoSlide={false}
+        />
+      </div>
+      <div className="d-flex justify-content-center">
+        <button className="btn-color1 ripple color-white font-sm">VIEW ALL</button>
+      </div>
+    </div>
+  )
+})
 export default CommodityDetails;
