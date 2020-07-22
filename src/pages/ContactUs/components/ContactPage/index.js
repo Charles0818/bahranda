@@ -1,15 +1,15 @@
 import React from "react";
 import { Link, useHistory } from 'react-router-dom';
 import { Spinners, Form } from '../../../components';
-import {MdLocationOn, MdEmail} from 'react-icons/md';
-import {FaPhoneAlt, FaTwitter, FaFacebookF} from 'react-icons/fa';
-import {FiInstagram} from "react-icons/fi";
-import ContactMap from "../contactMap"
+// import {MdLocationOn, MdEmail} from 'react-icons/md';
+// import {FaPhoneAlt, FaTwitter, FaFacebookF} from 'react-icons/fa';
+// import {FiInstagram} from "react-icons/fi";
+// import ContactMap from "../contactMap"
 const { FormField, useFormInput, SubmitButton, TextArea, useCheckbox } =Form;
 
 const ContactPage = () => {
     return (
-        <div className="d-flex justify-content-s-between padding-horizontal-lg">
+        <div className="d-flex justify-content-center padding-horizontal-lg">        
             <div>
                 <form className="d-flex column fadeIn-animation" style={{width: '100%'}}>
                 <p className="font-lg">To get in touch please contact us directly or fill out <br></br> this form, we will get in touch prompty</p>
@@ -23,7 +23,7 @@ const ContactPage = () => {
                 <SubmitButton text="SEND" className="padding-horizontal-lg" action={() => null }  />
                  </form>
             </div>
-            <div className="d-flex column">
+            {/* <div className="d-flex column">
                 <div>
                     <ContactMap />
                 </div>
@@ -46,7 +46,7 @@ const ContactPage = () => {
 
                       </div>
 
-            </div>
+            </div> */}
         </div>
     )
 }
