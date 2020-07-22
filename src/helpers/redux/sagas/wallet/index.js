@@ -9,7 +9,7 @@ const {
   GET_WALLET_REQUEST, SET_PIN_REQUEST,
   UPDATE_BANK_INFO_INDICATOR, GET_WALLET_INDICATOR,
   GET_WALLET_HISTORY_INDICATOR, REQUEST_WITHDRAWAL_INDICATOR,
-  SET_PIN_INDICATOR
+  SET_PIN_INDICATOR, GET_WALLET_REQUESTS_INDICATOR,
 } = wallet;
 const { showNetworkError } = UIActions;
 const {
@@ -33,10 +33,10 @@ const walletDBCalls = {
     console.log('wallet history gotten', response)
     return response.wallet_histories
   },
-  getWalletRequests: async (token) => {
-    const response = await getData(`${apiKey}/user/wallet/wallet-requests`, token);
+  getWalletRequests: async ({ pageNum, token }) => {
+    const response = await getData(`${apiKey}/user/wallet/wallet-requests?page=${pageNum}`, token);
     console.log('wallet requests gotten', response)
-    return response
+    return response.wallet_requests
   },
   requestWithdrawal: async ({data, token}) => {
     const response = await sendData(`${apiKey}/user/wallet/request-withdrawal`, data, token);
@@ -87,16 +87,17 @@ function* getWalletHistory({ payload }) {
   }
 }
 
-function* getWalletRequests({ payload: { token } }) {
+function* getWalletRequests({ payload }) {
   try {
-    const requests = yield call(walletDBCalls.getWalletRequests, token);
-    yield put(getWalletRequestsSuccess(requests));
+    yield put({ type: GET_WALLET_REQUESTS_INDICATOR });
+    const { data: requests, current_page } = yield call(walletDBCalls.getWalletRequests, payload);
+    const hasNextPage = requests.length !== 0;
+    console.log('these are the wallet reauests', requests)
+    yield put(getWalletRequestsSuccess(requests, current_page, hasNextPage));
   } catch (err) {
-    const { errors } = err;
-    const errorMessage = errors
-      ? errors[0].status === 404
-      ? 'A user with the provided credentials does not exists'
-      : errors[0].title
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
       : networkErrorMessage
     console.log('error found', err);
     yield put(getWalletRequestsFailure(errorMessage))
@@ -106,8 +107,8 @@ function* getWalletRequests({ payload: { token } }) {
 function* requestWithdrawal({ payload }) {
   try {
     yield put({ type: REQUEST_WITHDRAWAL_INDICATOR })
-    const requests = yield call(walletDBCalls.requestWithdrawal, payload);
-    yield put(requestWithdrawalSuccess(requests));
+    const { title } = yield call(walletDBCalls.requestWithdrawal, payload);
+    yield put(requestWithdrawalSuccess(title));
   } catch (err) {
     const { status, title } = err;
     const errorMessage = status

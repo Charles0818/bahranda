@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { History, Spinners } from '../components';
 import { Link, Route } from 'react-router-dom';
 import { actions } from '../helpers';
-import { AccountInformation, WalletStatus, SetPin } from './components';
+import { AccountInformation, WalletStatus, SetPin, WalletRequests as Requests } from './components';
 const { walletActions: { getWalletRequest } } = actions;
 const { SectionSpinner } = Spinners;
 const WalletHistory = lazy(() => import('./WalletHistory'));
+const WalletRequests = lazy(() => import('./WalletRequests'))
 const Wallet = ({ getWalletRequest, token, loading, walletExists, hasPin, match: { path } }) => {
   useLayoutEffect(() => {
     if(!walletExists) getWalletRequest(token)
@@ -22,10 +23,12 @@ const Wallet = ({ getWalletRequest, token, loading, walletExists, hasPin, match:
           <WalletStatus />
           <AccountInformation />
          {!hasPin && <SetPin />}
+          <Requests />
           <History.default />
         </div>
       )} />
       <Route path={`${path}/history`} component={WalletHistory} />
+      <Route path={`${path}/requests`} component={WalletRequests} />
     </Suspense>
   )
 }

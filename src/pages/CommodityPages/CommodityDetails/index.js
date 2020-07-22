@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Cards, Carousels } from '../../components';
+import { Cards, Carousels, Spinners } from '../../components';
 import { actions } from '../helpers'
 import { ThumbnailCarousel, FillInvestment } from '../components';
 import tomatoes from '../../../assets/tomatoes.png';
@@ -9,72 +9,65 @@ import rice from '../../../assets/rice.png';
 import soyabean from '../../../assets/soyabean.png';
 const { CommodityCard } = Cards;
 const { PaddedCarousel } = Carousels;
-const { commodityActions: { getRelatedCommoditiesRequest } } = actions;
-const CommodityDetails = () => {
-  const slides = [
+const { SectionSpinner } = Spinners;
+const { commodityActions: { getRelatedCommoditiesRequest, getSingleCommodityRequest } } = actions;
+
+const CommodityDetails = ({
+  getSingleCommodityRequest, token, loading, match: { params }
+}) => {
+  const [details, setDetails] = useState({})
+   const slides = [
     tomatoes, rice, soyabean
   ];
-  const relatedCommodities = [
-    <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />,
-    <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />,
-    <CommodityCard commodity={{thumbnail: tomatoes, name: 'tomatoes'}} />,
-    <CommodityCard commodity={{thumbnail: rice, name: 'rice'}} />,
-    <CommodityCard commodity={{thumbnail: soyabean, name: 'soyabeans'}} />,
-    <CommodityCard commodity={{thumbnail: tomatoes, name: 'tomatoes'}} />
-  ]
+  useEffect(() => {
+    getSingleCommodityRequest(token, setDetails, params.id)
+  }, [token, setDetails, params.id]);
+  if(loading) return <SectionSpinner isLoading={loading} />;
+  const { image, description, ...rest } = details;
   return (
     <article className="d-flex column" style={{width: '100%'}}>
       {/* <h1 className="font-lg margin-bottom-sm">Commodity Details</h1> */}
       <div className="d-flex justify-content-s-between thumbnail-details margin-bottom-md" style={{width: '100%'}}>
         <div className="thumbnail-slider margin-right-md">
-          <ThumbnailCarousel autoSlide={false} thumbnails={slides} />
+          <ThumbnailCarousel autoSlide={false} thumbnails={[image]} />
+          {/* <img src={image} alt="commodity thumbnail" /> */}
         </div>
         <section className="details flex-equal">
-          <FillInvestment />
+          <FillInvestment details={rest} />
         </section>
       </div>
       <main className="product-details" style={{width: '100%'}}>
         <h2 className="uppercase font-md">description</h2>
         <div className="bg-white slim-border">
           <p className="font-sm padding-horizontal-md padding-vertical-md">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Praesent interdum sem non fermentum interdum. Vivamus sit
-            amet iaculis nibh, vel commodo leo. Vestibulum id tristique enim.
-            Suspendisse quis augue vel odio vehicula euismod. Nulla convallis luctus odio,
-            non malesuada velit gravida vitae. Vestibulum ante ipsum primis in faucibus
-            orci luctus et ultrices posuere cubilia curae; Proin convallis elit vitae
-            lacus euismod venenatis. Vivamus varius rutrum justo, a laoreet lorem luctus vel. 
-            Suspendisse pellentesque velit et odio accumsan commodo non sed lacus. 
-            Praesent non aliquam velit, pretium placerat ligula. Nam vehicula massa lectus, 
-            non sodales tellus posuere sed. Maecenas ut dictum justo. 
-            Nullam in placerat metus, ut porta diam. Mauris molestie tellus urna, 
-            ac imperdiet dui blandit et. Etiam fringilla et nisi malesuada efficitur. 
-            Fusce molestie ipsum non condimentum tempor.
+            {description}
           </p>
         </div>
-        <div className='padding-vertical-lg' style={{width: '100%'}}>
-          <div className="bg-gray bg-color1 padding-horizontal-md padding-vertical-md" style={{width: '100%'}}>
-            <h3 className="font-lg margin-bottom-md">Related Commodities</h3>
-            <PaddedCarousel slides={relatedCommodities} cardAlign={true} autoSlide={false} />
-          </div>
-          <div className="d-flex justify-content-center">
-            <button className="btn-color1 ripple color-white font-sm">VIEW ALL</button>
-          </div>
-        </div>
+        <RelatedCommodities token={token} />
       </main>
     </article>
   )
 }
 
 const mapDispatchToRelatedCommodities = dispatch =>
-  bindActionCreators({ getRelatedCommoditiesRequest }, dispatch)
-const RelatedCommodities = connect(null, mapDispatchToRelatedCommodities)(({
-  token, getRelatedCommoditiesRequest
+  bindActionCreators({ getRelatedCommoditiesRequest }, dispatch);
+const mapIndicatorToProps = state => {
+  const { loadingIndicators: { relatedCommodity: loading } } = state.commodityReducer;
+  return { loading }
+}
+const RelatedCommodities = connect(mapIndicatorToProps, mapDispatchToRelatedCommodities)(({
+  token, loading, getRelatedCommoditiesRequest
 }) => {
   const [state, setState] = useState([])
   useEffect(() => {
     getRelatedCommoditiesRequest(token, setState)
-  }, [])
+  }, [token])
+  if(loading) return (
+    <div className="bg-gray bg-color1 padding-horizontal-md margin-top-md padding-vertical-md" style={{width: '100%'}}>
+      <h3 className="font-lg margin-bottom-md">Related Commodities</h3>
+      <SectionSpinner isLoading={loading} />
+    </div>
+  )
   return (
     <div className='padding-vertical-lg' style={{width: '100%'}}>
       <div className="bg-gray bg-color1 padding-horizontal-md padding-vertical-md" style={{width: '100%'}}>
@@ -84,11 +77,21 @@ const RelatedCommodities = connect(null, mapDispatchToRelatedCommodities)(({
           cardAlign={true}
           autoSlide={false}
         />
-      </div>
-      <div className="d-flex justify-content-center">
-        <button className="btn-color1 ripple color-white font-sm">VIEW ALL</button>
+        <div className="d-flex justify-content-center">
+          <button className="btn-color1 ripple color-white font-sm">VIEW ALL</button>
+        </div>
       </div>
     </div>
   )
 })
-export default CommodityDetails;
+const mapStateToProps = state => {
+  const { loadingIndicators: { singleCommodity: loading }, error, details } = state.commodityReducer;
+  const { token } = state.authReducer;
+  return { token, loading, error, details }
+}
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ getSingleCommodityRequest }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommodityDetails)
+
+

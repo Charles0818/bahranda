@@ -118,7 +118,7 @@ export const useRadioInputs = () => {
         <div ref={dropdown} className="padding-md input-dropdown bg-white">
           {options.map(option => {
             const { label } = option;
-            return <RadioButton label={label} onChange={setSelectedValue} checked={selectedValue && selectedValue.label === label} />
+            return <RadioButton key={label} label={label} onChange={setSelectedValue} checked={selectedValue && selectedValue.label === label} />
           })}
         </div>
       </div>

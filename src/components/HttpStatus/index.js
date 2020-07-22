@@ -8,7 +8,7 @@ const HttpStatusNotification = ({ status, message }) => {
     return () => ref.current.classList.remove('fadeIn-animation')
   }, [])
   return (
-    <div ref={ref} className={`d-flex align-items-center http-status border-r-5
+    <div ref={ref} className={`d-flex nowrap align-items-center http-status border-r-5
       padding-horizontal-sm padding-vertical-sm ${status === 'error' ? 'bg-danger' : 'bg-color1'}`}>
         {status === 'error'
         ? <MdError className="font-lg margin-right-sm color-white" />

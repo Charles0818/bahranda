@@ -9,7 +9,8 @@ const {
   UPDATE_BANK_INFO_SUCCESS, UPDATE_BANK_INFO_REQUEST,
   UPDATE_BANK_INFO_FAILURE, SET_PIN_SUCCESS,
   SET_PIN_FAILURE, SET_PIN_REQUEST,
-  INCREMENT_WALLET_HISTORY_PAGENUM
+  INCREMENT_WALLET_HISTORY_PAGENUM,
+  INCREMENT_WALLET_REQUESTS_PAGENUM
 } = wallet;
 
 export const getWalletRequest = (token) => {
@@ -67,10 +68,10 @@ export const requestWithdrawalRequest = (data, token) => {
   }
 }
 
-export const requestWithdrawalSuccess = (request, message) => {
+export const requestWithdrawalSuccess = (message) => {
   return {
     type: REQUEST_WITHDRAWAL_SUCCESS,
-    payload: { request, message }
+    payload: { message }
   }
 }
 
@@ -81,17 +82,17 @@ export const requestWithdrawalFailure = (error) => {
   }
 }
 
-export const getWalletRequests = (token) => {
+export const getWalletRequests = (pageNum, token) => {
   return {
     type: GET_WALLET_REQUESTS,
-    payload: { token }
+    payload: { token, pageNum }
   }
 }
 
-export const getWalletRequestsSuccess = (requests) => {
+export const getWalletRequestsSuccess = (requests, pageNum, hasNextPage) => {
   return {
     type: GET_WALLET_REQUESTS_SUCCESS,
-    payload: { requests }
+    payload: { requests, pageNum, hasNextPage }
   }
 }
 
@@ -102,6 +103,11 @@ export const getWalletRequestsFailure = (error) => {
   }
 }
 
+export const incrementWalletRequestsPageNum = () => {
+  return {
+    type: INCREMENT_WALLET_REQUESTS_PAGENUM
+  }
+}
 
 export const updateBankInfoRequest = (data, token) => {
   return {

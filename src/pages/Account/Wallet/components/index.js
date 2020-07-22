@@ -1,4 +1,5 @@
 import AccountInformation from './AccountInformation';
 import WalletStatus from './WalletStatus';
 import SetPin from './SetPin';
-export{ AccountInformation, WalletStatus, SetPin };
+import WalletRequests from './WalletRequests';
+export{ AccountInformation, WalletStatus, SetPin, WalletRequests };

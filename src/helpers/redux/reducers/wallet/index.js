@@ -10,7 +10,9 @@ const {
   UPDATE_BANK_INFO_FAILURE, UPDATE_BANK_INFO_INDICATOR,
   UPDATE_BANK_INFO_SUCCESS, GET_WALLET_INDICATOR,
   GET_WALLET_HISTORY_INDICATOR, SET_PIN_INDICATOR,
-  INCREMENT_WALLET_HISTORY_PAGENUM
+  INCREMENT_WALLET_HISTORY_PAGENUM,
+  INCREMENT_WALLET_REQUESTS_PAGENUM,
+  GET_WALLET_REQUESTS_INDICATOR
 } = wallet;
 
 const { SIGN_OUT } = auth;
@@ -24,7 +26,11 @@ const initialState = () => {
       pageNum: 1,
       hasNextPage: true,
     },
-    walletRequests: [],
+    walletRequestsData: {
+      walletRequests: [],
+      pageNum: 1,
+      hasNextPage: true
+    },
     errors: {
       getWallet: '',
       history: '',
@@ -40,7 +46,7 @@ const initialState = () => {
       bankInfo: false,
       getWallet: false,
       history: false,
-      bankInfo: false,
+      walletRequests: false,
       setPin: false,
       requestWithdrawal: false,
     }
@@ -92,8 +98,26 @@ const walletReducer = (prevState = initialState(), { type, payload }) => {
       prevState.loadingIndicators.history = false
       prevState.errors.history = payload.error;
       return { ...prevState }
-    case GET_WALLET_REQUESTS_SUCCESS:
-      return { ...prevState, walletRequests: payload.requests}
+    case GET_WALLET_REQUESTS_INDICATOR:
+      prevState.loadingIndicators.walletRequests = true
+      return { ...prevState };
+    case INCREMENT_WALLET_REQUESTS_PAGENUM:
+      prevState.walletRequestsData.pageNum += 1;
+      return { ...prevState }
+    case GET_WALLET_REQUESTS_SUCCESS: {
+      const { requests, pageNum, hasNextPage } = payload;
+      const walletRequests = [...prevState.walletRequestsData.walletRequests, ...requests];
+      console.log('this is the walletHistory from saga', walletRequests);
+      prevState.walletRequestsData = {
+        pageNum, hasNextPage,
+        walletRequests
+      }
+      prevState.loadingIndicators.walletRequests = false
+      return { ...prevState }
+    }
+    case GET_WALLET_REQUESTS_FAILURE:
+      prevState.loadingIndicators.walletRequests = false
+      return { ...prevState };
     case UPDATE_BANK_INFO_INDICATOR:
       prevState.loadingIndicators.bankInfo = true
       return {...prevState }
@@ -111,10 +135,9 @@ const walletReducer = (prevState = initialState(), { type, payload }) => {
       prevState.loadingIndicators.requestWithdrawal = true;
       return { ...prevState }
     case REQUEST_WITHDRAWAL_SUCCESS:
-      const walletRequests = [payload.request, ...prevState.walletRequests];
       prevState.success.requestWithdrawal = payload.message;
       prevState.loadingIndicators.requestWithdrawal = false;
-      return { ...prevState, walletRequests }
+      return { ...prevState }
     case REQUEST_WITHDRAWAL_FAILURE:
       prevState.errors.requestWithdrawal = payload.error;
       console.log('failed withdrawal request', payload.error)

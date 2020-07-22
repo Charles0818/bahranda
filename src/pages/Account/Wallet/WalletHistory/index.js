@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useCallback, useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import SyncLoader from 'react-spinners/SyncLoader'
 import { Spinners } from '../../../components';
 import { History } from '../../components';
 import { actions } from '../../helpers';
@@ -49,14 +50,9 @@ const WalletHistory = ({getWalletHistoryRequest, token, loading, history, hasNex
           return <History.HistoryRow key={el.id} history={el} />
         }
       })}
-      {/* <History.HistoryRow amount={55000} desc="payout" date="17, June 20" status={'debit'} />
-      <History.HistoryRow amount={55000} desc="recharge" date="17, June 20" status={'credit'} />
-      <History.HistoryRow amount={55000} desc="payout" date="17, June 20" status={'debit'} />
-      <History.HistoryRow amount={55000} desc="recharge" date="17, June 20" status={'credit'} />
-      <History.HistoryRow amount={55000} desc="payout" date="17, June 20" status={'debit'} />
-      <History.HistoryRow amount={55000} desc="recharge" date="17, June 20" status={'credit'} />
-      <History.HistoryRow amount={55000} desc="payout" date="17, June 20" status={'debit'} />
-      <History.HistoryRow amount={55000} desc="recharge" date="17, June 20" status={'credit'} /> */}
+      <div className="margin-bottom-sm d-flex justify-content-center">
+        <SyncLoader size={15} color={"#069801"} loading={loading} />
+      </div>
     </section>
   )
 }

@@ -6,13 +6,12 @@ import { actions } from '../helpers';
 import { Cards, Spinners } from '../../components';
 const { CommodityCard } = Cards;
 const { SectionSpinner } = Spinners;
-const { commodityActions: { getCommoditiesRequest, incrementPageNum } } = actions;
+const { commodityActions: { getCommoditiesRequest,  incrementPageNum } } = actions;
 const Commodities = ({ 
   token, isLoading, firstFetch, commodities, pageNum, hasNextPage, error, getCommoditiesRequest, incrementPageNum
 }) => {
   useEffect(() => {
     getCommoditiesRequest(pageNum, token)
-    console.log('current page number', pageNum)
   }, [pageNum, token]);
   const observer = useRef();
   const lastCommodity = useCallback(node => {
@@ -52,5 +51,5 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ getCommoditiesRequest, incrementPageNum }, dispatch)
+  bindActionCreators({ getCommoditiesRequest, incrementPageNum, }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Commodities)

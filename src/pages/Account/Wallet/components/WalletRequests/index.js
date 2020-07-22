@@ -1,10 +1,80 @@
-import React from 'react';
-
-const WalletRequests = () => {
+import React, { useLayoutEffect, forwardRef } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
+import { Spinners } from '../../../../components';
+import { actions, utils } from '../../../helpers';
+const { walletActions: { getWalletRequests } } = actions;
+const { SectionSpinner } = Spinners;
+const { formatting: { formatDate, formatCurrency } } = utils;
+const WalletRequests = ({ walletRequests, getWalletRequests, token, pageNum, loading }) => {
+  useLayoutEffect(() => {
+    if(walletRequests.length === 0) getWalletRequests(pageNum, token)
+  }, [token, pageNum, walletRequests.length]);
+  if(loading) return <SectionSpinner isLoading={loading} />
   return (
-    <section></section>
-    
+    <section className="slim-border-2 padding-horizontal-md bg-white activity margin-bottom-md">
+      <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
+        <h2 className="font-weight-500 font-style-normal font-lg">Wallet Requests</h2>
+        <Link to="/account/wallet/requests" className="font-sm font-weight-600 padding-sm border-r-5 bg-color1 color-white ripple">SEE ALL</Link>
+      </div>
+      <div className="sort margin-bottom-md d-flex justify-content-end">
+        <button className="btn btn-transparent padding-md font-md color1">Sort: Most Recent</button>
+      </div>
+      <table>
+        <RequestTableHead />
+        <tbody>
+          {walletRequests.map((el) =>  <Request request={el} key={el.id} />)}
+        </tbody>
+      </table>
+    </section>
   )
 }
 
-export default WalletRequests;
+export const RequestTableHead = () => {
+  return (
+    <thead>
+      <tr className="slim-border-bottom">
+        <th className="font-weight-500 font-style-normal uppercase font-md margin-right-sm">amount</th>
+        <th className="font-weight-500 font-style-normal uppercase font-md margin-right-sm">date</th>
+        <th className="font-weight-500 font-style-normal uppercase font-md margin-right-sm">status</th>
+      </tr>
+    </thead>
+  )
+}
+export const Request = ({ request }) => {
+  const { amount, updated_at, status } = request;
+  return (
+    <tr>
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatCurrency(amount)}</td>
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatDate(updated_at)}</td>
+      <td className={`font-weight-600 font-style-normal font-sm margin-right-sm capitalize  ${status === 'pending' ? 'color-yellow' : 'color1'}`}>{status}</td>
+    </tr>
+  )
+}
+
+export const LastWalletRequest = forwardRef(({ request }, ref) => {
+  const { amount, updated_at, status } = request;
+  return (
+    <tr ref={ref}>
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatCurrency(amount)}</td>
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatDate(updated_at)}</td>
+      <td className={`font-weight-600 font-style-normal font-sm margin-right-sm capitalize  ${status === 'pending' ? 'color-yellow' : 'color1'}`}>{status}</td>
+    </tr>
+  )
+})
+
+const mapStateToProps = state => {
+  const { walletRequestsData: { walletRequests, pageNum }, loadingIndicators } = state.walletReducer;
+  const { token } = state.authReducer;
+  return {
+    walletRequests, token, loading: loadingIndicators.walletRequests, pageNum,
+  }
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    getWalletRequests,
+  }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletRequests);
