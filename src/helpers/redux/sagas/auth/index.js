@@ -1,6 +1,7 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { auth } from '../../types';
 import { authActions, UIActions } from '../../actions';
+import { networkError } from '../reusables';
 import { sendData, getData, deleteData, apiKey } from '../ajax';
 const {
   SIGN_IN_REQUEST, SIGN_UP_REQUEST,
@@ -9,7 +10,9 @@ const {
 const {
   signInSuccess, signInError,
   signUpSuccess, signUpError, pinError,
-  setIsLoading, confirmPinSuccess
+  setIsLoading, confirmPinSuccess,
+  signOut,
+  getUserProfile: getUserProfileRequest
 } = authActions;
 const { startLoading, stopLoading, showNetworkError } = UIActions;
 const networkErrorMessage = 'No internet connection detected';
@@ -96,7 +99,7 @@ function* confirmPin({ payload: { data, redirect } }){
   }
 }
 
-function* getUserProfile({ payload: { token } }){
+function* getUserProfile({ payload: { token, redirect } }){
   try {
     yield put(startLoading())
     const profile = yield call(authDBCalls.getUserProfile, token);
@@ -105,34 +108,36 @@ function* getUserProfile({ payload: { token } }){
     yield put(stopLoading())
   } catch (err) {
     console.log('error found', err);
-    const { status, title } = err;
-    const errorMessage = status
-      ? title
-      : networkErrorMessage
-      yield put(stopLoading())
-    // yield put(pinError(errorMessage))
+    const { status, title, message } = err;
+    if(message) return yield put(signOut())
+    if(!status) {
+      yield call(networkError, getUserProfileRequest(token, redirect));
+      return
+    }
+    yield put(stopLoading())
+    yield put(pinError(title))
   }
 }
 
-function* signUpRequest() {
+function* signUpWatcher() {
   yield takeLatest(SIGN_UP_REQUEST, signUp)
 }
 
-function* signInRequest() {
+function* signInWatcher() {
   yield takeLatest(SIGN_IN_REQUEST, signIn)
 }
 
-function* confirmPinRequest() {
+function* confirmPinWatcher() {
   yield takeLatest(CONFIRM_PIN, confirmPin)
 }
 
-function* getUserProfileRequest() {
+function* getUserProfileWatcher() {
   yield takeLatest(GET_USER_PROFILE, getUserProfile)
 }
 
 export default function* authSagas() {
-  yield spawn(signUpRequest)
-  yield spawn(signInRequest)
-  yield spawn(confirmPinRequest)
-  yield spawn(getUserProfileRequest)
+  yield spawn(signUpWatcher)
+  yield spawn(signInWatcher)
+  yield spawn(confirmPinWatcher)
+  yield spawn(getUserProfileWatcher)
 }

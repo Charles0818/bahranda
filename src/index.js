@@ -5,7 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import './styles/index.scss';
 import App from './App';
 import { store, persistor } from './helpers';
-import { Spinners } from './components';
+import { Spinners, ErrorBoundary, NetworkError } from './components';
 import * as serviceWorker from './serviceWorker';
 import WebFont from 'webfontloader';
 
@@ -20,7 +20,11 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={<Spinners.FullScreenSpinner isLoading={true} />}>
-        <App />
+        <ErrorBoundary>
+          <NetworkError>
+            <App />
+          </NetworkError>
+        </ErrorBoundary>
       </PersistGate>
     </Provider>
   </React.StrictMode>,

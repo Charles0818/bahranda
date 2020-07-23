@@ -47,7 +47,7 @@ const validateLength = (value, min, max) => {
 
 const FormValidation = (name, value, setError) => {;
   const input_types = {
-    email: /^([a-zA-Z\d-]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,8})(\.[a-zA-Z]{2,8})?$/,
+    email: /^([a-zA-Z\d-\.\_]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,8})(\.[a-zA-Z]{2,8})?$/,
     password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d][\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/,
     phone:/^[0-9\.\-\/\(\)\,\ ]+$/,
     date:/^(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i,

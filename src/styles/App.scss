@@ -445,6 +445,18 @@ header {
   }
 }
 
+.network-error {
+  height: 100vh;
+  max-width: 720px;
+  .round {
+    width: 250px;
+    height: 250px;
+  }
+  .retry-btn {
+    flex-basis: 50%;
+  }
+}
+
 .http-status {
   @extend .position-fixed;
   top: 12px;

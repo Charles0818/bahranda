@@ -18,26 +18,22 @@ function App({ token, isLoggedIn, getUserProfile, isLoading }) {
   }, []);
   if(isLoading) return <Spinners.FullScreenSpinner isLoading={isLoading} />;
   return (
-    <ErrorBoundary>
-      <NetworkError>
-      <IconContext.Provider value={{ className: "global-class-name" }}>
-        <Router>
-          <Suspense fallback={<Spinners.FullScreenSpinner isLoading={true} />}>
-            <Switch>
-              <Route path="/" component={Home} exact={true} />
-              <Route path="/auth" component={Auth} />
-              <Route path="/contact" component={ContactUs} exact={true} />
-              <Route path="/how-we-work" component={HowWeWork} exact={true} />
-              <Route path="/faqs" component={FAQs} exact={true} />
-              <ProtectedRoute auth={true} path="/commodities" redirectPath="/auth/signin" component={CommodityPages} />
-              <ProtectedRoute auth={true} path="/account" redirectPath="/auth/signin" component={ Account } />
-              <Route component={Error404} />
-            </Switch>
-          </Suspense>
-        </Router>
-      </IconContext.Provider>
-      </NetworkError>
-    </ErrorBoundary>
+    <IconContext.Provider value={{ className: "global-class-name" }}>
+      <Router>
+        <Suspense fallback={<Spinners.FullScreenSpinner isLoading={true} />}>
+          <Switch>
+            <Route path="/" component={Home} exact={true} />
+            <Route path="/auth" component={Auth} />
+            <Route path="/contact" component={ContactUs} exact={true} />
+            <Route path="/how-we-work" component={HowWeWork} exact={true} />
+            <Route path="/faqs" component={FAQs} exact={true} />
+            <ProtectedRoute auth={true} path="/commodities" redirectPath="/auth/signin" component={CommodityPages} />
+            <ProtectedRoute auth={true} path="/account" redirectPath="/auth/signin" component={ Account } />
+            <Route component={Error404} />
+          </Switch>
+        </Suspense>
+      </Router>
+    </IconContext.Provider>
   );
 }
 

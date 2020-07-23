@@ -93,5 +93,3 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ getSingleCommodityRequest }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommodityDetails)
-
-

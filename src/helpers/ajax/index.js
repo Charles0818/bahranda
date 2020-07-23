@@ -3,6 +3,7 @@ export const sendHttpRequest = async (method, url, data, authToken ) => {
     const response = await fetch(url, {
       method:method,
       headers: {
+        'Accept': 'application/json',
         'Authorization': authToken ? `Bearer ${authToken}` : ""
       }
     })
@@ -21,6 +22,7 @@ export const sendHttpRequest = async (method, url, data, authToken ) => {
     body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': authToken ? `Bearer ${authToken}` : ""
     }
   });
