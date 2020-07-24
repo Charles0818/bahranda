@@ -15,11 +15,11 @@ const Header = () => {
         <div className="d-flex align-items-center">
           <div className="d-flex align-items-center address margin-right-md">
             <MdLocationOn color="#fff" className="font-lg margin-right-sm" style={{flex: .2}} />
-            <p className="font-sm font-weight-500" style={{flex: .8}}>71, Solo Makinda close, Amebo avenue Ikotun</p>
+            <p className="font-sm font-weight-500" style={{flex: .8}}>21 Ajasa Street, Onikan, Lagos</p>
           </div>
           <div className="d-flex align-items-center phone">
             <MdPhoneIphone color="#fff" className="font-lg" />
-            <span className="font-sm">+234 80 345 67890</span>
+            <span className="font-sm">0816 334 7566</span>
           </div>
         </div>
         <div className="d-flex align-items-center">

@@ -12,7 +12,7 @@ const ContactPage = () => {
         <div className="d-flex justify-content-center padding-horizontal-lg">        
             <div>
                 <form className="d-flex column fadeIn-animation" style={{width: '100%'}}>
-                <p className="font-lg contact">To get in touch please contact us directly or fill out <br></br> this form, we will get in touch prompty</p>
+                <p className="font-lg contact">To get in touch please contact us directly or fill out <br></br> this form, we will get in touch promptly</p>
                 <FormField name="text" value={""}  placeholder="Name" className="margin-top-lg" />
                 <FormField name="nunmber" value={""}  placeholder="Phone Number" className="margin-top-sm" />
                 <FormField name="email" value={""}  placeholder="Email" className="margin-top-sm" />
