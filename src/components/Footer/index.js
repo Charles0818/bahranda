@@ -16,7 +16,7 @@ const Footer = () => {
       </section>
       <footer className="padding-horizontal-xlg padding-vertical-lg bg-dark">
         <div className="d-flex justify-content-s-between">
-          <img src={logo} alt="Bahranda logo" className="margin-bottom-md logo-lg" />
+          <Link to="/"><img src={logo} alt="Bahranda logo" className="margin-bottom-md logo-lg" /></Link>
           <NewsLetter />
         </div>
         <div className="footer-links">
