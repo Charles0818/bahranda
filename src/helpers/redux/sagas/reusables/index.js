@@ -1,9 +1,13 @@
 import { put } from 'redux-saga/effects';
-import { UIActions } from '../../actions';
+import { UIActions, authActions } from '../../actions';
 const { showNetworkError } = UIActions;
-
+const { signOut } = authActions;
 export const delay = time => new Promise(resolve => setTimeout(resolve, time));
 
 export function* networkError(action) {
   yield put(showNetworkError(action))
+}
+
+export function* unAuthenticatedError(err) {
+  if(err.message) yield put(signOut)
 }

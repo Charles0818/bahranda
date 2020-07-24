@@ -1,6 +1,7 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { commodity } from '../../types';
 import { commodityActions } from '../../actions';
+import { unAuthenticatedError } from '../reusables';
 import { sendData, getData, modifyData, deleteData, apiKey } from '../ajax';
 const {
   GET_COMMODITIES_REQUEST, GET_RELATED_COMMODITIES,
@@ -45,6 +46,7 @@ function* getCommodities({ payload }) {
     yield put(getCommoditiesSuccess(commodities, current_page, hasNextPage));
   } catch (err) {
     const { status, title } = err;
+    yield call(unAuthenticatedError, err)
     const errorMessage = status
       ? title
       : networkErrorMessage
@@ -61,6 +63,7 @@ function* getRelatedCommodities({ payload: { token, setState } }) {
     yield put(getRelatedCommoditiesSuccess())
   } catch (err) {
     const { status, title } = err;
+    yield call(unAuthenticatedError, err)
     const errorMessage = status
       ? title
       : networkErrorMessage
@@ -77,6 +80,7 @@ function* purchaseCommodity({ payload }) {
     yield put(purchaseCommoditySuccess(deal))
   } catch (err) {
     const { status, title } = err;
+    yield call(unAuthenticatedError, err)
     const errorMessage = status
       ? title
       : networkErrorMessage
@@ -93,6 +97,7 @@ function* getSingleCommodity ({ payload: { token, setDetails, id } }) {
     yield put(getSingleCommoditySuccess())
   } catch (err) {
     const { status, title } = err;
+    yield call(unAuthenticatedError, err)
     const errorMessage = status
       ? title
       : networkErrorMessage
