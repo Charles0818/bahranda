@@ -2,7 +2,7 @@ import React, { useLayoutEffect, forwardRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { Spinners } from '../../../../components';
+import { Spinners, EmptyDataRender } from '../../../components';
 import { actions, utils } from '../../../helpers';
 const { walletActions: { getWalletRequests } } = actions;
 const { SectionSpinner } = Spinners;
@@ -24,7 +24,9 @@ const WalletRequests = ({ walletRequests, getWalletRequests, token, pageNum, loa
       <table>
         <RequestTableHead />
         <tbody>
-          {walletRequests.map((el) =>  <Request request={el} key={el.id} />)}
+          {walletRequests.length === 0 
+          ? <EmptyDataRender message="You have no current Wallet Request" />
+          : walletRequests.map((el) => <Request request={el} key={el.id} />)}
         </tbody>
       </table>
     </section>

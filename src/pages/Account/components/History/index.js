@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spinners } from '../../../components';
 import { actions, utils } from '../../helpers';
+import EmptyDataRender from '../EmptyDataRender';
 const { walletActions: { getWalletHistoryRequest } } = actions;
 const { SectionSpinner } = Spinners;
 const { formatting: { formatCurrency, formatDate } } = utils;
@@ -33,7 +34,9 @@ const History = ({ getWalletHistoryRequest, token, loading, history, pageNum }) 
           <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase" >status</h3>
         </div>
       </div>
-      {history.map((el, index) =>  <HistoryRow history={el} key={el.id} />)}
+      {history.length === 0
+      ? <EmptyDataRender message="You have no history record" />
+      : history.map((el) =>  <HistoryRow history={el} key={el.id} />)}
     </section>
   )
 }

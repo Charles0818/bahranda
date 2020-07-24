@@ -1,5 +1,6 @@
 import React from 'react';
 import { utils } from '../../../helpers';
+import { EmptyDataRender } from '../../../components';
 const { formatting: { formatCurrency } } = utils;
 const Activity = ({ activities }) => {
   return (
@@ -17,7 +18,10 @@ const Activity = ({ activities }) => {
           <h3 className="font-weight-500 font-style-normal font-sm margin-right-sm" >STATUS</h3>
         </div>
       </div>
-      {activities.map(activity => <ActivityRow activity={activity} key={activity.id} />)}
+      {activities.length === 0
+        ? <EmptyDataRender message="You do not have any activity" />
+        : activities.map(activity => <ActivityRow activity={activity} key={activity.id} />)
+      }
     </section>
   )
 }
