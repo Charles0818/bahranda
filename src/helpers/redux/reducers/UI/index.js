@@ -23,7 +23,6 @@ const UIReducer = (prevState = initialState, { type, payload }) => {
     }
     case SHOW_NETWORK_ERROR:
       const { dispatch } = payload;
-      console.log('show network', dispatch)
       return {
         ...prevState,
         isLoading: false,

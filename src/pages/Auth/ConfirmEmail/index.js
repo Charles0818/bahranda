@@ -11,7 +11,6 @@ const { FormField, useFormInput, SubmitButton } = Form;
 const ConfirmEmail = ({ confirmPin, isLoading, pinError, userEmail }) => {
   const { replace } = useHistory()
   const { isLoading: loading, LoadingSpinner } = useButtonSpinner(isLoading);
-  console.log('this is loading', loading)
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput(userEmail);
   const { value: pin, handleUserInput: setPin, error: pinErr, isValid: passIsValid } = useFormInput();
   const validateFields = emailIsValid && passIsValid;

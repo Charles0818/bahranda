@@ -25,7 +25,6 @@ const commodityDBCalls = {
   },
   getRelatedCommodities: async ({ token }) => {
     const data = await getData(`${apiKey}/user/commodities/related-commodities`, token);
-    console.log('related commodities', data)
     return data.commodities
   },
   purchaseCommodity: async ({ data, token }) => {
@@ -33,10 +32,7 @@ const commodityDBCalls = {
     return response
   },
   getSingleCommodity: async ({token, id }) => {
-    console.log(token)
     const { commodity } = await getData(`${apiKey}/user/commodities/${id}/show`, token);
-    console.log("commodity details", commodity);
-    console.log(id)
     return commodity;
   }
 }
@@ -44,10 +40,8 @@ const commodityDBCalls = {
 // All generators*
 function* getCommodities({ payload }) {
   try {
-    console.log('this function was called')
     const { data: commodities, meta: { current_page } } = yield call(commodityDBCalls.getCommodities, payload);
     const hasNextPage = commodities.length !== 0
-    console.log('commodity data', commodities)
     yield put(getCommoditiesSuccess(commodities, current_page, hasNextPage));
   } catch (err) {
     const { status, title } = err;
@@ -95,7 +89,6 @@ function* getSingleCommodity ({ payload: { token, setDetails, id } }) {
   try {
     yield put({ type: GET_SINGLE_COMMODITY_INDICATOR })
     const commodity = yield call(commodityDBCalls.getSingleCommodity, { token,  id });
-    console.log('commodity info', commodity)
     setDetails(commodity);
     yield put(getSingleCommoditySuccess())
   } catch (err) {

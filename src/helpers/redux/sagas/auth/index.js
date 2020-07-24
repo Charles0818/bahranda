@@ -23,7 +23,6 @@ const authDBCalls = {
   },
   signIn: async (data) => {
     const response = await sendData(`${apiKey}/auth/login`, data);
-    console.log('login response',  response)
     return response.user_data
   },
   confirmPin: async (data) => {
@@ -109,7 +108,11 @@ function* getUserProfile({ payload: { token, redirect } }){
   } catch (err) {
     console.log('error found', err);
     const { status, title, message } = err;
-    if(message) return yield put(signOut())
+    if(message) {
+      yield put(stopLoading());
+      yield put(signOut());
+      return
+    }
     if(!status) {
       yield call(networkError, getUserProfileRequest(token, redirect));
       return

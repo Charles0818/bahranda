@@ -13,8 +13,6 @@ const ProtectedRoute = memo(({
     // startLoading()
     let isSubscribed = true;
     if(token && !isLoggedIn) getUserProfile(token);
-    console.log('token from protectedRoute', token)
-    console.log('isLoggedIn new', isLoggedIn)
     return () => isSubscribed = false;
   }, [isLoggedIn, token]);
   if(isLoading || token && !isLoggedIn) return <FullScreenSpinner isLoading={isLoading} />

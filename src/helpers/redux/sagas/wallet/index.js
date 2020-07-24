@@ -25,32 +25,26 @@ const networkErrorMessage = 'No internet connection detected';
 const walletDBCalls = {
   getWallet: async (token) => {
     const response = await getData(`${apiKey}/user/wallet`, token);
-    console.log('wallet gotten', response)
     return response
   },
   getWalletHistory: async ({ pageNum, token }) => {
     const response = await getData(`${apiKey}/user/wallet/wallet-history?page=${pageNum}`, token);
-    console.log('wallet history gotten', response)
     return response.wallet_histories
   },
   getWalletRequests: async ({ pageNum, token }) => {
     const response = await getData(`${apiKey}/user/wallet/wallet-requests?page=${pageNum}`, token);
-    console.log('wallet requests gotten', response)
     return response.wallet_requests
   },
   requestWithdrawal: async ({data, token}) => {
     const response = await sendData(`${apiKey}/user/wallet/request-withdrawal`, data, token);
-    console.log('withdrawal request succes', response)
     return response
   },
   setPin: async ({data, token}) => {
     const response = await modifyData(`${apiKey}/user/wallet/set-pin`, data, token);
-    console.log('pin response', response)
     return response
   },
   updateBankInfo: async ({ data, token }) => {
     const response = await modifyData(`${apiKey}/user/wallet/account-information`, data, token);
-    console.log('updateBankInfo response', response)
     return response
   }
 }
@@ -92,7 +86,6 @@ function* getWalletRequests({ payload }) {
     yield put({ type: GET_WALLET_REQUESTS_INDICATOR });
     const { data: requests, current_page } = yield call(walletDBCalls.getWalletRequests, payload);
     const hasNextPage = requests.length !== 0;
-    console.log('these are the wallet reauests', requests)
     yield put(getWalletRequestsSuccess(requests, current_page, hasNextPage));
   } catch (err) {
     const { status, title } = err;

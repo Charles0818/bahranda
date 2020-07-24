@@ -6,7 +6,6 @@ import { actions } from '../../../../../helpers'
 const { FormField, useFormInput, useSelectInput, SubmitButton } = Form;
 const { accountActions: { updateProfileRequest } } = actions;
 const Profile = ({ profile, updateProfileRequest, token, loading, success, error }) => {
-  console.log('is it loading?', loading)
   const { value: sex, SelectInput } = useSelectInput(profile.sex);
   const { value: first_name, handleUserInput: setFirstName, isValid: firstNameIsValid, error: firstNameErr } = useFormInput(profile.first_name);
   const { value: last_name, handleUserInput: setLastName, isValid: lastNameIsValid, error: lastNameErr } = useFormInput(profile.last_name);
@@ -36,7 +35,6 @@ const Profile = ({ profile, updateProfileRequest, token, loading, success, error
 const mapStateToProps = state => {
   const { profile, loadingIndicators: { updateProfile }, success, errors } = state.accountReducer;
   const { token } = state.authReducer;
-  console.log('profile changed', profile)
   return {
     profile, token, loading: updateProfile,
     success: success.updateProfile,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { BsExclamationTriangleFill } from 'react-icons/bs'
@@ -7,17 +7,12 @@ import { actions } from '../../helpers';
 const { UIActions: { eraseNetworkError } } = actions;
 const NetworkError = ({ networkError, eraseNetworkError, children }) => {
   const { show, dispatch: action } = networkError;
-  // const [state, setState] = useState(show)
   const dispatch = useDispatch()
-  // const dispatch = useDispatch
   const callback = useCallback(() => {
     eraseNetworkError();
     dispatch(action)
   },[action, eraseNetworkError])
-  useEffect(() => {
-    console.log('shiw', show)
-    // if(show) callback()
-  }, [show])
+
   if(!show && !action) return children
   return (
     <section className="d-flex column flex-center bg-white">

@@ -32,7 +32,6 @@ const mapDispatchToProps = dispatch =>
 const mapStateToProps = state => {
   const { loadingIndicators, success, errors } = state.accountReducer;
   const { token } = state.authReducer;
-  console.log('new AccoutReducer found', state.accountReducer)
   return {
     token, loading: loadingIndicators.changePassword,
     success: success.changePassword,

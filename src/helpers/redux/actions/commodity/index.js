@@ -79,7 +79,6 @@ export const incrementPageNum = () => {
 
 
 export const getSingleCommodityRequest = (token, setDetails, id ) => {
-  console.log(id)
   return {
     type: GET_SINGLE_COMMODITY_REQUEST,
     payload: { token, setDetails, id }

@@ -56,7 +56,6 @@ const walletReducer = (prevState = initialState(), { type, payload }) => {
   switch(type) {
     case GET_WALLET_INDICATOR:
       prevState.loadingIndicators.getWallet = true
-      console.log('I got triggered for getWallet', {...prevState })
       return {...prevState }
     case GET_WALLET_SUCCESS:
       prevState.loadingIndicators.getWallet = false;
@@ -85,9 +84,7 @@ const walletReducer = (prevState = initialState(), { type, payload }) => {
       return { ...prevState }
     case GET_WALLET_HISTORY_SUCCESS:
       const { walletHistory, pageNum, hasNextPage } = payload;
-      console.log('this is the walletHistory from saga', walletHistory);
       const history = [...prevState.historyData.history, ...walletHistory];
-      console.log('this is the single history from saga', history);
       prevState.historyData = {
         pageNum, hasNextPage,
         history
@@ -107,7 +104,6 @@ const walletReducer = (prevState = initialState(), { type, payload }) => {
     case GET_WALLET_REQUESTS_SUCCESS: {
       const { requests, pageNum, hasNextPage } = payload;
       const walletRequests = [...prevState.walletRequestsData.walletRequests, ...requests];
-      console.log('this is the walletHistory from saga', walletRequests);
       prevState.walletRequestsData = {
         pageNum, hasNextPage,
         walletRequests
@@ -140,7 +136,6 @@ const walletReducer = (prevState = initialState(), { type, payload }) => {
       return { ...prevState }
     case REQUEST_WITHDRAWAL_FAILURE:
       prevState.errors.requestWithdrawal = payload.error;
-      console.log('failed withdrawal request', payload.error)
       prevState.loadingIndicators.requestWithdrawal = false
       return { ...prevState }
     case SIGN_OUT:
