@@ -6,7 +6,6 @@ import RequestWithdrawal from '../RequestWithdrawal';
 const { formatting: { formatCurrency }, checkObjectProperties } = utils;
 const { walletActions: { requestWithdrawalRequest } } = actions;
 const WalletStatus = ({ wallet_balance, amount_withdrawn }) => {
-  console.log('these are the balances', wallet_balance, amount_withdrawn );
   return (
     <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
       <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom padding-vertical-sm">Account Summary</h2>
@@ -28,7 +27,6 @@ const WalletStatus = ({ wallet_balance, amount_withdrawn }) => {
 
 const mapWalletToProps = state => {
   const { wallet: { wallet_balance, amount_withdrawn } } = state.walletReducer;
-  console.log('walletReducer', state.walletReducer)
   return { wallet_balance, amount_withdrawn  }
 }
 

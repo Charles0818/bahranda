@@ -12,7 +12,6 @@ const RequestWithdrawal = ({
 }) => {
   // const { value: amount, handleUserInput: setAmount, isValid: amountIsValid, error: amountErr } = useFormInput(0);
   const [amount, setAmount] = useState(0);
-  console.log('amount', amount)
   const { value: pin, handleUserInput: setPin, isValid: pinIsValid, error: pinErr } = useFormInput();
   const validateAllFields = pinIsValid && amount;
   const [setActive, setActiveState] = useState(false);
