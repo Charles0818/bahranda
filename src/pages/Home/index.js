@@ -30,14 +30,14 @@ const Home = () => {
         <HeaderSlides />
         <WhatWeDo />
         <WhoWeAre />
-        <div className="padding-horizontal-md padding-vertical-md margin-bottom-md">
+        {/* <div className="padding-horizontal-md padding-vertical-md margin-bottom-md">
           <h3 className="font-xlg text-center font-weight-normal margin-bottom-md capitalize">commodities</h3>
           <LayerCarousel slides={commodities} cardAlign={true} autoSlide={false} />
         </div>
         <div className="bg-gray padding-horizontal-md padding-vertical-md">
           <h3 className="font-xlg text-center font-weight-normal margin-bottom-md">Our Team</h3>
           <PaddedCarousel slides={team} cardAlign={true} autoSlide={false} />
-        </div>
+        </div> */}
       </main>
     </PageWrapper>
   )
