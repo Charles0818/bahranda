@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useHistory } from 'react-router-dom';
 import { actions, utils } from '../../helpers';
-import { Spinners } from '../../components';
+import { Spinners, EmptyDataRender } from '../../components';
 const { SectionSpinner } = Spinners;
 const { dealActions: { getDealsRequest } } = actions;
 const { formatting: { formatCurrency, formatDate } } = utils;
@@ -65,7 +65,10 @@ const Deals = ({
               </tr>
             </thead>
             <tbody>
-              {deals.map(deal => <Deal deal={deal} key={deal.id} />)}
+              {deals.length === 0
+                ? <EmptyDataRender message="You have no Deal history" />
+                : deals.map(deal => <Deal deal={deal} key={deal.id} />)
+              }
             </tbody>
           </table>
         </div>
