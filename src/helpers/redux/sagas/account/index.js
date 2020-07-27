@@ -25,11 +25,9 @@ const accountDBCalls = {
   },
   changePassword: async ({ data, token }) => {
     const response = await modifyData(`${apiKey}/user/profile/password/change`, data, token);
-    console.log('ChangePassord response', response)
     return response
   },
   updateProfile: async ({ data, token }) => {
-    console.log('update profile endpoint was triggered')
     const response = await modifyData(`${apiKey}/user/profile/update`, data, token);
     return response
   },
@@ -59,7 +57,6 @@ function* getAccountDashboard({ payload: { token } }) {
 
 function* updateProfile({ payload }) {
   try {
-    console.log('update profile saga effect was triggered')
     yield put({ type: UPDATE_PROFILE_INDICATOR })
     yield call(accountDBCalls.updateProfile, payload);
     yield put(updateProfileSuccess(payload.data, 'Profile updated successfully'));

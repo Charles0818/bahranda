@@ -19,9 +19,9 @@ export const eraseNetworkError = () => {
   }
 }
 
-export const showNetworkError = (action) => {
+export const showNetworkError = (dispatch) => {
   return {
     type: SHOW_NETWORK_ERROR,
-    payload: { action }
+    payload: { dispatch }
   }
 }

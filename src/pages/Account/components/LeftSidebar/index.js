@@ -13,7 +13,6 @@ const { authActions: { signOut } } = actions;
 const { useConfirmation } = Modal;
 const LeftSidebar = forwardRef(({}, ref) => {
   useEffect(() => {
-    console.log('leftsidebar ref', ref)
     const event = window.addEventListener('click', e => {
       e.preventDefault();
       if(ref.current) {

@@ -13,7 +13,6 @@ const Wallet = ({ getWalletRequest, token, loading, walletExists, hasPin, match:
   useLayoutEffect(() => {
     if(!walletExists) getWalletRequest(token)
   }, [walletExists])
-  console.log('this is my path', path)
   if(loading) return <SectionSpinner isLoading={loading} />
   return (
     <Suspense fallback={<Spinners.FullScreenSpinner isLoading={true} />}>

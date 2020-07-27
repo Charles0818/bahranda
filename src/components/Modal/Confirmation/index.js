@@ -4,7 +4,6 @@ import '../modal.scss';
 const Confirmation= (props) => {
   const { isOpen, closeModal, action, children: Children, heading } = props;
   const fireAction = () => {
-    console.log('action was fired from Confirmation Modal')
     action();
     closeModal();
   }
@@ -39,7 +38,6 @@ const useConfirmation = () => {
       </Portal>
     )
   }
-  console.log(isOpen);
   return { closeModal, openModal, isOpen, ConfirmationChild }
 }
 

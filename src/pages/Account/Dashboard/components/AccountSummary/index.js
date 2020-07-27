@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { utils } from '../../../helpers';
+import { Animation, SectionTitle } from '../../../components';
+const { ScrollToBottom, FadeInLeft } = Animation
 const { formatting: { formatCurrency } } = utils;
 const AccountSummary = ({ summary }) => {
   const { total_deals_amount, withdrawn, total_deals, active_deals } = summary
   return (
-    <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
-      <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom padding-vertical-sm">Account Summary</h2>
+    <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
+      <SectionTitle title="Account Summary" />
       <div className="d-flex align-items-stretch padding-vertical-md">
         <div className="d-flex column flex-center padding-horizontal-md padding-vertical-xsm margin-bottom-sm slim-border-right slim-border-bottom statement">
           <p className="font-lg font-weight-500 uppercase">{formatCurrency(total_deals_amount)}</p>

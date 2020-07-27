@@ -1,5 +1,6 @@
 import React from 'react';
-import { Accordion } from '../../../components';
+import { Accordion, Animation } from '../../../components';
+const { ScrollToBottom } = Animation;
 const FAQ = () => {
   const faqs = [
     {
@@ -45,7 +46,9 @@ const FAQ = () => {
   ]
   return (
     <section className="padding-horizontal-xlg margin-bottom-md faqs">
-      <h2 className="text-center font-lg margin-bottom-md font-weight-normal font-style-normal">Frequently Asked Questions</h2>
+      <ScrollToBottom duration={.1}>
+        <h2 className="text-center font-lg margin-bottom-md font-weight-normal font-style-normal">Frequently Asked Questions</h2>
+      </ScrollToBottom>
       {faqs.map((faq, index) => (
         <Accordion title={faq.question} content={<p className="font-md text-content">{faq.answer}</p>} key={index} />
       ))}

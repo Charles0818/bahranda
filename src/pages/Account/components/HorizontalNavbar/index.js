@@ -10,7 +10,7 @@ const HorizontalNavbar = ({ first_name, last_name, toggleSidebar }) => {
       <div className="d-flex align-items-center">
         <button className="bar border-r-circle margin-right-md cursor-pointer"
           onClick={toggleSidebar}>
-          <FaBars className="font-lg bar-icon" />
+          <FaBars className="bar-icon" style={{fontSize: '25px'}} />
         </button>
         <h2 className="greet font-lg capitalize">Hello, {`${first_name} ${last_name}`}</h2>
       </div>

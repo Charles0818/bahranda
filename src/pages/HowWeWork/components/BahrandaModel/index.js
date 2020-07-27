@@ -1,11 +1,14 @@
 import React from 'react';
 import model from '../../assets/model.svg'
-
+import { Animation } from '../../../components';
+const { ScrollToBottom } = Animation;
 const BahrandaModel = () => {
   return (
 
     <div className="padding-horizontal-xlg padding-vertical-md bg-gray d-flex column align-items-center model margin-bottom-md">
-       <h1 className="font-lg text-center margin-bottom-md">The Bahranda Model</h1>
+       <ScrollToBottom duration={.1}>
+         <h1 className="font-lg text-center margin-bottom-md">The Bahranda Model</h1>
+        </ScrollToBottom>
        <img src={model} alt="bahranda" className="bahranda-triangle margin-bottom-md" />
       <p className=" font-md text-content">Lorem ipsum dolor sit amet, 
         consectetur adipiscing elit. Nullam 

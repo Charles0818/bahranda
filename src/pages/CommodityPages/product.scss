@@ -1,20 +1,18 @@
 @import 'variables';
 @import 'breakpoints';
 
-.thumbnail-slider, .details {
-  flex: 1;
-  @include media-breakpoint-down(sm) {
-    flex-basis: 100%;
-    max-width: 100%;
-  }
-};
-.thumbnail-slider { 
-  flex-basis: 246px;
-  max-width: 246px;
-
-  .controls {
-    bottom: 0;
-    left: 0;
-    right: 0;
+.commodity {
+  .thumbnail-slider { 
+    flex-basis: 246px;
+    max-width: 246px;
+    .controls {
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+     @include media-breakpoint-down(sm) {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
   }
 }

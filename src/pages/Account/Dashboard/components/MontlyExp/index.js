@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bar, defaults } from 'react-chartjs-2';
-
+import { Animation } from '../../../components';
+const { FadeInRight, FadeInLeft } = Animation
 defaults.global.legend.labels = false;
 const data = {
   labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -46,19 +47,23 @@ const options ={
 };
 const MonthlyExpenditure = () => {
   return (
-    <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white expenditure">
+    <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white expenditure overflow-h">
       <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm">
-        <h2 className="font-weight-500 font-style-normal font-lg">Montly Expenditure</h2>
-        <div className="d-flex align-items-center">
-          <div className="d-flex align-items-center margin-right-sm">
-            <div className="indicator green margin-right-sm" />
-            <span className="font-sm font-weight-500">Invested</span>
-          </div>
+        <FadeInLeft duration={.1}>
+          <h2 className="font-weight-500 font-style-normal font-lg">Montly Expenditure</h2>
+        </FadeInLeft>
+        <FadeInRight>
           <div className="d-flex align-items-center">
-            <div className="indicator orange margin-right-sm" />
-            <span className="font-sm font-weight-500">Withdrawn</span>
+            <div className="d-flex align-items-center margin-right-sm">
+              <div className="indicator green margin-right-sm" />
+              <span className="font-sm font-weight-500">Invested</span>
+            </div>
+            <div className="d-flex align-items-center">
+              <div className="indicator orange margin-right-sm" />
+              <span className="font-sm font-weight-500">Withdrawn</span>
+            </div>
           </div>
-        </div>
+        </FadeInRight>
       </div>
       <section className="linear-graph">
         <Bar data={data} options={options} height={150} />

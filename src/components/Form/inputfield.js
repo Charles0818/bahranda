@@ -1,19 +1,35 @@
 import React, { useRef, useState, memo, useCallback } from 'react';
 import ClipLoader from "react-spinners/ClipLoader";
 import Select from 'react-select';
-import { BsEye, BsEyeSlash, BsCheckCircle } from 'react-icons/bs';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { FaCheckCircle } from 'react-icons/fa';
+import { handleKeyDown } from './validation';
 
 export const FormField = ({
-  placeholder, label, value, onChange, err, name, type, className, disabled = false, ...rest
+  placeholder, label, value, onChange, err, name, type, className, disabled = false, max, ...rest
 }) => {
+  const handleKeyDownCallback = useCallback(() => {
+    return handleKeyDown(value, max, onChange)
+    
+  }, [value, onChange, max]);
+  const handleOnChange = useCallback(() => {
+
+  }, [])
   const inputRef = useRef();
   return (
     <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
       <span className="font-md font-weight-500">{label ? label : placeholder}</span>
       <div className="d-flex input-container position-relative" style={{width: '100%'}}>
-        <input type={type} name={name} ref={inputRef} value={value} onChange={onChange} placeholder={placeholder} disabled={disabled}
+        <input
+          type={type}
+          name={name}
+          ref={inputRef}
+          value={value}
+          // onKeyDown={handleKeyDownCallback()}
+          onChange={onChange}
+          placeholder={placeholder}
+          disabled={disabled}
           className={`border-r-5 padding-vertical-sm padding-horizontal-md font-weight-500 ${!disabled ? 'bg-white' : 'bg-gray'} slim-border font-sm`} {...rest} />
         <div className="field-check-icon">
           {!err && value.length > 0 && <FaCheckCircle className="font-md  bg-white color1 fadeIn-animation" /> }
@@ -157,8 +173,9 @@ export const CurrencyInput = ({
     throw new Error(`invalid value property`);
   }
   const handleKeyDown = useCallback(e => {
-    console.log('handleKeyDown', e.target.name, e.key)
+    e.preventDefault()
     const { key, keyCode } = e;
+    console.log('handleKeyDown', e.target.name, key)
     if (
       (value === 0 && !VALID_FIRST.test(key)) ||
       (value !== 0 && !VALID_NEXT.test(key) && keyCode !== DELETE_KEY_CODE)
@@ -177,6 +194,7 @@ export const CurrencyInput = ({
     if (nextValue > max) {
       return;
     }
+    //if(max && nextValue > max) return
     onValueChange(nextValue);
   }, [max, value, onValueChange]);
   const handleChange = useCallback(() => {

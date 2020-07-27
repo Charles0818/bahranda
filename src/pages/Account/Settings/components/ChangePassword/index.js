@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, HttpStatusNotification } from '../../../components';
+import { Form, HttpStatusNotification, SectionTitle } from '../../../components';
 import { actions } from '../../../helpers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,8 +12,8 @@ const ChangePassword = ({ changePasswordRequest, token, loading, success, error 
   const validatePasswords = new_password !== new_password_confirmation ? 'Passwords do not match' : '';
   const validateAllFields = oldPassIsValid && newPassIsValid && new_password === new_password_confirmation
   return (
-    <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
-      <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom margin-bottom-md padding-vertical-sm">Change Password</h2>
+    <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
+      <SectionTitle title="Change Password" />
       <form className="d-flex margin-bottom-sm">
         <FormField name="Password"  value={current_password} onChange={setOldPass} placeholder="Current password" err={oldPassErr} className="flex-equal margin-right-sm" autoComplete="new-password" />
         <PasswordField name="password" value={new_password} onChange={setNewPass} placeholder="New password" err={newPassErr} className="flex-equal margin-right-sm" autoComplete="new-password" />
@@ -32,7 +32,6 @@ const mapDispatchToProps = dispatch =>
 const mapStateToProps = state => {
   const { loadingIndicators, success, errors } = state.accountReducer;
   const { token } = state.authReducer;
-  console.log('new AccoutReducer found', state.accountReducer)
   return {
     token, loading: loadingIndicators.changePassword,
     success: success.changePassword,

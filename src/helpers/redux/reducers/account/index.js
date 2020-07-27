@@ -49,19 +49,16 @@ const accountReducer = (prevState = initialState(), { type, payload }) => {
       prevState.loadingIndicators.getDashboard = false;
       return { ...prevState }
     case UPDATE_PROFILE_INDICATOR:
-      console.log('I got triggered for updateProfileRequest', prevState)
       return {...prevState, loadingIndicators: { ...prevState.loadingIndicators, updateProfile: true }}
     case UPDATE_PROFILE_SUCCESS:
       prevState.success.updateProfile = payload.message;
       prevState.loadingIndicators.updateProfile = false;
       const profile = {...prevState.profile, ...payload.profile}
-      console.log('profile xxxxx', profile)
       return { ...prevState, profile  };
     case UPDATE_PROFILE_FAILURE:
       prevState.loadingIndicators.updateProfile = false
       return prevState;
     case CHANGE_PASSWORD_INDICATOR:
-      console.log('I got triggered for changePasswordRequest', prevState)
       return {...prevState, loadingIndicators: { ...prevState.loadingIndicators, changePassword: true }}
     case CHANGE_PASSWORD_SUCCESS:
       prevState.success.changePassword = payload.message
@@ -70,7 +67,6 @@ const accountReducer = (prevState = initialState(), { type, payload }) => {
     case CHANGE_PASSWORD_FAILURE:
       prevState.errors.changePassword = payload.error;
       prevState.loadingIndicators.changePassword = false
-      console.log('this is prevState right now', prevState)
       return {...prevState}
     case UPDATE_PROFILE_FAILURE:
       prevState.errors.updateProfile = payload.error;

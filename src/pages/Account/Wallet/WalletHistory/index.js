@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SyncLoader from 'react-spinners/SyncLoader'
 import { Spinners } from '../../../components';
-import { History } from '../../components';
+import { History, EmptyDataRender } from '../../components';
 import { actions } from '../../helpers';
 const { walletActions: { getWalletHistoryRequest, incrementWalletHistoryPageNum } } = actions;
-const { SectionSpinner } = Spinners;
 const WalletHistory = ({getWalletHistoryRequest, token, loading, history, hasNextPage, pageNum, incrementPageNum }) => {
   useEffect(() => {
     if(history.length === 0 && pageNum === 1) getWalletHistoryRequest(pageNum, token)
@@ -24,7 +23,7 @@ const WalletHistory = ({getWalletHistoryRequest, token, loading, history, hasNex
     if(node) observer.current.observe(node)
   }, [loading, hasNextPage])
   return (
-    <section className="slim-border-2 padding-horizontal-md bg-white activity">
+    <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
       <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
         <h2 className="font-weight-500 font-style-normal font-lg">History</h2>
       </div>
@@ -43,7 +42,9 @@ const WalletHistory = ({getWalletHistoryRequest, token, loading, history, hasNex
           <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase" >status</h3>
         </div>
       </div>
-      {history.map((el, index) => {
+      {history.length === 0 && !loading
+        ? <EmptyDataRender message="You have no history record" />
+        : history.map((el, index) => {
         if(index + 1 === history.length) {
           return <div key={el.id} ref={lastHistory}><History.HistoryRow history={el} /></div>
         } else {

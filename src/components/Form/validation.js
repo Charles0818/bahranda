@@ -9,17 +9,32 @@ export const useFormInput = (initialValue = '') => {
     setValue(value);
     setIsValid(FormValidation(name, value, setError))
   };
-  const handleKeyDown = useCallback(e => {
-    const DELETE_KEY_CODE = 8;
-    const { key, keyCode } = e;
-    console.log('handleKeyDown', e,'key', key)
-    //  if (
-    //   ((value === 0 || value === '') && !VALID_FIRST.test(key))
-    // ) {
-    //   return;
-    // }
-  }, [value])
-  return { value, setValue, handleKeyDown, handleUserInput, error, setError, isValid }
+  return { value, setValue, handleUserInput, error, setError, isValid }
+}
+
+export const handleKeyDown = (value, max, onValueChange) => e => {
+  const DELETE_KEY_CODE = 8;
+  const { key, keyCode, target: { name } } = e;
+  console.log('handleKeyDown', name,'key', key);
+  const exceptionalNames = name === inputNames.email || name === inputNames.date;
+  console.log('exceptionalNames', exceptionalNames)
+  const checkAgainst = exceptionalNames ? value : key;
+   if (
+    ((value === 0 || value === '') && !validateInput(name, checkAgainst))
+    || ((value !== 0 || value !== '') && !validateInput(name, checkAgainst) && keyCode !== DELETE_KEY_CODE)
+  ) {
+    if(!exceptionalNames) return;
+  }
+  const valueString = value.toString();
+    let nextValue;
+    if (keyCode !== DELETE_KEY_CODE) {
+      nextValue = (value === 0 || value === '') ? key : `${valueString}${key}`;
+    } else {
+      const nextValueString = valueString.slice(0, -1);
+      nextValue = nextValueString === '' || undefined ? '' : nextValueString;
+    }
+    if (max && nextValue > max) return;
+    onValueChange(nextValue)
 }
 
 export const useFileInput = () => {
@@ -33,8 +48,66 @@ export const useFileInput = () => {
   return { handleFile, file, fileUrl }
 }
 
+export const inputNames = {
+  email: 'email',
+  password: 'password',
+  phone: 'phone',
+  date: 'date',
+  subject: 'subject',
+  message: 'message',
+  account: 'account number',
+  amount: 'amount'
+}
+
+
+const validateInput = (name, key) => {
+  const regex = {
+    email: /^([a-zA-Z\d-\.\_]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,8})(\.[a-zA-Z]{2,8})?$/,
+    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d][\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/,
+    phone:/^[0-9\.\-\/\(\)\,\ ]+$/,
+    date:/^(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i,
+    CC_date: /^(0?[1-9]|1[0-2])[/](\d{2})$/,
+    CC_holderName: /^([a-zA-Z]{3,}) ([a-zA-Z]{3,})$/,
+    text: /^[a-zA-Z]+$/,
+    alphanumeric: /^[a-zA-Z0-9\,\ \.\_]+$/g,
+    digits: /^\d+$/,
+    money: /^\d\.\,+$/,
+  }
+  let isValid;
+  switch(name) {
+    case inputNames.email :
+      isValid = validateWithRegex(key, regex.email)
+      return isValid
+    case inputNames.name: 
+      isValid = validateWithRegex(key, regex.text)
+      return isValid;
+    case inputNames.subject:
+      isValid = validateWithRegex(key, regex.alphanumeric)
+      return isValid;
+    case inputNames.password:
+      isValid = validateWithRegex(key, regex.password)
+      return isValid;
+    case inputNames.phone:
+      isValid = validateWithRegex(key, regex.phone)
+      return isValid;
+    case inputNames.date:
+      isValid = validateWithRegex(key, regex.date)
+      return isValid;
+    case inputNames.account:
+      isValid = validateWithRegex(key, regex.digits) // set minimum and maximum of 10 for this
+      return isValid;
+    case inputNames.amount:
+      isValid = validateWithRegex(key, regex.money)
+      return isValid;
+    default:
+      isValid = validateWithRegex(key, regex.alphanumeric)
+      return isValid;
+  }
+}
+
 const validateWithRegex = (value, regex) => {
-  const isValid = regex.test(value) && /^[A-Za-z0-9 _]/.test(value)
+  const isValid = regex.test(value) 
+  // && /^[A-Za-z0-9 _]/.test(value)
   return isValid
 }
 
@@ -47,7 +120,7 @@ const validateLength = (value, min, max) => {
 
 const FormValidation = (name, value, setError) => {;
   const input_types = {
-    email: /^([a-zA-Z\d-]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,8})(\.[a-zA-Z]{2,8})?$/,
+    email: /^([a-zA-Z\d-\.\_]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,8})(\.[a-zA-Z]{2,8})?$/,
     password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d][\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/,
     phone:/^[0-9\.\-\/\(\)\,\ ]+$/,
     date:/^(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i,

@@ -5,7 +5,7 @@ const initialState = {
   isLoading: false,
   networkError: {
     show: false,
-    action: null
+    dispatch: null
   }
 }
 const UIReducer = (prevState = initialState, { type, payload }) => {
@@ -22,17 +22,17 @@ const UIReducer = (prevState = initialState, { type, payload }) => {
       };
     }
     case SHOW_NETWORK_ERROR:
-      const { action } = payload
+      const { dispatch } = payload;
       return {
         ...prevState,
         isLoading: false,
-        networkError: {show: true, action}
+        networkError: {show: true, dispatch}
       };
     case ERASE_NETWORK_ERROR:
       return {
         ...prevState,
         isLoading: false,
-        networkError: { show:false, action: null }
+        networkError: { show:false, dispatch: null }
       };
     default:
       return prevState

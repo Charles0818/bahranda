@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { BsExclamationTriangleFill } from 'react-icons/bs'
 import networkErrorSvg from '../../assets/server_down.svg';
 import { actions } from '../../helpers';
-
 const { UIActions: { eraseNetworkError } } = actions;
 const NetworkError = ({ networkError, eraseNetworkError, children }) => {
-  const [state, setState] = useState(window.navigator.onLine)
-  const { show, action } = networkError;
-  // const dispatch = useDispatch
-  useEffect(() => {
-    const online = window.addEventListener('online', () => {
-      setState(true)
-      if(action) action();
-      eraseNetworkError()
-    }, true);
-    // return () =>  window.removeEventListener('online')
-  }, [])
-  if(!show && !action || state) return children
+  const { show, dispatch: action } = networkError;
+  const dispatch = useDispatch()
+  const callback = useCallback(() => {
+    eraseNetworkError();
+    dispatch(action)
+  },[action, eraseNetworkError])
+
+  if(!show && !action) return children
   return (
-    <section className="d-flex column align-items-center" style={{height: '100vh'}}>
-      <div className="svg-container d-flex flex-center">
-        <img src={networkErrorSvg} alt="404 Error display" className="svg" />
-      </div>
-      <div className="d-flex column align-items-center">
-        <button onClick={action} className="padding-md border-r-5 bg-color1 color-white ripple">Retry</button>
+    <section className="d-flex column flex-center bg-white">
+      <div className="padding-horizontal-xlg d-flex column flex-center network-error">
+        <div className="d-flex column flex-center">
+          <div className="d-flex column flex-center round border-r-circle bg-gray margin-bottom-md">
+            <BsExclamationTriangleFill className="font-xlg danger-text margin-bottom-sm" />
+            <p className="font-md capitalize font-eright-600 danger-text">Page loading error</p>
+          </div>
+          <p className="font-md text-content font-weight-500 margin-bottom-md">Something went wrong. Please check the connection and the page URL</p>
+        </div>
+        <div className="d-flex justify-content-end" style={{width: '100%'}}>
+          <button onClick={callback} className="cursor-pointer retry-btn padding-md padding-vertical-sm bg-color1 color-white ripple font-md font-weight-600">TRY AGAIN</button>
+        </div>
       </div>
     </section>
   )

@@ -11,7 +11,6 @@ function Accordion({ title, content }) {
     setActive === "active"
     ? chevronRef.current.classList.add('active')
     : chevronRef.current.classList.remove('active')
-    console.log(contentRef.current.scrollHeight);
   }, [setActive])
   const toggleAccordion = () => {
     setActiveState(setActive === "" ? "active" : "");
