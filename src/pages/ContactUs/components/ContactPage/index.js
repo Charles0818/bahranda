@@ -1,19 +1,17 @@
 import React from "react";
 import { Link, useHistory } from 'react-router-dom';
 import { Spinners, Form } from '../../../components';
-// import {MdLocationOn, MdEmail} from 'react-icons/md';
-// import {FaPhoneAlt, FaTwitter, FaFacebookF} from 'react-icons/fa';
-// import {FiInstagram} from "react-icons/fi";
-// import ContactMap from "../contactMap"
-const { FormField, useFormInput, SubmitButton, TextArea, useCheckbox } =Form;
 
 const ContactPage = () => {
+    const { FormField, useFormInput, SubmitButton, TextArea, useCheckbox, handleUserInput } =Form;
+    const { value: first_name, handleUserInput: setFirstName, error: firstNameErr, isValid: firstNameIsValid } = useFormInput();
+
     return (
         <div className="d-flex justify-content-center padding-horizontal-lg">        
             <div>
                 <form className="d-flex column fadeIn-animation" style={{width: '100%'}}>
                 <p className="font-lg contact">To get in touch please contact us directly or fill out <br></br> this form, we will get in touch promptly</p>
-                <FormField name="text" value={""}  placeholder="Name" className="margin-top-lg" />
+                <FormField name="text" value={first_name} onChange={setFirstName} err={firstNameErr} placeholder="Name" className="margin-top-lg" onChange={useFormInput}/>
                 <FormField name="nunmber" value={""}  placeholder="Phone Number" className="margin-top-sm" />
                 <FormField name="email" value={""}  placeholder="Email" className="margin-top-sm" />
                 <label className="margin-bottom-sm margin-top-sm">Message</label>
