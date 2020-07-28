@@ -1,28 +1,31 @@
 import React from 'react';
 import { utils } from '../../../helpers';
-import { EmptyDataRender } from '../../../components';
+import { EmptyDataRender, Animation, SectionTitle } from '../../../components';
+const { ScrollToBottom, FadeInLeft, FadeIn } = Animation
 const { formatting: { formatCurrency } } = utils;
 const Activity = ({ activities }) => {
   return (
-    <section className="slim-border-2 padding-horizontal-md bg-white activity">
-      <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom padding-vertical-sm margin-bottom-md">Activity</h2>
-      <div className="sort margin-bottom-md d-flex justify-content-end">
-        <button className="btn btn-transparent padding-md font-md color1">Sort: Most Recent</button>
-      </div>
-      <div className="d-flex headings slim-border-bottom padding-vertical-sm">
-        <h3 className="font-weight-500 font-style-normal font-sm margin-right-sm remark">REMARK</h3>
-        <div className="d-flex justify-content-center">
-          <h3 className="font-weight-500 font-style-normal font-sm margin-right-sm">DATE</h3>
+    <ScrollToBottom duration={.2} repeat={false} threshold={0}>
+      <section className="slim-border-2 padding-horizontal-md bg-white activity">
+        <SectionTitle title="Activity" />
+        <div className="sort margin-bottom-md d-flex justify-content-end">
+          <button className="btn btn-transparent padding-md font-md color1">Sort: Most Recent</button>
         </div>
-        <div className="d-flex justify-content-end">
-          <h3 className="font-weight-500 font-style-normal font-sm margin-right-sm" >STATUS</h3>
+        <div className="d-flex headings slim-border-bottom padding-vertical-sm">
+          <h3 className="font-weight-500 font-style-normal font-sm margin-right-sm remark">REMARK</h3>
+          <div className="d-flex justify-content-center">
+            <h3 className="font-weight-500 font-style-normal font-sm margin-right-sm">DATE</h3>
+          </div>
+          <div className="d-flex justify-content-end">
+            <h3 className="font-weight-500 font-style-normal font-sm margin-right-sm" >STATUS</h3>
+          </div>
         </div>
-      </div>
-      {activities.length === 0
-        ? <EmptyDataRender message="You do not have any activity" />
-        : activities.map(activity => <ActivityRow activity={activity} key={activity.id} />)
-      }
-    </section>
+        {activities.length === 0
+          ? <EmptyDataRender message="You do not have any activity" />
+          : activities.map(activity => <FadeIn key={activity.id}><ActivityRow activity={activity} /></FadeIn>)
+        }
+      </section>
+      </ScrollToBottom>
   )
 }
 

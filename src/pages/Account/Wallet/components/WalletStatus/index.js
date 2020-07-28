@@ -2,25 +2,33 @@ import React, { useCallback } from 'react';
 import { utils, actions } from '../../../helpers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Animation, SectionTitle } from '../../../components';
 import RequestWithdrawal from '../RequestWithdrawal';
 const { formatting: { formatCurrency }, checkObjectProperties } = utils;
 const { walletActions: { requestWithdrawalRequest } } = actions;
+const { FadeInLeft, FadeInRight } = Animation
 const WalletStatus = ({ wallet_balance, amount_withdrawn }) => {
   return (
-    <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
-      <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom padding-vertical-sm">Account Summary</h2>
+    // <ScrollToBottom duration={.2}>
+    <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary overflow-h">
+      <SectionTitle title="Account Summary" />
       <div className="d-flex align-items-stretch padding-vertical-md ">
         <div className="d-flex column flex-center padding-horizontal-md padding-vertical-xsm margin-bottom-sm slim-border-right slim-border-bottom statement">
-          <p className="font-lg font-weight-500 uppercase color1">{formatCurrency(wallet_balance)}</p>
-          <span className="uppercase font-sm font-weight-300 text-center">Wallet Balance</span>
+          <FadeInLeft duration={.2}>
+            <p className="font-lg font-weight-500 uppercase color1">{formatCurrency(wallet_balance)}</p>
+            <span className="uppercase font-sm font-weight-300 text-center">Wallet Balance</span>
+          </FadeInLeft>
         </div>
         <div className="d-flex column flex-center padding-horizontal-md padding-vertical-xsm margin-bottom-sm slim-border-right slim-border-bottom statement">
-          <p className="font-lg font-weight-500 uppercase danger-text">{formatCurrency(amount_withdrawn)}</p>
-          <span className="uppercase font-sm font-weight-300 text-center">withdrawn</span>
+          <FadeInRight duration={.2}>
+            <p className="font-lg font-weight-500 uppercase danger-text">{formatCurrency(amount_withdrawn)}</p>
+            <span className="uppercase font-sm font-weight-300 text-center">withdrawn</span>
+          </FadeInRight>
         </div>
       </div>
       <RequestWithdrawal />
     </section>
+    // </ScrollToBottom>
   )
 }
 

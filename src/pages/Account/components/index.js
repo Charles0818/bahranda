@@ -3,5 +3,11 @@ import LeftSideBar from './LeftSidebar';
 import * as History from './History';
 import EmptyDataRender from './EmptyDataRender';
 import useSort from './Sort';
-import { Form, Spinners, HttpStatusNotification } from '../../components';
-export { HorizontalNavbar, LeftSideBar, History, useSort, EmptyDataRender, Form, Spinners, HttpStatusNotification };
+import SectionTitle from './SectionTitle';
+import { Form, Spinners, HttpStatusNotification, Animation } from '../../components';
+export {
+  HorizontalNavbar, LeftSideBar,
+  History, useSort, EmptyDataRender,
+  Form, Spinners, HttpStatusNotification,
+  Animation, SectionTitle
+};

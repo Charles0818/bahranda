@@ -2,9 +2,10 @@ import React, { useLayoutEffect, forwardRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { Spinners, EmptyDataRender } from '../../../components';
+import { Spinners, EmptyDataRender, Animation, SectionTitle } from '../../../components';
 import { actions, utils } from '../../../helpers';
 const { walletActions: { getWalletRequests } } = actions;
+const { ScrollToBottom, FadeIn, FadeInLeft } = Animation;
 const { SectionSpinner } = Spinners;
 const { formatting: { formatDate, formatCurrency } } = utils;
 const WalletRequests = ({ walletRequests, getWalletRequests, token, pageNum, loading }) => {
@@ -13,23 +14,27 @@ const WalletRequests = ({ walletRequests, getWalletRequests, token, pageNum, loa
   }, [token, pageNum, walletRequests.length]);
   if(loading) return <SectionSpinner isLoading={loading} />
   return (
-    <section className="slim-border-2 padding-horizontal-md bg-white activity margin-bottom-md">
-      <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
-        <h2 className="font-weight-500 font-style-normal font-lg">Wallet Requests</h2>
-        <Link to="/account/wallet/requests" className="font-sm font-weight-600 padding-sm border-r-5 bg-color1 color-white ripple">SEE ALL</Link>
-      </div>
-      <div className="sort margin-bottom-md d-flex justify-content-end">
-        <button className="btn btn-transparent padding-md font-md color1">Sort: Most Recent</button>
-      </div>
-      <table>
-        <RequestTableHead />
-        <tbody>
-          {walletRequests.length === 0 
-          ? <EmptyDataRender message="You have no current Wallet Request" />
-          : walletRequests.map((el) => <Request request={el} key={el.id} />)}
-        </tbody>
-      </table>
-    </section>
+    <ScrollToBottom threshold={0} duration={.2} repeat={false}>
+      <section className="slim-border-2 padding-horizontal-md bg-white activity margin-bottom-md">
+        <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
+          <FadeInLeft duration={.1}>
+            <h2 className="font-weight-500 font-style-normal font-lg">Wallet Requests</h2>
+          </FadeInLeft>
+          <Link to="/account/wallet/requests" className="font-sm font-weight-600 padding-sm border-r-5 bg-color1 color-white ripple">SEE ALL</Link>
+        </div>
+        <div className="sort margin-bottom-md d-flex justify-content-end">
+          <button className="btn btn-transparent padding-md font-md color1">Sort: Most Recent</button>
+        </div>
+        <table>
+          <RequestTableHead />
+          <tbody>
+            {walletRequests.length === 0 
+            ? <EmptyDataRender message="You have no current Wallet Request" />
+            : walletRequests.map((el) => <Request request={el} key={el.id} />)}
+          </tbody>
+        </table>
+      </section>
+    </ScrollToBottom>
   )
 }
 

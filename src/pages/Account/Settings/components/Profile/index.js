@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form, HttpStatusNotification } from '../../../components';
+import { Form, HttpStatusNotification, SectionTitle } from '../../../components';
 import { actions } from '../../../../../helpers'
 const { FormField, useFormInput, useSelectInput, SubmitButton } = Form;
 const { accountActions: { updateProfileRequest } } = actions;
@@ -13,8 +13,8 @@ const Profile = ({ profile, updateProfileRequest, token, loading, success, error
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput(profile.email);
   const validateAllFields = firstNameIsValid && lastNameIsValid && phoneIsValid
   return (
-    <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
-      <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom margin-bottom-md padding-vertical-sm">Profile</h2>
+    <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
+      <SectionTitle title="Profile" />
       <div className="d-flex">
         <SelectInput label="Sex" options={['male', 'female']} className=" margin-right-sm name-title" />
         <FormField name="First name" value={first_name} onChange={setFirstName} placeholder="First name" err={firstNameErr}  className="flex-equal margin-right-sm" />
