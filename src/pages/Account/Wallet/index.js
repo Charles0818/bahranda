@@ -19,7 +19,7 @@ const Wallet = ({ getWalletRequest, token, loading, walletExists, hasPin, match:
       <Route exact path={path} render={props => (
         <div>
           <h1 className="padding-bottom-sm font-lg">Wallet</h1>
-          {/* <WalletStatus /> */}
+          <WalletStatus />
           <AccountInformation />
          {!hasPin && <SetPin />}
           <Requests />
