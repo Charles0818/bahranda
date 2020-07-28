@@ -25,14 +25,15 @@ const WalletRequests = ({ walletRequests, getWalletRequests, token, pageNum, loa
         <div className="sort margin-bottom-md d-flex justify-content-end">
           <button className="btn btn-transparent padding-md font-md color1">Sort: Most Recent</button>
         </div>
-        <table>
-          <RequestTableHead />
-          <tbody>
-            {walletRequests.length === 0 
-            ? <EmptyDataRender message="You have no current Wallet Request" />
-            : walletRequests.map((el) => <Request request={el} key={el.id} />)}
-          </tbody>
-        </table>
+        {walletRequests.length === 0 
+        ? <EmptyDataRender message="You have no current Wallet Request" />
+        : <table>
+            <RequestTableHead />
+            <tbody>
+              {walletRequests.map((el) => <Request request={el} key={el.id} />)}
+            </tbody>
+          </table>
+        }
       </section>
     </ScrollToBottom>
   )

@@ -22,7 +22,7 @@ const Activity = ({ activities }) => {
         </div>
         {activities.length === 0
           ? <EmptyDataRender message="You do not have any activity" />
-          : activities.map(activity => <FadeIn key={activity.id}><ActivityRow activity={activity} /></FadeIn>)
+          : activities.map(activity => <ActivityRow activity={activity} key={activity.id} />)
         }
       </section>
       </ScrollToBottom>
