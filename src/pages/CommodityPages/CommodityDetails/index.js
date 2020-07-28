@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Cards, Carousels, Spinners } from '../../components';
 import { actions } from '../helpers'
 import { ThumbnailCarousel, FillInvestment } from '../components';
-import tomatoes from '../../../assets/tomatoes.png';
-import rice from '../../../assets/rice.png';
-import soyabean from '../../../assets/soyabean.png';
 const { CommodityCard } = Cards;
 const { PaddedCarousel } = Carousels;
 const { SectionSpinner } = Spinners;
@@ -16,21 +13,17 @@ const CommodityDetails = ({
   getSingleCommodityRequest, token, loading, match: { params }
 }) => {
   const [details, setDetails] = useState({})
-   const slides = [
-    tomatoes, rice, soyabean
-  ];
   useEffect(() => {
     getSingleCommodityRequest(token, setDetails, params.id)
   }, [token, setDetails, params.id]);
   if(loading) return <SectionSpinner isLoading={loading} />;
   const { image, description, ...rest } = details;
+  console.log('rest details', rest)
   return (
-    <article className="d-flex column" style={{width: '100%'}}>
-      {/* <h1 className="font-lg margin-bottom-sm">Commodity Details</h1> */}
+    <article className="d-flex column commodity" style={{width: '100%'}}>
       <div className="d-flex justify-content-s-between thumbnail-details margin-bottom-md" style={{width: '100%'}}>
-        <div className="thumbnail-slider margin-right-md">
+        <div className="thumbnail-slider flex-equal margin-right-md">
           <ThumbnailCarousel autoSlide={false} thumbnails={[image]} />
-          {/* <img src={image} alt="commodity thumbnail" /> */}
         </div>
         <section className="details flex-equal">
           <FillInvestment details={rest} />
@@ -55,12 +48,14 @@ const mapIndicatorToProps = state => {
   const { loadingIndicators: { relatedCommodity: loading } } = state.commodityReducer;
   return { loading }
 }
-const RelatedCommodities = connect(mapIndicatorToProps, mapDispatchToRelatedCommodities)(({
+const RelatedCommodities = connect(mapIndicatorToProps, mapDispatchToRelatedCommodities)(memo(({
   token, loading, getRelatedCommoditiesRequest
 }) => {
   const [state, setState] = useState([])
   useEffect(() => {
-    getRelatedCommoditiesRequest(token, setState)
+    let isSubscribed = true;
+    if(isSubscribed) getRelatedCommoditiesRequest(token, setState);
+    return () => isSubscribed = false;
   }, [token])
   if(loading) return (
     <div className="bg-gray bg-color1 padding-horizontal-md margin-top-md padding-vertical-md" style={{width: '100%'}}>
@@ -83,7 +78,7 @@ const RelatedCommodities = connect(mapIndicatorToProps, mapDispatchToRelatedComm
       </div>
     </div>
   )
-})
+}))
 const mapStateToProps = state => {
   const { loadingIndicators: { singleCommodity: loading }, error, details } = state.commodityReducer;
   const { token } = state.authReducer;
