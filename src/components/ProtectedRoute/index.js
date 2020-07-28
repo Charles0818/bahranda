@@ -15,15 +15,13 @@ const ProtectedRoute = memo(({
     if(token && !isLoggedIn) getUserProfile(token);
     return () => isSubscribed = false;
   }, [isLoggedIn, token]);
-  if(isLoading || token && !isLoggedIn) return <FullScreenSpinner isLoading={isLoading} />
+  if(isLoading || (token && !isLoggedIn)) return <FullScreenSpinner isLoading={isLoading} />
   return(
     <Route 
       path={path}
       {...rest}
       render={props => {
-        return isLoading
-        ? <FullScreenSpinner isLoading={isLoading} />
-        : token && isLoggedIn ? (
+        return token && isLoggedIn ? (
         <Comp {...props} token={token} />
         ) :  (
         <Redirect to={{
