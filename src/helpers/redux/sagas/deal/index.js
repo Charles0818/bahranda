@@ -4,11 +4,12 @@ import { dealActions } from '../../actions';
 import { getData, apiKey } from '../ajax';
 const {
   GET_DEALS_INDICATOR, GET_DEALS_REQUEST,
-  GET_SINGLE_DEAL_REQUEST
+  GET_SINGLE_DEAL_REQUEST,
+  GET_SINGLE_DEAL_SUCCESS, GET_SINGLE_DEAL_FAILURE
 } = deal;
 
 const {
-  getDealsFailure, getDealsSuccess,
+  getDealsFailure, getDealsSuccess, get
 } = dealActions;
 
 const networkErrorMessage = 'No internet connection detected';
@@ -42,15 +43,19 @@ function* getDeals({ payload }) {
 
 function* getSingleDeal({ payload: { token, setState, id } }) {
   try {
-    const deal = yield call(dealDBCalls.getSingleDeal, token, id);
+    const { deal } = yield call(dealDBCalls.getSingleDeal, {token, id});
     setState(deal);
+    yield put({ type: GET_SINGLE_DEAL_SUCCESS })
   } catch (err) {
     const { status, title } = err;
     const errorMessage = status
       ? title
       : networkErrorMessage
     console.log('error found', err);
-    // yield put(getDealsFailure(errorMessage))
+    yield put({
+      type: GET_SINGLE_DEAL_FAILURE,
+      payload: { error: errorMessage }
+    })
   }
 }
 

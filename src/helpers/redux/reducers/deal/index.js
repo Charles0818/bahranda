@@ -1,6 +1,8 @@
 import { deal, auth } from '../../types';
 const {
-  GET_DEALS_SUCCESS, GET_DEALS_FAILURE, GET_DEALS_INDICATOR
+  GET_DEALS_SUCCESS, GET_DEALS_FAILURE, GET_DEALS_INDICATOR,
+  GET_SINGLE_DEAL_INDICATOR, GET_SINGLE_DEAL_SUCCESS,
+  GET_SINGLE_DEAL_FAILURE
 } = deal;
 const { SIGN_OUT } = auth;
 const initialState = () => {
@@ -14,9 +16,11 @@ const initialState = () => {
     total_profit: '',
     loadingIndicators: {
       getDeals: false,
+      getDeal: false
     },
     errors: {
-      getDeals: ''
+      getDeals: '',
+      getDeal: ''
     }
   }
 }
@@ -33,6 +37,13 @@ const dealReducer = (prevState = initialState(), { type, payload }) => {
       prevState.errors.getDeals = payload.error;
       prevState.loadingIndicators.getDeals = false
       return { ...prevState }
+    case GET_SINGLE_DEAL_INDICATOR:
+      prevState.loadingIndicators.getDeal = true;
+      return { ...prevState };
+    case GET_SINGLE_DEAL_SUCCESS:
+    case GET_SINGLE_DEAL_FAILURE:
+      prevState.loadingIndicators.getDeal = false;
+      return { ...prevState };
     case SIGN_OUT:
       return initialState()
     default:
