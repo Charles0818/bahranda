@@ -86,7 +86,7 @@ const DealStatus = ({ statuses }) => {
     total_profit, completed_deals,
   } = statuses;
   return (
-    <ScrollToBottom repeat={false} duration={.2}>
+    <ScrollToBottom repeat={false} duration={.2} threshold={.1}>
       <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
         <SectionTitle title="Deal Statistics" />
         <div className="d-flex align-items-stretch padding-vertical-md">
