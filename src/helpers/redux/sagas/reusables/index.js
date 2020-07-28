@@ -9,5 +9,5 @@ export function* networkError(action) {
 }
 
 export function* unAuthenticatedError(err) {
-  if(err.message) yield put(signOut)
+  if(err.message) yield put(signOut())
 }
