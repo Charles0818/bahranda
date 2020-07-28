@@ -23,7 +23,7 @@ const WalletHistory = ({getWalletHistoryRequest, token, loading, history, hasNex
     if(node) observer.current.observe(node)
   }, [loading, hasNextPage])
   return (
-    <section className="slim-border-2 padding-horizontal-md bg-white activity">
+    <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
       <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
         <h2 className="font-weight-500 font-style-normal font-lg">History</h2>
       </div>

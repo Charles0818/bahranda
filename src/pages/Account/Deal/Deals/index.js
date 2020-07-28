@@ -27,7 +27,7 @@ const Deals = ({
         }}
       />
       <ScrollToBottom duration={.2} repeat={false} threshold={.2}>
-        <section className="slim-border-2 padding-horizontal-md bg-white activity">
+        <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
           <SectionTitle title="Deals" />
           <div className="sort margin-bottom-md d-flex justify-content-end">
             <button className="btn btn-transparent padding-md font-md color1">Sort: Most Recent</button>
@@ -87,7 +87,7 @@ const DealStatus = ({ statuses }) => {
   } = statuses;
   return (
     <ScrollToBottom repeat={false} duration={.2} threshold={.1}>
-      <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
+      <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
         <SectionTitle title="Deal Statistics" />
         <div className="d-flex align-items-stretch padding-vertical-md">
           <div className="d-flex column flex-center padding-horizontal-md padding-vertical-xsm margin-bottom-sm slim-border-right slim-border-bottom statement">

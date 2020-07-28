@@ -9,7 +9,7 @@ const { walletActions: { setPinRequest } } = actions;
 const SetPin = ({ setPinRequest, token, loading, success, error }) => {
   const { value: pin, handleUserInput: setPin, isValid: pinIsValid, error: pinErr } = useFormInput();
   return (
-    <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white activity">
+    <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white activity">
       <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom padding-vertical-sm margin-bottom-md">Set wallet pin</h2>
       <div className="d-flex margin-bottom-sm">
         <TiWarning className="font-lg margin-right-sm color-yellow" />

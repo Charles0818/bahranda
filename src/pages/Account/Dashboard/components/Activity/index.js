@@ -6,7 +6,7 @@ const { formatting: { formatCurrency } } = utils;
 const Activity = ({ activities }) => {
   return (
     <ScrollToBottom duration={.2} repeat={false} threshold={0}>
-      <section className="slim-border-2 padding-horizontal-md bg-white activity">
+      <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
         <SectionTitle title="Activity" />
         <div className="sort margin-bottom-md d-flex justify-content-end">
           <button className="btn btn-transparent padding-md font-md color1">Sort: Most Recent</button>

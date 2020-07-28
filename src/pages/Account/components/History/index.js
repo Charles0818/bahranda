@@ -16,7 +16,7 @@ const History = ({ getWalletHistoryRequest, token, loading, history, pageNum }) 
   if(loading) return <SectionSpinner isLoading={loading} />
   return (
     <ScrollToBottom repeat={false} threshold={.2} duration={.2}>
-      <section className="slim-border-2 padding-horizontal-md bg-white activity">
+      <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
         <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
           <FadeInLeft duration={.1}>
             <h2 className="font-weight-500 font-style-normal font-lg">History</h2>

@@ -25,7 +25,7 @@ const WalletRequests = ({
     if(node) observer.current.observe(node)
   }, [loading, hasNextPage])
   return (
-    <section className="slim-border-2 padding-horizontal-md bg-white margin-bottom-md">
+    <section className="overflow-h slim-border-2 padding-horizontal-md bg-white margin-bottom-md">
       <h2 className="slim-border-bottom padding-vertical-sm margin-bottom-md font-weight-500 font-style-normal font-lg">Wallet Requests</h2>
       <table className="margin-bottom-sm">
         <RequestTableHead />

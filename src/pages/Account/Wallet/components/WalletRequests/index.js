@@ -15,7 +15,7 @@ const WalletRequests = ({ walletRequests, getWalletRequests, token, pageNum, loa
   if(loading) return <SectionSpinner isLoading={loading} />
   return (
     <ScrollToBottom threshold={0} duration={.2} repeat={false}>
-      <section className="slim-border-2 padding-horizontal-md bg-white activity margin-bottom-md">
+      <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity margin-bottom-md">
         <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
           <FadeInLeft duration={.1}>
             <h2 className="font-weight-500 font-style-normal font-lg">Wallet Requests</h2>

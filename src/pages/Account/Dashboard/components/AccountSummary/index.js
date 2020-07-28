@@ -7,7 +7,7 @@ const { formatting: { formatCurrency } } = utils;
 const AccountSummary = ({ summary }) => {
   const { total_deals_amount, withdrawn, total_deals, active_deals } = summary
   return (
-    <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
+    <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
       <SectionTitle title="Account Summary" />
       <div className="d-flex align-items-stretch padding-vertical-md">
         <div className="d-flex column flex-center padding-horizontal-md padding-vertical-xsm margin-bottom-sm slim-border-right slim-border-bottom statement">

@@ -9,8 +9,7 @@ const { walletActions: { requestWithdrawalRequest } } = actions;
 const { FadeInLeft, FadeInRight } = Animation
 const WalletStatus = ({ wallet_balance, amount_withdrawn }) => {
   return (
-    // <ScrollToBottom duration={.2}>
-    <section className="slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary overflow-h">
+    <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary overflow-h">
       <SectionTitle title="Account Summary" />
       <div className="d-flex align-items-stretch padding-vertical-md ">
         <div className="d-flex column flex-center padding-horizontal-md padding-vertical-xsm margin-bottom-sm slim-border-right slim-border-bottom statement">
@@ -28,7 +27,6 @@ const WalletStatus = ({ wallet_balance, amount_withdrawn }) => {
       </div>
       <RequestWithdrawal />
     </section>
-    // </ScrollToBottom>
   )
 }
 
