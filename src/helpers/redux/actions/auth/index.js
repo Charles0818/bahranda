@@ -6,7 +6,7 @@ const {
   SIGN_IN_ERROR, SIGN_UP_ERROR,
   PIN_ERROR, CONFIRM_PIN,
   ISLOADING, CONFIRM_PIN_SUCCESS,
-  SIGN_OUT, GET_USER_PROFILE
+  SIGN_OUT, GET_USER_PROFILE, Forgot_Password
 } = auth;
 
 
@@ -92,4 +92,11 @@ export const getUserProfile = (token) => {
     type: GET_USER_PROFILE,
     payload: { token }
   }
+}
+
+export const forgotPassword = (data, redirect) => {
+return {
+  type: Forgot_Password,
+payload: {data, redirect}
+}
 }
