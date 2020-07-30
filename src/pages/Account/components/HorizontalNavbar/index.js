@@ -10,7 +10,7 @@ const HorizontalNavbar = ({ first_name, last_name, toggleSidebar }) => {
       <div className="d-flex align-items-center">
         <button className="bar border-r-circle margin-right-md cursor-pointer"
           onClick={toggleSidebar}>
-          <FaBars className="bar-icon" style={{fontSize: '25px'}} />
+          <FaBars className="bar-icon" style={{fontSize: '20px'}} />
         </button>
         <h2 className="greet font-lg capitalize">Hello, {`${first_name} ${last_name}`}</h2>
       </div>
@@ -18,7 +18,7 @@ const HorizontalNavbar = ({ first_name, last_name, toggleSidebar }) => {
         <Link to="/" className="margin-right-md">
           <MdHome className="font-lg" color="rgba(0, 0, 0, 0.36)" />
         </Link>
-        <div><FaUserCircle className="font-lg" color="rgba(0, 0, 0, 0.36)"/></div>
+        {/* <div><FaUserCircle className="font-lg" color="rgba(0, 0, 0, 0.36)"/></div> */}
       </div>
     </nav>
   )
