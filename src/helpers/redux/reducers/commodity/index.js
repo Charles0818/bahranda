@@ -15,6 +15,9 @@ const initialState = {
   error: {
     get: '',
   },
+  success: {
+    purchaseCommodity: ''
+  },
   isLoading: false,
   firstFetch: true,
   loadingIndicators: {
@@ -54,6 +57,9 @@ const commodityReducer = (prevState = initialState, { type, payload }) => {
       prevState.loadingIndicators.purchaseCommodity = true;
       return { ...prevState }
     case PURCHASE_COMMODITY_SUCCESS:
+      prevState.success.purchaseCommodity = payload.message;
+      prevState.loadingIndicators.purchaseCommodity = false;
+      return { ...prevState }
     case PURCHASE_COMMODITY_FAILURE:
       prevState.loadingIndicators.purchaseCommodity = false;
       return { ...prevState }

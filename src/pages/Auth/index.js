@@ -15,7 +15,7 @@ const { FullScreenSpinner } = Spinners;
 const Auth = ({ isAuth, match: { path }, history: { goBack  } }) => {
   useLayoutEffect(() => {
     if(isAuth) goBack()
-  }, [isAuth])
+  }, [])
   return (
     <PageWrapper>
       <Switch>

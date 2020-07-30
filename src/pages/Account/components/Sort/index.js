@@ -1,38 +1,84 @@
-import React, { useState, useRef, memo } from 'react';
-import { Form } from '../../../components';
-import { MdKeyboardArrowDown } from 'react-icons/md'
-const { RadioButton } = Form;
-
-const useSort = (options) => {
-  const [selectedValue, setSelectedValue] = useState(() => {
-    const [firstOption] = options;
-    return { label: firstOption, value: firstOption }
-  });
-  const { value } = selectedValue;
-  const Sort = ({ className = '' }) => {
-    const chevronRef = useRef(null);
-    const dropdown = useRef(null);
-    return (
-      <div className={`radio-select-dropdown position-relative bg-white ${className}`}>
-        <div onClick={() => dropdown.current.classList.toggle('open')}
-          className="position-relative d-flex align-items-center justify-content-s-between slim-border padding-vertical-xsm padding-horizontal-sm border-r-5">
-          <span className={`font-md margin-right-sm color1 font-weight-500 `}>
-            Sort: {selectedValue.label}
-          </span>
-          <div className="chevron-icon" ref={chevronRef}>
-            <MdKeyboardArrowDown className={"font-lg color-gray"}/>
-          </div>
-        </div>
-        <div ref={dropdown} className="padding-md input-dropdown bg-white">
-          {options.map(option => {
-            const { label } = option;
-            return <RadioButton key={label} label={label} onChange={setSelectedValue} checked={selectedValue && selectedValue.label === label} />
-          })}
-        </div>
-      </div>
-    )
+import React, { useState, memo } from 'react';
+import Select from 'react-select'
+import { QuantityInput, useFormInput } from '../../../../components/Form';
+export const sorts = {
+  history: {
+    MOST_RECENT: 'Most Recent',
+    AMOUNT: 'Amount',
+    STATUS: 'Status'
+  },
+  walletRequest: {
+    MOST_RECENT: 'Most Recent',
+    AMOUNT: 'Amount',
+    STATUS: 'Status',
+  },
+  deal: {
+    COMMODITY: 'Commodity',
+    QUANTITY: 'Quantity',
+    DURATION: 'Duration',
+    STATUS: 'Status',
+    MOST_RECENT: 'Most Recent'
+  },
+  activity: {
+    MOST_RECENT: 'Most Recent',
+    STATUS: 'Status'
   }
-  return { Sort, value }
 }
 
-export default useSort;
+export const statuses = {
+  history: {
+    COMPLETED: 'completed',
+  },
+  walletRequest: {
+    PENDING: 'pending',
+  },
+  deal: {
+    ONGOING: 'on-going',
+    CANCELLED: 'Cancelled',
+    CLOSED: 'Closed'
+  },
+  activity: {
+    COMPLETED: 'completed',
+    PENDING: 'pending'
+  }
+}
+
+export const useSort = (initialValue) => {
+  const [value, setValue] = useState(initialValue
+    ? {value: initialValue, label: initialValue}
+    : {value: '', label: ''});
+  const SortDropdown = memo((props) => {
+    const { name, options, label = 'Sort by', placeholder, className = '', ...rest } = props;
+    return (
+      <label className={`d-flex align-items-center ${className}`}>
+        <span className="font-md font-weight-500 color1 margin-right-sm">{label}:</span>
+        <div className="" style={{width: '150px'}}>
+          <Select isSearchable={false}
+            name={name}
+            className="form-control font-weight-500 bg-white font-sm color1 capitalize"
+            value={value}
+            options={options.map(value => ({value, label: value}))}
+            placeholder={placeholder} onChange={setValue} {...rest}
+          />
+        </div>
+      </label>
+    )
+  }, (prev, next) => prev.options === next.options)
+  return { value, SortDropdown }
+}
+
+export const useAmountRange = () => {
+  const { value: min, handleUserInput: setMin } = useFormInput();
+  const { value: max, handleUserInput: setMax } = useFormInput();
+  const AmountRange = () => {
+    return (
+      <div className="d-flex">
+        <QuantityInput value={min} onChange={setMin} name="amount" className="flex-equal margin-right-sm" placeholder="Min" />
+        <QuantityInput value={max} onChange={setMax} name="amount" className="flex-equal" placeholder="Max" />
+      </div>
+    )
+  };
+  return { AmountRange, min, max }
+}
+
+export default useSort

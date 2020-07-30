@@ -43,7 +43,7 @@ const FillInvestment = ({ details, id }) => {
           </DataRow>
           <DataRow tag="Quantity">
             <div className="" style={{width: '50px'}}>
-              <QuantityInput type="numeric" value={qty} onChange={setQty} max={quantity_left_for_deal} />
+              <QuantityInput type="numeric" name="quantity" placeholder="Qty" value={qty} onChange={setQty} max={quantity_left_for_deal} />
             </div>
           </DataRow>
           <DataRow tag="Profit %">

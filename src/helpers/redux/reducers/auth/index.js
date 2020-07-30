@@ -4,7 +4,9 @@ const {
   SIGN_UP_ERROR, PIN_ERROR,
   ISLOADING, CONFIRM_PIN_SUCCESS,
   SIGN_IN_SUCCESS, SIGN_OUT,
-  CHECK_PIN_SUCCESS, CHECK_PIN_FAILURE
+  CHECK_PIN_SUCCESS, CHECK_PIN_FAILURE,
+  FORGOT_PASSWORD_SUCCESS, FORGOT_PASSWORD_FAILURE,
+  RESET_PASSWORD_FAILURE, RESET_PASSWORD_SUCCESS
 } = auth;
 const initialState = () => {
   return {
@@ -17,6 +19,13 @@ const initialState = () => {
       signUp: '',
       pin: '',
       checkPin: '',
+      forgotPassword: ''
+    },
+    success: {
+      checkPin: {
+        email: '',
+        pin: ''
+      }
     },
     loadingIndicators: {
       checkPin: false
@@ -46,9 +55,26 @@ const authReducer = (prevState = initialState(), { type, payload }) => {
       return { ...initialState(), token: payload.token, isLoggedIn: true }
     case CHECK_PIN_SUCCESS:
       prevState.isLoading = false;
+      prevState.email = '';
+      prevState.success.checkPin = payload;
       return { ...prevState }
     case CHECK_PIN_FAILURE:
       prevState.errors.checkPin = payload.error;
+      prevState.isLoading = false;
+      return { ...prevState }
+    case FORGOT_PASSWORD_SUCCESS:
+      prevState.isLoading = false;
+      prevState.email = payload.email;
+      return { ...prevState }
+    case FORGOT_PASSWORD_FAILURE:
+      prevState.isLoading = false;
+      prevState.errors.forgotPassword = payload.error;
+      return { ...prevState }
+    case RESET_PASSWORD_SUCCESS:
+      prevState.isLoading = false;
+      prevState.success.checkPin = {  };
+      return { ...prevState }
+    case RESET_PASSWORD_FAILURE:
       prevState.isLoading = false;
       return { ...prevState }
     case SIGN_OUT: {
@@ -59,4 +85,4 @@ const authReducer = (prevState = initialState(), { type, payload }) => {
   }
 }
 
-export default authReducer;
+export default authReducer

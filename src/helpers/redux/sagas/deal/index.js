@@ -14,8 +14,8 @@ const {
 
 const networkErrorMessage = 'No internet connection detected';
 const dealDBCalls = {
-  getDeals: async ({pageNum, token}) => {
-    const { deals } = await getData(`${apiKey}/user/deals/all?page=${pageNum}`, token);
+  getDeals: async ({ token }) => {
+    const { deals } = await getData(`${apiKey}/user/deals/all`, token);
     return deals
   },
   getSingleDeal: async ({ id, token }) => {

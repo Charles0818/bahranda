@@ -37,10 +37,10 @@ export const purchaseCommodityRequest = (data, token) => {
   }
 }
 
-export const purchaseCommoditySuccess = (deal) => {
+export const purchaseCommoditySuccess = (message) => {
   return {
     type: PURCHASE_COMMODITY_SUCCESS,
-    payload: { deal }
+    payload: { message }
   }
 }
 

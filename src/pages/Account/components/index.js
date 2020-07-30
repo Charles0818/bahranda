@@ -2,12 +2,12 @@ import HorizontalNavbar from './HorizontalNavbar';
 import LeftSideBar from './LeftSidebar';
 import * as History from './History';
 import EmptyDataRender from './EmptyDataRender';
-import useSort from './Sort';
+import { sorts, useSort, statuses } from './Sort';
 import SectionTitle from './SectionTitle';
 import { Form, Spinners, HttpStatusNotification, Animation } from '../../components';
 export {
   HorizontalNavbar, LeftSideBar,
-  History, useSort, EmptyDataRender,
+  History, EmptyDataRender,
   Form, Spinners, HttpStatusNotification,
-  Animation, SectionTitle
+  Animation, SectionTitle, sorts, useSort, statuses
 };

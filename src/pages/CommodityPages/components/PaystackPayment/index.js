@@ -1,17 +1,23 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Form } from '../../../components'
+import { Form, Modal } from '../../../components'
 import { usePaystackPayment } from 'react-paystack';
 import { actions } from '../../helpers'
+import { IoMdCheckmark } from 'react-icons/io';
+const { useCenterModal } = Modal;
 const { commodityActions: { purchaseCommodityRequest, purchaseCommodityFailure } } = actions;
 const { SubmitButton } = Form;
 
-const PaystackPayment = ({ token, purchase, amount, email, firstname, lastname, loading, commodityDetails }) => {
+const PaystackPayment = ({ token, purchase, amount, email, success, firstname, lastname, loading, commodityDetails }) => {
+  const { openModal, CenterModal } = useCenterModal()
   const config = {
     reference: (new Date()).getTime(),
-    publicKey: 'pk_test_582ab979ff87697ecdec6aa65832d03e9e047751',
+    publicKey: process.env.NODE_ENV === 'development'
+    ? process.env.REACT_APP_PAYSTACK_DEV
+    : process.env.REACT_APP_PAYSTACK_PROD,
   };
+  console.log('config', process.env.REACT_APP_PAYSTACK_DEV)
   const initializePayment = usePaystackPayment({
     email, metadata: { firstname, lastname },
     ...config,
@@ -26,22 +32,41 @@ const PaystackPayment = ({ token, purchase, amount, email, firstname, lastname, 
   const onClose = useCallback(res => {
     console.log('onClose res from paystack', res)
   }, []);
-  console.log('this is the amount', amount)
+  console.log('this is the amount', amount);
+  useEffect(() => {
+    if(success) openModal()
+  }, [success, openModal])
   return (
-    <SubmitButton
-      disabled={loading}
-      isLoading={loading}
-      action={() => initializePayment(onSuccess, onClose)}
-      text="Purchase"
-    />
+    <Fragment>
+      <SubmitButton
+        disabled={loading}
+        isLoading={loading}
+        action={() => initializePayment(onSuccess, onClose)}
+        text="Purchase"
+      />
+      {success && (
+        <CenterModal>
+          <div className="d-flex column flex-center" style={{width: '250px'}}>
+            <h3 className="font-md color1 font-weight-600 text-center margin-bottom-sm">Payment Successful</h3>
+            <div className="d-flex flex-center bg-color1 border-r-circle margin-bottom-sm" style={{width:'50px', height: '50px'}}>
+              <IoMdCheckmark className="color-white font-xlg" />
+            </div>
+            <p className="font-sm font-weight-600 text-center">Your Payment was successful and has been recorded</p>
+          </div>
+        </CenterModal>
+      )}
+    </Fragment>
   );
 }
 
 const mapStateToProps = state => {
   const { token } = state.authReducer;
   const { email, first_name: firstname, last_name: lastname } = state.accountReducer.profile;
-  const { loadingIndicators: { purchaseCommodity: loading } } = state.commodityReducer;
-  return { token, email, firstname, lastname, loading };
+  const {
+    loadingIndicators: { purchaseCommodity: loading },
+    success: { purchaseCommodity: success }
+  } = state.commodityReducer;
+  return { token, email, success, firstname, lastname, loading };
 }
 
 const mapDispatchToProps = dispatch => 

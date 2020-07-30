@@ -62,8 +62,8 @@ export const PasswordField = ({
   )
 }
 
-export const QuantityInput = ({
-   value, onChange, className, max, ...rest
+export const QuantityInput = memo(({
+   value, onChange, className, max, placeholder, name, ...rest
 }) => {
   const handleKeyDownCallback = useCallback(() => {
     return handleKeyDown(value, max, onChange)
@@ -77,16 +77,16 @@ export const QuantityInput = ({
       <div className="d-flex input-container" style={{width: '100%'}}>
         <input
           type={"numeric"}
-          name="quantity"
+          name={name}
           value={value}
           // onKeyDown={handleKeyDownCallback()}
           onChange={onChange}
-          placeholder="Qty"
+          placeholder={placeholder}
           className={`qty-input text-center border-r-5 padding-vertical-sm padding-horizontal-sm font-weight-500 slim-border font-sm`} {...rest} />
       </div>
     </label>
   )
-}
+})
 
 export const useCheckbox = (bool = false) => {
   const [checked, setChecked] = useState(bool);
