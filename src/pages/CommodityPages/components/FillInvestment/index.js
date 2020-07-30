@@ -1,33 +1,32 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
 import { Form, Spinners } from '../../../components';
 import { utils } from '../../helpers';
-
+import PaystackPayment from '../PaystackPayment';
 const { formatting: { formatCurrency } } = utils;
 const { useSectionSpinner } = Spinners;
-const { useRadio, useFormInput, FormField, RadioButton, useRadioInputs } = Form;
-const FillInvestment = ({ details }) => {
+const { useFormInput, QuantityInput, useRadioInputs } = Form;
+const FillInvestment = ({ details, id }) => {
   const {
     price_break_down, price,
     duration, commodity_name,
     profit_percentage, quantity_left_for_deal,
     unit
   } = details;
-  const { RadioInputs, selectedValue } = useRadioInputs();
-  const { value: qty, handleUserInput: setQty } = useFormInput(10);
+  const { RadioInputs } = useRadioInputs(duration);
+  const { value: qty, handleUserInput: setQty } = useFormInput(1);
   const [priceBreakdown, setPriceBreakdown] = useState(price_break_down);
-  useEffect(() => {
-    console.log('qty', qty)
-    const calculateDealCost = (obj) => {
-      for (let key in obj) {
-        if (!isNaN(obj[key])) {
-          obj[key] *= qty
-        };
-      }
-      return obj
+  const calculateDealCost = useCallback(obj => {
+    const newObj = { ...obj }
+    for (let key in newObj) {
+      if (!isNaN(newObj[key])) {
+        newObj[key] *= qty
+      };
     }
-    setPriceBreakdown(calculateDealCost(price_break_down));
+    setPriceBreakdown(newObj)
   }, [qty]);
-  console.log('priceBreakdown', priceBreakdown)
+  useEffect(() => {
+    calculateDealCost(price_break_down);
+  }, [qty, calculateDealCost]);
   return (
     <section className="">
       <div className="d-flex justify-content-s-between" style={{width: '100%'}}>
@@ -43,16 +42,19 @@ const FillInvestment = ({ details }) => {
             <span className="font-weight-500 font-sm color1">{quantity_left_for_deal}</span>
           </DataRow>
           <DataRow tag="Quantity">
-            <span className="font-weight-500 font-sm color1">{qty}</span>
+            <div className="" style={{width: '50px'}}>
+              <QuantityInput type="numeric" value={qty} onChange={setQty} max={quantity_left_for_deal} />
+            </div>
           </DataRow>
           <DataRow tag="Profit %">
             <span className="font-weight-500 font-sm color1">{profit_percentage}</span>
           </DataRow>
-          <DataRow tag="Duration">
-            <span className="font-weight-500 font-sm color1">{duration}</span>
-          </DataRow>
+          <div className="d-flex align-items-center justify-content-s-between margin-bottom-sm" style={{width: '100%'}}>
+            <span className={`font-sm font-weight-500`}>Duration: </span>
+            <RadioInputs options={[{label: duration}]} placeholder="Duration" />
+          </div>
         </div>
-        {priceBreakdown && <PriceBreakDown priceBreakdown={priceBreakdown} />}
+        <PriceBreakDown priceBreakdown={priceBreakdown} commodityDetails={{id, qty }} />
       </div>
     </section>
   )
@@ -62,19 +64,19 @@ export const DataRow = ({ children, tag, className="" }) => {
   return (
     <div className="d-flex align-items-center justify-content-s-between margin-bottom-sm" style={{width: '100%'}}>
       <span className={`font-sm font-weight-500 ${className}`}>{tag}: </span>
-     <div className="d-flex column">{children}</div>
+      <div className="d-flex column">{children}</div>
     </div>
   )
 }
 
-const PriceBreakDown = ({ priceBreakdown }) => {
+const PriceBreakDown = ({ priceBreakdown = {}, commodityDetails }) => {
   const { commodity_cost, expected_return, other_costs, state_tax, total_deal_cost, transportation, warehousing } = priceBreakdown;
-  const { isLoading, setIsLoading, LoadingSpinner } = useSectionSpinner()
+  const { isLoading, setIsLoading, LoadingSpinner } = useSectionSpinner();
   useLayoutEffect(() => {
     setIsLoading(true)
     const timeout = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timeout)
-  }, priceBreakdown, setIsLoading);
+  }, [priceBreakdown, setIsLoading]);
   if(isLoading) return (
     <section className="details flex-equal">
       {LoadingSpinner}
@@ -97,12 +99,17 @@ const PriceBreakDown = ({ priceBreakdown }) => {
         <DataRow tag="Other costs">
           <span className="font-weight-500 font-sm color1">{formatCurrency(other_costs)}</span>
         </DataRow>
-        <DataRow tag="total cost" className="capitalize font-weight-600 font-md">
-          <span className="font-weight-600 font-md color1">{formatCurrency(total_deal_cost)}</span>
-        </DataRow>
-        <DataRow tag="Expected Return" className="capitalize font-weight-600 font-md">
-          <span className="font-weight-600 font-md color1">{formatCurrency(expected_return)}</span>
-        </DataRow>
+        <div className="d-flex align-items-center justify-content-s-between margin-bottom-sm" style={{width: '100%'}}>
+          <span className="uppercase font-weight-600 font-sm">total cost: </span>
+          <span className="font-weight-600 font-sm color1">{formatCurrency(total_deal_cost)}</span>
+        </div>
+        <div className="d-flex align-items-center justify-content-s-between margin-bottom-sm" style={{width: '100%'}}>
+          <span className="uppercase font-weight-600 font-sm">expected return: </span>
+          <span className="font-weight-600 font-sm color1">{formatCurrency(expected_return)}</span>
+        </div>
+        <div className="d-flex justify-content-end" style={{width: '100%'}}>
+          <PaystackPayment amount={total_deal_cost} commodityDetails={commodityDetails} />
+        </div>
       </div>
   )
 }

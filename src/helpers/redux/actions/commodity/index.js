@@ -30,10 +30,10 @@ export const getCommoditiesFailure = (error) => {
   }
 }
 
-export const purchaseCommodityRequest = (token) => {
+export const purchaseCommodityRequest = (data, token) => {
   return {
     type: PURCHASE_COMMODITY_REQUEST,
-    payload: { token }
+    payload: { data, token }
   }
 }
 

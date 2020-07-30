@@ -30,6 +30,7 @@ const commodityDBCalls = {
   },
   purchaseCommodity: async ({ data, token }) => {
     const response = await sendData(`${apiKey}/user/commodities/purchase`, data, token);
+    console.log('purchase commodity success', response);
     return response
   },
   getSingleCommodity: async ({token, id }) => {

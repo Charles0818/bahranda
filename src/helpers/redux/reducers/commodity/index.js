@@ -4,7 +4,8 @@ const {
   INCREMENT_PAGENUM, GET_SINGLE_COMMODITY_SUCCESS,
   GET_SINGLE_COMMODITY_FAILURE, GET_RELATED_COMMODITIES_INDICATOR,
   GET_SINGLE_COMMODITY_INDICATOR, GET_RELATED_COMMODITIES_SUCCESS,
-  GET_RELATED_COMMODITIES_FAILURE
+  GET_RELATED_COMMODITIES_FAILURE, PURCHASE_COMMODITY_INDICATOR,
+  PURCHASE_COMMODITY_SUCCESS, PURCHASE_COMMODITY_FAILURE
 
 } = commodity;
 const initialState = {
@@ -18,7 +19,8 @@ const initialState = {
   firstFetch: true,
   loadingIndicators: {
     singleCommodity: false,
-    relatedCommodity: false
+    relatedCommodity: false,
+    purchaseCommodity: false
   }
 }
 const commodityReducer = (prevState = initialState, { type, payload }) => {
@@ -47,6 +49,13 @@ const commodityReducer = (prevState = initialState, { type, payload }) => {
       return { ...prevState }
     case GET_RELATED_COMMODITIES_FAILURE:
       prevState.loadingIndicators.relatedCommodity = false;
+      return { ...prevState }
+    case PURCHASE_COMMODITY_INDICATOR:
+      prevState.loadingIndicators.purchaseCommodity = true;
+      return { ...prevState }
+    case PURCHASE_COMMODITY_SUCCESS:
+    case PURCHASE_COMMODITY_FAILURE:
+      prevState.loadingIndicators.purchaseCommodity = false;
       return { ...prevState }
     default:
       return prevState;

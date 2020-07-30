@@ -18,7 +18,8 @@ const CommodityDetails = ({
   }, [token, setDetails, params.id]);
   if(loading) return <SectionSpinner isLoading={loading} />;
   const { image, description, ...rest } = details;
-  console.log('rest details', rest)
+  console.log('rest details', rest);
+  console.log('details', details)
   return (
     <article className="d-flex column commodity" style={{width: '100%'}}>
       <div className="d-flex justify-content-s-between thumbnail-details margin-bottom-md" style={{width: '100%'}}>
@@ -26,7 +27,7 @@ const CommodityDetails = ({
           <ThumbnailCarousel autoSlide={false} thumbnails={[image]} />
         </div>
         <section className="details flex-equal">
-          <FillInvestment details={rest} />
+          <FillInvestment details={rest} id={params.id} />
         </section>
       </div>
       <main className="product-details" style={{width: '100%'}}>

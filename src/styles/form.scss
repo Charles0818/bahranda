@@ -24,7 +24,7 @@ form {
   font-family: $font-family-1;
   input {
     width: 100%;
-    padding-right: 40px;
+    &:not(.qty-input) { padding-right: 40px };
     &::placeholder { 
       color: rgba(0, 0, 0, 0.28);
     }
@@ -80,8 +80,8 @@ textarea {
     top: 50%;
     transform: translateY(-50%);
     left: 0;
-    height: 18px;
-    width: 18px;
+    height: 14px;
+    width: 14px;
     background-color: #eee;
     /* Create the indicator (the dot/circle - hidden when not checked) */
     &:after {
@@ -91,8 +91,8 @@ textarea {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 40%;
-      height: 40%;
+      width: 30%;
+      height: 30%;
       border-radius: 50%;
       background: white;
     }
@@ -104,7 +104,7 @@ textarea {
   height: 0px;
   display: none;
   transition: max-height .5s ease-in;
-  // background: black;
+  box-shadow: 1px 2px 1px #a0a0a0;
   top: 100%;
   left: 0;
   right: 0;

@@ -507,6 +507,7 @@ header {
   .hide-sm {
     display: none;
   }
+  .full-width-sm { width: 100%}
 }
 @include media-breakpoint-down(md) { 
   .logo-lg {

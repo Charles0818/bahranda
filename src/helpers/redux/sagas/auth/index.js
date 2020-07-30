@@ -1,7 +1,7 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { auth } from '../../types';
 import { authActions, UIActions } from '../../actions';
-import { networkError } from '../reusables';
+import { networkError, unAuthenticatedError } from '../reusables';
 import { sendData, getData, deleteData, apiKey } from '../ajax';
 const {
   SIGN_IN_REQUEST, SIGN_UP_REQUEST,
@@ -108,17 +108,18 @@ function* getUserProfile({ payload: { token, redirect } }){
   } catch (err) {
     console.log('error found', err);
     const { status, title, message } = err;
-    if(message) {
-      yield put(stopLoading());
-      yield put(signOut());
-      return
-    }
-    if(!status) {
+    yield call(unAuthenticatedError, err)
+    // if(message) {
+    //   yield put(stopLoading());
+    //   yield put(signOut());
+    //   return
+    // }
+    if(!status || !message) {
+      console.log('error has no message')
       yield call(networkError, getUserProfileRequest(token, redirect));
       return
     }
     yield put(stopLoading())
-    yield put(pinError(title))
   }
 }
 

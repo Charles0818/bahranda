@@ -62,6 +62,32 @@ export const PasswordField = ({
   )
 }
 
+export const QuantityInput = ({
+   value, onChange, className, max, ...rest
+}) => {
+  const handleKeyDownCallback = useCallback(() => {
+    return handleKeyDown(value, max, onChange)
+    
+  }, [value, onChange, max]);
+  const handleOnChange = useCallback(() => {
+
+  }, [])
+  return (
+    <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
+      <div className="d-flex input-container" style={{width: '100%'}}>
+        <input
+          type={"numeric"}
+          name="quantity"
+          value={value}
+          // onKeyDown={handleKeyDownCallback()}
+          onChange={onChange}
+          placeholder="Qty"
+          className={`qty-input text-center border-r-5 padding-vertical-sm padding-horizontal-sm font-weight-500 slim-border font-sm`} {...rest} />
+      </div>
+    </label>
+  )
+}
+
 export const useCheckbox = (bool = false) => {
   const [checked, setChecked] = useState(bool);
   const Checkbox = () => {
@@ -87,11 +113,11 @@ export const TextArea = ({
 export const useSelectInput = (initialValue) => {
   const [value, setValue] = useState(initialValue ? {value: initialValue, label: initialValue} : undefined);
   const SelectInput = memo((props) => {
-    const { label, name, options, placeholder, className = '', ...rest } = props;
+    const { label, name, options, placeholder, className = '', isSearchable=false, ...rest } = props;
     return (
       <label className={`d-flex column margin-bottom-md ${className}`} style={{width: '100%'}}>
         <span className="font-md font-weight-500">{label}</span>
-        <Select name={name} className="form-control font-weight-500 bg-white font-sm" value={value} options={options.map(value => ({value, label: value}))}
+        <Select isSearchable={isSearchable} name={name} className="form-control font-weight-500 bg-white font-sm" value={value} options={options.map(value => ({value, label: value}))}
         placeholder={placeholder} onChange={setValue} {...rest} />
       </label>
     )
@@ -99,39 +125,40 @@ export const useSelectInput = (initialValue) => {
   return { value, SelectInput }
 }
 
-export const RadioButton = ({ label = 'one', onChange, checked = false }) => {
-  const setValue = e => {
-    // console.log('target', e.target.)
+export const RadioButton = ({ label, onChange, checked = false }) => {
+  const setValue = useCallback(e => {
     const { checked } = e.target;
     onChange({ checked, label })
-  }
+  }, [label])
   return (
-    <label className="container d-flex align-items-center cursor-pointer margin-bottom-sm padding-left-md position-relative">
-      <span className="font-md">{label}</span>
+    <label className="container d-flex align-items-center nowrap cursor-pointer margin-bottom-sm padding-left-md position-relative">
+      <span className="font-sm">{label}</span>
       <input type="radio" checked={checked} label={label} name="radio" onChange={setValue} />
       <span className="checkmark border-r-circle"></span>
     </label>
   )
 };
 
-export const useRadioInputs = () => {
-  const [selectedValue, setSelectedValue] = useState(null);
+export const useRadioInputs = (initialValue) => {
+  const [selectedValue, setSelectedValue] = useState(
+    initialValue ? { value: initialValue, label: initialValue } : { value: '', label: '' }
+  );
 
   const RadioInputs = ({ options, placeholder, className = '' }) => {
     const chevronRef = useRef(null);
     const dropdown = useRef(null);
     return (
-      <div className={`radio-select-dropdown position-relative bg-white ${className}`}>
+      <div className={`radio-select-dropdown slim-border position-relative bg-white ${className}`}>
         <div onClick={() => dropdown.current.classList.toggle('open')}
-          className="position-relative d-flex align-items-center justify-content-s-between slim-border padding-vertical-xsm padding-horizontal-sm border-r-5">
-          <span className={`font-md margin-right-sm ${!selectedValue ? 'color-gray' : ''}`}>
+          className="position-relative d-flex align-items-center justify-content-s-between padding-vertical-xsm padding-horizontal-sm border-r-5">
+          <span className={`font-sm margin-right-sm ${!selectedValue ? 'color-gray' : ''}`}>
             {selectedValue ? selectedValue.label : placeholder}
           </span>
           <div className="chevron-icon" ref={chevronRef}>
             <MdKeyboardArrowDown className={"font-lg color-gray"}/>
           </div>
         </div>
-        <div ref={dropdown} className="padding-md input-dropdown bg-white">
+        <div ref={dropdown} className="padding-sm input-dropdown bg-white">
           {options.map(option => {
             const { label } = option;
             return <RadioButton key={label} label={label} onChange={setSelectedValue} checked={selectedValue && selectedValue.label === label} />
@@ -145,11 +172,13 @@ export const useRadioInputs = () => {
 
 export const CustomSelect = ({ onChange, value ='hello world', placeholder }) => {
   return (
-    <select value={value} onChange={onChange} placeholder={placeholder}>
-      <option label="Option 1 label" value="Option 1 value">Option 1</option>
-      <option>Option 2</option>
-      <option>Option 3</option>
-    </select>
+    <div className="custom-select position-relative">
+      <select value={value} onChange={onChange} placeholder={placeholder}>
+        <option className="select-item" label="Option 1 label" value="Option 1 value">Option 1</option>
+        <option className="select-item">Option 2</option>
+        <option className="select-item">Option 3</option>
+      </select>
+    </div>
   )
 }
 
