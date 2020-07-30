@@ -14,6 +14,7 @@
 *** Login/signup pages should redirect immediately if user is logged in. (use useLayoutEffect hook)
 *** Design ErrorBoundary Page for better UX
 *** Implement Sort functionality
+*** Implement a success modal card for purchase commodity
 
 # FINALLY
 *** Resolve all warnings displaying in the console
