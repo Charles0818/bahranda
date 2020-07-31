@@ -488,6 +488,9 @@ header {
   }
 }
 
+.contact-card {
+  max-width: 500px;
+}
 @include media-breakpoint-up(sm) {  }
 @include media-breakpoint-up(md) {  }
 @include media-breakpoint-up(lg) {  }
@@ -507,7 +510,7 @@ header {
   .hide-sm {
     display: none;
   }
-  .full-width-sm { width: 100%}
+  .full-width-sm, .contact-card { width: 100%}
 }
 @include media-breakpoint-down(md) { 
   .logo-lg {

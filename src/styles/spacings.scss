@@ -189,3 +189,7 @@
 .margin-horizontal-xlg {
   @include margin-horizontal(60px)
 }
+
+.margin-vertical-md {
+  @include margin-vertical(30px)
+}
