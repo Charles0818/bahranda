@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../helpers';
 import { Form } from '../../../components';
-const { authActions: { signInRequest } } = actions;
+const { authActions: { forgotPasswordRequest } } = actions;
 const { FormField, useFormInput, SubmitButton } = Form;
 
-const ForgotPassword = ({ isLoading, error, signIn }) => {
+const ForgotPassword = ({ isLoading, error, forgotPasswordRequest }) => {
   const { replace } = useHistory()
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
-  const handleSubmit = () => signIn({ email }, replace)
+  const handleSubmit = () => forgotPasswordRequest({ email }, replace)
   return (
     <main className="d-flex auth-container padding-horizontal-lg padding-vertical-md">
       <section className="auth-card border-r-10 padding-horizontal-lg padding-vertical-lg border_r_5">
@@ -31,7 +31,7 @@ const ForgotPassword = ({ isLoading, error, signIn }) => {
 }
 
 const mapDispatchToProps = dispatch => 
-  bindActionCreators({ signIn: signInRequest }, dispatch)
+  bindActionCreators({ forgotPasswordRequest }, dispatch)
 
 const mapStateToProps = state => {
   const { isLoading, errors: { forgotPassword: error } } = state.authReducer;

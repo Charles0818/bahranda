@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, lazy } from 'react';
+import React, { Fragment, Suspense, lazy, useLayoutEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import SignIn from './Signin';
 import SignUp from './SignUp';
@@ -6,12 +6,16 @@ import ConfirmEmail from './ConfirmEmail';
 import { Spinners } from '../../components';
 import { PageWrapper } from '../components';
 import './auth.scss'
+import { connect } from 'react-redux';
 const ResetPassword = lazy(() => import('./ResetPassword'))
 const ForgotPassword = lazy(() => import('./ForgotPassword'));
 const ForgotPasswordPin = lazy(() => import ('./ForgotPasswordPin'));
 
 const { FullScreenSpinner } = Spinners;
-const Auth = ({ match: { path } }) => {
+const Auth = ({ isAuth, match: { path }, history: { goBack  } }) => {
+  useLayoutEffect(() => {
+    if(isAuth) goBack()
+  }, [isAuth])
   return (
     <PageWrapper>
       <Switch>
@@ -28,4 +32,10 @@ const Auth = ({ match: { path } }) => {
   )
 }
 
-export default Auth;
+const mapStateToProps = state => {
+  const { token, isLoggedIn } = state.authReducer;
+  const isAuth = token && isLoggedIn
+  return { isAuth }
+}
+
+export default connect(mapStateToProps, null)(Auth);
