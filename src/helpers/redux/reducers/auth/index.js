@@ -3,20 +3,27 @@ const {
   SIGN_UP_SUCCESS ,SIGN_IN_ERROR,
   SIGN_UP_ERROR, PIN_ERROR,
   ISLOADING, CONFIRM_PIN_SUCCESS,
-  SIGN_IN_SUCCESS, SIGN_OUT
+  SIGN_IN_SUCCESS, SIGN_OUT,
+  CHECK_PIN_SUCCESS, CHECK_PIN_FAILURE
 } = auth;
-const initialState = {
-  token: '',
-  isLoading: false,
-  isLoggedIn: false,
-  email: '',
-  errors: {
-    signIn: '',
-    signUp: '',
-    pin: ''
+const initialState = () => {
+  return {
+    token: '',
+    isLoading: false,
+    isLoggedIn: false,
+    email: '',
+    errors: {
+      signIn: '',
+      signUp: '',
+      pin: '',
+      checkPin: '',
+    },
+    loadingIndicators: {
+      checkPin: false
+    }
   }
 }
-const authReducer = (prevState = initialState, { type, payload }) => {
+const authReducer = (prevState = initialState(), { type, payload }) => {
   switch(type) {
     case ISLOADING:
       prevState.errors = payload.isLoading === true ? {} : prevState.errors;
@@ -34,24 +41,18 @@ const authReducer = (prevState = initialState, { type, payload }) => {
       prevState.errors.pin = payload.error;
       return { ...prevState, isLoading: false }
     case CONFIRM_PIN_SUCCESS:
-      initialState.token = prevState.token;
-      return initialState;
+      return { ...initialState(), token: prevState.token }
     case SIGN_IN_SUCCESS:
-      initialState.token = payload.token;
-      initialState.isLoggedIn = true
-      return initialState;
+      return { ...initialState(), token: payload.token, isLoggedIn: true }
+    case CHECK_PIN_SUCCESS:
+      prevState.isLoading = false;
+      return { ...prevState }
+    case CHECK_PIN_FAILURE:
+      prevState.errors.checkPin = payload.error;
+      prevState.isLoading = false;
+      return { ...prevState }
     case SIGN_OUT: {
-      return {
-        token: '',
-        isLoading: false,
-        isLoggedIn: false,
-        email: '',
-        errors: {
-          signIn: '',
-          signUp: '',
-          pin: ''
-        }
-      };
+      return initialState()
     }
     default:
       return prevState;

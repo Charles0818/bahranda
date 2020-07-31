@@ -5,13 +5,18 @@ import { networkError, unAuthenticatedError } from '../reusables';
 import { sendData, getData, deleteData, apiKey } from '../ajax';
 const {
   SIGN_IN_REQUEST, SIGN_UP_REQUEST,
-  CONFIRM_PIN, GET_USER_PROFILE
+  CONFIRM_PIN, GET_USER_PROFILE,
+  CHECK_PIN_REQUEST, RESET_PASSWORD_REQUEST
 } = auth;
 const {
   signInSuccess, signInError,
   signUpSuccess, signUpError, pinError,
   setIsLoading, confirmPinSuccess,
-  signOut,
+  signOut, resetPasswordSuccess,
+  checkPinSuccess, checkPinFailure,
+  resetPasswordFailure, checkPinRequest,
+  resetPasswordRequest, signInRequest,
+  signUpRequest,
   getUserProfile: getUserProfileRequest
 } = authActions;
 const { startLoading, stopLoading, showNetworkError } = UIActions;
@@ -32,6 +37,14 @@ const authDBCalls = {
   getUserProfile: async (token) => {
     const response = await getData(`${apiKey}/user/profile`, token);
     return response.user
+  },
+  checkPin: async (data) => {
+    const response = await sendData(`${apiKey}/auth/check-pin`, data);
+    return response
+  },
+  resetPassword: async (data) => {
+    const response = await sendData(`${apiKey}/auth/change-password`, data);
+    return response
   }
 }
 
@@ -123,6 +136,43 @@ function* getUserProfile({ payload: { token, redirect } }){
   }
 }
 
+function* checkPin({ payload: { data, redirect } }){
+  try {
+    yield put(setIsLoading(true))
+    const profile = yield call(authDBCalls.checkPin, data);
+    console.log('returned getProfile response', profile)
+  } catch (err) {
+    console.log('error found', err);
+    const { status, title, message } = err;
+    yield call(unAuthenticatedError, err)
+    if(!status || !message) {
+      console.log('error has no message')
+      yield call(networkError, checkPinRequest(data, redirect));
+      return
+    }
+  }
+}
+
+function* resetPassword({ payload: { data, redirect } }){
+  try {
+    yield put(setIsLoading(true))
+    const profile = yield call(authDBCalls.resetPassword, data);
+    console.log('returned getProfile response', profile)
+    yield put(resetPasswordSuccess())
+  } catch (err) {
+    console.log('error found', err);
+    const { status, title, message } = err;
+    yield call(unAuthenticatedError, err)
+    if(!status || !message) {
+      console.log('error has no message')
+      yield call(networkError, resetPasswordRequest(data, redirect));
+      return
+    }
+    yield put(resetPasswordFailure)
+  }
+}
+
+
 function* signUpWatcher() {
   yield takeLatest(SIGN_UP_REQUEST, signUp)
 }
@@ -139,9 +189,19 @@ function* getUserProfileWatcher() {
   yield takeLatest(GET_USER_PROFILE, getUserProfile)
 }
 
+function* checkPinWatcher() {
+  yield takeLatest(CHECK_PIN_REQUEST, checkPin)
+}
+
+function* resetPasswordWatcher() {
+  yield takeLatest(RESET_PASSWORD_REQUEST, resetPassword)
+}
+
 export default function* authSagas() {
   yield spawn(signUpWatcher)
   yield spawn(signInWatcher)
   yield spawn(confirmPinWatcher)
   yield spawn(getUserProfileWatcher)
+  yield spawn(checkPinWatcher)
+  yield spawn(resetPasswordWatcher)
 }

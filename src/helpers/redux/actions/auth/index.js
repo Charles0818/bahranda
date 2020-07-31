@@ -6,7 +6,10 @@ const {
   SIGN_IN_ERROR, SIGN_UP_ERROR,
   PIN_ERROR, CONFIRM_PIN,
   ISLOADING, CONFIRM_PIN_SUCCESS,
-  SIGN_OUT, GET_USER_PROFILE
+  SIGN_OUT, GET_USER_PROFILE,
+  CHECK_PIN_REQUEST, CHECK_PIN_FAILURE,
+  CHECK_PIN_SUCCESS, RESET_PASSWORD_FAILURE,
+  RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS
 } = auth;
 
 
@@ -91,5 +94,46 @@ export const getUserProfile = (token) => {
   return {
     type: GET_USER_PROFILE,
     payload: { token }
+  }
+}
+
+export const checkPinRequest = (data, redirect) => {
+  return {
+    type: CHECK_PIN_REQUEST,
+    payload: { data, redirect }
+  }
+}
+
+export const checkPinSuccess = (message, pin) => {
+  return {
+    type: CHECK_PIN_SUCCESS,
+    payload: { message, pin }
+  }
+}
+
+export const checkPinFailure = (error) => {
+  return {
+    type: CHECK_PIN_FAILURE,
+    payload: { error }
+  }
+}
+
+export const resetPasswordRequest = (data, redirect) => {
+  return {
+    type: RESET_PASSWORD_REQUEST,
+    payload: { data, redirect }
+  }
+}
+
+export const resetPasswordSuccess = () => {
+  return {
+    type: RESET_PASSWORD_SUCCESS,
+  }
+}
+
+export const resetPasswordFailure = (error) => {
+  return {
+    type: RESET_PASSWORD_FAILURE,
+    payload: { error }
   }
 }
