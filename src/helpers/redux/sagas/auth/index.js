@@ -42,6 +42,10 @@ const authDBCalls = {
     const response = await sendData(`${apiKey}/auth/check-pin`, data);
     return response
   },
+  forgotPassword: async (data) => {
+    const response = await sendData(`${apiKey}/auth/forgot-password`, data);
+    return response
+  },
   resetPassword: async (data) => {
     const response = await sendData(`${apiKey}/auth/change-password`, data);
     return response
