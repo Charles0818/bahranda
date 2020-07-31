@@ -103,8 +103,8 @@ export const TextArea = ({
 }) => {
   return (
     <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
-      <span className="font-sm">{label}</span>
-      <textarea value={value} {...rest} placeholder={placeholder}
+      <span className="font-md font-weight">{label}</span>
+      <textarea value={value} {...rest} placeholder={placeholder} onChange={onChange}
         className={`border-r-5 padding-md padding-horizontal-md font-weight-500 ${!disabled ? 'bg-white' : 'bg-gray'} slim-border font-sm`} {...rest} />
     </label>
   )
@@ -117,8 +117,13 @@ export const useSelectInput = (initialValue) => {
     return (
       <label className={`d-flex column margin-bottom-md ${className}`} style={{width: '100%'}}>
         <span className="font-md font-weight-500">{label}</span>
-        <Select isSearchable={isSearchable} name={name} className="form-control font-weight-500 bg-white font-sm" value={value} options={options.map(value => ({value, label: value}))}
-        placeholder={placeholder} onChange={setValue} {...rest} />
+        <Select isSearchable={isSearchable}
+          name={name}
+          className="form-control font-weight-500 bg-white font-sm"
+          value={value}
+          options={options.map(value => ({value, label: value}))}
+          placeholder={placeholder} onChange={setValue} {...rest}
+        />
       </label>
     )
   })
