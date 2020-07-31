@@ -1,11 +1,41 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actions } from '../../../helpers';
+import { Form } from '../../../components';
+const { authActions: { signInRequest } } = actions;
+const { FormField, useFormInput, SubmitButton } = Form;
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ isLoading, error, signIn }) => {
+  const { replace } = useHistory()
+  const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
+  const handleSubmit = () => signIn({ email }, replace)
   return (
-    <section>
-      
-    </section>
+    <main className="d-flex auth-container padding-horizontal-lg padding-vertical-md">
+      <section className="auth-card border-r-10 padding-horizontal-lg padding-vertical-lg border_r_5">
+        <form className="d-flex column fadeIn-animation" style={{width: '100%'}}>
+          <div className="margin-bottom-md">
+            <h1 className="font-weight-normal">Forgot Password</h1>
+            <p className="font-weight-300">Please provide your email to help us find you account</p>
+          </div>
+          <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} />
+          <div className="margin-bottom-sm">
+            {error && <p className="font-sm danger-text font-weight-600">{error}</p> }
+          </div>
+          <SubmitButton isLoading={isLoading} disabled={!emailIsValid} text="Continue" action={handleSubmit} style={{width: '100%'}} />
+        </form>
+      </section>
+    </main>
   )
 }
 
-export default ForgotPassword
+const mapDispatchToProps = dispatch => 
+  bindActionCreators({ signIn: signInRequest }, dispatch)
+
+const mapStateToProps = state => {
+  const { isLoading, errors: { forgotPassword: error } } = state.authReducer;
+  return { isLoading, error }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

@@ -5,8 +5,10 @@ import SignUp from './SignUp';
 import ConfirmEmail from './ConfirmEmail';
 import { Spinners } from '../../components';
 import { PageWrapper } from '../components';
+import './auth.scss'
 const ResetPassword = lazy(() => import('./ResetPassword'))
 const ForgotPassword = lazy(() => import('./ForgotPassword'));
+const ForgotPasswordPin = lazy(() => import ('./ForgotPasswordPin'));
 
 const { FullScreenSpinner } = Spinners;
 const Auth = ({ match: { path } }) => {
@@ -19,6 +21,7 @@ const Auth = ({ match: { path } }) => {
           <Route exact path={`${path}/activate`} component={ConfirmEmail} />
           <Route exact path={`${path}/reset-password`} component={ResetPassword} />
           <Route exact path={`${path}/forgot-password`} component={ForgotPassword} />
+          <Route exact path={`${path}/pin/verify`} component={ForgotPasswordPin} />
         </Suspense>
       </Switch>
     </PageWrapper>

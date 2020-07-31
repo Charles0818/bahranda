@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../helpers';
 import { Spinners, Form } from '../../../components';
-import '../auth.scss';
 const { authActions: { signInRequest } } = actions;
 const { useButtonSpinner } = Spinners;
 const { FormField, PasswordField, useFormInput, SubmitButton, useCheckbox } = Form;
@@ -30,7 +29,7 @@ const SignIn = ({ signIn, isLoading, signInError }) => {
         <form className="d-flex column fadeIn-animation" style={{width: '100%'}}>
           <div className="margin-bottom-md">
             <h1 className="font-weight-normal">Hello</h1>
-            <p className="font-weight-300">Pease fill in your login details</p>
+            <p className="font-weight-300">Please fill in your login details</p>
           </div>
           <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} />
           <PasswordField name="Password" value={password} onChange={setPassword} placeholder="Password" err={passwordErr} />
