@@ -9,7 +9,9 @@ const {
   SIGN_OUT, GET_USER_PROFILE,
   CHECK_PIN_REQUEST, CHECK_PIN_FAILURE,
   CHECK_PIN_SUCCESS, RESET_PASSWORD_FAILURE,
-  RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS
+  RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_REQUEST, FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAILURE
 } = auth;
 
 
@@ -134,6 +136,26 @@ export const resetPasswordSuccess = () => {
 export const resetPasswordFailure = (error) => {
   return {
     type: RESET_PASSWORD_FAILURE,
+    payload: { error }
+  }
+}
+
+export const forgotPasswordRequest = (data, redirect) => {
+  return {
+    type: FORGOT_PASSWORD_REQUEST,
+    payload: {data, redirect}
+  }
+}
+
+export const forgotPasswordSuccess = () => {
+  return {
+    type: FORGOT_PASSWORD_SUCCESS
+  }
+}
+
+export const forgotPasswordFailure = (error) => {
+  return {
+    type: FORGOT_PASSWORD_FAILURE,
     payload: { error }
   }
 }
