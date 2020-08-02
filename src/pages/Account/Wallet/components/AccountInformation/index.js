@@ -16,20 +16,18 @@ const AccountInformation = ({
   const { value: pin, handleUserInput: setPin, isValid: pinIsValid, error: pinErr } = useFormInput();
   const validateAllFields = bankName && pinIsValid && accountNoIsValid && accountNameIsValid
   return (
-    <ScrollToBottom duration={.2} threshold={.2} repeat={false}>
-      <section className="account-information slim-border-2 padding-horizontal-md margin-bottom-md bg-white activity">
-        <SectionTitle title="Bank Details" />
-        <div className="d-flex justify-content-s-between">
-          <SelectInput isSearchable={true} label="Bank name" placeholder="Select bank" options={[...bankNames]} className="flex-equal margin-right-sm" />
-          <FormField value={account_no} onChange={setAccountNo} placeholder="Account number" err={accountNoErr} className="flex-equal margin-right-sm" />
-          <FormField value={account_name} onChange={setAccountName} placeholder="Account name" err={accountNameErr} className="flex-equal" />
-        </div>
-        <FormField value={pin} onChange={setPin} placeholder="wallet pin" err={pinErr} className="pin-field" />
-        <SubmitButton action={() => updateBankInfoRequest({ pin, account_name, account_no, bank_name: bankName.value }, token)}
-          text="SUBMIT CHANGES" isLoading={loading} disabled={!validateAllFields} />
-          {(error || success) && <HttpStatusNotification  message={error || success} status={error ? 'error' : 'success'}  />}
-      </section>
-    </ScrollToBottom>
+    <section className="account-information slim-border-2 padding-horizontal-md margin-bottom-md bg-white activity">
+      <SectionTitle title="Bank Details" />
+      <div className="d-flex justify-content-s-between">
+        <SelectInput isSearchable={true} label="Bank name" placeholder="Select bank" options={[...bankNames]} className="flex-equal margin-right-sm" />
+        <FormField value={account_no} onChange={setAccountNo} placeholder="Account number" err={accountNoErr} className="flex-equal margin-right-sm" />
+        <FormField value={account_name} onChange={setAccountName} placeholder="Account name" err={accountNameErr} className="flex-equal" />
+      </div>
+      <FormField value={pin} onChange={setPin} placeholder="wallet pin" err={pinErr} className="pin-field" />
+      <SubmitButton action={() => updateBankInfoRequest({ pin, account_name, account_no, bank_name: bankName.value }, token)}
+        text="SUBMIT CHANGES" isLoading={loading} disabled={!validateAllFields} />
+        {(error || success) && <HttpStatusNotification  message={error || success} status={error ? 'error' : 'success'}  />}
+    </section>
   )
 }
 

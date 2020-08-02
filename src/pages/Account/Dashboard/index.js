@@ -8,7 +8,7 @@ import { actions, utils } from '../helpers';
 const { accountActions: { getAccountDashboardRequest } } = actions;
 const { SectionSpinner } = Spinners;
 const { checkObjectProperties } = utils;
-const Dashboard = ({ account_summary, monthly_expenditure, user_activities, hasNoData, getAccountDashboard, token, loading }) => {
+const Dashboard = ({ account_summary, monthly_expenditure, hasNoData, getAccountDashboard, token, loading }) => {
   useLayoutEffect(() => {
     if(hasNoData) getAccountDashboard(token)
   }, [token, hasNoData])
@@ -18,7 +18,7 @@ const Dashboard = ({ account_summary, monthly_expenditure, user_activities, hasN
       <h1 className="padding-bottom-md margin-top-md font-xlg font-weight-bold">Dashboard</h1>
       <AccountSummary summary={account_summary} />
       <MonthlyExpenditure expenditures={monthly_expenditure} />
-      <Activity activities={user_activities} />
+      <Activity />
     </div>
   )
 }
@@ -27,10 +27,10 @@ const mapStateToProps = state => {
   const { token } = state.authReducer;
   const {
     loadingIndicators: { getDashboard: loading },
-    account_summary, monthly_expenditure, user_activities
+    account_summary, monthly_expenditure
   } = state.accountReducer;
   const hasNoData = checkObjectProperties(account_summary)
-  return { account_summary, monthly_expenditure, user_activities, hasNoData, loading, token } 
+  return { account_summary, monthly_expenditure, hasNoData, loading, token } 
 }
 
 const mapDispatchToProps = dispatch =>

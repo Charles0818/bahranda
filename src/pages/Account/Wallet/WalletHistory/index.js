@@ -1,12 +1,20 @@
-import React, { useEffect, useRef, useCallback, useLayoutEffect } from 'react';
+import React, { useEffect, useRef, useCallback, useLayoutEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SyncLoader from 'react-spinners/SyncLoader'
-import { Spinners } from '../../../components';
-import { History, EmptyDataRender } from '../../components';
+import { History, EmptyDataRender, Form, sorts, statuses, useSort } from '../../components';
 import { actions } from '../../helpers';
+
+const { useFormInput, QuantityInput } = Form;
+const { history: historySorts } = sorts;
+const { history: historyStatuses } = statuses;
 const { walletActions: { getWalletHistoryRequest, incrementWalletHistoryPageNum } } = actions;
-const WalletHistory = ({getWalletHistoryRequest, token, loading, history, hasNextPage, pageNum, incrementPageNum }) => {
+const WalletHistory = ({getWalletHistoryRequest, sortHistory, token, loading, history, hasNextPage, pageNum, incrementPageNum }) => {
+  const [sortResult, setSortResult] = useState(History);
+  const { SortDropdown, value: sortValue } = useSort(historySorts.MOST_RECENT);
+  const { SortDropdown: StatusDropdown, value: statusValue } = useSort(historyStatuses.COMPLETED);
+  const { value: min, handleUserInput: setMin } = useFormInput();
+  const { value: max, handleUserInput: setMax } = useFormInput();
   useEffect(() => {
     if(history.length === 0 && pageNum === 1) getWalletHistoryRequest(pageNum, token)
   }, [token, pageNum, history.length]);
@@ -22,13 +30,31 @@ const WalletHistory = ({getWalletHistoryRequest, token, loading, history, hasNex
     })
     if(node) observer.current.observe(node)
   }, [loading, hasNextPage])
+  useEffect(() => {
+    if(sortValue && sortValue.value === historySorts.AMOUNT && min){
+      setSortResult(sortHistory(historySorts.AMOUNT, { min, max }))
+    }
+    if(sortValue && sortValue.value === historySorts.STATUS && statusValue.value) {
+      setSortResult(sortHistory(historySorts.STATUS, {status: statusValue.value }));
+    }
+    if(sortValue && sortValue.value === historySorts.MOST_RECENT) setSortResult(history)
+  }, [sortValue, statusValue, min, max])
   return (
     <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
       <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
         <h2 className="font-weight-500 font-style-normal font-lg">History</h2>
       </div>
       <div className="sort margin-bottom-md d-flex justify-content-end">
-        <button className="btn btn-transparent padding-md font-md color1">Sort: Most Recent</button>
+        <SortDropdown options={Object.values(historySorts)} className="margin-right-sm" />
+        {sortValue && sortValue.value === historySorts.AMOUNT && (
+        <div className="d-flex" style={{maxWidth: '200px'}}>
+          <QuantityInput value={min} onChange={setMin} autoFocus={true} name="amount" className="flex-equal margin-right-sm" placeholder="Min" />
+          <QuantityInput value={max} onChange={setMax} name="amount" className="flex-equal" placeholder="Max" />
+        </div>
+        )}
+        {sortValue && sortValue.value === historySorts.STATUS && (
+          <StatusDropdown label="Status" options={Object.values(historyStatuses)} className="margin-right-sm" />
+        )}
       </div>
       <div className="d-flex headings slim-border-bottom padding-vertical-sm">
         <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase remark">description</h3>
@@ -60,9 +86,26 @@ const WalletHistory = ({getWalletHistoryRequest, token, loading, history, hasNex
 
 const mapStateToProps = state => {
   const { historyData: { history, pageNum }, loadingIndicators } = state.walletReducer;
+  const { AMOUNT, STATUS, MOST_RECENT } = historySorts;
+  const sortHistory = (type, payload) => {
+    switch(type) {
+      case AMOUNT:
+        const { min, max } = payload;
+       return history.filter(history => max
+        ? parseFloat(history.amount) >= parseFloat(min)
+          && parseFloat(history.amount) <= parseFloat(max)
+        : parseFloat(history.amount) >= parseFloat(min));
+      case STATUS:
+        const { status } = payload;
+        return  history.filter(history => history.status === status)
+      case MOST_RECENT:
+      default:
+       return history
+    }
+  }
   const { token } = state.authReducer;
   return {
-    history, token, loading: loadingIndicators.history, pageNum,
+    history, sortHistory, token, loading: loadingIndicators.history, pageNum,
   }
 }
 

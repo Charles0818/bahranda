@@ -1,41 +1,68 @@
-import React, { useLayoutEffect, forwardRef } from 'react';
+import React, { useLayoutEffect, forwardRef, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { Spinners, EmptyDataRender, Animation, SectionTitle } from '../../../components';
+import { Spinners, EmptyDataRender, Animation, SectionTitle, Form, useSort, sorts, statuses } from '../../../components';
 import { actions, utils } from '../../../helpers';
 const { walletActions: { getWalletRequests } } = actions;
 const { ScrollToBottom, FadeIn, FadeInLeft } = Animation;
+const { useFormInput, QuantityInput } = Form;
+const { walletRequest: walletRequestSorts } = sorts;
+const { walletRequest: walletRequestStatuses } = statuses;
 const { SectionSpinner } = Spinners;
 const { formatting: { formatDate, formatCurrency } } = utils;
-const WalletRequests = ({ walletRequests, getWalletRequests, token, pageNum, loading }) => {
+
+const WalletRequests = ({ walletRequests, sortWalletRequests, getWalletRequests, token, pageNum, loading }) => {
+  const [sortResult, setSortResult] = useState(walletRequests);
+  console.log('walletRequests', walletRequests)
+  const { SortDropdown, value: sortValue } = useSort(walletRequestSorts.MOST_RECENT);
+  const { SortDropdown: StatusDropdown, value: statusValue } = useSort(walletRequestStatuses.PENDING);
+  const { value: min, handleUserInput: setMin } = useFormInput();
+  const { value: max, handleUserInput: setMax } = useFormInput();
   useLayoutEffect(() => {
     if(walletRequests.length === 0) getWalletRequests(pageNum, token)
   }, [token, pageNum, walletRequests.length]);
+  useEffect(() => {
+    console.log('useEffect')
+    if(sortValue && sortValue.value === walletRequestSorts.AMOUNT && min ) {
+      setSortResult(sortWalletRequests(walletRequestSorts.AMOUNT, { min, max }));
+    };
+    if(sortValue && sortValue.value === walletRequestSorts.STATUS && statusValue.value) {
+      setSortResult(sortWalletRequests(walletRequestSorts.STATUS, {status: statusValue.value }));
+    }
+    if(sortValue && sortValue.value === walletRequestSorts.MOST_RECENT) setSortResult(walletRequests)
+  }, [sortValue, statusValue, min, max])
   if(loading) return <SectionSpinner isLoading={loading} />
   return (
-    <ScrollToBottom threshold={0} duration={.2} repeat={false}>
-      <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity margin-bottom-md">
-        <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
-          <FadeInLeft duration={.1}>
-            <h2 className="font-weight-500 font-style-normal font-lg">Wallet Requests</h2>
-          </FadeInLeft>
-          <Link to="/account/wallet/requests" className="font-sm font-weight-600 padding-sm border-r-5 bg-color1 color-white ripple">SEE ALL</Link>
+    <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity margin-bottom-md">
+      <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
+        <FadeInLeft duration={.1}>
+          <h2 className="font-weight-500 font-style-normal font-lg">Wallet Requests</h2>
+        </FadeInLeft>
+        <Link to="/account/wallet/requests" className="font-sm font-weight-600 padding-sm border-r-5 bg-color1 color-white ripple">SEE ALL</Link>
+      </div>
+      <div className="sort margin-bottom-md d-flex justify-content-end">
+        <SortDropdown options={Object.values(walletRequestSorts)} className="margin-right-sm" />
+        {sortValue && sortValue.value === walletRequestSorts.AMOUNT && (
+        <div className="d-flex" style={{maxWidth: '200px'}}>
+          <QuantityInput value={min} onChange={setMin} autoFocus={true} name="amount" className="flex-equal margin-right-sm" placeholder="Min" />
+          <QuantityInput value={max} onChange={setMax} name="amount" className="flex-equal" placeholder="Max" />
         </div>
-        <div className="sort margin-bottom-md d-flex justify-content-end">
-          <button className="btn btn-transparent padding-md font-md color1">Sort: Most Recent</button>
-        </div>
-        {walletRequests.length === 0 
-        ? <EmptyDataRender message="You have no current Wallet Request" />
-        : <table>
-            <RequestTableHead />
-            <tbody>
-              {walletRequests.map((el) => <Request request={el} key={el.id} />)}
-            </tbody>
-          </table>
-        }
-      </section>
-    </ScrollToBottom>
+        )}
+        {sortValue && sortValue.value === walletRequestSorts.STATUS && (
+          <StatusDropdown label="Status" options={Object.values(walletRequestStatuses)} className="margin-right-sm" />
+        )}
+      </div>
+      {sortResult.length === 0 
+      ? <EmptyDataRender message="You have no current Wallet Request" />
+      : <table>
+          <RequestTableHead />
+          <tbody>
+            {sortResult.map((el) => <Request request={el} key={el.id} />)}
+          </tbody>
+        </table>
+      }
+    </section>
   )
 }
 
@@ -74,9 +101,27 @@ export const LastWalletRequest = forwardRef(({ request }, ref) => {
 
 const mapStateToProps = state => {
   const { walletRequestsData: { walletRequests, pageNum }, loadingIndicators } = state.walletReducer;
+  const { AMOUNT, STATUS, MOST_RECENT } = walletRequestSorts;
+  const sortWalletRequests = (type, payload) => {
+    switch(type) {
+      case AMOUNT:
+        const { min, max } = payload;
+       return walletRequests.filter(walletRequest => max
+        ? parseFloat(walletRequest.amount) >= parseFloat(min)
+          && parseFloat(walletRequest.amount) <= parseFloat(max)
+        : parseFloat(walletRequest.amount) >= parseFloat(min));
+      case STATUS:
+        const { status } = payload;
+        return  walletRequests.filter(walletRequest => walletRequest.status === status)
+      case MOST_RECENT:
+        return walletRequests
+      default:
+       return walletRequests
+    }
+  }
   const { token } = state.authReducer;
   return {
-    walletRequests, token, loading: loadingIndicators.walletRequests, pageNum,
+    walletRequests, sortWalletRequests, token, loading: loadingIndicators.walletRequests, pageNum,
   }
 }
 
