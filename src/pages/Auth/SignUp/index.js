@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../helpers';
-import { Spinners, Form } from '../../../components';
+import { Form } from '../../../components';
 
 const { authActions: { signUpRequest } } = actions;
-const { useButtonSpinner } = Spinners;
-const { FormField, PasswordField, useFormInput, useSelectInput, SubmitButton, useCheckbox } =Form;
-const SignUp = ({ signUp, isLoading, signUpError }) => {
+const { FormField, PasswordField, useFormInput, useSelectInput, SubmitButton, useCheckbox } = Form;
+const SignUp = ({ signUp, loading, signUpError }) => {
   const { replace } = useHistory();
-  const { LoadingSpinner } = useButtonSpinner(isLoading);
   const { value: first_name, handleUserInput: setFirstName, error: firstNameErr, isValid: firstNameIsValid } = useFormInput();
   const { value: phone, handleUserInput: setPhone, isValid: phoneIsValid, error: phoneErr } = useFormInput();
   const { value: last_name, handleUserInput: setLastName, error: lastNameErr, isValid: lastNameIsValid } = useFormInput();
@@ -51,7 +49,7 @@ const SignUp = ({ signUp, isLoading, signUpError }) => {
           <SelectInput label="Sex" options={['male', 'female']} className=" margin-right-sm name-title" />
 
           <PasswordField name="password" value={password} onChange={setPassword} placeholder="Password" err={passwordErr} />
-          <PasswordField name="password" value={password_confirmation} onChange={setPassword2} placeholder="Confirm password" />
+          <PasswordField name="password" value={password_confirmation} onChange={setPassword2} placeholder="Confirm password" err={validatePassword} />
           <div className="d-flex nowrap margin-bottom-md">
             <Checkbox checked={checked} />
             <div className="d-flex column checkbox">
@@ -66,7 +64,7 @@ const SignUp = ({ signUp, isLoading, signUpError }) => {
           <div className="margin-bottom-sm">
             {signUpError && <p className="font-sm danger-text font-weight-600">Error: {signUpError}</p> }
           </div>
-          <SubmitButton disabled={!validateFields} spinner={LoadingSpinner} text="Sign Up" action={handleSubmit} style={{width: '100%'}} />
+          <SubmitButton disabled={!validateFields} isLoading={loading} text="Sign Up" action={handleSubmit} style={{width: '100%'}} />
         </form>
       </section>
     </main>
@@ -77,8 +75,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ signUp: signUpRequest }, dispatch)
 
 const mapStateToProps = state => {
-  const { isLoading, errors: { signUp: signUpError } } = state.authReducer;
-  return { isLoading, signUpError }
+  const { isLoading: loading, errors: { signUp: signUpError } } = state.authReducer;
+  return { loading, signUpError }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

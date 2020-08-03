@@ -3,16 +3,13 @@ import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../helpers';
-import { Spinners, Form } from '../../../components';
+import { Form } from '../../../components';
 const { authActions: { signInRequest } } = actions;
-const { useButtonSpinner } = Spinners;
-const { FormField, PasswordField, useFormInput, SubmitButton, useCheckbox } = Form;
-const SignIn = ({ signIn, isLoading, signInError }) => {
+const { FormField, PasswordField, useFormInput, SubmitButton } = Form;
+const SignIn = ({ signIn, loading, signInError }) => {
   const { replace } = useHistory()
-  const { isLoading: loading, LoadingSpinner } = useButtonSpinner(isLoading);
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
   const { value: password, handleUserInput: setPassword, error: passwordErr, isValid: passIsValid } = useFormInput();
-  const { checked, Checkbox } = useCheckbox();
   const validateFields = emailIsValid && passIsValid;
   const handleSubmit = () => signIn({ email, password }, replace)
   return (
@@ -37,7 +34,7 @@ const SignIn = ({ signIn, isLoading, signInError }) => {
             {signInError && <p className="font-sm danger-text font-weight-600">Error: {signInError}</p> }
           </div>
           <Link to="/auth/forgot-password" className="color1 margin-bottom-sm">Forgot password ?</Link>
-          <SubmitButton isLoading={loading} disabled={!validateFields} spinner={LoadingSpinner} text="Log in" action={handleSubmit} style={{width: '100%'}} />
+          <SubmitButton isLoading={loading} disabled={!validateFields} text="Log in" action={handleSubmit} style={{width: '100%'}} />
         </form>
       </section>
     </main>
@@ -49,8 +46,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ signIn: signInRequest }, dispatch)
 
 const mapStateToProps = state => {
-  const { isLoading, errors: { signIn: signInError } } = state.authReducer;
-  return { isLoading, signInError }
+  const { isLoading: loading, errors: { signIn: signInError } } = state.authReducer;
+  return { loading, signInError }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
