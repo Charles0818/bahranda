@@ -3,10 +3,11 @@ import { auth } from '../../types';
 import { authActions, UIActions } from '../../actions';
 import { networkError, unAuthenticatedError } from '../reusables';
 import { sendData, getData, deleteData, apiKey } from '../ajax';
+import { forgotPasswordSuccess, forgotPasswordRequest, forgotPasswordFailure } from '../../actions/auth';
 const {
   SIGN_IN_REQUEST, SIGN_UP_REQUEST,
   CONFIRM_PIN, GET_USER_PROFILE,
-  CHECK_PIN_REQUEST, RESET_PASSWORD_REQUEST
+  CHECK_PIN_REQUEST, RESET_PASSWORD_REQUEST, FORGOT_PASSWORD_REQUEST
 } = auth;
 const {
   signInSuccess, signInError,
@@ -16,7 +17,7 @@ const {
   checkPinSuccess, checkPinFailure,
   resetPasswordFailure, checkPinRequest,
   resetPasswordRequest, signInRequest,
-  signUpRequest,
+  signUpRequest, 
   getUserProfile: getUserProfileRequest
 } = authActions;
 const { startLoading, stopLoading, showNetworkError } = UIActions;
@@ -176,6 +177,25 @@ function* resetPassword({ payload: { data, redirect } }){
   }
 }
 
+function* forgotPassword({ payload: { data, redirect }}) {
+  try {
+    yield put(setIsLoading(true))
+   yield call(authDBCalls.forgotPassword, data);
+    yield put(forgotPasswordSuccess());
+     redirect ('/auth/pin/verify')
+  }
+  catch (err) {
+    console.log('email not found', err)
+    const { status, title, message } = err;
+    yield call(unAuthenticatedError, err) 
+    if(!status || !message) {
+      console.log("error has no message")
+      yield call(networkError, forgotPasswordRequest(data, redirect));
+      return
+    }
+    yield put(forgotPasswordFailure)
+  } 
+}
 
 function* signUpWatcher() {
   yield takeLatest(SIGN_UP_REQUEST, signUp)
@@ -201,6 +221,10 @@ function* resetPasswordWatcher() {
   yield takeLatest(RESET_PASSWORD_REQUEST, resetPassword)
 }
 
+function* forgotPasswordWatcher() {
+  yield takeLatest(FORGOT_PASSWORD_REQUEST, forgotPassword)
+}
+
 export default function* authSagas() {
   yield spawn(signUpWatcher)
   yield spawn(signInWatcher)
@@ -208,4 +232,5 @@ export default function* authSagas() {
   yield spawn(getUserProfileWatcher)
   yield spawn(checkPinWatcher)
   yield spawn(resetPasswordWatcher)
+  yield spawn(forgotPasswordWatcher)
 }
