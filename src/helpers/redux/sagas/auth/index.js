@@ -3,7 +3,6 @@ import { auth } from '../../types';
 import { authActions, UIActions } from '../../actions';
 import { networkError, unAuthenticatedError } from '../reusables';
 import { sendData, getData, deleteData, apiKey } from '../ajax';
-import { forgotPasswordSuccess, forgotPasswordRequest, forgotPasswordFailure } from '../../actions/auth';
 const {
   SIGN_IN_REQUEST, SIGN_UP_REQUEST,
   CONFIRM_PIN, GET_USER_PROFILE,
@@ -17,7 +16,8 @@ const {
   checkPinSuccess, checkPinFailure,
   resetPasswordFailure, checkPinRequest,
   resetPasswordRequest, signInRequest,
-  signUpRequest, 
+  signUpRequest, forgotPasswordSuccess,
+  forgotPasswordRequest, forgotPasswordFailure,
   getUserProfile: getUserProfileRequest
 } = authActions;
 const { startLoading, stopLoading, showNetworkError } = UIActions;
@@ -145,16 +145,18 @@ function* checkPin({ payload: { data, redirect } }){
   try {
     yield put(setIsLoading(true))
     const profile = yield call(authDBCalls.checkPin, data);
-    console.log('returned getProfile response', profile)
+    console.log('returned checkPin response', profile);
+    yield put(checkPinSuccess(data.email, data.pin));
+    redirect('/auth/reset-password')
   } catch (err) {
     console.log('error found', err);
-    const { status, title, message } = err;
-    yield call(unAuthenticatedError, err)
-    if(!status || !message) {
+    const { status, title } = err;
+    if(!status) {
       console.log('error has no message')
       yield call(networkError, checkPinRequest(data, redirect));
       return
     }
+    yield put(checkPinFailure(title))
   }
 }
 
@@ -164,36 +166,36 @@ function* resetPassword({ payload: { data, redirect } }){
     const profile = yield call(authDBCalls.resetPassword, data);
     console.log('returned getProfile response', profile)
     yield put(resetPasswordSuccess())
+    redirect('/auth/signin')
   } catch (err) {
     console.log('error found', err);
     const { status, title, message } = err;
-    yield call(unAuthenticatedError, err)
-    if(!status || !message) {
+    if(!status) {
       console.log('error has no message')
       yield call(networkError, resetPasswordRequest(data, redirect));
       return
     }
-    yield put(resetPasswordFailure)
+    yield put(resetPasswordFailure(title))
   }
 }
 
 function* forgotPassword({ payload: { data, redirect }}) {
   try {
     yield put(setIsLoading(true))
-   yield call(authDBCalls.forgotPassword, data);
-    yield put(forgotPasswordSuccess());
+    yield call(authDBCalls.forgotPassword, data);
+    yield put(forgotPasswordSuccess(data.email));
      redirect ('/auth/pin/verify')
   }
   catch (err) {
-    console.log('email not found', err)
-    const { status, title, message } = err;
-    yield call(unAuthenticatedError, err) 
-    if(!status || !message) {
+    const { message, errors } = err;
+    console.log('error found', err)
+    if(!message) {
       console.log("error has no message")
       yield call(networkError, forgotPasswordRequest(data, redirect));
       return
+    } else {
+      yield put(forgotPasswordFailure('The provided email is invalid'))
     }
-    yield put(forgotPasswordFailure)
   } 
 }
 

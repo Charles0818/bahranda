@@ -1,5 +1,4 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../helpers';
@@ -7,13 +6,15 @@ import { Form } from '../../../components';
 const { authActions: { resetPasswordRequest } } = actions;
 const { PasswordField, useFormInput, SubmitButton } = Form;
 
-const ResetPassword = ({ error, isLoading, resetPasswordRequest }) => {
-  const { replace } = useHistory()
+const ResetPassword = ({ error, checkPin: { email, pin }, isLoading, resetPasswordRequest, history: { replace } }) => {
+  useLayoutEffect(() => {
+    if(!email && !pin) replace('/auth/forgot-password')
+  }, [email, pin])
   const { value: password, handleUserInput: setNewPass, isValid: newPassIsValid, error: newPassErr } = useFormInput();
   const { value: password_confirmation, handleUserInput: setNewPass2 } = useFormInput();
   const validatePasswords = password !== password_confirmation ? 'Passwords do not match' : '';
   const validateAllFields =  newPassIsValid && password === password_confirmation;
-  const handleSubmit = () => resetPasswordRequest({ password, password_confirmation }, replace)
+  const handleSubmit = () => resetPasswordRequest({ email, pin, password, password_confirmation }, replace)
   return (
     <main className="d-flex auth-container padding-horizontal-lg padding-vertical-md">
       <section className="auth-card border-r-10 padding-horizontal-lg padding-vertical-lg border_r_5">
@@ -35,8 +36,12 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ resetPasswordRequest }, dispatch)
 
 const mapStateToProps = state => {
-  const { isLoading, email, errors: { resetPassword: error } } = state.authReducer;
-  return { isLoading, error, email }
+  const {
+    isLoading,
+    success: { checkPin },
+    errors: { resetPassword: error }
+  } = state.authReducer;
+  return { isLoading, error, checkPin }
 }
 
 

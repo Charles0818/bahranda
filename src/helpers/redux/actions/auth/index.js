@@ -106,10 +106,10 @@ export const checkPinRequest = (data, redirect) => {
   }
 }
 
-export const checkPinSuccess = (message, pin) => {
+export const checkPinSuccess = (email, pin) => {
   return {
     type: CHECK_PIN_SUCCESS,
-    payload: { message, pin }
+    payload: { email, pin }
   }
 }
 
@@ -147,9 +147,10 @@ export const forgotPasswordRequest = (data, redirect) => {
   }
 }
 
-export const forgotPasswordSuccess = () => {
+export const forgotPasswordSuccess = (email) => {
   return {
-    type: FORGOT_PASSWORD_SUCCESS
+    type: FORGOT_PASSWORD_SUCCESS,
+    payload: { email }
   }
 }
 
