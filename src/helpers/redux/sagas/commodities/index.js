@@ -1,15 +1,14 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { commodity } from '../../types';
 import { commodityActions } from '../../actions';
-import { unAuthenticatedError } from '../reusables';
-import { sendData, getData, modifyData, deleteData, apiKey } from '../ajax';
+import { unAuthenticatedError, delay } from '../reusables';
+import { sendData, getData, apiKey } from '../ajax';
 const {
   GET_COMMODITIES_REQUEST, GET_RELATED_COMMODITIES,
   PURCHASE_COMMODITY_INDICATOR, PURCHASE_COMMODITY_REQUEST,
   GET_SINGLE_COMMODITY_REQUEST, GET_SINGLE_COMMODITY_INDICATOR,
   GET_RELATED_COMMODITIES_INDICATOR
 } = commodity;
-
 
 const {
   getCommoditiesSuccess, getCommoditiesFailure,
@@ -77,8 +76,10 @@ function* getRelatedCommodities({ payload: { token, setState } }) {
 function* purchaseCommodity({ payload }) {
   try {
     yield put({ type: PURCHASE_COMMODITY_INDICATOR })
-    const deal = yield call(commodityDBCalls.purchaseCommodity, payload);
-    yield put(purchaseCommoditySuccess(deal))
+     yield call(commodityDBCalls.purchaseCommodity, payload);
+    yield put(purchaseCommoditySuccess('successful'));
+    yield call(delay, 3000);
+    yield put(purchaseCommoditySuccess(''));
   } catch (err) {
     const { status, title } = err;
     yield call(unAuthenticatedError, err)

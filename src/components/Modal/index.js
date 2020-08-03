@@ -1,2 +1,3 @@
 import useConfirmation from './Confirmation';
-export { useConfirmation };
+import useCenterModal from './Center'
+export { useConfirmation, useCenterModal };
