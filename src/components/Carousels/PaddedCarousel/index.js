@@ -1,39 +1,42 @@
 import React, { useEffect } from 'react';
 import PropTypes from  'prop-types';
 import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from 'react-icons/md';
-import { useSwipeable } from 'react-swipeable';
+import { Swipeable } from 'react-swipeable';
 import '../carousel.scss';
-import useSlide from '../useSlide';
+import useSlide, { useControl } from '../useSlide';
 
-const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, controls }) => {
-  const { slideLeft, distance, slideRight, bulletSlide } = useSlide(slides.length, slideWidth);
-  const handlers = useSwipeable({
-    onSwipedLeft: () => slideRight(),
-    onSwipedRight: () => slideLeft(),
-    preventDefaultTouchmoveEvent: true,
-    trackMouse: true
-  });
+const PaddedCarousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, controls }) => {
+  const { slideLeft, handlers, distance, slideRight, bulletSlide } = useSlide(slides.length, slideWidth);
+  const { lastElement, rightControl } = useControl(controls);
   useEffect(() => {
     if(autoSlide) {
       const interval = slides.length > 1 ? setInterval(() => slideRight(), duration) : null;
       return () => clearInterval(interval)
     }
-  })
+  }, [autoSlide, distance])
   return (
     slides.length !== 0 && (
-      <div {...handlers} className="padded-carousel padding-horizontal-xlg slider position-relative overflow-h margin-bottom-sm">
+      <Swipeable {...handlers} className="padded-carousel padding-horizontal-xlg slider position-relative overflow-h margin-bottom-sm">
         <div className="d-flex nowrap align-items-center overflow-h position-relative" style={{width: '100%'}}>
           {slides.map((Slide, index) => {
-            return (
-              <div key={index} className="slide" style={{minWidth: !cardAlign ? '100%' : 'auto', transform: `translateX(${distance}%)`}}>
-                {Slide}
-              </div>
-            )
+             if(index + 1 === slides.length) {
+              return (
+                <div key={index} ref={lastElement} className="slide" style={{minWidth: !cardAlign ? '100%' : 'auto', transform: `translateX(${distance}%)`}}>
+                  {Slide}
+                </div>
+              )
+             } else {
+              return (
+                <div key={index} className="slide" style={{minWidth: !cardAlign ? '100%' : 'auto', transform: `translateX(${distance}%)`}}>
+                  {Slide}
+                </div>
+              )
+             }
           })}
         </div>
         { controls && (
             <>
-              <button id="slide-right" onClick={slideRight} className="bg-color1-opacity border-r-circle padding-horizontal-sm padding-vertical-sm cursor-pointer">
+              <button id="slide-right" ref={rightControl} onClick={slideRight} className="bg-color1-opacity border-r-circle padding-horizontal-sm padding-vertical-sm cursor-pointer">
                 <MdKeyboardArrowRight className="font-lg color1" />
               </button>
               <button id="slide-left" onClick={slideLeft} className="bg-color1-opacity border-r-circle padding-horizontal-sm padding-vertical-sm cursor-pointer">
@@ -50,12 +53,12 @@ const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, 
           })
         )}
         </div>
-      </div>
+      </Swipeable>
     )
   )
 }
 
-Carousel.propTypes = {
+PaddedCarousel.propTypes = {
   duration: PropTypes.number.isRequired,
   bullet: PropTypes.bool,
   controls: PropTypes.bool,
@@ -63,7 +66,7 @@ Carousel.propTypes = {
   autoSlide: PropTypes.bool,
   cardAlign: PropTypes.bool,
 }
-Carousel.defaultProps = {
+PaddedCarousel.defaultProps = {
   duration: 3500,
   bullet: false,
   controls: true,
@@ -71,4 +74,4 @@ Carousel.defaultProps = {
   autoSlide: true,
   cardAlign: false,
 }
-export default Carousel;
+export default PaddedCarousel;
