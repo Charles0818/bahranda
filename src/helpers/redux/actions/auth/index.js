@@ -15,10 +15,10 @@ const {
 } = auth;
 
 
-export const signInRequest = (data, redirect) => {
+export const signInRequest = (data, redirect, redirectPath) => {
   return {
     type: SIGN_IN_REQUEST,
-    payload: { data, redirect }
+    payload: { data, redirect, redirectPath}
   }
 }
 

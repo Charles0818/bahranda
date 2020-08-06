@@ -1,14 +1,13 @@
 import React, { useEffect, memo, useLayoutEffect } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../helpers';
 import { FullScreenSpinner } from '../Spinners';
 const { authActions: { getUserProfile }, UIActions: { startLoading } } = actions;
 const ProtectedRoute = memo(({
-  component: Comp, auth, token, isLoggedIn, isLoading, startLoading, getUserProfile, path, redirectPath = '/auth/login', ...rest
+  component: Comp, auth, token, isLoggedIn, isLoading, startLoading, getUserProfile, path, location, redirectPath = '/auth/login', ...rest
 }) => {
-
   useLayoutEffect(() => {
     // startLoading()
     let isSubscribed = true;
@@ -25,7 +24,7 @@ const ProtectedRoute = memo(({
         <Comp {...props} token={token} />
         ) :  (
         <Redirect to={{
-          pathname: redirectPath,
+          pathname: `${redirectPath}/?redir=${location.pathname}`,
           state: {
             prevLocation: path,
             error: "UnAuthorized Access!",
@@ -45,4 +44,4 @@ const mapTokenToProps = state => {
 }
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ getUserProfile, startLoading }, dispatch)
-export default connect(mapTokenToProps, mapDispatchToProps)(ProtectedRoute)
+export default connect(mapTokenToProps, mapDispatchToProps)(withRouter(ProtectedRoute))

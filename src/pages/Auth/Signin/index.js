@@ -4,14 +4,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../helpers';
 import { Form } from '../../../components';
+import * as queryString from 'query-string';
 const { authActions: { signInRequest } } = actions;
 const { FormField, PasswordField, useFormInput, SubmitButton } = Form;
-const SignIn = ({ signIn, loading, signInError }) => {
-  const { replace } = useHistory()
+const SignIn = ({ signIn, loading, signInError, location, match: { path } }) => {
+  const { replace } = useHistory();
+  const { redir } = queryString.parse(location.search)
+  console.log('this is redir location.search', redir)
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
   const { value: password, handleUserInput: setPassword, error: passwordErr, isValid: passIsValid } = useFormInput();
   const validateFields = emailIsValid && passIsValid;
-  const handleSubmit = () => signIn({ email, password }, replace)
+  const handleSubmit = () => signIn({ email, password }, replace, redir)
   return (
     <main className="d-flex auth-container padding-horizontal-lg padding-vertical-md">
       <section className="auth-card border-r-10 padding-horizontal-lg padding-vertical-lg border_r_5">

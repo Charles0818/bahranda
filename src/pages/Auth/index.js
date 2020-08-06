@@ -20,7 +20,7 @@ const Auth = ({ isAuth, match: { path }, history: { goBack  } }) => {
     <PageWrapper>
       <Switch>
         <Suspense fallback={<FullScreenSpinner isLoading={true} />} >
-          <Route exact path={`${path}/signin`} component={SignIn} />
+          <Route path={`${path}/signin`} component={SignIn} />
           <Route exact path={`${path}/register`} component={SignUp} />
           <Route exact path={`${path}/activate`} component={ConfirmEmail} />
           <Route exact path={`${path}/reset-password`} component={ResetPassword} />

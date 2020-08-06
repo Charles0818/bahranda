@@ -75,12 +75,12 @@ function* signUp({ payload: { data, redirect } }) {
   }
 }
 
-function* signIn({ payload: { data, redirect } }) {
+function* signIn({ payload: { data, redirect, redirectPath } }) {
   try {
     yield put(setIsLoading(true))
     const { access_token, user } = yield call(authDBCalls.signIn, data);
     yield put(signInSuccess(user, access_token));
-    yield redirect('/account')
+    yield redirect(redirectPath ? redirectPath : '/account')
   } catch (err) {
     const { status, title } = err;
     let errorMessage;
