@@ -4,18 +4,10 @@ import Select from 'react-select';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { FaCheckCircle } from 'react-icons/fa';
-import { handleKeyDown } from './validation';
 
 export const FormField = ({
-  placeholder, label, value, onChange, err, name, type, className, disabled = false, max, ...rest
+  placeholder, label, value, onChange, err, name, type, className, isValid, disabled = false, min, max, ...rest
 }) => {
-  const handleKeyDownCallback = useCallback(() => {
-    return handleKeyDown(value, max, onChange)
-    
-  }, [value, onChange, max]);
-  const handleOnChange = useCallback(() => {
-
-  }, [])
   const inputRef = useRef();
   return (
     <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
@@ -26,13 +18,12 @@ export const FormField = ({
           name={name}
           ref={inputRef}
           value={value}
-          // onKeyDown={handleKeyDownCallback()}
-          onChange={onChange}
+          onChange={onChange(min, max)}
           placeholder={placeholder}
           disabled={disabled}
           className={`border-r-5 padding-vertical-sm padding-horizontal-md font-weight-500 ${!disabled ? 'bg-white' : 'bg-gray'} slim-border font-sm`} {...rest} />
         <div className="field-check-icon">
-          {!err && value.length > 0 && <FaCheckCircle className="font-md  bg-white color1 fadeIn-animation" /> }
+          {isValid && <FaCheckCircle className="font-md  bg-white color1 fadeIn-animation" /> }
         </div>
       </div>
       <span className="font-xsm font-weight-600 danger-text">{err}</span>
@@ -41,7 +32,7 @@ export const FormField = ({
 }
 
 export const PasswordField = ({
-  placeholder, value, onChange, err, name, className = '',  ...rest
+  placeholder, value, onChange, err, name, className = '', min, max,  ...rest
 }) => {
   const inputRef = useRef();
   const [type, setType] = useState('password');
@@ -49,7 +40,13 @@ export const PasswordField = ({
     <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
       <span className="font-md">{placeholder}</span>
       <div className="d-flex input-container position-relative">
-        <input type={type} name={name} ref={inputRef} value={value} onChange={onChange} placeholder={placeholder}
+        <input
+          type={type}
+          name={name}
+          ref={inputRef}
+          value={value}
+          onChange={onChange(min, max)}
+          placeholder={placeholder}
           className="border-r-5 padding-md padding-horizontal-md font-weight-500 bg-white slim-border font-sm" {...rest} />
         <div className="field-check-icon">
           {type === 'password'
@@ -63,15 +60,8 @@ export const PasswordField = ({
 }
 
 export const QuantityInput = memo(({
-   value, onChange, className, max, placeholder, name, ...rest
+   value, onChange, className, min = 1, max, placeholder, name, ...rest
 }) => {
-  const handleKeyDownCallback = useCallback(() => {
-    return handleKeyDown(value, max, onChange)
-    
-  }, [value, onChange, max]);
-  const handleOnChange = useCallback(() => {
-
-  }, [])
   return (
     <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
       <div className="d-flex input-container" style={{width: '100%'}}>
@@ -79,8 +69,7 @@ export const QuantityInput = memo(({
           type={"numeric"}
           name={name}
           value={value}
-          // onKeyDown={handleKeyDownCallback()}
-          onChange={onChange}
+          onChange={onChange(min, max)}
           placeholder={placeholder}
           className={`qty-input text-center border-r-5 padding-vertical-sm padding-horizontal-sm font-weight-500 slim-border font-sm`} {...rest} />
       </div>

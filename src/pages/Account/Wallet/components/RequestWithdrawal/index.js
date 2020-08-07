@@ -46,7 +46,7 @@ const RequestWithdrawal = ({
       </div>
       <div ref={contentRef} className="form-content d-flex justify-content-s-between">
         <CurrencyInput label="Amount" value={amount} onValueChange={setAmount} placeholder="Account number" className="flex-equal margin-right-sm" />
-        <FormField value={pin} onChange={setPin} placeholder="wallet pin" err={pinErr} className="pin-field" />
+        <FormField value={pin} name="Wallet pin" onChange={setPin} placeholder="wallet pin" err={pinErr} isValid={pinIsValid} className="pin-field" />
       </div>
       <SubmitButton action={handleWithdrawal}
         text="Request Withdrawal" isLoading={loading} disabled={!validateAllFields && setActive} />

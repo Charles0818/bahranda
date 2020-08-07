@@ -15,7 +15,7 @@ const ChangePassword = ({ changePasswordRequest, token, loading, success, error 
     <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
       <SectionTitle title="Change Password" />
       <form className="d-flex margin-bottom-sm">
-        <FormField name="Password"  value={current_password} onChange={setOldPass} placeholder="Current password" err={oldPassErr} className="flex-equal margin-right-sm" autoComplete="new-password" />
+        <FormField name="Password"  value={current_password} onChange={setOldPass} placeholder="Current password" className="flex-equal margin-right-sm" autoComplete="new-password" />
         <PasswordField name="password" value={new_password} onChange={setNewPass} placeholder="New password" err={newPassErr} className="flex-equal margin-right-sm" autoComplete="new-password" />
         <PasswordField name="password" value={new_password_confirmation} onChange={setNewPass2} placeholder="Confirm new password" err={validatePasswords} className="flex-equal" autoComplete="new-password" />
       </form>

@@ -19,7 +19,7 @@ const ForgotPassword = ({ isLoading, error, forgotPasswordRequest }) => {
             <h1 className="font-weight-normal">Forgot Password</h1>
             <p className="font-weight-300">Please provide your email to help us find you account</p>
           </div>
-          <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} />
+          <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} isValid={emailIsValid} />
           <div className="margin-bottom-sm">
             {error && <p className="font-sm danger-text font-weight-600">{error}</p> }
           </div>

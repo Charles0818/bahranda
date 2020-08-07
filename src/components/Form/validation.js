@@ -4,37 +4,21 @@ export const useFormInput = (initialValue = '') => {
   const [value, setValue] = useState(initialValue);
   const [error, setError] = useState('');
   const [isValid, setIsValid] = useState(value && value.length > 0 ? true : false)
-  const handleUserInput = (event) => {
+  const handleUserInput = (min, max) => event => {
     const { target: { name, value } } = event;
+    if(max && value.length > max) return
+    const isValid = validateInput(name, value);
+    if(name.toLowerCase() === inputNames.password || name.toLowerCase() === inputNames.email) {
+      setValue(value);
+      setIsValid(isValid);
+      setError(!isValid ? assignError(name) : '')
+      return;
+    }
+    if(!isValid && value !== '' ) return;
     setValue(value);
-    setIsValid(FormValidation(name, value, setError))
+    setIsValid(validateLength(value, min, max))
   };
   return { value, setValue, handleUserInput, error, setError, isValid }
-}
-
-export const handleKeyDown = (value, max, onValueChange) => e => {
-  const DELETE_KEY_CODE = 8;
-  const { key, keyCode, target: { name } } = e;
-  console.log('handleKeyDown', name,'key', key);
-  const exceptionalNames = name === inputNames.email || name === inputNames.date;
-  console.log('exceptionalNames', exceptionalNames)
-  const checkAgainst = exceptionalNames ? value : key;
-   if (
-    ((value === 0 || value === '') && !validateInput(name, checkAgainst))
-    || ((value !== 0 || value !== '') && !validateInput(name, checkAgainst) && keyCode !== DELETE_KEY_CODE)
-  ) {
-    if(!exceptionalNames) return;
-  }
-  const valueString = value.toString();
-    let nextValue;
-    if (keyCode !== DELETE_KEY_CODE) {
-      nextValue = (value === 0 || value === '') ? key : `${valueString}${key}`;
-    } else {
-      const nextValueString = valueString.slice(0, -1);
-      nextValue = nextValueString === '' || undefined ? '' : nextValueString;
-    }
-    if (max && nextValue > max) return;
-    onValueChange(nextValue)
 }
 
 export const useFileInput = () => {
@@ -56,29 +40,44 @@ export const inputNames = {
   subject: 'subject',
   message: 'message',
   account: 'account number',
-  amount: 'amount'
+  amount: 'amount',
+  name: 'name',
+  walletPin: 'wallet pin',
+  quantity: 'quantity'
 }
+
+export const errorMessages = {
+  email: "Email should contain '@' and at least one '.'",
+  password: 'Password must be at least 8 characters, containing alphanumerics',
+  name: "Name must contain only alphabelts",
+  subject: 'Subject should contain only alphanumeric characters',
+  message: 'Message should contain only alphaNumeric characters',
+  date: 'Invalid date format!',
+  phone: 'Incorrect phone number',
+  account: 'Account number is invalid'
+};
 
 
 const validateInput = (name, key) => {
   const regex = {
     email: /^([a-zA-Z\d-\.\_]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,8})(\.[a-zA-Z]{2,8})?$/,
     password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d][\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/,
-    phone:/^[0-9\.\-\/\(\)\,\ ]+$/,
+    phone:/^[0-9\.\-\/\(\)\,\ \+]+$/,
     date:/^(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i,
     CC_date: /^(0?[1-9]|1[0-2])[/](\d{2})$/,
     CC_holderName: /^([a-zA-Z]{3,}) ([a-zA-Z]{3,})$/,
-    text: /^[a-zA-Z]+$/,
+    text: /^[a-zA-Z\ ]+$/,
     alphanumeric: /^[a-zA-Z0-9\,\ \.\_]+$/g,
     digits: /^\d+$/,
-    money: /^\d\.\,+$/,
+    money: /^\d\.\,+$/g,
   }
   let isValid;
-  switch(name) {
-    case inputNames.email :
+  switch(name.toLowerCase()) {
+    case inputNames.email:
       isValid = validateWithRegex(key, regex.email)
       return isValid
-    case inputNames.name: 
+    case inputNames.name:
+      console.log('this is for name field')
       isValid = validateWithRegex(key, regex.text)
       return isValid;
     case inputNames.subject:
@@ -94,10 +93,12 @@ const validateInput = (name, key) => {
       isValid = validateWithRegex(key, regex.date)
       return isValid;
     case inputNames.account:
+    case inputNames.walletPin:
+    case inputNames.quantity:
       isValid = validateWithRegex(key, regex.digits) // set minimum and maximum of 10 for this
       return isValid;
     case inputNames.amount:
-      isValid = validateWithRegex(key, regex.money)
+      isValid = validateWithRegex(key, regex.digits)
       return isValid;
     default:
       isValid = validateWithRegex(key, regex.alphanumeric)
@@ -105,6 +106,26 @@ const validateInput = (name, key) => {
   }
 }
 
+const assignError = (name) => {
+  switch(name.toLowerCase()) {
+    case inputNames.email :
+      return errorMessages.email
+    case inputNames.name:
+      return errorMessages.name;
+    case inputNames.subject:
+      return errorMessages.subject
+    case inputNames.password:
+      return errorMessages.password
+    case inputNames.phone:
+      return errorMessages.phone
+    case inputNames.date:
+      return errorMessages.date
+    case inputNames.account:
+      return errorMessages.account
+    default:
+      return `${name} is invalid`
+  }
+}
 const validateWithRegex = (value, regex) => {
   const isValid = regex.test(value) 
   // && /^[A-Za-z0-9 _]/.test(value)
@@ -112,89 +133,10 @@ const validateWithRegex = (value, regex) => {
 }
 
 const validateLength = (value, min, max) => {
+  console.log('answer', value.length >= min && value.length <= max)
+  if(min && max) return value.length > 0 && value.length >= min && value.length <= max;
   if (max) return value.length > 0 && value.length <= max;
   if(min) return value.length > 0 && value.length >= min;
-  if(min && max) return value.length > 0 && value.length >= min && value.length <= max;
+    console.log('min', min, 'max', max);
   return value.length > 0
-}
-
-const FormValidation = (name, value, setError) => {;
-  const input_types = {
-    email: /^([a-zA-Z\d-\.\_]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,8})(\.[a-zA-Z]{2,8})?$/,
-    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d][\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/,
-    phone:/^[0-9\.\-\/\(\)\,\ ]+$/,
-    date:/^(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i,
-    CC_date: /^(0?[1-9]|1[0-2])[/](\d{2})$/,
-    CC_holderName: /^([a-zA-Z]{3,}) ([a-zA-Z]{3,})$/,
-    text: /^[a-zA-Z]+$/,
-    alphanumeric: /^[a-zA-Z0-9\,\ \.\_]+$/g,
-    digits: /^\d+$/,
-    money: /^\d\.\,+$/,
-  }
-  const errorMessage = {
-    emailErr: "Email should contain '@' and at least one '.'",
-    passwordErr: 'Password must be at least 8 characters, containing alphanumerics',
-    name: "Name must contain only alphabelts",
-    usernameErr: "username must contain only alphanumeric characters",
-    subject: 'Subject should contain only alphanumeric characters',
-    message: 'Message should contain only alphaNumeric characters',
-    dateErr: 'Invalid date format!',
-    phoneErr: 'Incorrect phone number',
-    CC_dateErr: 'Invalid expiry date',
-    CC_digitsErr: 'Invalid card number',
-    zipcodeErr: 'Invalid zipcode, should be 5 digits',
-    accountErr: 'Account number is invalid'
-  };
-  Object.freeze([input_types, errorMessage])
-
-  const { emailErr, subject, dateErr, passwordErr, phoneErr, usernameErr, zipcodeErr, accountErr } = errorMessage;
-  const { email, text, date, password, phone, alphanumeric, digits, money } = input_types;
-  let isValid = null;
-
-  switch(name) {
-    case 'email' :
-      isValid = validateWithRegex(value, email) && validateLength(value);
-      !isValid ? setError(emailErr) : setError('')
-      return isValid
-    case 'name': 
-      isValid = validateWithRegex(value, text) && validateLength(value);
-      !isValid ? setError(errorMessage.name) : setError('')
-      return isValid;
-    case 'username': 
-      isValid = validateWithRegex(value, alphanumeric) && validateLength(value);
-      !isValid ? setError(usernameErr) : setError('')
-      return isValid;
-    case 'subject':
-      isValid = validateWithRegex(value, text) && validateLength(value)
-      !isValid ? setError(subject) : setError('')
-      return isValid;
-    case 'password':
-      isValid = validateWithRegex(value, password) && validateLength(value, 8)
-      !isValid ? setError(passwordErr) : setError('')
-      return isValid;
-    case 'phone':
-      isValid = validateWithRegex(value, phone) && validateLength(value, null, 15)
-      !isValid ? setError(phoneErr) : setError('')
-      return isValid;
-    case 'zipcode':
-      isValid = digits.test(value) && value.length === 5
-      !isValid ? setError(zipcodeErr) : setError('')
-      return isValid;
-    case 'date':
-      isValid = validateWithRegex(value, date) && validateLength(value)
-      !isValid ? setError(dateErr) : setError('')
-      return isValid;
-    case 'account':
-      isValid = validateWithRegex(value, digits) && validateLength(value, 10, 10)
-      !isValid ? setError(accountErr) : setError('')
-      return isValid;
-    case 'amount':
-      isValid = validateWithRegex(value, money) && validateLength(value)
-      !isValid ? setError('Invalid amount') : setError('')
-      return isValid;
-    default:
-      isValid = validateWithRegex(value, alphanumeric) && validateLength(value)
-      !isValid ? setError(`${name} is invalid `) : setError('')
-      return isValid;
-  }
 }

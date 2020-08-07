@@ -20,10 +20,10 @@ const AccountInformation = ({
       <SectionTitle title="Bank Details" />
       <div className="d-flex justify-content-s-between">
         <SelectInput isSearchable={true} label="Bank name" placeholder="Select bank" options={[...bankNames]} className="flex-equal margin-right-sm" />
-        <FormField value={account_no} onChange={setAccountNo} placeholder="Account number" err={accountNoErr} className="flex-equal margin-right-sm" />
-        <FormField value={account_name} onChange={setAccountName} placeholder="Account name" err={accountNameErr} className="flex-equal" />
+        <FormField value={account_no} name="account number" onChange={setAccountNo} placeholder="Account number" err={accountNoErr} isValid={accountNoIsValid} min={10} max={10} className="flex-equal margin-right-sm" />
+        <FormField value={account_name} name="Account name" onChange={setAccountName} placeholder="Account name" err={accountNameErr} isValid={accountNameIsValid} className="flex-equal" />
       </div>
-      <FormField value={pin} onChange={setPin} placeholder="wallet pin" err={pinErr} className="pin-field" />
+      <FormField value={pin} name="Wallet pin" onChange={setPin} placeholder="wallet pin" err={pinErr} className="pin-field" min={4} max={4} />
       <SubmitButton action={() => updateBankInfoRequest({ pin, account_name, account_no, bank_name: bankName.value }, token)}
         text="SUBMIT CHANGES" isLoading={loading} disabled={!validateAllFields} />
         {(error || success) && <HttpStatusNotification  message={error || success} status={error ? 'error' : 'success'}  />}

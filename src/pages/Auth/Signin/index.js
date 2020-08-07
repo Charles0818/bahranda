@@ -31,7 +31,7 @@ const SignIn = ({ signIn, loading, signInError, location, match: { path } }) => 
             <h1 className="font-weight-normal">Hello</h1>
             <p className="font-weight-300">Please fill in your login details</p>
           </div>
-          <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} />
+          <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} isValid={emailIsValid} />
           <PasswordField name="Password" value={password} onChange={setPassword} placeholder="Password" err={passwordErr} />
           <div className="margin-bottom-sm">
             {signInError && <p className="font-sm danger-text font-weight-600">Error: {signInError}</p> }

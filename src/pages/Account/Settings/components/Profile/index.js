@@ -17,12 +17,12 @@ const Profile = ({ profile, updateProfileRequest, token, loading, success, error
       <SectionTitle title="Profile" />
       <div className="d-flex">
         <SelectInput label="Sex" options={['male', 'female']} className=" margin-right-sm name-title" />
-        <FormField name="First name" value={first_name} onChange={setFirstName} placeholder="First name" err={firstNameErr}  className="flex-equal margin-right-sm" />
-        <FormField name="Last name" value={last_name} onChange={setLastName} placeholder="Last name" err={lastNameErr} className="flex-equal" />
+        <FormField name="name" value={first_name} onChange={setFirstName} placeholder="First name" err={firstNameErr} isValid={firstNameIsValid}  className="flex-equal margin-right-sm" />
+        <FormField name="name" value={last_name} onChange={setLastName} placeholder="Last name" err={lastNameErr} isValid={lastNameIsValid} className="flex-equal" />
       </div>
       <div className="d-flex">
-        <FormField type="tel" name="phone" value={phone} onChange={setPhone} placeholder="Phone" err={phoneErr} className="flex-equal margin-right-sm" />
-        <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} disabled={true} className="flex-equal" />
+        <FormField type="tel" name="phone" value={phone} onChange={setPhone} placeholder="Phone" err={phoneErr} isValid={phoneIsValid} min={11} max={14} className="flex-equal margin-right-sm" />
+        <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} isValid={emailIsValid} disabled={true} className="flex-equal" />
       </div>
       <SubmitButton text="SAVE CHANGES" isLoading={loading} disabled={!validateAllFields}
         action={() => updateProfileRequest({ first_name, last_name, sex: sex.value, phone }, token)}
