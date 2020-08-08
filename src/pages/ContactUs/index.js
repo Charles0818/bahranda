@@ -1,13 +1,25 @@
-import React from 'react';
-import { Form, PageWrapper } from '../components';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Form, PageWrapper, HttpStatusNotification } from '../components';
+import { actions } from '../../helpers';
+const { otherActions: { contactUsRequest } } = actions;
 const { FormField, useFormInput, SubmitButton, TextArea, useCheckbox, handleUserInput } = Form;
 
-const ContactUs = () => {
-  const { value: full_name, handleUserInput: setName, error: fullNameErr, isValid: fullNameIsValid } = useFormInput();
-  const { value: phone, handleUserInput: setPhone, isValid: phoneIsValid, error: phoneErr } = useFormInput();
-  const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
-  const { value: message, handleUserInput: setMessage, error: messageErr, isValid: messageIsValid } = useFormInput();
-  const validateAllFields = messageIsValid && emailIsValid && fullNameIsValid
+const ContactUs = ({ loading, contactUsRequest, success, error }) => {
+  const { value: name, handleUserInput: setName, setValue: resetName, error: fullNameErr, isValid: fullNameIsValid } = useFormInput();
+  const { value: phone, handleUserInput: setPhone, setValue: resetPhone, isValid: phoneIsValid, error: phoneErr } = useFormInput();
+  const { value: email, handleUserInput: setEmail, setValue: resetEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
+  const { value: message, handleUserInput: setMessage, setValue: resetMessage, error: messageErr, isValid: messageIsValid } = useFormInput();
+  const validateAllFields = messageIsValid && emailIsValid && fullNameIsValid && phoneIsValid;
+  useEffect(() => {
+    if(success) {
+      resetName('')
+      resetPhone('')
+      resetMessage('')
+      resetEmail('')
+    }
+  }, [success])
   return (
     <PageWrapper>
       <div className="d-flex justify-content-center">        
@@ -16,12 +28,19 @@ const ContactUs = () => {
           <form className="d-flex column fadeIn-animation" style={{width: '100%'}}>
             <p className="font-md margin-bottom-md">To get in touch please contact us directly or fill out this form, we will get in touch promptly</p>
             <div className="d-flex">
-              <FormField name="Full name" value={full_name} onChange={setName} err={fullNameErr} placeholder="Name" className="flex-equal margin-right-sm"/>
-              <FormField type="tel" name="phone number" value={phone} onChange={setPhone} err={phoneErr}  placeholder="Phone Number" className="flex-equal" />
+              <FormField name="name" value={name} onChange={setName} err={fullNameErr} isValid={fullNameIsValid} placeholder="Name" className="flex-equal margin-right-sm"/>
+              <FormField type="tel" name="phone number" value={phone} onChange={setPhone} err={phoneErr} isValid={phoneIsValid} min={11} max={14} placeholder="Phone Number" className="flex-equal" />
             </div>
-            <FormField type="email" name="email" value={email} onChange={setEmail} err={emailErr}  placeholder="Email" />
+            <FormField type="email" name="email" value={email} onChange={setEmail} err={emailErr}  placeholder="Email" isValid={emailIsValid} />
             <TextArea name="send message" label="Message" value={message} onChange={setMessage} placeholder="Type your message..." />
-            <SubmitButton text="SEND" disabled={!validateAllFields} className="padding-horizontal-lg" action={() => null }  />
+            <SubmitButton
+              text="SEND"
+              disabled={!validateAllFields}
+              className="padding-horizontal-lg"
+              isLoading={loading}
+              action={() => contactUsRequest({ name, phone, email, message }) }
+            />
+            {(error || success) && <HttpStatusNotification  message={error || success} status={error ? 'error' : 'success'}  />}
           </form>
         </div>
       </div>
@@ -29,4 +48,16 @@ const ContactUs = () => {
   )
 }
 
-export default ContactUs;
+const mapStateToProps = state => {
+  const {
+    loadingIndicators: { contactUs: loading },
+    success: { contactUs: success },
+    errors: { contactUs: error }
+  } = state.otherReducer
+  return { loading, success, error }
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ contactUsRequest }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactUs);
