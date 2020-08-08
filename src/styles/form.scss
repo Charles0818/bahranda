@@ -28,10 +28,6 @@ form {
     &::placeholder { 
       color: rgba(0, 0, 0, 0.28);
     }
-    &:focus {
-      border-color: $color1;
-      color: $color1
-    }
   }
   .field-check-icon {
     position: absolute;
@@ -40,11 +36,19 @@ form {
   }
 }
 
+input {
+  &:focus {
+    border-color: $color1;
+    color: $color1
+  }
+}
+
 .form-control {
   width: 100%;
   border-radius: 3px;
   /* border: 2px solid #a0a0a0; */
 }
+
 textarea {
   &::placeholder { font-size: 1.2em }
   height: 200px;
@@ -111,5 +115,13 @@ textarea {
   &.open {
     height: auto;
     display: block;
+  }
+}
+
+.pin-field {
+  flex: 1;
+  // max-width: 5px;
+  @include media-breakpoint-down(xs) {
+    max-width: 40px;
   }
 }

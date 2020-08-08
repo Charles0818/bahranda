@@ -4,16 +4,16 @@ import { utils, actions } from '../../../helpers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MdKeyboardArrowDown } from 'react-icons/md';
+import PinFields from '../PinField';
 const { CurrencyInput, FormField, useFormInput, SubmitButton } = Form;
 const { checkObjectProperties } = utils;
 const { walletActions: { requestWithdrawalRequest } } = actions;
 const RequestWithdrawal = ({
   hasBankInfo, requestWithdrawal, token, loading, error, success
 }) => {
-  // const { value: amount, handleUserInput: setAmount, isValid: amountIsValid, error: amountErr } = useFormInput(0);
+  const [pin, setPin] = useState(['', '', '', '']);
   const [amount, setAmount] = useState(0);
-  const { value: pin, handleUserInput: setPin, isValid: pinIsValid, error: pinErr } = useFormInput();
-  const validateAllFields = pinIsValid && amount;
+  const validateAllFields = !pin.includes('' || undefined) && amount;
   const [setActive, setActiveState] = useState(false);
   const contentRef = useRef(null);
   const chevronRef = useRef(null);
@@ -34,7 +34,7 @@ const RequestWithdrawal = ({
       // if(!hasBankInfo) {
       //   window.scrollTo(0, document.querySelector('account-information').offsetTop)
       // }
-      requestWithdrawal({ pin, amount }, token)
+      requestWithdrawal({ pin: pin.join(''), amount }, token)
     } else toggleAccordion()
   }, [hasBankInfo, setActive, pin, amount])
   return (
@@ -46,7 +46,7 @@ const RequestWithdrawal = ({
       </div>
       <div ref={contentRef} className="form-content d-flex justify-content-s-between">
         <CurrencyInput label="Amount" value={amount} onValueChange={setAmount} placeholder="Account number" className="flex-equal margin-right-sm" />
-        <FormField value={pin} name="Wallet pin" onChange={setPin} placeholder="wallet pin" err={pinErr} isValid={pinIsValid} className="pin-field" />
+        <PinFields setPinArray={setPin} pinArray={pin} label="Wallet Pin" />
       </div>
       <SubmitButton action={handleWithdrawal}
         text="Request Withdrawal" isLoading={loading} disabled={!validateAllFields && setActive} />

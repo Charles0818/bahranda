@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, HttpStatusNotification, Animation, SectionTitle } from '../../../components';
 import { utils, actions } from '../../../helpers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PinFields from '../PinField';
 const { useSelectInput, FormField, useFormInput, SubmitButton } = Form;
-const { ScrollToBottom, FadeInLeft } = Animation
+const { ScrollToBottom, FadeInLeft } = Animation;
 const { bankNames } = utils;
 const { walletActions: { updateBankInfoRequest } } = actions;
 const AccountInformation = ({
@@ -13,18 +14,19 @@ const AccountInformation = ({
   const { value: bankName, SelectInput } = useSelectInput(bankInfo.bank_name);
   const { value: account_no, handleUserInput: setAccountNo, isValid: accountNoIsValid, error: accountNoErr } = useFormInput(bankInfo.account_no);
   const { value: account_name, handleUserInput: setAccountName, isValid: accountNameIsValid, error: accountNameErr } = useFormInput(bankInfo.account_name);
-  const { value: pin, handleUserInput: setPin, isValid: pinIsValid, error: pinErr } = useFormInput();
-  const validateAllFields = bankName && pinIsValid && accountNoIsValid && accountNameIsValid
+  // const { value: pin, handleUserInput: setPin, isValid: pinIsValid, error: pinErr } = useFormInput();
+  const [pin, setPin] = useState(['', '', '', ''])
+  const validateAllFields = bankName && !pin.includes('') && accountNoIsValid && accountNameIsValid
   return (
-    <section className="account-information slim-border-2 padding-horizontal-md margin-bottom-md bg-white activity">
+    <section className="account-information slim-border-2 padding-horizontal-md margin-bottom-md bg-white activity overflow-h">
       <SectionTitle title="Bank Details" />
       <div className="d-flex justify-content-s-between">
         <SelectInput isSearchable={true} label="Bank name" placeholder="Select bank" options={[...bankNames]} className="flex-equal margin-right-sm" />
         <FormField value={account_no} name="account number" onChange={setAccountNo} placeholder="Account number" err={accountNoErr} isValid={accountNoIsValid} min={10} max={10} className="flex-equal margin-right-sm" />
         <FormField value={account_name} name="Account name" onChange={setAccountName} placeholder="Account name" err={accountNameErr} isValid={accountNameIsValid} className="flex-equal" />
       </div>
-      <FormField value={pin} name="Wallet pin" onChange={setPin} placeholder="wallet pin" err={pinErr} className="pin-field" min={4} max={4} />
-      <SubmitButton action={() => updateBankInfoRequest({ pin, account_name, account_no, bank_name: bankName.value }, token)}
+      <PinFields setPinArray={setPin} pinArray={pin} label="Wallet Pin" />
+      <SubmitButton action={() => updateBankInfoRequest({ pin: pin.join(''), account_name, account_no, bank_name: bankName.value }, token)}
         text="SUBMIT CHANGES" isLoading={loading} disabled={!validateAllFields} />
         {(error || success) && <HttpStatusNotification  message={error || success} status={error ? 'error' : 'success'}  />}
     </section>

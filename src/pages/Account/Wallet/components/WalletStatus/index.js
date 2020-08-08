@@ -14,13 +14,13 @@ const WalletStatus = ({ wallet_balance, amount_withdrawn }) => {
       <div className="d-flex align-items-stretch padding-vertical-md ">
         <div className="d-flex column flex-center padding-horizontal-md padding-vertical-xsm margin-bottom-sm slim-border-right slim-border-bottom statement">
           <FadeInLeft duration={.2}>
-            <p className="font-lg font-weight-500 uppercase color1">{formatCurrency(wallet_balance)}</p>
+            <p className="font-lg font-weight-500 uppercase text-center color1">{formatCurrency(wallet_balance)}</p>
             <span className="uppercase font-sm font-weight-300 text-center">Wallet Balance</span>
           </FadeInLeft>
         </div>
         <div className="d-flex column flex-center padding-horizontal-md padding-vertical-xsm margin-bottom-sm slim-border-right slim-border-bottom statement">
           <FadeInRight duration={.2}>
-            <p className="font-lg font-weight-500 uppercase danger-text">{formatCurrency(amount_withdrawn)}</p>
+            <p className="font-lg font-weight-500 uppercase text-center danger-text">{formatCurrency(amount_withdrawn)}</p>
             <span className="uppercase font-sm font-weight-300 text-center">withdrawn</span>
           </FadeInRight>
         </div>

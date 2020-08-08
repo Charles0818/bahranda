@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-const PinFields = ({ pinArray, setPinArray }) => {
+const PinFields = ({ pinArray, setPinArray, label }) => {
   const firstTextInputRef = useRef(null);
   const secondTextInputRef = useRef(null);
   const thirdTextInputRef = useRef(null);
@@ -43,28 +43,34 @@ const PinFields = ({ pinArray, setPinArray }) => {
     };
 };
   return (
-    <div className="d-flex align-items-center">
-      {[
-        firstTextInputRef,
-        secondTextInputRef,
-        thirdTextInputRef,
-        fourthTextInputRef,
-      ].map((textInputRef, index) => (
-        <input
-          className=" text-center"
-          value={pinArray[index]}
-          onKeyPress={onOtpKeyPress(index)}
-          onChange={onOtpChange(index)}
-          keyboardType={'numeric'}
-          maxLength={1}
-          autoFocus={index === 0 ? true : undefined}
-          ref={refCallback(textInputRef)}
-          key={index}
-          placeholder={`${index + 1}`}
-          // style={[otpStyles.field, styles.bg_gray, styles.text_center, styles.border_r_5, styles.marginRight_sm]}
-        />
-      ))}
-    </div>
+    <label className={`d-flex column margin-bottom-md`} style={{width: '100%'}}>
+      {label && <span className="font-md font-weight-500 margin-bottom-sm">{label}</span>}
+      <div className="d-flex align-items-center justify-content-s-between nowrap" style={{width: '100%'}}>
+        {[
+          firstTextInputRef,
+          secondTextInputRef,
+          thirdTextInputRef,
+          fourthTextInputRef,
+        ].map((textInputRef, index) => (
+          <div className="pin-field margin-right-sm ">
+            <input
+            style={{width: '100%'}}
+              className="text-center border-r-5 slim-border padding-vertical-xsm"
+              value={pinArray[index]}
+              onKeyPress={onOtpKeyPress(index)}
+              onChange={onOtpChange(index)}
+              keyboardType={'numeric'}
+              maxLength={1}
+              autoFocus={index === 0 ? true : undefined}
+              ref={refCallback(textInputRef)}
+              key={index}
+              placeholder={0}
+              // style={[otpStyles.field, styles.bg_gray, styles.text_center, styles.border_r_5, styles.marginRight_sm]}
+            />
+          </div>
+        ))}
+      </div>
+    </label>
   )
 }
 
