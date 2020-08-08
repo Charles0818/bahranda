@@ -7,14 +7,16 @@ const {
   GET_COMMODITIES_REQUEST, GET_RELATED_COMMODITIES,
   PURCHASE_COMMODITY_INDICATOR, PURCHASE_COMMODITY_REQUEST,
   GET_SINGLE_COMMODITY_REQUEST, GET_SINGLE_COMMODITY_INDICATOR,
-  GET_RELATED_COMMODITIES_INDICATOR
+  GET_RELATED_COMMODITIES_INDICATOR, GET_LATEST_COMMODITIES_REQUEST,
+  GET_LATEST_COMMODITIES_INDICATOR
 } = commodity;
 
 const {
   getCommoditiesSuccess, getCommoditiesFailure,
   getSingleCommoditySuccess, getSingleCommodityFailure,
   purchaseCommodityFailure, purchaseCommoditySuccess,
-  getRelatedCommoditiesFailure, getRelatedCommoditiesSuccess
+  getRelatedCommoditiesFailure, getRelatedCommoditiesSuccess,
+  getLatestCommoditiesSuccess, getLatestCommoditiesFailure
 } = commodityActions;
 
 const networkErrorMessage = 'No internet connection detected';
@@ -35,6 +37,10 @@ const commodityDBCalls = {
   getSingleCommodity: async ({token, id }) => {
     const { commodity } = await getData(`${apiKey}/user/commodities/${id}/show`, token);
     return commodity;
+  },
+  getLatestCommodities: async () => {
+    const commodities = await getData(`${apiKey}/user/commodities/show`);
+    return commodities;
   }
 }
 
@@ -108,6 +114,21 @@ function* getSingleCommodity ({ payload: { token, setDetails, id } }) {
   }
 }
 
+function* getLatestCommodities () {
+  try {
+    yield put({ type: GET_LATEST_COMMODITIES_INDICATOR })
+    const commodities = yield call(commodityDBCalls.getLatestCommodities);
+    yield put(getLatestCommoditiesSuccess(commodities))
+  } catch (err) {
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
+      : networkErrorMessage
+    console.log('error found', err);
+    yield put(getLatestCommoditiesFailure(errorMessage))
+  }
+}
+
 function* getCommoditiesRequest() {
   yield takeLatest(GET_COMMODITIES_REQUEST, getCommodities)
 }
@@ -124,9 +145,13 @@ function* getSingeCommodityWatcher() {
   yield takeLatest(GET_SINGLE_COMMODITY_REQUEST, getSingleCommodity)
 }
 
+function* getLatestCommoditiesWatcher() {
+  yield takeLatest(GET_LATEST_COMMODITIES_REQUEST, getLatestCommodities)
+}
 export default function* commoditySagas() {
   yield spawn(getCommoditiesRequest)
   yield spawn(getRelatedCommoditiesWatcher)
   yield spawn(purchaseCommodityWatcher)
   yield spawn(getSingeCommodityWatcher)
+  yield spawn(getLatestCommoditiesWatcher)
 }

@@ -5,11 +5,14 @@ const {
   GET_SINGLE_COMMODITY_FAILURE, GET_RELATED_COMMODITIES_INDICATOR,
   GET_SINGLE_COMMODITY_INDICATOR, GET_RELATED_COMMODITIES_SUCCESS,
   GET_RELATED_COMMODITIES_FAILURE, PURCHASE_COMMODITY_INDICATOR,
-  PURCHASE_COMMODITY_SUCCESS, PURCHASE_COMMODITY_FAILURE
+  PURCHASE_COMMODITY_SUCCESS, PURCHASE_COMMODITY_FAILURE,
+  GET_LATEST_COMMODITIES_FAILURE, GET_LATEST_COMMODITIES_SUCCESS,
+  GET_LATEST_COMMODITIES_INDICATOR
 
 } = commodity;
 const initialState = {
   commodities: [],
+  latestCommodities: [],
   pageNum: 1,
   hasNextPage: true,
   error: {
@@ -23,7 +26,8 @@ const initialState = {
   loadingIndicators: {
     singleCommodity: false,
     relatedCommodity: false,
-    purchaseCommodity: false
+    purchaseCommodity: false,
+    getLatestCommodities: false,
   }
 }
 const commodityReducer = (prevState = initialState, { type, payload }) => {
@@ -62,6 +66,16 @@ const commodityReducer = (prevState = initialState, { type, payload }) => {
       return { ...prevState }
     case PURCHASE_COMMODITY_FAILURE:
       prevState.loadingIndicators.purchaseCommodity = false;
+      return { ...prevState }
+    case GET_LATEST_COMMODITIES_INDICATOR:
+      prevState.loadingIndicators.getLatestCommodities = true;
+      return { ...prevState }
+    case GET_LATEST_COMMODITIES_SUCCESS:
+      prevState.loadingIndicators.getLatestCommodities = false;
+      prevState.latestCommodities = payload.commodities
+      return { ...prevState }
+    case GET_LATEST_COMMODITIES_FAILURE:
+      prevState.loadingIndicators.getLatestCommodities = false;
       return { ...prevState }
     default:
       return prevState;

@@ -6,7 +6,9 @@ const {
   GET_SINGLE_COMMODITY_FAILURE,
   GET_RELATED_COMMODITIES, PURCHASE_COMMODITY_FAILURE,
   PURCHASE_COMMODITY_REQUEST, PURCHASE_COMMODITY_SUCCESS,
-  GET_RELATED_COMMODITIES_FAILURE, GET_RELATED_COMMODITIES_SUCCESS
+  GET_RELATED_COMMODITIES_FAILURE, GET_RELATED_COMMODITIES_SUCCESS,
+  GET_LATEST_COMMODITIES_REQUEST, GET_LATEST_COMMODITIES_FAILURE,
+  GET_LATEST_COMMODITIES_SUCCESS
 } = commodity;
 
 export const getCommoditiesRequest = (pageNum, token) => {
@@ -100,3 +102,25 @@ export const getSingleCommodityFailure = (error) => {
     payload: { error }
   }
 } 
+
+export const getLatestCommoditiesRequest = () => {
+  return {
+    type: GET_LATEST_COMMODITIES_REQUEST
+  }
+}
+
+
+export const getLatestCommoditiesSuccess = (commodities) => {
+  return {
+    type: GET_LATEST_COMMODITIES_SUCCESS,
+    payload: { commodities }
+  }
+}
+
+
+export const getLatestCommoditiesFailure = (error) => {
+  return {
+    type: GET_LATEST_COMMODITIES_FAILURE,
+    payload: { error }
+  }
+}
