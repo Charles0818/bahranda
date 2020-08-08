@@ -1,10 +1,17 @@
 @import 'variables';
+@import 'breakpoints';
 
 .slider {
   width: 100%;
   &.padded-carousel {
     #slide-right { right: .5%; };
     #slide-left { left: .5% }
+    @include media-breakpoint-down(sm) {
+      #slide-right { right: .1%; };
+      #slide-left { left: .1% };
+      padding-right: 40px;
+      padding-left: 40px;
+    }
   }
 }
 .slide {
