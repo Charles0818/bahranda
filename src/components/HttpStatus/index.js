@@ -9,7 +9,8 @@ const HttpStatusNotification = ({ status, message }) => {
   }, [])
   return (
     <div ref={ref} className={`d-flex nowrap align-items-center http-status border-r-5
-      padding-horizontal-sm padding-vertical-sm ${status === 'error' ? 'bg-danger' : 'bg-color1'}`}>
+      padding-horizontal-sm padding-vertical-sm ${status === 'error' ? 'bg-danger' : 'bg-color1'}`}
+      style={{zIndex: 999}}>
         {status === 'error'
         ? <MdError className="font-lg margin-right-sm color-white" />
         : <IoMdCheckmarkCircle className="font-lg margin-right-sm color-white" />
