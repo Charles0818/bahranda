@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { FaTwitter, FaFacebookF, FaInstagram } from 'react-icons/fa';
-import { useFormInput } from '../Form';
+import { actions } from '../../helpers';
+import { useFormInput, SubmitButton } from '../Form';
+import HttpStatusNotification from '../HttpStatus';
 import deliveryTruck from '../../assets/delivery-truck.png';
 import logo from '../../assets/baranda.png';
+const { otherActions: { newsletterRequest } } = actions;
 const Footer = () => {
   return (
     <div>
@@ -71,14 +76,33 @@ const Footer = () => {
   )
 }
 
-const NewsLetter = () => {
-  const { input, handleUserInput, error } = useFormInput()
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ newsletterRequest }, dispatch)
+const mapStateToProps = state => {
+  const {
+    loadingIndicators: { newsletter: loading },
+    success: { newsletter: success },
+    errors: { newsletter: error }
+  } = state.otherReducer
+  return { loading, success, error }
+}
+const NewsLetter = connect(mapStateToProps, mapDispatchToProps)(({ newsletterRequest, loading, success, error }) => {
+  const { value: email, handleUserInput } = useFormInput();
+  const { value: name, handleUserInput: setName } = useFormInput();
+  console.log('this is the email', email)
   return (
     <form className="d-flex column padding-horizontal-lg padding-vertical-md newsletter bg-white">
       <span className="font-md margin-bottom-md">Subscribe to our mailing list</span>
-      <input name="email" value={input} placeholder="Enter email address" onChange={handleUserInput} className=" padding-md margin-bottom-sm" />
-      <button className="btn-color1 color-white">Subscribe</button>
+      <input name="name" value={name} placeholder="Full name" onChange={setName} className=" padding-md margin-bottom-sm" />
+      <input name="email" value={email} placeholder="Email address" onChange={handleUserInput} className=" padding-md margin-bottom-sm" />
+      <SubmitButton
+        isLoading={loading}
+        text="Subscribe"
+        action={() => newsletterRequest({ email, name })}
+      />
+      {(error || success) && <HttpStatusNotification  message={error || success} status={error ? 'error' : 'success'}  />}
     </form>
   )
-}
+})
+
 export default Footer;
