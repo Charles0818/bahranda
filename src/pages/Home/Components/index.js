@@ -1,4 +1,6 @@
 import WhatWeDo from './WhatWeDo'
 import WhoWeAre from './WhoWeAre';
 import HeaderSlides from './HeaderSlides';
-export { WhoWeAre, WhatWeDo, HeaderSlides };
+import TeamSlider from './TeamSlider';
+import LatestCommodities from './LatestCommodities';
+export { WhoWeAre, WhatWeDo, HeaderSlides, TeamSlider, LatestCommodities };
