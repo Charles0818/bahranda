@@ -480,16 +480,29 @@ header {
   @extend .position-fixed;
   top: 12px;
   left: 50%;
-  max-width: 500px;
+  max-width: 600px;
   transform: translateX(-50%);
   @include media-breakpoint-down(sm) {
-    top: 98%;
     max-width: 90%;
   }
 }
 
 .contact-card {
   max-width: 500px;
+}
+
+.display-none {
+  display: none;
+}
+
+.page {
+  .content {
+    p, span { @extend .text-content; @extend .font-sm };
+    h1, h2, h3, h4, h5, h6 {
+      @extend .font-lg;
+      @extend .margin-bottom-sm
+    }
+  }
 }
 @include media-breakpoint-up(sm) {  }
 @include media-breakpoint-up(md) {  }

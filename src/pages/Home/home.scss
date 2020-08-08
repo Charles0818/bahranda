@@ -119,4 +119,26 @@
       height: 100%;
     }
   }
+  @include media-breakpoint-down(sm) {
+    max-width: 250px;
+    min-width: 250px;
+    .thumbnail {
+      height: 250px;
+    }
+  }
+}
+
+.team-card {
+  max-width: 200px;
+  min-width: 200px;
+  .avatar {
+    img { 
+      width: 100%;
+      height: auto;
+     }
+  }
+}
+
+@include media-breakpoint-down(xsm) {
+  // .portrait-commodity-card, 
 }
