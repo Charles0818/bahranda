@@ -25,9 +25,6 @@ const Header = () => {
           <Link className="margin-right-md font-md" color="#fff" to="/about"><FaInstagram  color="#fff" /></Link>
           <Link className="margin-right-md font-md" color="#fff" to="/about"><FaFacebookF color="#fff" /></Link>
         </div>
-        <div className="search-icon border-r-circle">
-          <RiSearchEyeLine color="#fff" className="font-md"/>
-        </div>
       </div>
       <NavBar />
     </header>
