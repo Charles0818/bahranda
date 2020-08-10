@@ -41,8 +41,11 @@ const dealReducer = (prevState = initialState(), { type, payload }) => {
       prevState.loadingIndicators.getDeal = true;
       return { ...prevState };
     case GET_SINGLE_DEAL_SUCCESS:
+      prevState.loadingIndicators.getDeal = false;
+      return { ...prevState };
     case GET_SINGLE_DEAL_FAILURE:
       prevState.loadingIndicators.getDeal = false;
+      prevState.errors.getDeal = payload.error
       return { ...prevState };
     case SIGN_OUT:
       return initialState()

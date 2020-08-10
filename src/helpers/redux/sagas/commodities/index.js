@@ -1,7 +1,7 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { commodity } from '../../types';
 import { commodityActions } from '../../actions';
-import { unAuthenticatedError, delay } from '../reusables';
+import { unAuthenticatedError, delay, networkError } from '../reusables';
 import { sendData, getData, apiKey } from '../ajax';
 const {
   GET_COMMODITIES_REQUEST, GET_RELATED_COMMODITIES,
@@ -16,7 +16,8 @@ const {
   getSingleCommoditySuccess, getSingleCommodityFailure,
   purchaseCommodityFailure, purchaseCommoditySuccess,
   getRelatedCommoditiesFailure, getRelatedCommoditiesSuccess,
-  getLatestCommoditiesSuccess, getLatestCommoditiesFailure
+  getLatestCommoditiesSuccess, getLatestCommoditiesFailure,
+  purchaseCommodityRequest, getSingleCommodityRequest
 } = commodityActions;
 
 const networkErrorMessage = 'No internet connection detected';
@@ -88,7 +89,11 @@ function* purchaseCommodity({ payload }) {
     yield put(purchaseCommoditySuccess(''));
   } catch (err) {
     const { status, title } = err;
-    yield call(unAuthenticatedError, err)
+    yield call(unAuthenticatedError, err);
+    if(!status) {
+      yield call(networkError, purchaseCommodityRequest(payload.data, payload.token));
+      return
+    }
     const errorMessage = status
       ? title
       : networkErrorMessage
@@ -106,8 +111,12 @@ function* getSingleCommodity ({ payload: { token, setDetails, id } }) {
   } catch (err) {
     const { status, title } = err;
     yield call(unAuthenticatedError, err)
-    const errorMessage = status
-      ? title
+    if(!status) {
+      yield call(networkError, getSingleCommodityRequest(token, setDetails, id));
+      return
+    }
+    const errorMessage = status && status === 404
+      ? status
       : networkErrorMessage
     console.log('error found', err);
     yield put(getSingleCommodityFailure(errorMessage))

@@ -16,7 +16,7 @@ const initialState = {
   pageNum: 1,
   hasNextPage: true,
   error: {
-    get: '',
+    singleCommodity: '',
   },
   success: {
     purchaseCommodity: ''
@@ -47,6 +47,7 @@ const commodityReducer = (prevState = initialState, { type, payload }) => {
       return { ...prevState }
     case GET_SINGLE_COMMODITY_FAILURE:
       prevState.loadingIndicators.singleCommodity = false;
+      prevState.error.singleCommodity = payload.error
       return { ...prevState }
     case GET_RELATED_COMMODITIES_INDICATOR:
       prevState.loadingIndicators.relatedCommodity = true;

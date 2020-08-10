@@ -2,6 +2,7 @@ import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { deal } from '../../types';
 import { dealActions } from '../../actions';
 import { getData, apiKey } from '../ajax';
+import { unAuthenticatedError, networkError } from '../reusables';
 const {
   GET_DEALS_INDICATOR, GET_DEALS_REQUEST,
   GET_SINGLE_DEAL_REQUEST,
@@ -9,7 +10,7 @@ const {
 } = deal;
 
 const {
-  getDealsFailure, getDealsSuccess, get
+  getDealsFailure, getDealsSuccess, getDealsRequest, getSingleDealRequest
 } = dealActions;
 
 const networkErrorMessage = 'No internet connection detected';
@@ -32,7 +33,12 @@ function* getDeals({ payload }) {
     console.log('deals data', deals)
     yield put(getDealsSuccess(deals));
   } catch (err) {
+    yield call(unAuthenticatedError, err)
     const { status, title } = err;
+    if(!status) {
+      yield call(networkError, getDealsRequest(payload.token));
+      return
+    }
     const errorMessage = status
       ? title
       : networkErrorMessage
@@ -47,9 +53,14 @@ function* getSingleDeal({ payload: { token, setState, id } }) {
     setState(deal);
     yield put({ type: GET_SINGLE_DEAL_SUCCESS })
   } catch (err) {
+    yield call(unAuthenticatedError, err)
     const { status, title } = err;
-    const errorMessage = status
-      ? title
+    if(!status) {
+      yield call(networkError, getSingleDealRequest(token, setState, id));
+      return
+    }
+    const errorMessage = status && status === 404
+      ? status
       : networkErrorMessage
     console.log('error found', err);
     yield put({

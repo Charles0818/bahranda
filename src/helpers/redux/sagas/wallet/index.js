@@ -1,8 +1,8 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { wallet } from '../../types';
-import { walletActions, UIActions } from '../../actions';
-import { sendData, getData, modifyData, deleteData, apiKey } from '../ajax';
-import { delay, unAuthenticatedError } from '../reusables';
+import { walletActions } from '../../actions';
+import { sendData, getData, modifyData, apiKey } from '../ajax';
+import { delay, unAuthenticatedError, networkError } from '../reusables';
 const {
   UPDATE_BANK_INFO_REQUEST, GET_WALLET_HISTORY_REQUEST,
   REQUEST_WITHDRAWAL_REQUEST, GET_WALLET_REQUESTS,
@@ -11,14 +11,15 @@ const {
   GET_WALLET_HISTORY_INDICATOR, REQUEST_WITHDRAWAL_INDICATOR,
   SET_PIN_INDICATOR, GET_WALLET_REQUESTS_INDICATOR,
 } = wallet;
-const { showNetworkError } = UIActions;
 const {
   getWalletFailure, getWalletSuccess,
   getWalletHistoryFailure, getWalletHistorySuccess,
   getWalletRequestsFailure,getWalletRequestsSuccess,
   requestWithdrawalSuccess, requestWithdrawalFailure,
   updateBankInfoFailure, updateBankInfoSuccess,
-  setPinSuccess, setPinFailure
+  setPinSuccess, setPinFailure, getWalletHistoryRequest,
+  getWalletRequest, getWalletRequests: fetchWalletRewuests,
+  requestWithdrawalRequest, setPinRequest, updateBankInfoRequest
 } = walletActions;
 
 const networkErrorMessage = 'No internet connection detected';
@@ -58,6 +59,10 @@ function* getWallet({ payload: { token } }) {
   } catch (err) {
     yield call(unAuthenticatedError, err)
     const { title } = err;
+    if(!title) {
+      yield call(networkError, getWalletRequest(token));
+      return
+    }
     const errorMessage = title
       ? title
       : networkErrorMessage
@@ -75,6 +80,10 @@ function* getWalletHistory({ payload }) {
   } catch (err) {
     yield call(unAuthenticatedError, err)
     const { title } = err;
+    if(!title) {
+      yield call(networkError, getWalletHistoryRequest(payload.pageNum, payload.token));
+      return
+    }
     const errorMessage = title
       ? title
       : networkErrorMessage
@@ -92,6 +101,10 @@ function* getWalletRequests({ payload }) {
   } catch (err) {
     yield call(unAuthenticatedError, err)
     const { status, title } = err;
+    if(!title) {
+      yield call(networkError, fetchWalletRewuests(payload.pageNum, payload.token));
+      return
+    }
     const errorMessage = status
       ? title
       : networkErrorMessage
@@ -107,7 +120,11 @@ function* requestWithdrawal({ payload }) {
     yield put(requestWithdrawalSuccess(title));
   } catch (err) {
     const { status, title } = err;
-    yield call(unAuthenticatedError, err)
+    yield call(unAuthenticatedError, err);
+    if(!title) {
+      yield call(networkError, requestWithdrawalRequest(payload.data, payload.token));
+      return
+    }
     const errorMessage = status
       ? title
       : networkErrorMessage
@@ -127,7 +144,11 @@ function* setPin({ payload }) {
     yield put(setPinSuccess(''))
   } catch (err) {
     const { status, title } = err;
-    yield call(unAuthenticatedError, err)
+    yield call(unAuthenticatedError, err);
+    if(!title) {
+      yield call(networkError, setPinRequest(payload.data, payload.token));
+      return
+    }
     const errorMessage = status
       ? title
       : networkErrorMessage
@@ -146,8 +167,12 @@ function* updateBankInfo({ payload }) {
     yield call(delay, 4000);
     yield put(updateBankInfoSuccess(payload.data, ''))
   } catch (err) {
-    yield call(unAuthenticatedError, err)
+    yield call(unAuthenticatedError, err);
     const { status, title } = err;
+    if(!title) {
+      yield call(networkError, updateBankInfoRequest(payload.data, payload.token));
+      return
+    }
     const errorMessage = status
       ? title
       : networkErrorMessage

@@ -122,23 +122,16 @@ function* getUserProfile({ payload: { token, redirect } }){
     const profile = yield call(authDBCalls.getUserProfile, token);
     console.log('returned getProfile response', profile)
     yield put(signInSuccess(profile, token))
-    yield put(stopLoading())
   } catch (err) {
     console.log('error found', err);
-    const { status, title, message } = err;
+    const { status } = err;
     yield call(unAuthenticatedError, err)
-    // if(message) {
-    //   yield put(stopLoading());
-    //   yield put(signOut());
-    //   return
-    // }
-    if(!status || !message) {
+    if(!status) {
       console.log('error has no message')
       yield call(networkError, getUserProfileRequest(token, redirect));
       return
     }
-    yield put(stopLoading())
-  }
+  } finally { yield put(stopLoading()) }
 }
 
 function* checkPin({ payload: { data, redirect } }){

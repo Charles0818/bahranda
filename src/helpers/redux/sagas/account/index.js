@@ -1,21 +1,23 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
-import { delay } from '../reusables';
+import { delay, networkError, unAuthenticatedError } from '../reusables';
 import { account } from '../../types';
 import { accountActions, UIActions, authActions } from '../../actions';
 import { signOut } from '../../actions/auth';
 import { sendData, getData, modifyData, deleteData, apiKey } from '../ajax';
+import { updateBankInfoRequest } from '../../actions/wallet';
 const {
   GET_ACCOUNT_DASHBOARD_REQUEST,
   UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_INDICATOR,
   CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_INDICATOR,
   UPDATE_BANK_INFO_REQUEST, GET_ACCOUNT_DASHBOARD_INDICATOR
 } = account;
-const { showNetworkError } = UIActions;
 const {
   getAccountDashboardSuccess, getAccountDashboardFailure,
   changePasswordFailure, updateProfileFailure,
   changePasswordSuccess, updateProfileSuccess,
-  updateBankInfoFailure, updateBankInfoSuccess
+  updateBankInfoFailure, updateBankInfoSuccess,
+  changePasswordRequest, getAccountDashboardRequest,
+  updateProfileRequest
 } = accountActions;
 const networkErrorMessage = 'No internet connection detected';
 const accountDBCalls = {
@@ -44,11 +46,14 @@ function* getAccountDashboard({ payload: { token } }) {
     const dashboard = yield call(accountDBCalls.getAccountDashboard, token);
     yield put(getAccountDashboardSuccess(dashboard));
   } catch (err) {
-    const { errors } = err;
-    const errorMessage = errors
-      ? errors[0].status === 404
-      ? 'A user with the provided credentials does not exists'
-      : errors[0].title
+    const { status, title } = err;
+    yield call(unAuthenticatedError, err)
+    if(!status) {
+      yield call(networkError, getAccountDashboardRequest(token));
+      return
+    }
+    const errorMessage = title
+      ? title
       : networkErrorMessage
     console.log('error found', err);
     yield put(getAccountDashboardFailure(errorMessage))
@@ -64,6 +69,11 @@ function* updateProfile({ payload }) {
     yield put(updateProfileSuccess(payload.data, ''));
   } catch (err) {
     const { title } = err;
+    yield call(unAuthenticatedError, err);
+    if(!title) {
+      yield call(networkError, updateProfileRequest(payload.data, payload.token));
+      return
+    }
     const errorMessage = title
       ? title
       : networkErrorMessage
@@ -78,13 +88,15 @@ function* updateBankInfo({ payload: { data, token } }) {
   try {
     const bankInfo = yield call(accountDBCalls.updateProfile, data, token);
     yield put(updateBankInfoSuccess(bankInfo));
-
   } catch (err) {
-    const { errors } = err;
-    const errorMessage = errors
-      ? errors[0].status === 404
-      ? 'A user with the provided credentials does not exists'
-      : errors[0].title
+    const { status, title } = err;
+    yield call(unAuthenticatedError, err);
+    if(!status) {
+      yield call(networkError, updateBankInfoRequest(data, token));
+      return
+    }
+    const errorMessage = status
+      ? title
       : networkErrorMessage
     console.log('error found', err);
     yield put(updateBankInfoFailure(errorMessage))
@@ -100,6 +112,11 @@ function* changePassword({ payload }) {
     yield put(changePasswordSuccess(''));
   } catch (err) {
     const { status, title } = err;
+    yield call(unAuthenticatedError, err);
+    if(!status) {
+      yield call(networkError, changePasswordRequest(payload.data, payload.token));
+      return
+    }
     const errorMessage = status
       ? title
       : networkErrorMessage
