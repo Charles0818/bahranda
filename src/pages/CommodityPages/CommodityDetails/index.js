@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Cards, Carousels, Spinners } from '../../components';
+import { Cards, Carousels, Spinners, NotFound } from '../../components';
 import { actions } from '../helpers'
 import { ThumbnailCarousel, FillInvestment } from '../components';
 const { CommodityCard } = Cards;
@@ -10,16 +10,23 @@ const { SectionSpinner } = Spinners;
 const { commodityActions: { getRelatedCommoditiesRequest, getSingleCommodityRequest } } = actions;
 
 const CommodityDetails = ({
-  getSingleCommodityRequest, token, loading, match: { params }
+  getSingleCommodityRequest, token, error, loading, match: { params }
 }) => {
   const [details, setDetails] = useState({})
   useEffect(() => {
     getSingleCommodityRequest(token, setDetails, params.id)
   }, [token, setDetails, params.id]);
   if(loading) return <SectionSpinner isLoading={loading} />;
+  if(error && error === 404) return (
+    <NotFound
+      message="The commodity you tried to access does not exist. Please kindly check others"
+      link="/commodities"
+      linkTitle="Available Commodities"
+    />
+  )
   const { image, description, ...rest } = details;
   console.log('rest details', rest);
-  console.log('details', details)
+  console.log('details', details);
   return (
     <article className="d-flex column commodity" style={{width: '100%'}}>
       <div className="d-flex justify-content-s-between thumbnail-details margin-bottom-md" style={{width: '100%'}}>
@@ -81,9 +88,12 @@ const RelatedCommodities = connect(mapIndicatorToProps, mapDispatchToRelatedComm
   )
 }))
 const mapStateToProps = state => {
-  const { loadingIndicators: { singleCommodity: loading }, error, details } = state.commodityReducer;
+  const {
+    loadingIndicators: { singleCommodity: loading },
+    error: { singleCommodity: error }
+  } = state.commodityReducer;
   const { token } = state.authReducer;
-  return { token, loading, error, details }
+  return { token, loading, error }
 }
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ getSingleCommodityRequest }, dispatch)

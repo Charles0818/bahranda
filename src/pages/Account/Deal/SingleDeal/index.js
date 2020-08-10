@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Spinners, SectionTitle } from '../../components'
+import { Spinners, SectionTitle, NotFound } from '../../components'
 import { actions, utils } from '../../helpers';
 import image from '../../../../assets/rice.png';
 import { DataRow } from '../../../CommodityPages/components/FillInvestment';
@@ -27,7 +27,7 @@ const dealProp = {
     warehouse_name: '', warehouse_image: ''
   }
 }
-const Deal = ({ getSingleDealRequest, setLoading, loading, token, match: { params } }) => {
+const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: { params } }) => {
   const [deal, setDeal] = useState(dealProp);
   useLayoutEffect(() => {
     setLoading()
@@ -37,6 +37,13 @@ const Deal = ({ getSingleDealRequest, setLoading, loading, token, match: { param
   }, [token, params.id, getSingleDealRequest]);
   console.log(deal);
   if(loading) return <SectionSpinner isLoading={loading} />;
+  if(error && error === 404) return (
+    <NotFound
+      message="The deal you tried to view does not exist. Please kindly check available deals from your account"
+      link="/account/deals"
+      linkTitle="Your Deals"
+    />
+  )
   const {
     commodity: { commodity_name },
     deal_end_date, deal_start_date,
@@ -150,8 +157,11 @@ const Deal = ({ getSingleDealRequest, setLoading, loading, token, match: { param
 
 const mapStateToProps = state => {
   const { token } = state.authReducer;
-  const { loadingIndicators: { getDeal: loading } } = state.dealReducer;
-  return { token, loading }
+  const {
+    loadingIndicators: { getDeal: loading },
+    errors: { getDeal: error }
+  } = state.dealReducer;
+  return { token, loading, error }
 }
 const mapDispatchToProps = dispatch => 
   bindActionCreators({
