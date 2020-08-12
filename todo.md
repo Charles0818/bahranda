@@ -4,7 +4,7 @@
 *** Implement custom Select input // omitted
 *** Ensure all button spinners appear during ajax call // done
 *** Add redirection query from protectedRoute to getUserProfile action and generator // done
-*** Align account main container at the center for larger screens and make the header component span the full width
+*** Align account main container at the center for larger screens and make the header component span the full width // done
 *** Check the protectionRoute logic, especially getUserProfile saga effect
 *** Re-arrange home headerSlides // done
 # ADDITIONAL FEATURES
@@ -19,4 +19,4 @@
 
 # FINALLY
 *** Resolve all warnings displaying in the console
-*** Remove irrelevant console.logs from codebase
+*** Remove irrelevant console.logs and unused variables from codebase
