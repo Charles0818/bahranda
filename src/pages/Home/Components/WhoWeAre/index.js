@@ -1,6 +1,7 @@
 import React from 'react';
 import carrier from '../../assets/carrier.png';
 import warehouse from '../../assets/warehouse.png';
+import { Link } from 'react-router-dom';
 const WhoWeAre = () => {
   return (
     <section className="who-we-are position-relative margin-top-lg">
@@ -17,7 +18,7 @@ const WhoWeAre = () => {
             Bahranda.com is a bridge between the Agricultural and the Manufacturing
             sectors that interfaces with Aggregators in a seamless manner
           </p>
-          <button className="btn-color1 ripple color-white">Learn more</button>
+          <Link to="/how-we-work" className="btn-color1 ripple color-white">Learn more</Link>
         </article>
       </div>
     </section>

@@ -31,7 +31,7 @@ const FillInvestment = ({ details, id }) => {
     <section className="">
       <div className="d-flex justify-content-s-between" style={{width: '100%'}}>
         <div className="d-flex column flex-equal padding-right-md slim-border-right margin-right-md">
-          <h2 className="font-md margin-bottom-sm">{commodity_name}</h2>
+          <h2 className="font-lg margin-bottom-sm">{commodity_name}</h2>
           <DataRow tag="Price">
             <div className="d-flex font-md color1">
               <p className="font-weight-600 font-sm">{formatCurrency(price)}</p>

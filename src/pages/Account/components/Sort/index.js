@@ -50,7 +50,7 @@ export const useSort = (initialValue) => {
   const SortDropdown = memo((props) => {
     const { name, options, label = 'Sort by', placeholder, className = '', ...rest } = props;
     return (
-      <label className={`d-flex align-items-center ${className}`}>
+      <label className={`d-flex align-items-center margin-bottom-sm ${className}`}>
         <span className="font-md font-weight-500 color1 margin-right-sm">{label}:</span>
         <div className="" style={{width: '150px'}}>
           <Select isSearchable={false}
@@ -65,20 +65,6 @@ export const useSort = (initialValue) => {
     )
   }, (prev, next) => prev.options === next.options)
   return { value, SortDropdown }
-}
-
-export const useAmountRange = () => {
-  const { value: min, handleUserInput: setMin } = useFormInput();
-  const { value: max, handleUserInput: setMax } = useFormInput();
-  const AmountRange = () => {
-    return (
-      <div className="d-flex">
-        <QuantityInput value={min} onChange={setMin} name="amount" className="flex-equal margin-right-sm" placeholder="Min" />
-        <QuantityInput value={max} onChange={setMax} name="amount" className="flex-equal" placeholder="Max" />
-      </div>
-    )
-  };
-  return { AmountRange, min, max }
 }
 
 export default useSort

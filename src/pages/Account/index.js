@@ -5,7 +5,7 @@ import Wallet from './Wallet';
 import Settings from './Settings';
 import DealPages from './Deal';
 import { HorizontalNavbar, LeftSideBar } from './components';
-import { Error404 } from '../components';
+import { Error404, AccountFooter } from '../components';
 import './account.scss';
 // const Admin = lazy(() => import('./Admin'));
 
@@ -18,9 +18,9 @@ const Account = ({ match: { path } }) => {
     <Fragment>
       <section className="account d-flex">
         <LeftSideBar ref={sidebarRef} />
-        <div className="main padding-horizontal-xlg padding-vertical-lg">
+        <div className="wrapper d-flex column align-items-center padding-horizontal-xlg">
           <HorizontalNavbar toggleSidebar={toggleSidebar} />
-          <main className="">
+          <main className="main padding-bottom-lg">
             <Switch>
               <Route exact path={path} component={Dashboard} />
               <Route path={`${path}/wallet`} component={Wallet} />
@@ -29,6 +29,7 @@ const Account = ({ match: { path } }) => {
               <Route component={Error404} />
             </Switch>
           </main>
+          <AccountFooter />
         </div>
       </section>
     </Fragment>

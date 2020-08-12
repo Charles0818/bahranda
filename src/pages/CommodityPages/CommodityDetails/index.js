@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Cards, Carousels, Spinners, NotFound } from '../../components';
 import { actions } from '../helpers'
 import { ThumbnailCarousel, FillInvestment } from '../components';
+import { Link } from 'react-router-dom';
 const { CommodityCard } = Cards;
 const { PaddedCarousel } = Carousels;
 const { SectionSpinner } = Spinners;
@@ -30,8 +31,9 @@ const CommodityDetails = ({
   return (
     <article className="d-flex column commodity" style={{width: '100%'}}>
       <div className="d-flex justify-content-s-between thumbnail-details margin-bottom-md" style={{width: '100%'}}>
-        <div className="thumbnail-slider flex-equal margin-right-md">
-          <ThumbnailCarousel autoSlide={false} thumbnails={[image]} />
+        <div className="thumbnail-slider  margin-right-md">
+          {/* <ThumbnailCarousel autoSlide={false} thumbnails={[image]} /> */}
+          <img src={image} alt="commodity thumbnail" />
         </div>
         <section className="details flex-equal">
           <FillInvestment details={rest} id={params.id} />
@@ -81,7 +83,7 @@ const RelatedCommodities = connect(mapIndicatorToProps, mapDispatchToRelatedComm
           autoSlide={false}
         />
         <div className="d-flex justify-content-center">
-          <button className="btn-color1 ripple color-white font-sm">VIEW ALL</button>
+          <Link to="/commodities" className="btn-color1 ripple color-white font-sm">VIEW ALL</Link>
         </div>
       </div>
     </div>
