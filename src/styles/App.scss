@@ -470,13 +470,13 @@ header {
 
 .network-error {
   height: 100vh;
-  max-width: 720px;
+  max-width: 1020px;
   .round {
     width: 250px;
     height: 250px;
   }
-  .retry-btn {
-    flex-basis: 50%;
+  ul li {
+    list-style-type: disc;
   }
 }
 
@@ -515,7 +515,12 @@ header {
 @include media-breakpoint-up(lg) {  }
 @include media-breakpoint-up(xl) {  }
 
-@include media-breakpoint-down(xs) {  }
+@include media-breakpoint-down(xs) { 
+  .network-error .round {
+    width: 180px;
+    height: 180px;
+  }
+ }
 @include media-breakpoint-down(sm) { 
   .padding-horizontal-xlg {
     @include padding-horizontal(20px);
