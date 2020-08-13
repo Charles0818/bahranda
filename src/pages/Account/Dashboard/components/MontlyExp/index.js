@@ -3,32 +3,6 @@ import { Bar, defaults } from 'react-chartjs-2';
 import { Animation } from '../../../components';
 const { FadeInRight, FadeInLeft } = Animation
 defaults.global.legend.labels = false;
-const data = {
-  labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-  datasets: [
-    {
-      label: "Invested",
-      data: [10000, 25000, 12000, 50000, 12000, 11500, 12000, 2500, 8000, 3500, 9000,],
-      fill: true,
-      backgroundColor: "#069801",
-      borderColor: "rgba(75,192,192,1)",
-      barPercentage: 0.5,
-      barThickness: 10,
-      maxBarThickness: 8,
-      minBarLength: 2,
-    },
-    {
-      label: "Withdrawn",
-      data: [2500, 8000, 3500, 9000, 54000, 7980, 6750, 54000, 7980, 6750],
-      barPercentage: 0.5,
-      barThickness: 10,
-      maxBarThickness: 8,
-      minBarLength: 2,
-      backgroundColor: '#FF7A00',
-      borderColor: "#FF7A00"
-    }
-  ]
-};
 
 const options ={
   scales: {
@@ -45,7 +19,35 @@ const options ={
     }],
   }
 };
-const MonthlyExpenditure = () => {
+const MonthlyExpenditure = ({ expenditures }) => {
+  console.log('expenditures', expenditures);
+  const data = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    datasets: [
+      {
+        label: "Invested",
+        data: expenditures.invested,
+        fill: true,
+        backgroundColor: "#069801",
+        borderColor: "rgba(75,192,192,1)",
+        barPercentage: 0.5,
+        barThickness: 10,
+        maxBarThickness: 8,
+        minBarLength: 2,
+      },
+      {
+        label: "Withdrawn",
+        data: expenditures.withdrawn,
+        barPercentage: 0.5,
+        barThickness: 10,
+        maxBarThickness: 8,
+        minBarLength: 2,
+        backgroundColor: '#FF7A00',
+        borderColor: "#FF7A00"
+      }
+    ]
+  };
+
   return (
     <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white expenditure overflow-h">
       <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm">
