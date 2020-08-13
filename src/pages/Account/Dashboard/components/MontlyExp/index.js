@@ -20,7 +20,6 @@ const options ={
   }
 };
 const MonthlyExpenditure = ({ expenditures }) => {
-  console.log('expenditures', expenditures);
   const data = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [

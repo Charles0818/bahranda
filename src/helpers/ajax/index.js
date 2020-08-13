@@ -9,14 +9,11 @@ export const sendHttpRequest = async (method, url, data, authToken ) => {
     })
     
     if(response.status >= 400) {
-      console.log(response)
       const err = await response.json()
       throw err
     }
-    console.log(response)
     return await response.json()
   }
-  console.log('data being sent along', data)
   const response =  await fetch(url, {
     method:method,
     body: JSON.stringify(data),
@@ -26,7 +23,6 @@ export const sendHttpRequest = async (method, url, data, authToken ) => {
       'Authorization': authToken ? `Bearer ${authToken}` : ""
     }
   });
-  console.log('response',response)
   if(response.status >= 400) {
     const err = await response.json();
     throw err

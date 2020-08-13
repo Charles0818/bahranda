@@ -198,7 +198,6 @@ export const CurrencyInput = ({
     const VALID_NEXT = /^[0-9]{1}$/;
     const DELETE_KEY_CODE = 8;
     const { key, keyCode } = e;
-    console.log('handleKeyDown', e.target.name, key)
     if (
       (value === 0 && !VALID_FIRST.test(key)) ||
       (value !== 0 && !VALID_NEXT.test(key) && keyCode !== DELETE_KEY_CODE)

@@ -115,7 +115,6 @@ const mapStateToProps = state => {
         return deals.filter(deal => deal.status === status)
       case DURATION:
         const { duration } = payload;
-        console.log('duration', duration)
         return deals.filter(deal => deal.duration === `${duration} Months`);
       case COMMODITY:
         const { commodity } = payload;

@@ -66,7 +66,6 @@ function* getWallet({ payload: { token } }) {
     const errorMessage = title
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getWalletFailure(errorMessage))
   }
 }
@@ -87,7 +86,6 @@ function* getWalletHistory({ payload }) {
     const errorMessage = title
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getWalletHistoryFailure(errorMessage))
   }
 }
@@ -108,7 +106,6 @@ function* getWalletRequests({ payload }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getWalletRequestsFailure(errorMessage))
   }
 }
@@ -128,7 +125,6 @@ function* requestWithdrawal({ payload }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(requestWithdrawalFailure(errorMessage));
     yield call(delay, 4000);
     yield put(requestWithdrawalFailure(''))
@@ -152,7 +148,6 @@ function* setPin({ payload }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(setPinFailure(errorMessage));
     yield call(delay, 4000);
     yield put(setPinFailure(''))
@@ -176,7 +171,6 @@ function* updateBankInfo({ payload }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(updateBankInfoFailure(errorMessage));
     yield call(delay, 4000);
     yield put(updateBankInfoFailure(''));

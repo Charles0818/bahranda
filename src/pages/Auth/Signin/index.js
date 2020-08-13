@@ -10,7 +10,6 @@ const { FormField, PasswordField, useFormInput, SubmitButton } = Form;
 const SignIn = ({ signIn, loading, signInError, location }) => {
   const { replace } = useHistory();
   const { redir } = queryString.parse(location.search)
-  console.log('this is redir location.search', redir)
   const { value: email, handleUserInput: setEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
   const { value: password, handleUserInput: setPassword, error: passwordErr, isValid: passIsValid } = useFormInput();
   const validateFields = emailIsValid && passIsValid;

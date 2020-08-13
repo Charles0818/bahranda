@@ -14,7 +14,6 @@ const { formatting: { formatDate, formatCurrency } } = utils;
 
 const WalletRequests = ({ walletRequests, sortWalletRequests, getWalletRequests, token, pageNum, loading }) => {
   const [sortResult, setSortResult] = useState(walletRequests);
-  console.log('walletRequests', walletRequests)
   const { SortDropdown, value: sortValue } = useSort(walletRequestSorts.MOST_RECENT);
   const { SortDropdown: StatusDropdown, value: statusValue } = useSort(walletRequestStatuses.PENDING);
   const { value: min, handleUserInput: setMin } = useFormInput();
@@ -23,7 +22,6 @@ const WalletRequests = ({ walletRequests, sortWalletRequests, getWalletRequests,
     if(walletRequests.length === 0) getWalletRequests(pageNum, token)
   }, [token, pageNum, walletRequests.length, getWalletRequests]);
   useEffect(() => {
-    console.log('useEffect')
     if(sortValue && sortValue.value === walletRequestSorts.AMOUNT && min ) {
       setSortResult(sortWalletRequests(walletRequestSorts.AMOUNT, { min, max }));
     };

@@ -8,11 +8,9 @@ const { formatting: { formatDate } } = utils;
 
 const Activity = ({ activities, sortActivities }) => {
   const [sortResult, setSortResult] = useState(activities);
-  console.log('activities', activities)
   const { SortDropdown, value: sortValue } = useSort(activitySorts.MOST_RECENT);
   const { SortDropdown: StatusDropdown, value: statusValue } = useSort(activityStatuses.COMPLETED);
   useEffect(() => {
-    console.log('useEffect')
     if(sortValue && sortValue.value === activitySorts.STATUS && statusValue) {
       setSortResult(sortActivities(activitySorts.STATUS, {status: statusValue.value }));
     }

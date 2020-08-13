@@ -14,7 +14,6 @@ const WalletRequests = ({
   walletRequests, sortWalletRequests, getWalletRequests, token, pageNum, hasNextPage, loading, incrementPageNum
  }) => {
   const [sortResult, setSortResult] = useState(walletRequests);
-  console.log('walletRequests', walletRequests)
   const { SortDropdown, value: sortValue } = useSort(walletRequestSorts.MOST_RECENT);
   const { SortDropdown: StatusDropdown, value: statusValue } = useSort(walletRequestStatuses.MOST_RECENT);
   const { value: min, handleUserInput: setMin } = useFormInput();
@@ -28,14 +27,12 @@ const WalletRequests = ({
     if(observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver(entries => {
       if(entries[0].isIntersecting && hasNextPage) {
-        console.log('is intereacting');
         incrementPageNum()
       }
     })
     if(node) observer.current.observe(node)
   }, [loading, hasNextPage, incrementPageNum])
   useEffect(() => {
-    console.log('useEffect')
     if(sortValue && sortValue.value === walletRequestSorts.AMOUNT && min ) {
       setSortResult(sortWalletRequests(walletRequestSorts.AMOUNT, { min, max }));
     };

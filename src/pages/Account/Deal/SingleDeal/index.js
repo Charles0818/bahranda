@@ -35,7 +35,6 @@ const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: 
   useEffect(() => {
     getSingleDealRequest(token, setDeal, params.id)
   }, [token, params.id, getSingleDealRequest]);
-  console.log(deal);
   if(loading) return <SectionSpinner isLoading={loading} />;
   if(error && error === 404) return (
     <NotFound

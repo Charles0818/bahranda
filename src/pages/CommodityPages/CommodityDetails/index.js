@@ -26,8 +26,6 @@ const CommodityDetails = ({
     />
   )
   const { image, description, ...rest } = details;
-  console.log('rest details', rest);
-  console.log('details', details);
   return (
     <article className="d-flex column commodity" style={{width: '100%'}}>
       <div className="d-flex justify-content-s-between thumbnail-details margin-bottom-md" style={{width: '100%'}}>

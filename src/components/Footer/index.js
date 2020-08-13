@@ -123,7 +123,6 @@ const mapStateToProps = state => {
 const NewsLetter = connect(mapStateToProps, mapDispatchToProps)(({ newsletterRequest, loading, success, error }) => {
   const { value: email, handleUserInput } = useFormInput();
   const { value: name, handleUserInput: setName } = useFormInput();
-  console.log('this is the email', email)
   return (
     <form className="d-flex column padding-horizontal-lg padding-vertical-md newsletter bg-white">
       <span className="font-md margin-bottom-md">Subscribe to our mailing list</span>

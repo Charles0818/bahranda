@@ -75,7 +75,6 @@ const validateInput = (name, key) => {
       isValid = validateWithRegex(key, regex.email)
       return isValid
     case inputNames.name:
-      console.log('this is for name field')
       isValid = validateWithRegex(key, regex.text)
       return isValid;
     case inputNames.subject:
@@ -131,10 +130,8 @@ const validateWithRegex = (value, regex) => {
 }
 
 const validateLength = (value, min, max) => {
-  console.log('answer', value.length >= min && value.length <= max)
   if(min && max) return value.length > 0 && value.length >= min && value.length <= max;
   if (max) return value.length > 0 && value.length <= max;
   if(min) return value.length > 0 && value.length >= min;
-    console.log('min', min, 'max', max);
   return value.length > 0
 }

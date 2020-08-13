@@ -10,7 +10,6 @@ export function* networkError(action) {
 
 export function* unAuthenticatedError(err) {
   if(err.title && err.status && err.status === 403) {
-    console.log('error seem to have message object')
     yield put(signOut())
   }
 }

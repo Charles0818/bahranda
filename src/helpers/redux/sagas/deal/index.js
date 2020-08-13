@@ -30,7 +30,6 @@ function* getDeals({ payload }) {
   try {
     yield put({ type: GET_DEALS_INDICATOR })
     const deals = yield call(dealDBCalls.getDeals, payload);
-    console.log('deals data', deals)
     yield put(getDealsSuccess(deals));
   } catch (err) {
     yield call(unAuthenticatedError, err)
@@ -42,7 +41,6 @@ function* getDeals({ payload }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getDealsFailure(errorMessage))
   }
 }
@@ -62,7 +60,6 @@ function* getSingleDeal({ payload: { token, setState, id } }) {
     const errorMessage = status && status === 404
       ? status
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getSingleDealFailure(errorMessage))
   }
 }

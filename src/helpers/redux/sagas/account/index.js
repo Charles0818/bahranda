@@ -3,18 +3,16 @@ import { delay, networkError, unAuthenticatedError } from '../reusables';
 import { account } from '../../types';
 import { accountActions } from '../../actions';
 import { getData, modifyData, apiKey } from '../ajax';
-import { updateBankInfoRequest } from '../../actions/wallet';
 const {
   GET_ACCOUNT_DASHBOARD_REQUEST,
   UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_INDICATOR,
   CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_INDICATOR,
-  UPDATE_BANK_INFO_REQUEST, GET_ACCOUNT_DASHBOARD_INDICATOR
+  GET_ACCOUNT_DASHBOARD_INDICATOR
 } = account;
 const {
   getAccountDashboardSuccess, getAccountDashboardFailure,
   changePasswordFailure, updateProfileFailure,
   changePasswordSuccess, updateProfileSuccess,
-  updateBankInfoFailure, updateBankInfoSuccess,
   changePasswordRequest, getAccountDashboardRequest,
   updateProfileRequest
 } = accountActions;
@@ -30,10 +28,6 @@ const accountDBCalls = {
   },
   updateProfile: async ({ data, token }) => {
     const response = await modifyData(`${apiKey}/user/profile/update`, data, token);
-    return response
-  },
-  updateBankInfo: async ({ data, token }) => {
-    const response = await modifyData(`${apiKey}/user/wallet/account-information`, data, token);
     return response
   }
 }
@@ -54,7 +48,6 @@ function* getAccountDashboard({ payload: { token } }) {
     const errorMessage = title
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getAccountDashboardFailure(errorMessage))
   }
 }
@@ -76,29 +69,9 @@ function* updateProfile({ payload }) {
     const errorMessage = title
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(updateProfileFailure(errorMessage));
     yield call(delay, 3000);
     yield put(updateProfileFailure(''));
-  }
-}
-
-function* updateBankInfo({ payload: { data, token } }) {
-  try {
-    const bankInfo = yield call(accountDBCalls.updateProfile, data, token);
-    yield put(updateBankInfoSuccess(bankInfo));
-  } catch (err) {
-    const { status, title } = err;
-    yield call(unAuthenticatedError, err);
-    if(!status) {
-      yield call(networkError, updateBankInfoRequest(data, token));
-      return
-    }
-    const errorMessage = status
-      ? title
-      : networkErrorMessage
-    console.log('error found', err);
-    yield put(updateBankInfoFailure(errorMessage))
   }
 }
 
@@ -119,7 +92,6 @@ function* changePassword({ payload }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(changePasswordFailure(errorMessage));
     yield call(delay, 3000)
     yield put(changePasswordFailure(''));
@@ -138,13 +110,8 @@ function* changePasswordWatcher() {
   yield takeLatest(CHANGE_PASSWORD_REQUEST, changePassword)
 }
 
-function* updateBankInfoWatcher() {
-  yield takeLatest(UPDATE_BANK_INFO_REQUEST, updateBankInfo)
-}
-
 export default function* accountSagas() {
   yield spawn(getAccountDashboardWatcher)
   yield spawn(updateProfileWatcher)
   yield spawn(changePasswordWatcher)
-  yield spawn(updateBankInfoWatcher)
 }

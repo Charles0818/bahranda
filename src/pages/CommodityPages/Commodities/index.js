@@ -19,7 +19,6 @@ const Commodities = ({
     if(observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver(entries => {
       if(entries[0].isIntersecting && hasNextPage) {
-        console.log('is intereacting');
         incrementPageNum()
       }
     })

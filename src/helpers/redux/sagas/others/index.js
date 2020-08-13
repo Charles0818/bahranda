@@ -63,14 +63,12 @@ function* getPrivacy() {
   try {
     yield put(startLoading())
     const { privacy } = yield call(otherDBCalls.getPrivacy);
-    console.log('privacy data', privacy)
     yield put(getPrivacySuccess(privacy));
   } catch (err) {
     const { status, title } = err;
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getPrivacyFailure(errorMessage))
   } finally {
     yield put(stopLoading())
@@ -81,14 +79,12 @@ function* getReviews() {
   try {
     yield put({ type: GET_REVIEWS_INDICATOR })
     const reviews = yield call(otherDBCalls.getReviews);
-    console.log('reviews data', reviews)
     yield put(getReviewsSuccess(reviews));
   } catch (err) {
     const { status, title } = err;
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getReviewsFailure(errorMessage))
   }
 }
@@ -97,14 +93,12 @@ function* getTeamMembers() {
   try {
     yield put({ type: GET_TEAM_MEMBERS_INDICATOR })
     const { team_members } = yield call(otherDBCalls.getTeamMembers);
-    console.log('members data', team_members)
     yield put(getTeamMembersSuccess(team_members));
   } catch (err) {
     const { status, title } = err;
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getTeamMembersFailure(errorMessage))
   }
 }
@@ -113,14 +107,12 @@ function* getFaq() {
   try {
     yield put({ type: GET_FAQ_INDICATOR })
     const { faqs } = yield call(otherDBCalls.getFaq);
-    console.log('faqs data', faqs)
     yield put(getFaqSuccess(faqs));
   } catch (err) {
     const { status, title } = err;
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getFaqFailure(errorMessage))
   }
 }
@@ -130,14 +122,12 @@ function* getTerms() {
   try {
     yield put(startLoading())
     const { terms } = yield call(otherDBCalls.getTerms);
-    console.log('terms data', terms)
     yield put(getTermsSuccess(terms));
   } catch (err) {
     const { status, title } = err;
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getTermsFailure(errorMessage))
   } finally {
     yield put(stopLoading())
@@ -148,7 +138,6 @@ function* contactUs({ payload }) {
   try {
     yield put({ type: CONTACT_US_INDICATOR })
     const { title } = yield call(otherDBCalls.contactUs, payload);
-    console.log('contactUs data', title)
     yield put(contactUsSuccess(title));
     yield call(delay, 3000)
     yield put(contactUsSuccess(''))
@@ -157,7 +146,6 @@ function* contactUs({ payload }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(contactUsFailure(errorMessage))
     yield call(delay, 3000);
     yield put(contactUsFailure(''))
@@ -169,7 +157,6 @@ function* newsletter({ payload }) {
   try {
     yield put({ type: NEWSLETTER_INDICATOR })
     const { title } = yield call(otherDBCalls.newsletter, payload);
-    console.log('contactUs data', title)
     yield put(newsletterSuccess(title));
     yield call(delay, 3000)
     yield put(newsletterSuccess(''))
@@ -178,7 +165,6 @@ function* newsletter({ payload }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(newsletterFailure(errorMessage))
     yield call(delay, 3000);
     yield put(newsletterFailure(''))

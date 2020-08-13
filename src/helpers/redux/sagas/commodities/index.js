@@ -32,7 +32,6 @@ const commodityDBCalls = {
   },
   purchaseCommodity: async ({ data, token }) => {
     const response = await sendData(`${apiKey}/user/commodities/purchase`, data, token);
-    console.log('purchase commodity success', response);
     return response
   },
   getSingleCommodity: async ({token, id }) => {
@@ -57,7 +56,6 @@ function* getCommodities({ payload }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getCommoditiesFailure(errorMessage))
   }
 }
@@ -74,7 +72,6 @@ function* getRelatedCommodities({ payload: { token, setState } }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getRelatedCommoditiesFailure(errorMessage))
   }
 }
@@ -97,7 +94,6 @@ function* purchaseCommodity({ payload }) {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(purchaseCommodityFailure(errorMessage))
   }
 }
@@ -118,7 +114,6 @@ function* getSingleCommodity ({ payload: { token, setDetails, id } }) {
     const errorMessage = status && status === 404
       ? status
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getSingleCommodityFailure(errorMessage))
   }
 }
@@ -133,7 +128,6 @@ function* getLatestCommodities () {
     const errorMessage = status
       ? title
       : networkErrorMessage
-    console.log('error found', err);
     yield put(getLatestCommoditiesFailure(errorMessage))
   }
 }
