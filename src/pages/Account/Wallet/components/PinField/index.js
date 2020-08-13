@@ -52,14 +52,14 @@ const PinFields = ({ pinArray, setPinArray, label }) => {
           thirdTextInputRef,
           fourthTextInputRef,
         ].map((textInputRef, index) => (
-          <div className="pin-field margin-right-sm ">
+          <div className="pin-field margin-right-sm" key={index}>
             <input
             style={{width: '100%'}}
               className="text-center border-r-5 slim-border padding-vertical-xsm"
               value={pinArray[index]}
               onKeyPress={onOtpKeyPress(index)}
               onChange={onOtpChange(index)}
-              keyboardType={'numeric'}
+              type="numeric"
               maxLength={1}
               autoFocus={index === 0 ? true : undefined}
               ref={refCallback(textInputRef)}

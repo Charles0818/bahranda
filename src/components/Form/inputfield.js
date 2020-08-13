@@ -104,7 +104,7 @@ export const useSelectInput = (initialValue) => {
   const SelectInput = memo((props) => {
     const { label, name, options, placeholder, className = '', isSearchable=false, ...rest } = props;
     return (
-      <label className={`d-flex column margin-bottom-md ${className}`} style={{width: '100%'}}>
+      <label className={`d-flex column  ${className}`} style={{width: '100%'}}>
         <span className="font-md font-weight-500">{label}</span>
         <Select isSearchable={isSearchable}
           name={name}
@@ -123,7 +123,7 @@ export const RadioButton = ({ label, onChange, checked = false }) => {
   const setValue = useCallback(e => {
     const { checked } = e.target;
     onChange({ checked, label })
-  }, [label])
+  }, [label, onChange])
   return (
     <label className="container d-flex align-items-center nowrap cursor-pointer margin-bottom-sm padding-left-md position-relative">
       <span className="font-sm">{label}</span>
@@ -188,15 +188,15 @@ export const CurrencyInput = ({
   err,
   ...rest
 }) => {
-  const VALID_FIRST = /^[1-9]{1}$/;
-  const VALID_NEXT = /^[0-9]{1}$/;
-  const DELETE_KEY_CODE = 8;
   const valueAbsTrunc = Math.trunc(Math.abs(value));
   if (value !== valueAbsTrunc || !Number.isFinite(value) || Number.isNaN(value)) {
     throw new Error(`invalid value property`);
   }
   const handleKeyDown = useCallback(e => {
-    e.preventDefault()
+    e.preventDefault();
+    const VALID_FIRST = /^[1-9]{1}$/;
+    const VALID_NEXT = /^[0-9]{1}$/;
+    const DELETE_KEY_CODE = 8;
     const { key, keyCode } = e;
     console.log('handleKeyDown', e.target.name, key)
     if (

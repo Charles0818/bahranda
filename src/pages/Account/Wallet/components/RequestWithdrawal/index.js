@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import PinFields from '../PinField';
-const { CurrencyInput, FormField, useFormInput, SubmitButton } = Form;
+const { CurrencyInput, SubmitButton } = Form;
 const { checkObjectProperties } = utils;
 const { walletActions: { requestWithdrawalRequest } } = actions;
 const RequestWithdrawal = ({
@@ -26,17 +26,14 @@ const RequestWithdrawal = ({
       contentRef.current.classList.remove('active')
     }
   }, [setActive])
-  const toggleAccordion = () => {
+  const toggleAccordion = useCallback(() => {
     setActiveState(!setActive ? true : false);
-  }
+  }, [setActive])
   const handleWithdrawal = useCallback(() => {
     if(setActive) {
-      // if(!hasBankInfo) {
-      //   window.scrollTo(0, document.querySelector('account-information').offsetTop)
-      // }
       requestWithdrawal({ pin: pin.join(''), amount }, token)
     } else toggleAccordion()
-  }, [hasBankInfo, setActive, pin, amount])
+  }, [setActive, pin, amount, token, requestWithdrawal, toggleAccordion])
   return (
     <section className="request-withdrawal">
       <div className="d-flex justify-content-end">

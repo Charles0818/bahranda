@@ -21,7 +21,7 @@ const LeftSidebar = forwardRef(({}, ref) => {
       }
     });
     return () => window.removeEventListener('click', event);
-  }, [ref.current])
+  }, [ref])
   return (
     <aside ref={ref} className="sidebar bg-color1 padding-horizontal-sm padding-vertical-lg">
       <h3 className="text-center store font-lg color-white">Store</h3>
@@ -32,7 +32,6 @@ const LeftSidebar = forwardRef(({}, ref) => {
       </div>
       <SidebarItem link="/account" icon={FaWindows} text='dashboard' exact={true} />
       <SidebarItem link="/commodities" icon={FaStore} text="commodities" />
-      {/* <SidebarItem link="/account/deals" icon={MdAccountCircle} text='deals' /> */}
       <SidebarItem link="/account/wallet" icon={MdAccountBalanceWallet} text='wallet' />
       <SidebarItem link="/account/deals" icon={FaWarehouse} text='deals' />
       <SidebarItem link="/account/settings" icon={FiSettings} text='settings' />

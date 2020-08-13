@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { BsExclamationTriangleFill } from 'react-icons/bs'
-import networkErrorSvg from '../../assets/server_down.svg';
 import { actions } from '../../helpers';
 const { UIActions: { eraseNetworkError } } = actions;
 const NetworkError = ({ networkError, eraseNetworkError, children }) => {
@@ -11,7 +10,7 @@ const NetworkError = ({ networkError, eraseNetworkError, children }) => {
   const callback = useCallback(() => {
     eraseNetworkError();
     dispatch(action)
-  },[action, eraseNetworkError])
+  },[action, eraseNetworkError, dispatch])
 
   if(!show && !action) return children
   return (

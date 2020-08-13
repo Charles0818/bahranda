@@ -2,7 +2,7 @@ import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { auth } from '../../types';
 import { authActions, UIActions } from '../../actions';
 import { networkError, unAuthenticatedError } from '../reusables';
-import { sendData, getData, deleteData, apiKey } from '../ajax';
+import { sendData, getData, apiKey } from '../ajax';
 const {
   SIGN_IN_REQUEST, SIGN_UP_REQUEST,
   CONFIRM_PIN, GET_USER_PROFILE,
@@ -12,15 +12,14 @@ const {
   signInSuccess, signInError,
   signUpSuccess, signUpError, pinError,
   setIsLoading, confirmPinSuccess,
-  signOut, resetPasswordSuccess,
+  resetPasswordSuccess,
   checkPinSuccess, checkPinFailure,
   resetPasswordFailure, checkPinRequest,
-  resetPasswordRequest, signInRequest,
-  signUpRequest, forgotPasswordSuccess,
+  resetPasswordRequest, forgotPasswordSuccess,
   forgotPasswordRequest, forgotPasswordFailure,
   getUserProfile: getUserProfileRequest
 } = authActions;
-const { startLoading, stopLoading, showNetworkError } = UIActions;
+const { startLoading, stopLoading } = UIActions;
 const networkErrorMessage = 'No internet connection detected';
 const authDBCalls = {
   signUp: async (data) => {
@@ -80,7 +79,8 @@ function* signIn({ payload: { data, redirect, redirectPath } }) {
     yield put(setIsLoading(true))
     const { access_token, user } = yield call(authDBCalls.signIn, data);
     yield put(signInSuccess(user, access_token));
-    yield redirect(redirectPath ? redirectPath : '/account')
+    console.log('this was rendered')
+    redirect(redirectPath ? redirectPath : '/account')
   } catch (err) {
     const { status, title } = err;
     let errorMessage;
@@ -162,7 +162,7 @@ function* resetPassword({ payload: { data, redirect } }){
     redirect('/auth/signin')
   } catch (err) {
     console.log('error found', err);
-    const { status, title, message } = err;
+    const { status, title } = err;
     if(!status) {
       console.log('error has no message')
       yield call(networkError, resetPasswordRequest(data, redirect));
@@ -180,7 +180,7 @@ function* forgotPassword({ payload: { data, redirect }}) {
      redirect ('/auth/pin/verify')
   }
   catch (err) {
-    const { message, errors } = err;
+    const { message } = err;
     console.log('error found', err)
     if(!message) {
       console.log("error has no message")

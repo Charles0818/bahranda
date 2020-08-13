@@ -11,7 +11,7 @@ const { formatting: { formatDate } } = utils;
 const TermsOfServices = ({ terms, isLoading, getTermsRequest }) => {
   useLayoutEffect(() => {
     if(terms.length === 0) getTermsRequest()
-  }, [terms]);
+  }, [terms.length, getTermsRequest]);
   if(isLoading) return <FullScreenSpinner isLoading={isLoading} />
   const { term_text, created_at } = terms;
   return (

@@ -2,10 +2,10 @@ import React, { useLayoutEffect, forwardRef, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { Spinners, EmptyDataRender, Animation, SectionTitle, Form, useSort, sorts, statuses } from '../../../components';
+import { Spinners, EmptyDataRender, Animation, Form, useSort, sorts, statuses } from '../../../components';
 import { actions, utils } from '../../../helpers';
 const { walletActions: { getWalletRequests } } = actions;
-const { ScrollToBottom, FadeIn, FadeInLeft } = Animation;
+const { FadeInLeft } = Animation;
 const { useFormInput, QuantityInput } = Form;
 const { walletRequest: walletRequestSorts } = sorts;
 const { walletRequest: walletRequestStatuses } = statuses;
@@ -21,7 +21,7 @@ const WalletRequests = ({ walletRequests, sortWalletRequests, getWalletRequests,
   const { value: max, handleUserInput: setMax } = useFormInput();
   useLayoutEffect(() => {
     if(walletRequests.length === 0) getWalletRequests(pageNum, token)
-  }, [token, pageNum, walletRequests.length]);
+  }, [token, pageNum, walletRequests.length, getWalletRequests]);
   useEffect(() => {
     console.log('useEffect')
     if(sortValue && sortValue.value === walletRequestSorts.AMOUNT && min ) {
@@ -30,8 +30,10 @@ const WalletRequests = ({ walletRequests, sortWalletRequests, getWalletRequests,
     if(sortValue && sortValue.value === walletRequestSorts.STATUS && statusValue.value) {
       setSortResult(sortWalletRequests(walletRequestSorts.STATUS, {status: statusValue.value }));
     }
-    if(sortValue && sortValue.value === walletRequestSorts.MOST_RECENT) setSortResult(walletRequests)
-  }, [sortValue, statusValue, min, max])
+    if(sortValue && sortValue.value === walletRequestSorts.MOST_RECENT){
+      setSortResult(sortWalletRequests(walletRequestSorts.MOST_RECENT))
+    }
+  }, [sortValue, statusValue, min, max, sortWalletRequests])
   if(loading) return <SectionSpinner isLoading={loading} />
   return (
     <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity margin-bottom-md">

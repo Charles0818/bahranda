@@ -4,7 +4,7 @@ import { utils } from '../../helpers';
 import PaystackPayment from '../PaystackPayment';
 const { formatting: { formatCurrency } } = utils;
 const { useSectionSpinner } = Spinners;
-const { useFormInput, QuantityInput, useRadioInputs } = Form;
+const { useFormInput, QuantityInput, useSelectInput } = Form;
 const FillInvestment = ({ details, id }) => {
   const {
     price_break_down, price,
@@ -12,7 +12,7 @@ const FillInvestment = ({ details, id }) => {
     profit_percentage, quantity_left_for_deal,
     unit
   } = details;
-  const { RadioInputs } = useRadioInputs(duration);
+  const { SelectInput } = useSelectInput(duration)
   const { value: qty, handleUserInput: setQty } = useFormInput(1);
   const [priceBreakdown, setPriceBreakdown] = useState(price_break_down);
   const calculateDealCost = useCallback(obj => {
@@ -26,7 +26,7 @@ const FillInvestment = ({ details, id }) => {
   }, [qty]);
   useEffect(() => {
     calculateDealCost(price_break_down);
-  }, [qty, calculateDealCost]);
+  }, [qty, calculateDealCost, price_break_down]);
   return (
     <section className="">
       <div className="d-flex justify-content-s-between" style={{width: '100%'}}>
@@ -39,7 +39,7 @@ const FillInvestment = ({ details, id }) => {
             </div>
           </DataRow>
           <DataRow tag="Quantity left">
-            <span className="font-weight-500 font-sm color1">{quantity_left_for_deal}</span>
+            <span className="font-weight-500 font-sm color1">{parseInt(quantity_left_for_deal, 10)}</span>
           </DataRow>
           <DataRow tag="Quantity">
             <div className="" style={{width: '50px'}}>
@@ -51,7 +51,9 @@ const FillInvestment = ({ details, id }) => {
           </DataRow>
           <div className="d-flex align-items-center justify-content-s-between margin-bottom-sm" style={{width: '100%'}}>
             <span className={`font-sm font-weight-500`}>Duration: </span>
-            <RadioInputs options={[{label: duration}]} placeholder="Duration" />
+            <div style={{width: '150px'}}>
+              <SelectInput options={[duration]} placeholder="Duration" />
+            </div>
           </div>
         </div>
         <PriceBreakDown priceBreakdown={priceBreakdown} commodityDetails={{id, qty }} />

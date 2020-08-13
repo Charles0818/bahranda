@@ -6,11 +6,11 @@ import { unAuthenticatedError, networkError } from '../reusables';
 const {
   GET_DEALS_INDICATOR, GET_DEALS_REQUEST,
   GET_SINGLE_DEAL_REQUEST,
-  GET_SINGLE_DEAL_SUCCESS, GET_SINGLE_DEAL_FAILURE
 } = deal;
 
 const {
-  getDealsFailure, getDealsSuccess, getDealsRequest, getSingleDealRequest
+  getDealsFailure, getDealsSuccess, getDealsRequest,
+  getSingleDealRequest, getSingleDealFailure, getSingleDealSuccess
 } = dealActions;
 
 const networkErrorMessage = 'No internet connection detected';
@@ -51,10 +51,10 @@ function* getSingleDeal({ payload: { token, setState, id } }) {
   try {
     const { deal } = yield call(dealDBCalls.getSingleDeal, {token, id});
     setState(deal);
-    yield put({ type: GET_SINGLE_DEAL_SUCCESS })
+    yield put(getSingleDealSuccess())
   } catch (err) {
     yield call(unAuthenticatedError, err)
-    const { status, title } = err;
+    const { status } = err;
     if(!status) {
       yield call(networkError, getSingleDealRequest(token, setState, id));
       return
@@ -63,10 +63,7 @@ function* getSingleDeal({ payload: { token, setState, id } }) {
       ? status
       : networkErrorMessage
     console.log('error found', err);
-    yield put({
-      type: GET_SINGLE_DEAL_FAILURE,
-      payload: { error: errorMessage }
-    })
+    yield put(getSingleDealFailure(errorMessage))
   }
 }
 

@@ -13,7 +13,7 @@ const PaddedCarousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bu
       const interval = slides.length > 1 ? setInterval(() => slideRight(), duration) : null;
       return () => clearInterval(interval)
     }
-  }, [autoSlide, distance])
+  }, [autoSlide, distance, duration, slideRight, slides.length])
   return (
     slides.length !== 0 && (
       <Swipeable {...handlers} className="padded-carousel padding-horizontal-xlg slider position-relative overflow-h margin-bottom-sm">

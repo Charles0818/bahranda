@@ -109,7 +109,7 @@ function* getSingleCommodity ({ payload: { token, setDetails, id } }) {
     setDetails(commodity);
     yield put(getSingleCommoditySuccess())
   } catch (err) {
-    const { status, title } = err;
+    const { status } = err;
     yield call(unAuthenticatedError, err)
     if(!status) {
       yield call(networkError, getSingleCommodityRequest(token, setDetails, id));

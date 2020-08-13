@@ -4,8 +4,9 @@ import { IoMdCheckmarkCircle } from 'react-icons/io'
 const HttpStatusNotification = ({ status, message }) => {
   const ref = useRef(null);
   useEffect(() => {
+    const persistRef = ref.current;
     ref.current.classList.add('fadeIn-animation');
-    return () => ref.current.classList.remove('fadeIn-animation')
+    return () => persistRef.classList.remove('fadeIn-animation')
   }, [])
   return (
     <div ref={ref} className="d-flex justify-content-center http-status">

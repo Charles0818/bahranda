@@ -4,7 +4,7 @@ import { utils } from '../../../../helpers';
 
 const { formatting: { formatCurrency } } = utils;
 const CommodityCard = memo(({ commodity }) => {
-  const { image, commodity_name, price, description, id, profit_percentage } = commodity;
+  const { image, commodity_name, price, id, profit_percentage } = commodity;
   return (
     <div className="product-card margin-bottom-md margin-right-md">
       <div className="thumbnail position-relative margin-bottom-sm">

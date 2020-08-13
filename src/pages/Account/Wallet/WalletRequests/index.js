@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback, forwardRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SyncLoader from 'react-spinners/SyncLoader'
@@ -21,7 +21,7 @@ const WalletRequests = ({
   const { value: max, handleUserInput: setMax } = useFormInput();
   useEffect(() => {
     if(walletRequests.length === 0 && pageNum === 1) getWalletRequests(pageNum, token)
-  }, [token, pageNum, walletRequests.length]);
+  }, [token, pageNum, walletRequests.length, getWalletRequests]);
   const observer = useRef();
   const lastWalletRequest = useCallback(node => {
     if(loading) return;
@@ -33,7 +33,7 @@ const WalletRequests = ({
       }
     })
     if(node) observer.current.observe(node)
-  }, [loading, hasNextPage])
+  }, [loading, hasNextPage, incrementPageNum])
   useEffect(() => {
     console.log('useEffect')
     if(sortValue && sortValue.value === walletRequestSorts.AMOUNT && min ) {
@@ -42,8 +42,10 @@ const WalletRequests = ({
     if(sortValue && sortValue.value === walletRequestSorts.STATUS && statusValue) {
       setSortResult(sortWalletRequests(walletRequestSorts.STATUS, {status: statusValue.value }));
     }
-    if(sortValue && sortValue.value === walletRequestSorts.MOST_RECENT) setSortResult(walletRequests)
-  }, [sortValue, statusValue, min, max])
+    if(sortValue && sortValue.value === walletRequestSorts.MOST_RECENT){
+      setSortResult(sortWalletRequests(walletRequestSorts.MOST_RECENT))
+    }
+  }, [sortValue, statusValue, min, max, sortWalletRequests])
   return (
     <section className="overflow-h slim-border-2 padding-horizontal-md bg-white margin-bottom-md">
       <h2 className="slim-border-bottom padding-vertical-sm margin-bottom-md font-weight-500 font-style-normal font-lg">Wallet Requests</h2>

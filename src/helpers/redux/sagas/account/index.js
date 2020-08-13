@@ -1,9 +1,8 @@
 import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { delay, networkError, unAuthenticatedError } from '../reusables';
 import { account } from '../../types';
-import { accountActions, UIActions, authActions } from '../../actions';
-import { signOut } from '../../actions/auth';
-import { sendData, getData, modifyData, deleteData, apiKey } from '../ajax';
+import { accountActions } from '../../actions';
+import { getData, modifyData, apiKey } from '../ajax';
 import { updateBankInfoRequest } from '../../actions/wallet';
 const {
   GET_ACCOUNT_DASHBOARD_REQUEST,

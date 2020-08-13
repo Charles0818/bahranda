@@ -57,8 +57,7 @@ const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: 
     status, total_amount_invested,
     warehouse: {
       address, city,
-      contact_person, contact_person_phone,
-      created_at, state,
+      contact_person, contact_person_phone, state,
       warehouse_name, warehouse_image
     }
 } = deal;

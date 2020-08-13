@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Cards, Carousels, Spinners, NotFound } from '../../components';
 import { actions } from '../helpers'
-import { ThumbnailCarousel, FillInvestment } from '../components';
+import { FillInvestment } from '../components';
 import { Link } from 'react-router-dom';
 const { CommodityCard } = Cards;
 const { PaddedCarousel } = Carousels;
@@ -16,7 +16,7 @@ const CommodityDetails = ({
   const [details, setDetails] = useState({})
   useEffect(() => {
     getSingleCommodityRequest(token, setDetails, params.id)
-  }, [token, setDetails, params.id]);
+  }, [token, setDetails, params.id, getSingleCommodityRequest]);
   if(loading) return <SectionSpinner isLoading={loading} />;
   if(error && error === 404) return (
     <NotFound
@@ -32,7 +32,6 @@ const CommodityDetails = ({
     <article className="d-flex column commodity" style={{width: '100%'}}>
       <div className="d-flex justify-content-s-between thumbnail-details margin-bottom-md" style={{width: '100%'}}>
         <div className="thumbnail-slider  margin-right-md">
-          {/* <ThumbnailCarousel autoSlide={false} thumbnails={[image]} /> */}
           <img src={image} alt="commodity thumbnail" />
         </div>
         <section className="details flex-equal">
@@ -66,7 +65,7 @@ const RelatedCommodities = connect(mapIndicatorToProps, mapDispatchToRelatedComm
     let isSubscribed = true;
     if(isSubscribed) getRelatedCommoditiesRequest(token, setState);
     return () => isSubscribed = false;
-  }, [token])
+  }, [token, getRelatedCommoditiesRequest])
   if(loading) return (
     <div className="bg-gray bg-color1 padding-horizontal-md margin-top-md padding-vertical-md" style={{width: '100%'}}>
       <h3 className="font-lg margin-bottom-md">Related Commodities</h3>

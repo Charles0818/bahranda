@@ -1,6 +1,5 @@
 import React, { useState, memo } from 'react';
-import Select from 'react-select'
-import { QuantityInput, useFormInput } from '../../../../components/Form';
+import Select from 'react-select';
 export const sorts = {
   history: {
     MOST_RECENT: 'Most Recent',
@@ -31,6 +30,7 @@ export const statuses = {
   },
   walletRequest: {
     PENDING: 'pending',
+    PAID: 'paid'
   },
   deal: {
     ONGOING: 'on-going',

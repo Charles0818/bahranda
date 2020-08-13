@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense, lazy, useLayoutEffect } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import SignIn from './Signin';
 import SignUp from './SignUp';
@@ -13,7 +13,7 @@ const ForgotPasswordPin = lazy(() => import ('./ForgotPasswordPin'));
 
 const { FullScreenSpinner } = Spinners;
 const Auth = ({ isAuth, match: { path }, history: { goBack  } }) => {
-  useLayoutEffect(() => {
+  useEffect(() => {
     if(isAuth) goBack()
   }, [])
   return (

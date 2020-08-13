@@ -1,4 +1,4 @@
-import React, { useEffect, memo, useLayoutEffect } from 'react';
+import React, { memo, useLayoutEffect } from 'react';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,11 +9,8 @@ const ProtectedRoute = memo(({
   component: Comp, auth, token, isLoggedIn, isLoading, startLoading, getUserProfile, path, location, redirectPath = '/auth/login', ...rest
 }) => {
   useLayoutEffect(() => {
-    // startLoading()
-    let isSubscribed = true;
     if(token && !isLoggedIn) getUserProfile(token);
-    return () => isSubscribed = false;
-  }, [isLoggedIn, token]);
+  }, [isLoggedIn, token, getUserProfile]);
   if(isLoading || (token && !isLoggedIn)) return <FullScreenSpinner isLoading={isLoading} />
   return(
     <Route 

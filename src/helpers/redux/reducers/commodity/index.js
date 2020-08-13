@@ -17,6 +17,7 @@ const initialState = {
   hasNextPage: true,
   error: {
     singleCommodity: '',
+    commodities: ''
   },
   success: {
     purchaseCommodity: ''
@@ -37,6 +38,9 @@ const commodityReducer = (prevState = initialState, { type, payload }) => {
       prevState.commodities = [...prevState.commodities, ...commodities];
       if(prevState.firstFetch) prevState.firstFetch = false;
       return { ...prevState, pageNum, hasNextPage, isLoading: false }
+    case GET_COMMODITIES_FAILURE:
+      prevState.error.commodities = payload.error;
+      return { ...prevState }
     case INCREMENT_PAGENUM:
       return { ...prevState, pageNum: prevState.pageNum + 1, isLoading: true }
     case GET_SINGLE_COMMODITY_INDICATOR:

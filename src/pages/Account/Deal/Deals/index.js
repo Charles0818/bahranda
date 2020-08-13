@@ -1,10 +1,9 @@
-import React, { useLayoutEffect, useEffect, memo, useState } from 'react';
+import React, { useLayoutEffect, memo } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { useHistory } from 'react-router-dom';
 import { actions, utils } from '../../helpers';
 import { DealHistory } from '../components';
-import { Spinners, EmptyDataRender, Animation, SectionTitle, Form, sorts, statuses } from '../../components';
+import { Spinners, Animation, SectionTitle } from '../../components';
 const { SectionSpinner } = Spinners;
 const { dealActions: { getDealsRequest } } = actions;
 const { formatting: { formatCurrency } } = utils;
@@ -18,7 +17,7 @@ const Deals = ({
 
   useLayoutEffect(() => {
    if(hasNoDeal) getDealsRequest(token)
-  }, [hasNoDeal, token])
+  }, [hasNoDeal, token, getDealsRequest])
   if(loading) return  <SectionSpinner isLoading={loading} />
   return (
     <div className="overflow-h">

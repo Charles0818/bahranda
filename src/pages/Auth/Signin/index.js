@@ -7,7 +7,7 @@ import { Form } from '../../../components';
 import * as queryString from 'query-string';
 const { authActions: { signInRequest } } = actions;
 const { FormField, PasswordField, useFormInput, SubmitButton } = Form;
-const SignIn = ({ signIn, loading, signInError, location, match: { path } }) => {
+const SignIn = ({ signIn, loading, signInError, location }) => {
   const { replace } = useHistory();
   const { redir } = queryString.parse(location.search)
   console.log('this is redir location.search', redir)

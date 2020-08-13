@@ -9,7 +9,7 @@ const { PaddedCarousel } = Carousels;
 const TeamSlider = ({ getTeamMembersRequest, teamMembers, hasFetchedTeam }) => {
   useEffect(() => {
     if(!hasFetchedTeam) getTeamMembersRequest()
-  }, [teamMembers])
+  }, [hasFetchedTeam, getTeamMembersRequest])
   return (
     <div className="bg-gray padding-horizontal-sm padding-vertical-md">
       <h3 className="font-xlg text-center font-weight-normal margin-bottom-md">Our Team</h3>

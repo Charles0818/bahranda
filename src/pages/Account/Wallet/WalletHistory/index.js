@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useCallback, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import SyncLoader from 'react-spinners/SyncLoader'
@@ -17,7 +17,7 @@ const WalletHistory = ({getWalletHistoryRequest, sortHistory, token, loading, hi
   const { value: max, handleUserInput: setMax } = useFormInput();
   useEffect(() => {
     if(history.length === 0 && pageNum === 1) getWalletHistoryRequest(pageNum, token)
-  }, [token, pageNum, history.length]);
+  }, [token, pageNum, history.length, getWalletHistoryRequest]);
   const observer = useRef();
   const lastHistory = useCallback(node => {
     if(loading) return;
@@ -29,7 +29,7 @@ const WalletHistory = ({getWalletHistoryRequest, sortHistory, token, loading, hi
       }
     })
     if(node) observer.current.observe(node)
-  }, [loading, hasNextPage])
+  }, [loading, hasNextPage, incrementPageNum])
   useEffect(() => {
     if(sortValue && sortValue.value === historySorts.AMOUNT && min){
       setSortResult(sortHistory(historySorts.AMOUNT, { min, max }))
@@ -37,8 +37,10 @@ const WalletHistory = ({getWalletHistoryRequest, sortHistory, token, loading, hi
     if(sortValue && sortValue.value === historySorts.STATUS && statusValue.value) {
       setSortResult(sortHistory(historySorts.STATUS, {status: statusValue.value }));
     }
-    if(sortValue && sortValue.value === historySorts.MOST_RECENT) setSortResult(history)
-  }, [sortValue, statusValue, min, max])
+    if(sortValue && sortValue.value === historySorts.MOST_RECENT) {
+      setSortResult(sortHistory(historySorts.MOST_RECENT))
+    }
+  }, [sortValue, statusValue, sortHistory, min, max])
   return (
     <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
       <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
@@ -68,10 +70,10 @@ const WalletHistory = ({getWalletHistoryRequest, sortHistory, token, loading, hi
           <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase" >status</h3>
         </div>
       </div>
-      {history.length === 0 && !loading
+      {sortResult.length === 0 && !loading
         ? <EmptyDataRender message="You have no history record" />
-        : history.map((el, index) => {
-        if(index + 1 === history.length) {
+        : sortResult.map((el, index) => {
+        if(index + 1 === sortResult.length) {
           return <div key={el.id} ref={lastHistory}><History.HistoryRow history={el} /></div>
         } else {
           return <History.HistoryRow key={el.id} history={el} />
@@ -99,6 +101,7 @@ const mapStateToProps = state => {
         const { status } = payload;
         return  history.filter(history => history.status === status)
       case MOST_RECENT:
+        return history
       default:
        return history
     }

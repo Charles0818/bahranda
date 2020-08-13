@@ -34,6 +34,19 @@ export const getSingleDealRequest = (token, setState, id) => {
   }
 }
 
+export const getSingleDealSuccess = () => {
+  return {
+    type: GET_SINGLE_DEAL_SUCCESS
+  }
+}
+
+export const getSingleDealFailure = (error) => {
+  return {
+    type: GET_SINGLE_DEAL_FAILURE,
+    payload: { error }
+  }
+}
+
 export const getSingleDealIndicator = () => {
   return {
     type: GET_SINGLE_DEAL_INDICATOR

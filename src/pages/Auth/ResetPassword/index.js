@@ -9,7 +9,7 @@ const { PasswordField, useFormInput, SubmitButton } = Form;
 const ResetPassword = ({ error, checkPin: { email, pin }, isLoading, resetPasswordRequest, history: { replace } }) => {
   useLayoutEffect(() => {
     if(!email && !pin) replace('/auth/forgot-password')
-  }, [email, pin])
+  }, [email, pin, replace])
   const { value: password, handleUserInput: setNewPass, isValid: newPassIsValid, error: newPassErr } = useFormInput();
   const { value: password_confirmation, handleUserInput: setNewPass2 } = useFormInput();
   const validatePasswords = password !== password_confirmation ? 'Passwords do not match' : '';

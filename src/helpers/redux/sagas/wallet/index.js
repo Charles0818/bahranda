@@ -162,7 +162,7 @@ function* setPin({ payload }) {
 function* updateBankInfo({ payload }) {
   try {
     yield put({ type: UPDATE_BANK_INFO_INDICATOR })
-    const bankInfo = yield call(walletDBCalls.updateBankInfo, payload);
+    yield call(walletDBCalls.updateBankInfo, payload);
     yield put(updateBankInfoSuccess(payload.data, 'Account information updated successfully'));
     yield call(delay, 4000);
     yield put(updateBankInfoSuccess(payload.data, ''))

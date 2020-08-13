@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { FaTwitter, FaFacebookF, FaInstagram, FaBars } from 'react-icons/fa';
 import {MdLocationOn, MdPhoneIphone} from 'react-icons/md';
 import logo from '../../assets/baranda.png';
-import {RiSearchEyeLine} from 'react-icons/ri'
 
 const Header = () => {
   return (
@@ -39,7 +38,7 @@ const NavBar = connect(mapStateToProps, null)(({ isLoggedIn }) => {
   const navRef = useRef(null);
   return (
     <nav className="d-flex align-items-center justify-content-s-between padding-horizontal-xlg padding-vertical-md bg-white">
-      <Link to="/"><img src={logo} className="logo-md margin-right-md"/></Link>
+      <Link to="/"><img src={logo} className="logo-md margin-right-md" alt="bahranda logo" /></Link>
       <div ref={navRef} className="d-flex nav-links toggle align-items-center justify-content-s-between">
         <NavLink exact  activeClassName="color1 font-weight-500" to="/" className="color-dark padding-md">Home</NavLink>
         <NavLink  activeClassName="color1 font-weight-500" to="/how-we-work" className="color-dark font-md padding-md">How we work</NavLink>
