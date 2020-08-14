@@ -99,7 +99,7 @@ function* signIn({ payload: { data, redirect, redirectPath } }) {
 function* confirmPin({ payload: { data, redirect } }){
   try {
     yield put(setIsLoading(true))
-    const confirmed = yield call(authDBCalls.confirmPin, data);
+     yield call(authDBCalls.confirmPin, data);
     yield put(confirmPinSuccess())
     yield redirect('/auth/signin')
   } catch (err) {
@@ -129,7 +129,7 @@ function* getUserProfile({ payload: { token, redirect } }){
 function* checkPin({ payload: { data, redirect } }){
   try {
     yield put(setIsLoading(true))
-    const profile = yield call(authDBCalls.checkPin, data);
+    yield call(authDBCalls.checkPin, data);
     yield put(checkPinSuccess(data.email, data.pin));
     redirect('/auth/reset-password')
   } catch (err) {
@@ -145,7 +145,7 @@ function* checkPin({ payload: { data, redirect } }){
 function* resetPassword({ payload: { data, redirect } }){
   try {
     yield put(setIsLoading(true))
-    const profile = yield call(authDBCalls.resetPassword, data);
+    yield call(authDBCalls.resetPassword, data);
     yield put(resetPasswordSuccess())
     redirect('/auth/signin')
   } catch (err) {
