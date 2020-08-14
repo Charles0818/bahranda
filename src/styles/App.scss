@@ -158,7 +158,8 @@ header {
 }
 
 .round-icon {
-  padding: 6px 8px;
+  width: 30px;
+  height: 30px;
 }
 
 .position-relative {  @include position(relative); }
@@ -398,7 +399,7 @@ header {
   }
   > section:not(.faqs) {
    &.we-store, &.we-buy, &.we-sell {
-     height: 500px;
+     height: 450px;
      @include media-breakpoint-down(sm) {
        height: auto;
        &:not(.we-buy) {

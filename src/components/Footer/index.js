@@ -50,15 +50,15 @@ const Footer = () => {
               <span className="font-sm color-white">clarify@bahranda.com</span>
               <span className="font-sm color-white"></span>
               <div className="d-flex align-items-center">
-                <div className="bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
+                <a target="_blank" href="https://twitter.com/Bahranda1" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
                   <FaTwitter className="color-white font-sm" />
-                </div>
-                <div className="bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
+                </a>
+                <a target="_blank" href="https://www.instagram.com/bahranda1" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
                   <FaInstagram className="color-white font-sm" />
-                </div>
-                <div className="bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
+                </a>
+                <a target="_blank" href="https://facebook.com/Bahranda-101958331628679" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
                   <FaFacebookF className="color-white font-sm" />
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -95,15 +95,15 @@ export const AccountFooter = () => (
           <span className="font-sm color-white">+234 60 345 67890</span>
           <span className="font-sm color-white margin-bottom-sm">enquiries@bahranda.com</span>
           <div className="d-flex align-items-center">
-            <div className="bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
+            <a target="_blank" href="https://twitter.com/Bahranda1" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
               <FaTwitter className="color-white font-sm" />
-            </div>
-            <div className="bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
+            </a>
+            <a target="_blank" href="https://www.instagram.com/bahranda1" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
               <FaInstagram className="color-white font-sm" />
-            </div>
-            <div className="bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
+            </a>
+            <a target="_blank" href="https://facebook.com/Bahranda-101958331628679" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
               <FaFacebookF className="color-white font-sm" />
-            </div>
+            </a>
           </div>
         </div>
       </div>
