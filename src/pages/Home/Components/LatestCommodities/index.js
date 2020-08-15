@@ -6,16 +6,16 @@ import { Cards, Carousels, Spinners } from '../../../components';
 const { commodityActions: { getLatestCommoditiesRequest } } = actions;
 const { PortraitCommodityCard } = Cards;
 const { SectionSpinner } = Spinners;
-const { LayerCarousel } = Carousels;
+const { PaddedCarousel } = Carousels;
 const LatestCommodities = ({ loading, getLatestCommoditiesRequest, latestCommodities }) => {
   useEffect(() => {
     if(latestCommodities.length === 0) getLatestCommoditiesRequest()
-  }, [latestCommodities]);
+  }, [latestCommodities.length, getLatestCommoditiesRequest]);
   if(loading) return <SectionSpinner isLoading={loading} />
   return (
     <div className="padding-horizontal-md padding-vertical-md margin-bottom-md">
       <h3 className="font-xlg text-center font-weight-normal margin-bottom-md capitalize">commodities</h3>
-      <LayerCarousel
+      <PaddedCarousel
         slides={latestCommodities.map(commodity => <PortraitCommodityCard commodity={commodity} />)}
         cardAlign={true}
         autoSlide={false}

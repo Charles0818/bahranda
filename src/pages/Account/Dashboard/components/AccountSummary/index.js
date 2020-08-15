@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { utils } from '../../../helpers';
-import { Animation, SectionTitle } from '../../../components';
-const { ScrollToBottom, FadeInLeft } = Animation
+import { SectionTitle } from '../../../components';
 const { formatting: { formatCurrency } } = utils;
 const AccountSummary = ({ summary }) => {
   const { total_deals_amount, withdrawn, total_deals, active_deals } = summary

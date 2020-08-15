@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, memo } from 'react';
 import { AccountSummary, MonthlyExpenditure } from './components';
 import { Spinners } from '../components';
 import Activity from './components/Activity';
@@ -8,10 +8,10 @@ import { actions, utils } from '../helpers';
 const { accountActions: { getAccountDashboardRequest } } = actions;
 const { SectionSpinner } = Spinners;
 const { checkObjectProperties } = utils;
-const Dashboard = ({ account_summary, monthly_expenditure, hasNoData, getAccountDashboard, token, loading }) => {
+const Dashboard = memo(({ account_summary, monthly_expenditure, hasNoData, getAccountDashboard, token, loading }) => {
   useLayoutEffect(() => {
     if(hasNoData) getAccountDashboard(token)
-  }, [token, hasNoData])
+  }, [token, hasNoData, getAccountDashboard])
  if(loading) return <SectionSpinner isLoading={loading} />
   return (
     <div>
@@ -21,7 +21,7 @@ const Dashboard = ({ account_summary, monthly_expenditure, hasNoData, getAccount
       <Activity />
     </div>
   )
-}
+})
 
 const mapStateToProps = state => {
   const { token } = state.authReducer;

@@ -5,6 +5,10 @@
   .thumbnail-slider { 
     flex-basis: 246px;
     max-width: 246px;
+    > img { 
+      width: 100%;
+      height: auto;
+     }
     .controls {
       bottom: 0;
       left: 0;

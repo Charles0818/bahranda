@@ -17,22 +17,18 @@ const PaystackPayment = ({ token, purchase, amount, email, success, firstname, l
     ? process.env.REACT_APP_PAYSTACK_DEV
     : process.env.REACT_APP_PAYSTACK_PROD,
   };
-  console.log('config', process.env.REACT_APP_PAYSTACK_DEV)
   const initializePayment = usePaystackPayment({
     email, metadata: { firstname, lastname },
     ...config,
     amount: amount * 100
   });
   const onSuccess = useCallback(res => {
-    console.log('res from paystack', res);
     const { reference: transaction_ref } = res;
     const { qty: quantity, id: commodity_id } = commodityDetails
     purchase({ transaction_ref, quantity, commodity_id }, token)
-  }, []);
+  }, [commodityDetails, purchase, token]);
   const onClose = useCallback(res => {
-    console.log('onClose res from paystack', res)
   }, []);
-  console.log('this is the amount', amount);
   useEffect(() => {
     if(success) openModal()
   }, [success, openModal])

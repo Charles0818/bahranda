@@ -13,7 +13,7 @@ const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, 
       const interval = slides.length > 1 ? setInterval(() => slideRight(), duration) : null;
       return () => clearInterval(interval)
     }
-  }, [autoSlide, distance])
+  }, [autoSlide, distance, duration, slideRight, slides.length])
   return (
     slides.length !== 0 && (
       <Swipeable { ...handlers }  className="slider d-flex nowrap align-items-center position-relative overflow-h margin-bottom-sm">

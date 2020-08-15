@@ -5,12 +5,10 @@ const useSlide = (length, slideWidth) => {
   const slideLeft = () => {
     if (distance === 0) return
     setDistance(distance + slideWidth)
-    console.log('slideLeft', distance)
   }
   const slideRight = () => {
     if(distance === -slideWidth * (length - 1)) return
     setDistance(distance - slideWidth);
-    console.log('slideRight', distance)
   }
 
   const bulletSlide = (index) => {
@@ -34,7 +32,6 @@ export const useControl = (allowControl) => {
     if(allowControl) {
       observer.current = new IntersectionObserver(entries => {
         if(entries[0].isIntersecting) {
-          console.log('is intereacting');
           rightControl.current.classList.add('display-none')
         } else {
           rightControl.current.classList.remove('display-none')

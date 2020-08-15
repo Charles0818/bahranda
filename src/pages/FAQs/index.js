@@ -9,7 +9,7 @@ const { ScrollToBottom } = Animation;
 const FAQs = ({ faqs, getFaqRequest, loading, hasFetchedFaq }) => {
   useEffect(() => {
     if(!hasFetchedFaq) getFaqRequest()
-  }, [hasFetchedFaq])
+  }, [hasFetchedFaq, getFaqRequest])
  
   return (
     <PageWrapper>

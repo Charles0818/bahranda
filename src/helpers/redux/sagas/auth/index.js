@@ -2,7 +2,7 @@ import { call, put, takeLatest, spawn } from 'redux-saga/effects';
 import { auth } from '../../types';
 import { authActions, UIActions } from '../../actions';
 import { networkError, unAuthenticatedError } from '../reusables';
-import { sendData, getData, deleteData, apiKey } from '../ajax';
+import { sendData, getData, apiKey } from '../ajax';
 const {
   SIGN_IN_REQUEST, SIGN_UP_REQUEST,
   CONFIRM_PIN, GET_USER_PROFILE,
@@ -12,15 +12,14 @@ const {
   signInSuccess, signInError,
   signUpSuccess, signUpError, pinError,
   setIsLoading, confirmPinSuccess,
-  signOut, resetPasswordSuccess,
+  resetPasswordSuccess,
   checkPinSuccess, checkPinFailure,
   resetPasswordFailure, checkPinRequest,
-  resetPasswordRequest, signInRequest,
-  signUpRequest, forgotPasswordSuccess,
+  resetPasswordRequest, forgotPasswordSuccess,
   forgotPasswordRequest, forgotPasswordFailure,
   getUserProfile: getUserProfileRequest
 } = authActions;
-const { startLoading, stopLoading, showNetworkError } = UIActions;
+const { startLoading, stopLoading } = UIActions;
 const networkErrorMessage = 'No internet connection detected';
 const authDBCalls = {
   signUp: async (data) => {
@@ -70,7 +69,6 @@ function* signUp({ payload: { data, redirect } }) {
     } else {
       errorMessage = networkErrorMessage
     }
-    console.log('error found', err);
     yield put(signUpError(errorMessage));
   }
 }
@@ -80,7 +78,7 @@ function* signIn({ payload: { data, redirect, redirectPath } }) {
     yield put(setIsLoading(true))
     const { access_token, user } = yield call(authDBCalls.signIn, data);
     yield put(signInSuccess(user, access_token));
-    yield redirect(redirectPath ? redirectPath : '/account')
+    redirect(redirectPath ? redirectPath : '/account')
   } catch (err) {
     const { status, title } = err;
     let errorMessage;
@@ -94,7 +92,6 @@ function* signIn({ payload: { data, redirect, redirectPath } }) {
     } else {
       errorMessage = networkErrorMessage
     }
-    console.log('error found', err);
     yield put(signInError(errorMessage))
   }
 }
@@ -103,11 +100,9 @@ function* confirmPin({ payload: { data, redirect } }){
   try {
     yield put(setIsLoading(true))
     const confirmed = yield call(authDBCalls.confirmPin, data);
-    console.log('returned pin response', confirmed)
     yield put(confirmPinSuccess())
     yield redirect('/auth/signin')
   } catch (err) {
-    console.log('error found', err);
     const { status, title } = err;
     const errorMessage = status
       ? title
@@ -120,39 +115,26 @@ function* getUserProfile({ payload: { token, redirect } }){
   try {
     yield put(startLoading())
     const profile = yield call(authDBCalls.getUserProfile, token);
-    console.log('returned getProfile response', profile)
     yield put(signInSuccess(profile, token))
-    yield put(stopLoading())
   } catch (err) {
-    console.log('error found', err);
-    const { status, title, message } = err;
+    const { status } = err;
     yield call(unAuthenticatedError, err)
-    // if(message) {
-    //   yield put(stopLoading());
-    //   yield put(signOut());
-    //   return
-    // }
-    if(!status || !message) {
-      console.log('error has no message')
+    if(!status) {
       yield call(networkError, getUserProfileRequest(token, redirect));
       return
     }
-    yield put(stopLoading())
-  }
+  } finally { yield put(stopLoading()) }
 }
 
 function* checkPin({ payload: { data, redirect } }){
   try {
     yield put(setIsLoading(true))
     const profile = yield call(authDBCalls.checkPin, data);
-    console.log('returned checkPin response', profile);
     yield put(checkPinSuccess(data.email, data.pin));
     redirect('/auth/reset-password')
   } catch (err) {
-    console.log('error found', err);
     const { status, title } = err;
     if(!status) {
-      console.log('error has no message')
       yield call(networkError, checkPinRequest(data, redirect));
       return
     }
@@ -164,14 +146,11 @@ function* resetPassword({ payload: { data, redirect } }){
   try {
     yield put(setIsLoading(true))
     const profile = yield call(authDBCalls.resetPassword, data);
-    console.log('returned getProfile response', profile)
     yield put(resetPasswordSuccess())
     redirect('/auth/signin')
   } catch (err) {
-    console.log('error found', err);
-    const { status, title, message } = err;
+    const { status, title } = err;
     if(!status) {
-      console.log('error has no message')
       yield call(networkError, resetPasswordRequest(data, redirect));
       return
     }
@@ -187,10 +166,8 @@ function* forgotPassword({ payload: { data, redirect }}) {
      redirect ('/auth/pin/verify')
   }
   catch (err) {
-    const { message, errors } = err;
-    console.log('error found', err)
+    const { message } = err;
     if(!message) {
-      console.log("error has no message")
       yield call(networkError, forgotPasswordRequest(data, redirect));
       return
     } else {

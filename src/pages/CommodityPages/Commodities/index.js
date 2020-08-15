@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SyncLoader from 'react-spinners/SyncLoader'
@@ -12,19 +12,18 @@ const Commodities = ({
 }) => {
   useEffect(() => {
     getCommoditiesRequest(pageNum, token)
-  }, [pageNum, token]);
+  }, [pageNum, token, getCommoditiesRequest]);
   const observer = useRef();
   const lastCommodity = useCallback(node => {
     if(isLoading) return;
     if(observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver(entries => {
       if(entries[0].isIntersecting && hasNextPage) {
-        console.log('is intereacting');
         incrementPageNum()
       }
     })
     if(node) observer.current.observe(node)
-  }, [isLoading, hasNextPage])
+  }, [isLoading, hasNextPage, incrementPageNum])
   if(firstFetch) return <SectionSpinner isLoading={firstFetch} />
   return (
     <div>

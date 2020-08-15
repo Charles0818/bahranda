@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 export const useFormInput = (initialValue = '') => {
   const [value, setValue] = useState(initialValue);
@@ -62,10 +62,8 @@ const validateInput = (name, key) => {
   const regex = {
     email: /^([a-zA-Z\d-\.\_]+)@([a-zA-Z\d-]+)\.([a-zA-Z]{2,8})(\.[a-zA-Z]{2,8})?$/,
     password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d][\w~@#$%^&*+=`|{}:;!.?\"()\[\]-]{7,}$/,
-    phone:/^[0-9\.\-\/\(\)\,\ \+]+$/,
+    phone:/^[0-9\-\(\)\ \+]+$/,
     date:/^(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i,
-    CC_date: /^(0?[1-9]|1[0-2])[/](\d{2})$/,
-    CC_holderName: /^([a-zA-Z]{3,}) ([a-zA-Z]{3,})$/,
     text: /^[a-zA-Z\ ]+$/,
     alphanumeric: /^[a-zA-Z0-9\,\ \.\_]+$/g,
     digits: /^\d+$/,
@@ -77,7 +75,6 @@ const validateInput = (name, key) => {
       isValid = validateWithRegex(key, regex.email)
       return isValid
     case inputNames.name:
-      console.log('this is for name field')
       isValid = validateWithRegex(key, regex.text)
       return isValid;
     case inputNames.subject:
@@ -133,10 +130,8 @@ const validateWithRegex = (value, regex) => {
 }
 
 const validateLength = (value, min, max) => {
-  console.log('answer', value.length >= min && value.length <= max)
   if(min && max) return value.length > 0 && value.length >= min && value.length <= max;
   if (max) return value.length > 0 && value.length <= max;
   if(min) return value.length > 0 && value.length >= min;
-    console.log('min', min, 'max', max);
   return value.length > 0
 }

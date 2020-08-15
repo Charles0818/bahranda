@@ -10,7 +10,7 @@ import { default as useSort, sorts, statuses } from '../Sort';
 const { useFormInput, QuantityInput } = Form;
 const { history: historySorts } = sorts;
 const { history: historyStatuses } = statuses;
-const { ScrollToBottom, FadeInLeft } = Animation;
+const { FadeInLeft } = Animation;
 const { walletActions: { getWalletHistoryRequest } } = actions;
 const { SectionSpinner } = Spinners;
 const { formatting: { formatCurrency, formatDate } } = utils;
@@ -23,7 +23,7 @@ const History = ({ getWalletHistoryRequest, token, loading, history, sortHistory
   const { value: max, handleUserInput: setMax } = useFormInput();
   useLayoutEffect(() => {
     if(history.length === 0) getWalletHistoryRequest(pageNum, token)
-  }, [token, pageNum, history.length]);
+  }, [token, pageNum, history.length, getWalletHistoryRequest]);
   useEffect(() => {
     if(sortValue && sortValue.value === historySorts.AMOUNT && min && max) {
       setSortResult(sortHistory(historySorts.AMOUNT, { min, max }))
@@ -31,8 +31,10 @@ const History = ({ getWalletHistoryRequest, token, loading, history, sortHistory
     if(sortValue && sortValue.value === historySorts.STATUS && statusValue.value) {
       setSortResult(sortHistory(historySorts.STATUS, {status: statusValue.value }));
     }
-    if(sortValue && sortValue.value === historySorts.MOST_RECENT) setSortResult(history)
-  }, [sortValue, statusValue, min, max])
+    if(sortValue && sortValue.value === historySorts.MOST_RECENT) {
+      setSortResult(sortHistory(historySorts.MOST_RECENT))
+    }
+  }, [sortValue, statusValue, min, max, sortHistory])
   if(loading) return <SectionSpinner isLoading={loading} />
   return (
       <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
@@ -74,10 +76,10 @@ const History = ({ getWalletHistoryRequest, token, loading, history, sortHistory
 }
 
 export const HistoryRow = memo(({history }) => {
-  const { amount, created_at, id, remark, status } = history
+  const { amount, created_at, remark, status } = history
   return (
     <div className="d-flex data-row slim-border-bottom padding-vertical-sm">
-      <span className="font-weight-500 font-style-normal font-sm margin-right-sm capitalize remark">{remark}</span>
+      <span className="font-weight-500 font-style-normal font-sm margin-right-sm remark">{remark}</span>
       <div className="d-flex justify-content-center">
         <span className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatDate(created_at)}</span>
       </div>

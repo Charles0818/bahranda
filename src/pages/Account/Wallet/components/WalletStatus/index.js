@@ -1,10 +1,10 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { utils, actions } from '../../../helpers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Animation, SectionTitle } from '../../../components';
 import RequestWithdrawal from '../RequestWithdrawal';
-const { formatting: { formatCurrency }, checkObjectProperties } = utils;
+const { formatting: { formatCurrency } } = utils;
 const { walletActions: { requestWithdrawalRequest } } = actions;
 const { FadeInLeft, FadeInRight } = Animation
 const WalletStatus = ({ wallet_balance, amount_withdrawn }) => {

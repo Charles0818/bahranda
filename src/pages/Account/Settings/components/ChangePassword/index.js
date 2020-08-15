@@ -4,11 +4,11 @@ import { actions } from '../../../helpers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 const { accountActions: { changePasswordRequest } } = actions;
-const { FormField, useFormInput, useSelectInput, PasswordField, SubmitButton} = Form;
+const { FormField, useFormInput, PasswordField, SubmitButton} = Form;
 const ChangePassword = ({ changePasswordRequest, token, loading, success, error }) => {
-  const { value: current_password, handleUserInput: setOldPass, isValid: oldPassIsValid, error: oldPassErr } = useFormInput();
+  const { value: current_password, handleUserInput: setOldPass, isValid: oldPassIsValid } = useFormInput();
   const { value: new_password, handleUserInput: setNewPass, isValid: newPassIsValid, error: newPassErr } = useFormInput();
-  const { value: new_password_confirmation, handleUserInput: setNewPass2, isValid: newPass2IsValid} = useFormInput();
+  const { value: new_password_confirmation, handleUserInput: setNewPass2 } = useFormInput();
   const validatePasswords = new_password !== new_password_confirmation ? 'Passwords do not match' : '';
   const validateAllFields = oldPassIsValid && newPassIsValid && new_password === new_password_confirmation
   return (

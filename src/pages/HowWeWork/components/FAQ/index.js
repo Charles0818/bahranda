@@ -9,49 +9,7 @@ const { ScrollToBottom } = Animation;
 const FAQ = ({ faqs, getFaqRequest, loading, hasFetchedFaq }) => {
   useEffect(() => {
     if(!hasFetchedFaq) getFaqRequest()
-  }, [hasFetchedFaq])
-  // const faqs = [
-  //   {
-  //     question: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-  //     answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  //     Nullam in tempus magna. Vestibulum et arcu mollis, elementum leo eget, 
-  //     porttitor elit. Curabitur nec lorem in justo posuere molestie a quis felis. 
-  //     Quisque porta vestibulum finibus. Nullam vitae lobortis elit. 
-  //     Nullam tristique sem sed felis imperdiet convallis. In volutpat augue in turpis 
-  //     vestibulum, sit amet rutrum nisi mollis. Nunc vestibulum fringilla tortor, 
-  //     eget fermentum urna vehicula eget.`
-  //   },
-  //   {
-  //     question: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-  //     answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  //     Nullam in tempus magna. Vestibulum et arcu mollis, elementum leo eget, 
-  //     porttitor elit. Curabitur nec lorem in justo posuere molestie a quis felis. 
-  //     Quisque porta vestibulum finibus. Nullam vitae lobortis elit. 
-  //     Nullam tristique sem sed felis imperdiet convallis. In volutpat augue in turpis 
-  //     vestibulum, sit amet rutrum nisi mollis. Nunc vestibulum fringilla tortor, 
-  //     eget fermentum urna vehicula eget.`
-  //   },
-  //   {
-  //     question: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-  //     answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  //     Nullam in tempus magna. Vestibulum et arcu mollis, elementum leo eget, 
-  //     porttitor elit. Curabitur nec lorem in justo posuere molestie a quis felis. 
-  //     Quisque porta vestibulum finibus. Nullam vitae lobortis elit. 
-  //     Nullam tristique sem sed felis imperdiet convallis. In volutpat augue in turpis 
-  //     vestibulum, sit amet rutrum nisi mollis. Nunc vestibulum fringilla tortor, 
-  //     eget fermentum urna vehicula eget.`
-  //   },
-  //   {
-  //     question: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
-  //     answer: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  //     Nullam in tempus magna. Vestibulum et arcu mollis, elementum leo eget, 
-  //     porttitor elit. Curabitur nec lorem in justo posuere molestie a quis felis. 
-  //     Quisque porta vestibulum finibus. Nullam vitae lobortis elit. 
-  //     Nullam tristique sem sed felis imperdiet convallis. In volutpat augue in turpis 
-  //     vestibulum, sit amet rutrum nisi mollis. Nunc vestibulum fringilla tortor, 
-  //     eget fermentum urna vehicula eget.`
-  //   }
-  // ]
+  }, [hasFetchedFaq, getFaqRequest])
   return (
     <section className="padding-horizontal-xlg margin-bottom-md faqs">
       <ScrollToBottom duration={.1}>

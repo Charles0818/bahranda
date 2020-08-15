@@ -40,7 +40,7 @@ const WhatWeDo = () => {
         <ScrollToTop duration={.1}  threshold={.1}>
           <div className="sub-div margin-bottom-md padding-vertical-md border-r-10 bg-white">
             <div className="d-flex justify-content-s-between column align-items-center padding-horizontal-md">
-              <img src={wesell} className="margin-left-md" alt="svg icon" className="margin-bottom-md" />
+              <img src={wesell} className="margin-left-md margin-bottom-md" alt="svg icon" />
               <h2 className="capitalize margin-bottom-md">we sell</h2>
               <p className="text-center">
                 Since Manufacturers cannot purchase all the necessary raw materials they need all the year

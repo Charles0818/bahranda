@@ -4,13 +4,13 @@ import { bindActionCreators } from 'redux';
 import { Form, PageWrapper, HttpStatusNotification } from '../components';
 import { actions } from '../../helpers';
 const { otherActions: { contactUsRequest } } = actions;
-const { FormField, useFormInput, SubmitButton, TextArea, useCheckbox, handleUserInput } = Form;
+const { FormField, useFormInput, SubmitButton, TextArea } = Form;
 
 const ContactUs = ({ loading, contactUsRequest, success, error }) => {
   const { value: name, handleUserInput: setName, setValue: resetName, error: fullNameErr, isValid: fullNameIsValid } = useFormInput();
   const { value: phone, handleUserInput: setPhone, setValue: resetPhone, isValid: phoneIsValid, error: phoneErr } = useFormInput();
   const { value: email, handleUserInput: setEmail, setValue: resetEmail, error: emailErr, isValid: emailIsValid } = useFormInput();
-  const { value: message, handleUserInput: setMessage, setValue: resetMessage, error: messageErr, isValid: messageIsValid } = useFormInput();
+  const { value: message, handleUserInput: setMessage, setValue: resetMessage, isValid: messageIsValid } = useFormInput();
   const validateAllFields = messageIsValid && emailIsValid && fullNameIsValid && phoneIsValid;
   useEffect(() => {
     if(success) {
@@ -19,7 +19,7 @@ const ContactUs = ({ loading, contactUsRequest, success, error }) => {
       resetMessage('')
       resetEmail('')
     }
-  }, [success])
+  })
   return (
     <PageWrapper>
       <div className="d-flex justify-content-center">        

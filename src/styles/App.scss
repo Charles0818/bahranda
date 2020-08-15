@@ -397,15 +397,19 @@ header {
     }
   }
   > section:not(.faqs) {
-   &.we-store, &.we-buy, &.we-sell { height: 500px; }
+   &.we-store, &.we-buy, &.we-sell {
+     height: 500px;
+     @include media-breakpoint-down(sm) {
+       height: auto;
+       &:not(.we-buy) {
+        > div { margin-bottom: 25%; }
+       }
+      }
+    }
     img {
       width: 50%;
       max-width: 282px;
       border: none;
-    }
-    @include media-breakpoint-down(sm) {
-      height: auto;
-      &.we-store > div, &.we-sell > div { margin-bottom: 25% }
     }
   }
   .become-a-dealer {
@@ -466,24 +470,26 @@ header {
 
 .network-error {
   height: 100vh;
-  max-width: 720px;
+  max-width: 1020px;
   .round {
     width: 250px;
     height: 250px;
   }
-  .retry-btn {
-    flex-basis: 50%;
+  ul li {
+    list-style-type: disc;
   }
 }
 
 .http-status {
   @extend .position-fixed;
   top: 12px;
-  left: 50%;
-  max-width: 600px;
-  transform: translateX(-50%);
-  @include media-breakpoint-down(sm) {
-    max-width: 90%;
+  left: 0%;
+  right: 0%;
+  .content {
+    max-width: 600px;
+    @include media-breakpoint-down(sm) {
+      max-width: 95%;
+    }
   }
 }
 
@@ -509,7 +515,12 @@ header {
 @include media-breakpoint-up(lg) {  }
 @include media-breakpoint-up(xl) {  }
 
-@include media-breakpoint-down(xs) {  }
+@include media-breakpoint-down(xs) { 
+  .network-error .round {
+    width: 180px;
+    height: 180px;
+  }
+ }
 @include media-breakpoint-down(sm) { 
   .padding-horizontal-xlg {
     @include padding-horizontal(20px);

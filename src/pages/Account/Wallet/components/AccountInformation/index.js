@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Form, HttpStatusNotification, Animation, SectionTitle } from '../../../components';
+import { Form, HttpStatusNotification, SectionTitle } from '../../../components';
 import { utils, actions } from '../../../helpers';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PinFields from '../PinField';
 const { useSelectInput, FormField, useFormInput, SubmitButton } = Form;
-const { ScrollToBottom, FadeInLeft } = Animation;
 const { bankNames } = utils;
 const { walletActions: { updateBankInfoRequest } } = actions;
 const AccountInformation = ({
@@ -14,12 +13,11 @@ const AccountInformation = ({
   const { value: bankName, SelectInput } = useSelectInput(bankInfo.bank_name);
   const { value: account_no, handleUserInput: setAccountNo, isValid: accountNoIsValid, error: accountNoErr } = useFormInput(bankInfo.account_no);
   const { value: account_name, handleUserInput: setAccountName, isValid: accountNameIsValid, error: accountNameErr } = useFormInput(bankInfo.account_name);
-  // const { value: pin, handleUserInput: setPin, isValid: pinIsValid, error: pinErr } = useFormInput();
   const [pin, setPin] = useState(['', '', '', ''])
   const validateAllFields = bankName && !pin.includes('') && accountNoIsValid && accountNameIsValid
   return (
-    <section className="account-information slim-border-2 padding-horizontal-md margin-bottom-md bg-white activity overflow-h">
-      <SectionTitle title="Bank Details" />
+    <section className="account-information slim-border-2 padding-horizontal-md margin-bottom-md bg-white activity">
+      <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom padding-vertical-sm margin-bottom-md">Bank Details</h2>
       <div className="d-flex justify-content-s-between">
         <SelectInput isSearchable={true} label="Bank name" placeholder="Select bank" options={[...bankNames]} className="flex-equal margin-right-sm" />
         <FormField value={account_no} name="account number" onChange={setAccountNo} placeholder="Account number" err={accountNoErr} isValid={accountNoIsValid} min={10} max={10} className="flex-equal margin-right-sm" />

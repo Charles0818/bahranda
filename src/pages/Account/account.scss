@@ -4,7 +4,7 @@
 .account {
   .sidebar {
     flex: .15;
-    height: 100vh;
+    height: 100%;
     position: fixed;
     left: 0;
     transition: transform .5s;
@@ -40,23 +40,23 @@
       .times { display: inline-block; }
     }
   };
-  .main {
+  .wrapper {
     flex: 1;
     flex-basis: 100%;
-    max-width: 1200px;
+    width: 100%;
     margin-left: 180px;
     @include media-breakpoint-only(md) { margin-left: 70px; }
     @include media-breakpoint-down(sm) { margin-left: 0; }
+    > .main {
+     width: 100%;
+     max-width: 1200px;
+      > * { width: 100% }
+    }
   };
 }
 // Horizontal-Navbar
 .greet {
   @include media-breakpoint-down(sm) { font-size: 1em; }
-}
-nav {
-  .shopping-cart {
-    margin-left: auto;
-  }
 }
 
 @include media-breakpoint-up(md) { 

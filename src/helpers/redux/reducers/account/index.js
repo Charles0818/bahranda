@@ -57,6 +57,7 @@ const accountReducer = (prevState = initialState(), { type, payload }) => {
       return { ...prevState, profile  };
     case UPDATE_PROFILE_FAILURE:
       prevState.loadingIndicators.updateProfile = false
+      prevState.errors.updateProfile = payload.error;
       return prevState;
     case CHANGE_PASSWORD_INDICATOR:
       return {...prevState, loadingIndicators: { ...prevState.loadingIndicators, changePassword: true }}
@@ -68,9 +69,6 @@ const accountReducer = (prevState = initialState(), { type, payload }) => {
       prevState.errors.changePassword = payload.error;
       prevState.loadingIndicators.changePassword = false
       return {...prevState}
-    case UPDATE_PROFILE_FAILURE:
-      prevState.errors.updateProfile = payload.error;
-      return prevState;
     default:
       return prevState;
   }

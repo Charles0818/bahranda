@@ -1,7 +1,7 @@
 import ProtectedRoute from './ProtectedRoute';
 import ErrorBoundary from './ErrorBoundary';
 import Header from './Header';
-import Footer from './Footer';
+import Footer, { AccountFooter } from './Footer';
 import Accordion from './Accordion';
 import * as Animation from './Animations';
 import Error404 from './Error404';
@@ -16,5 +16,5 @@ export {
   ProtectedRoute, Header, Footer, Cards,
   ErrorBoundary, Spinners, Form, Carousels,
   Accordion, Modal, Error404, NetworkError,
-  HttpStatusNotification, Animation
+  HttpStatusNotification, Animation, AccountFooter
 };

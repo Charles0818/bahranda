@@ -1,29 +1,30 @@
 import React, { Fragment, lazy, Suspense, useRef, useCallback } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Commodities from './Commodities';
-import CommodityDetails from './CommodityDetails';
 import { HorizontalNavbar, LeftSideBar } from '../Account/components';
-import { Footer } from '../components';
-// import '../Account/account.scss';
+import { AccountFooter, Spinners } from '../../components';
 import './product.scss';
+const CommodityDetails = lazy(() => import('./CommodityDetails'));
 const CommodityPages = ({ match: { path } }) => {
   const sidebarRef = useRef(null);
-  const toggleSidebar = useCallback(() => sidebarRef.current.classList.toggle('toggle'), [sidebarRef.current])
+  const toggleSidebar = useCallback(() => sidebarRef.current.classList.toggle('toggle'), [])
   return (
     <Fragment>
-      <section className="account ">
+      <section className="account d-flex">
         <LeftSideBar ref={sidebarRef} />
-        <div className="main padding-horizontal-xlg padding-vertical-lg">
+        <div className="wrapper d-flex column align-items-center padding-horizontal-xlg">
           <HorizontalNavbar toggleSidebar={toggleSidebar} />
-          <main className="">
-            <Switch>
-              <Route exact path={path} component={Commodities} />
-              <Route path={`${path}/:id`} component={CommodityDetails} />
-            </Switch>
+          <main className="main padding-bottom-lg">
+            <Suspense fallback={<Spinners.FullScreenSpinner isLoading={true} />}>
+              <Switch>
+                <Route exact path={path} component={Commodities} />
+                <Route path={`${path}/:id`} component={CommodityDetails} />
+              </Switch>
+            </Suspense>
           </main>
+          <AccountFooter />
         </div>
       </section>
-      {/* <Footer /> */}
     </Fragment>
   )
 }

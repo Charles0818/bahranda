@@ -26,7 +26,7 @@ function Accordion({ title, content }) {
           <MdKeyboardArrowDown className={"font-xlg"}/>
         </div>
       </button>
-      <div ref={contentRef} className="accordion-content bg-white overflow-h" style={{ maxHeight: `${setHeight}` }}>
+      <div ref={contentRef} className="accordion-content bg-white overflow-h" style={{ maxHeight: `${setHeight}`, width: '100%' }}>
         <div className="accordion__text">{content}</div>
       </div>
     </div>

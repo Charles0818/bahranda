@@ -1,8 +1,8 @@
-import React, { useEffect, useLayoutEffect, lazy, Suspense }from 'react';
+import React, { useLayoutEffect, lazy, Suspense }from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { History, Spinners } from '../components';
-import { Link, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { actions } from '../helpers';
 import { AccountInformation, WalletStatus, SetPin, WalletRequests as Requests } from './components';
 const { walletActions: { getWalletRequest } } = actions;
@@ -12,7 +12,7 @@ const WalletRequests = lazy(() => import('./WalletRequests'))
 const Wallet = ({ getWalletRequest, token, loading, walletExists, hasPin, match: { path } }) => {
   useLayoutEffect(() => {
     if(!walletExists) getWalletRequest(token)
-  }, [walletExists])
+  }, [walletExists, getWalletRequest, token])
   if(loading) return <SectionSpinner isLoading={loading} />
   return (
     <Suspense fallback={<Spinners.FullScreenSpinner isLoading={true} />}>

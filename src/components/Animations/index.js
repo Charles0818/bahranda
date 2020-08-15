@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect, useLayoutEffect, useState, memo } from 'react';
+import React, { memo } from 'react';
 import './animation.scss'
 import { Reveal, Tween } from 'react-gsap';
 

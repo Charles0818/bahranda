@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import { utils } from '../../../helpers';
-import { EmptyDataRender, Animation, Form, SectionTitle, sorts, statuses, useSort } from '../../../components';
-const { ScrollToBottom, FadeInLeft, FadeIn } = Animation;
+import { EmptyDataRender, SectionTitle, sorts, statuses, useSort } from '../../../components';
 const { activity: activitySorts } = sorts;
 const { activity: activityStatuses } = statuses;
 const { formatting: { formatDate } } = utils;
 
 const Activity = ({ activities, sortActivities }) => {
   const [sortResult, setSortResult] = useState(activities);
-  console.log('activities', activities)
   const { SortDropdown, value: sortValue } = useSort(activitySorts.MOST_RECENT);
   const { SortDropdown: StatusDropdown, value: statusValue } = useSort(activityStatuses.COMPLETED);
   useEffect(() => {
-    console.log('useEffect')
     if(sortValue && sortValue.value === activitySorts.STATUS && statusValue) {
       setSortResult(sortActivities(activitySorts.STATUS, {status: statusValue.value }));
     }
-    if(sortValue && sortValue.value === activitySorts.MOST_RECENT) setSortResult(activities)
-  }, [sortValue, statusValue])
+    if(sortValue && sortValue.value === activitySorts.MOST_RECENT) {
+      setSortResult(sortActivities(activitySorts.MOST_RECENT))
+    }
+  }, [sortValue, statusValue, sortActivities])
   return (
     <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
       <SectionTitle title="Activity" />

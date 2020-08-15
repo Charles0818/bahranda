@@ -10,15 +10,15 @@ const { formatting: { formatDate } } = utils;
 const PrivacyPolicy = ({ privacy, hasFetchedPrivacy, isLoading, getPrivacyRequest }) => {
   useLayoutEffect(() => {
     if(!hasFetchedPrivacy) getPrivacyRequest()
-  }, [hasFetchedPrivacy]);
+  }, [hasFetchedPrivacy, getPrivacyRequest]);
   if(isLoading) return <FullScreenSpinner isLoading={isLoading} />
-  const { privacy_text, created_at, updated_at } = privacy
+  const { privacy_text, updated_at } = privacy
   return (
     <main className="padding-horizontal-xlg padding-vertical-lg">
       <article className="page bg-white slim-border padding-md">
         <h1 className="font-xlg font-weight-bold margin-bottom-sm">Privacy Policy</h1>
         <div className="padding-bottom-md">
-          <span className="font-md">Last updated: {formatDate(created_at)}</span>
+          <span className="font-md">Last updated: {formatDate(updated_at)}</span>
         </div>
         <div className="content">
           {reactHtmlParser(privacy_text)}

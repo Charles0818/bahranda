@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { utils } from '../../../helpers';
 import { EmptyDataRender, Form, SectionTitle, statuses, sorts, useSort} from '../../../components';
 const { formatting: { formatDate } } = utils;
-const { useFormInput, QuantityInput, FormField } = Form;
+const { useFormInput, QuantityInput } = Form;
 const { deal: dealSorts } = sorts;
 const { deal: dealStatuses } = statuses;
 
@@ -25,13 +25,13 @@ const DealHistory = ({ deals, sortDeals }) => {
     if(sortValue && sortValue.value === dealSorts.STATUS && statusValue.value) {
       setSortResult(sortDeals(dealSorts.STATUS, { status: statusValue.value }))
     }
-    if(sortValue && sortValue.value == dealSorts.MOST_RECENT) {
+    if(sortValue && sortValue.value === dealSorts.MOST_RECENT) {
       setSortResult(sortDeals(dealSorts.MOST_RECENT))
     }
-    if(sortValue && sortValue.value == dealSorts.COMMODITY && commodity) {
+    if(sortValue && sortValue.value === dealSorts.COMMODITY && commodity) {
       setSortResult(sortDeals(dealSorts.COMMODITY, { commodity }))
     }
-  }, [sortValue, statusValue, min, duration, commodity])
+  }, [sortValue, statusValue, min, duration, commodity, sortDeals])
   return (
     <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
       <SectionTitle title="Deals" />
@@ -115,7 +115,6 @@ const mapStateToProps = state => {
         return deals.filter(deal => deal.status === status)
       case DURATION:
         const { duration } = payload;
-        console.log('duration', duration)
         return deals.filter(deal => deal.duration === `${duration} Months`);
       case COMMODITY:
         const { commodity } = payload;
