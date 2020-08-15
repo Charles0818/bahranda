@@ -10,11 +10,12 @@ const HowWeWork = () => {
             <h1 className="color-white font-xlg">How we work</h1>
           </div>
         </header>
-        <BecomeADealer />
-        <BahrandaModel />
         <WeBuy />
         <WeStore />
         <WeSell />
+        <BahrandaModel />
+        <BecomeADealer />
+
         <FAQ />
       </div>
     </PageWrapper>

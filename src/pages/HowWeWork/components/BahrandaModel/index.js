@@ -6,22 +6,23 @@ const BahrandaModel = () => {
   return (
 
     <div className="padding-horizontal-xlg padding-vertical-md bg-gray d-flex column align-items-center model margin-bottom-md">
-       <ScrollToBottom duration={.1}>
-         <h1 className="font-lg text-center margin-bottom-md">The Bahranda Model</h1>
-        </ScrollToBottom>
-       <img src={model} alt="bahranda" className="bahranda-triangle margin-bottom-md" />
-      <p className=" font-md text-content">Lorem ipsum dolor sit amet, 
-        consectetur adipiscing elit. Nullam 
-        in tempus magna. Vestibulum et arcu mollis, 
-        elementum leo eget, porttitor elit. Curabitur 
-        nec lorem in justo posuere molestie a quis felis. Quisque porta vestibulum
-         finibus. Nullam vitae lobortis elit. Nullam tristique 
-         sem sed felis imperdiet convallis. In volutpat augue 
-         in turpis vestibulum, sit amet rutrum nisi mollis. Nunc vestibulum fringilla 
-         tortor, eget fermentum urna vehicula eget. Duis pharetra ligula sit amet tincidunt
-          interdum. Vivamus non nisl tortor. Ut nec vehicula risus. Proin et augue sit amet
-           arcu blandit pulvinar. Vivamus blandit quam at imperdiet pharetra. Donec ut tempus lacus, 
-           et lacinia augue. Nam orci metus, porta suscipit blandit ac, mattis dignissim ipsum. Proin quis elementum lacus, non feugiat erat. Suspendisse potenti. Nulla convallis non nulla et pulvinar. Integer interdum euismod pulvinar. Nullam odio ligula, hendrerit a feugiat vitae, aliquam et massa. Nulla eget consequat velit, facilisis pulvinar magna. Donec venenatis magna eu sapien</p>
+      <ScrollToBottom duration={.1}>
+        <h1 className="font-lg text-center margin-bottom-md">The Bahranda Model</h1>
+      </ScrollToBottom>
+      <img src={model} alt="bahranda" className="bahranda-triangle margin-bottom-md" />
+      <div className="font-sm text-content">
+        <p className="margin-bottom-sm">We provide access to agricultural raw materials required by the Manufacturing sector by committing to Off-take agreements with Small Holder Farmer Groups, Mid-Size and Large Farms to purchase their aggregated harvests, thereby side-stepping the unpredictability of “Farming Risk”.  </p>
+        <p className="margin-bottom-sm">We also provide warehousing for Dealers in order to even out the demand driven nature and limited storage of Small to Mid-Sized Manufacturers so as to ensure raw materials are delivered when needed. </p>
+        <p className="margin-bottom-sm">We supply Manufacturers based on their demand and utilizing our existing Partner relationships to ensure seamless delivery and at Target prices. </p>
+        {/* <p className="margin-bottom-sm">
+        Bahranda’s approach to opportunity for our signed-On Dealers is hinged on;
+          Risk
+          Quality and
+          Value
+
+          Simply put; We Buy, Store and Sell Agricultural Raw Materials required by Manufacturers, putting trade at the center of the model, eliminating key demand/supply risks and improving transparency in the Purchase/Supply chain.
+        </p> */}
+      </div>
     </div>
   )
 }

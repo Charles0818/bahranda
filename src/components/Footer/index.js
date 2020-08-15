@@ -54,8 +54,8 @@ const Footer = () => {
           <div className="footer-link">
             <h4 className="color-white title">Get in touch</h4>
             <div className="d-flex column">
-              <span className="font-sm color-white">+234 60 345 67890</span>
-              <span className="font-sm color-white">enquiries@bahranda.com</span>
+              <span className="font-sm color-white">+234 706 245 3802</span>
+              <span className="font-sm color-white">clarify@bahranda.com</span>
               <span className="font-sm color-white"></span>
               <div className="d-flex align-items-center">
                 <div className="bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
