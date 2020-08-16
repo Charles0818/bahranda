@@ -9,9 +9,9 @@ const BecomeADealer  = () => {
   return (
     <section className="become-a-dealer padding-vertical-md padding-horizontal-xlg">
       <h2 className=" margin-bottom-sm text-center font-lg">How to become a dealer</h2>
-      <p className="margin-bottom-md font-weight-600 font-md text-center">
+      <p className="margin-bottom-md font-md text-center">
         Keeping it simple, straightforward and clear is the way of Bahranda. We&#39;d be glad to have you
-        partner with us in these few steps
+        partner with us in these few steps:
       </p>
       <div className="d-flex">
         <div className="step d-flex column flex-equal align-items-center margin-bottom-md margin-right-md">
