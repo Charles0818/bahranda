@@ -37,7 +37,7 @@ const SignUp = ({ signUp, loading, signUpError }) => {
         <form className="d-flex column fadeIn-animation" style={{width: '100%'}}>
           <div className="margin-bottom-md">
             <h1 className="font-weight-normal">Hello</h1>
-            <p className="font-weight-300">Pease fill in your details</p>
+            <p className="font-weight-300">Please fill in your details</p>
           </div>
           <div className="d-flex justify-content-s-between" style={{width: '100%'}}>
             <FormField name="name" value={first_name} onChange={setFirstName} placeholder="First name" err={firstNameErr} isValid={firstNameIsValid}  className="flex-equal margin-right-sm" />

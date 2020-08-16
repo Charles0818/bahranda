@@ -24,7 +24,7 @@ const Slide1 = () => {
   return (
     <div className="header-slide position-relative">
       <img src={banner1} alt="slide" />
-      <div className="d-flex column justify-content-center slide-content position-absolute-overlay">
+      <div className="d-flex column justify-content-center slide-content position-absolute-overlay bg-dark-opacity">
         <div className="padding-horizontal-sm">
           <p className="font-lg color-white font-weight-300 margin-bottom-sm">Bridging the gap between</p>
           <h2 className="color-white font-weight-500 margin-bottom-sm">The Agricultural and Manufacturing Sector</h2>
@@ -43,7 +43,7 @@ const Slide = ({ banner, text }) => {
   return (
     <div className="header-slide position-relative">
       <img src={banner} alt="slide" />
-      <div className="d-flex column justify-content-center slide-content position-absolute-overlay">
+      <div className="d-flex column justify-content-center slide-content position-absolute-overlay bg-dark-opacity">
         <div className="padding-horizontal-sm">
           <h2 className="color-white font-weight-500 margin-bottom-sm">{text}</h2>
           <FadeInLeft duration={.5} repeat={false}>
