@@ -16,7 +16,7 @@ const Profile = ({ profile, updateProfileRequest, token, loading, success, error
     <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white summary">
       <SectionTitle title="Profile" />
       <div className="d-flex">
-        <SelectInput label="Sex" options={['male', 'female']} className=" margin-right-sm name-title" />
+        <SelectInput label="Sex" options={['male', 'female']} className="margin-right-sm margin-bottom-sm name-title" />
         <FormField name="name" value={first_name} onChange={setFirstName} placeholder="First name" err={firstNameErr} isValid={firstNameIsValid}  className="flex-equal margin-right-sm" />
         <FormField name="name" value={last_name} onChange={setLastName} placeholder="Last name" err={lastNameErr} isValid={lastNameIsValid} className="flex-equal" />
       </div>

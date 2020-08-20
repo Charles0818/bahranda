@@ -19,7 +19,7 @@ const AccountInformation = ({
     <section className="account-information slim-border-2 padding-horizontal-md margin-bottom-md bg-white activity">
       <h2 className="font-weight-500 font-style-normal font-lg slim-border-bottom padding-vertical-sm margin-bottom-md">Bank Details</h2>
       <div className="d-flex justify-content-s-between">
-        <SelectInput isSearchable={true} label="Bank name" placeholder="Select bank" options={[...bankNames]} className="flex-equal margin-right-sm" />
+        <SelectInput isSearchable={true} label="Bank name" placeholder="Select bank" options={[...bankNames]} className="flex-equal margin-right-sm margin-bottom-sm" />
         <FormField value={account_no} name="account number" onChange={setAccountNo} placeholder="Account number" err={accountNoErr} isValid={accountNoIsValid} min={10} max={10} className="flex-equal margin-right-sm" />
         <FormField value={account_name} name="Account name" onChange={setAccountName} placeholder="Account name" err={accountNameErr} isValid={accountNameIsValid} className="flex-equal" />
       </div>
