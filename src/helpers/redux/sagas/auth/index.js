@@ -83,8 +83,7 @@ function* signIn({ payload: { data, redirect, redirectPath } }) {
     const { status, title } = err;
     let errorMessage;
     if(status) {
-      if(status === 400) errorMessage = title;
-      if(status === 422) errorMessage = 'Invalid email or password';
+      if((status === 400 && title) || status === 422) errorMessage = 'Invalid email or password';
       if(status === 401) {
         yield put(pinError(title))
         redirect('/auth/activate');
