@@ -57,27 +57,28 @@ const WalletHistory = ({getWalletHistoryRequest, sortHistory, token, loading, hi
           <StatusDropdown label="Status" options={Object.values(historyStatuses)} className="margin-right-sm" />
         )}
       </div>
-      <div className="d-flex headings slim-border-bottom padding-vertical-sm">
-        <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase remark">description</h3>
-        <div className="d-flex justify-content-center">
-          <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase">date</h3>
-        </div>
-        <div className="d-flex justify-content-center">
-          <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase">amount</h3>
-        </div>
-        <div className="d-flex justify-content-end">
-          <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase" >status</h3>
-        </div>
-      </div>
       {sortResult.length === 0 && !loading
         ? <EmptyDataRender message="You have no history record" />
-        : sortResult.map((el, index) => {
-        if(index + 1 === sortResult.length) {
-          return <div key={el.id} ref={lastHistory}><History.HistoryRow history={el} /></div>
-        } else {
-          return <History.HistoryRow key={el.id} history={el} />
-        }
-      })}
+        : <table className="margin-bottom-md">
+          <thead>
+            <tr className="slim-border-bottom padding-vertical-sm">
+              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">description</th>
+              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">date</th>
+              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">amount</th>
+              <th className="font-weight-500 font-style-normal font-sm margin-right-sm hide-sm">status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortResult.map((el, index) => {
+            if(index + 1 === sortResult.length) {
+              return <div key={el.id} ref={lastHistory}><History.HistoryRow history={el} /></div>
+            } else {
+              return <History.HistoryRow key={el.id} history={el} />
+            }
+          })}
+          </tbody>
+        </table>
+      }
       <div className="margin-bottom-sm d-flex justify-content-center">
         <SyncLoader size={15} color={"#069801"} loading={loading} />
       </div>

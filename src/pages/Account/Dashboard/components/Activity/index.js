@@ -34,7 +34,27 @@ const Activity = ({ activities, sortActivities }) => {
           />
         )}
       </div>
-      <div className="d-flex headings slim-border-bottom padding-vertical-sm">
+      <div style={{overflowX: 'auto'}}>
+      {sortResult.length === 0
+      ? <EmptyDataRender message="You do not have any activity" />
+      : <table className="margin-bottom-md">
+          <thead>
+            <tr className="slim-border-bottom">
+              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">REMARK</th>
+              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">DATE</th>
+              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortResult.length === 0
+              ? <EmptyDataRender message="You do not have any activity" />
+              : sortResult.map(activity => <ActivityRow activity={activity} key={activity.id} />)
+            }
+          </tbody>
+        </table>
+      }
+      </div>
+      {/* <div className="d-flex headings slim-border-bottom padding-vertical-sm">
         <h3 className="font-weight-500 font-style-normal font-sm margin-right-sm remark">REMARK</h3>
         <div className="d-flex justify-content-center">
           <h3 className="font-weight-500 font-style-normal font-sm margin-right-sm">DATE</h3>
@@ -46,7 +66,7 @@ const Activity = ({ activities, sortActivities }) => {
       {sortResult.length === 0
         ? <EmptyDataRender message="You do not have any activity" />
         : sortResult.map(activity => <ActivityRow activity={activity} key={activity.id} />)
-      }
+      } */}
     </section>
   )
 }
@@ -54,15 +74,22 @@ const Activity = ({ activities, sortActivities }) => {
 const ActivityRow = ({ activity }) => {
   const { created_at, remark, status } = activity;
   return (
-    <div className="d-flex data-row slim-border-bottom padding-vertical-sm">
-      <span className="font-weight-500 font-style-normal font-sm margin-right-sm remark">{remark}</span>
-      <div className="d-flex justify-content-center">
-        <span className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatDate(created_at)}</span>
-      </div>
-      <div className="d-flex justify-content-end">
-        <span className={`font-weight-500 font-style-normal font-sm margin-right-sm  ${status === 'completed' ? 'color1' : 'danger-text'}`}>{status}</span>
-      </div>
-    </div>
+    <tr className="padding-vertical-sm" >
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{remark}</td>
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatDate(created_at)}</td>
+      <td className={`font-weight-600 font-style-normal font-sm margin-right-sm capitalize`}>
+        <span className={`capitalize ${status === 'completed' ? 'color1' : 'danger-text'}`}>{status}</span>
+      </td>
+    </tr>
+    // <div className="d-flex data-row slim-border-bottom padding-vertical-sm">
+    //   <span className="font-weight-500 font-style-normal font-sm margin-right-sm remark">{remark}</span>
+    //   <div className="d-flex justify-content-center">
+    //     <span className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatDate(created_at)}</span>
+    //   </div>
+    //   <div className="d-flex justify-content-end">
+    //     <span className={`font-weight-500 font-style-normal font-sm margin-right-sm  ${status === 'completed' ? 'color1' : 'danger-text'}`}>{status}</span>
+    //   </div>
+    // </div>
   )
 }
 

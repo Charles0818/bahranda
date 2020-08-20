@@ -57,24 +57,24 @@ const DealHistory = ({ deals, sortDeals }) => {
         )}
       </div>
       <div style={{overflowX: 'auto'}}>
-        <table className="margin-bottom-md">
-          <thead>
-            <tr className="slim-border-bottom">
-              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">COMMODITY</th>
-              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">QTY</th>
-              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">DUR.</th>
-              <th className="font-weight-500 font-style-normal font-sm margin-right-sm hide-sm">START</th>
-              <th className="font-weight-500 font-style-normal font-sm margin-right-sm hide-sm">END</th>
-              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">STATUS</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortResult.length === 0
-              ? <EmptyDataRender message="You have no Deal" />
-              : sortResult.map(deal => <Deal deal={deal} key={deal.id} />
-            )}
-          </tbody>
-        </table>
+        {sortResult.length === 0
+        ? <EmptyDataRender message="You have no Deal" />
+        : <table className="margin-bottom-md">
+            <thead>
+              <tr className="slim-border-bottom">
+                <th className="font-weight-500 font-style-normal font-sm margin-right-sm">COMMODITY</th>
+                <th className="font-weight-500 font-style-normal font-sm margin-right-sm">QTY</th>
+                <th className="font-weight-500 font-style-normal font-sm margin-right-sm">DUR.</th>
+                <th className="font-weight-500 font-style-normal font-sm margin-right-sm hide-sm">START</th>
+                <th className="font-weight-500 font-style-normal font-sm margin-right-sm hide-sm">END</th>
+                <th className="font-weight-500 font-style-normal font-sm margin-right-sm">STATUS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortResult.map(deal => <Deal deal={deal} key={deal.id} />)}
+            </tbody>
+          </table>
+        }
       </div>
     </section>
   )

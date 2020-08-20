@@ -56,21 +56,24 @@ const History = ({ getWalletHistoryRequest, token, loading, history, sortHistory
             <StatusDropdown label="Status" options={Object.values(historyStatuses)} className="margin-right-sm" />
           )}
         </div>
-        <div className="d-flex headings slim-border-bottom padding-vertical-sm">
-          <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase remark">remark</h3>
-          <div className="d-flex justify-content-center">
-            <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase">date</h3>
-          </div>
-          <div className="d-flex justify-content-center">
-            <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase">amount</h3>
-          </div>
-          <div className="d-flex justify-content-end">
-            <h3 className="font-weight-500 font-style-normal font-md margin-right-sm uppercase" >status</h3>
-          </div>
+        <div style={{overflowX: 'auto'}}>
+          {sortResult.length === 0
+          ? <EmptyDataRender message="You have no history record" />
+          : <table className="margin-bottom-md">
+              <thead>
+                <tr className="slim-border-bottom">
+                  <th className="font-weight-500 font-style-normal font-sm margin-right-sm uppercase">remark</th>
+                  <th className="font-weight-500 font-style-normal font-sm margin-right-sm uppercase">date</th>
+                  <th className="font-weight-500 font-style-normal font-sm margin-right-sm uppercase">amount</th>
+                  <th className="font-weight-500 font-style-normal font-sm margin-right-sm uppercase">status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortResult.map((el) =>  <HistoryRow history={el} key={el.id} />)}
+              </tbody>
+            </table>
+          }
         </div>
-        {sortResult.length === 0
-        ? <EmptyDataRender message="You have no history record" />
-        : sortResult.map((el) =>  <HistoryRow history={el} key={el.id} />)}
       </section>
   )
 }
@@ -78,18 +81,14 @@ const History = ({ getWalletHistoryRequest, token, loading, history, sortHistory
 export const HistoryRow = memo(({history }) => {
   const { amount, created_at, remark, status } = history
   return (
-    <div className="d-flex data-row slim-border-bottom padding-vertical-sm">
-      <span className="font-weight-500 font-style-normal font-sm margin-right-sm remark">{remark}</span>
-      <div className="d-flex justify-content-center">
-        <span className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatDate(created_at)}</span>
-      </div>
-      <div className="d-flex justify-content-center">
-        <span className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatCurrency(amount)}</span>
-      </div>
-      <div className="d-flex justify-content-end">
-      <span className={`font-weight-500 font-style-normal capitalize font-sm margin-right-sm justify-self-end ${status !== 'debit' ? 'color1' : 'danger-text'}`}>{status}</span>
-      </div>
-    </div>
+    <tr className="padding-vertical-sm" >
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{remark}</td>
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatDate(created_at)}</td>
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatCurrency(amount)}</td>
+      <td className={`font-weight-600 font-style-normal font-sm margin-right-sm capitalize`}>
+        <span className={`capitalize ${status !== 'debit' ? 'color1' : 'danger-text'}`}>{status}</span>
+      </td>
+    </tr>
   )
 })
 
