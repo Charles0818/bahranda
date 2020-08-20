@@ -50,7 +50,7 @@ const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: 
     price_break_down: {
       commodity_cost, other_costs,
       state_tax, transportation,
-      warehouse
+      warehousing
     },
     profit, quantity,
     status, total_amount_invested,
@@ -60,6 +60,7 @@ const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: 
       warehouse_name, warehouse_image
     }
 } = deal;
+console.log('warehouse image', warehouse_image)
   return (
     <div className="single-deal slim-border-2 padding-horizontal-md bg-white">
       <section className="overflow-h">
@@ -112,7 +113,7 @@ const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: 
                 <span className="font-weight-500 color1 font-sm">{formatCurrency(transportation)}</span>
               </DataRow>
               <DataRow tag="Warehousing">
-                <span className="font-weight-500 color1 font-sm">{formatCurrency(warehouse)}</span>
+                <span className="font-weight-500 color1 font-sm">{formatCurrency(warehousing)}</span>
               </DataRow>
               <DataRow tag="Other Costs">
                 <span className="font-weight-500 color1 font-sm">{formatCurrency(other_costs)}</span>
