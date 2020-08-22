@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-
+import { Form } from '../../../components'
+const { inputNames: { walletPin } } = Form;
 const PinFields = ({ pinArray, setPinArray, label }) => {
   const firstTextInputRef = useRef(null);
   const secondTextInputRef = useRef(null);
@@ -60,12 +61,12 @@ const PinFields = ({ pinArray, setPinArray, label }) => {
               onKeyPress={onOtpKeyPress(index)}
               onChange={onOtpChange(index)}
               type="numeric"
+              name={walletPin}
               maxLength={1}
               autoFocus={index === 0 ? true : undefined}
               ref={refCallback(textInputRef)}
               key={index}
               placeholder={0}
-              // style={[otpStyles.field, styles.bg_gray, styles.text_center, styles.border_r_5, styles.marginRight_sm]}
             />
           </div>
         ))}

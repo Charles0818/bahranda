@@ -4,11 +4,12 @@ import {
   RadioButton, useRadioInputs, CurrencyInput,
   QuantityInput
 } from './inputfield';
-import { useFileInput, useFormInput } from './validation';
+import { useFileInput, useFormInput, inputNames } from './validation';
 
 export {
   useFileInput, useFormInput, FormField,
   PasswordField, useCheckbox, useSelectInput,
   SubmitButton, TextArea, RadioButton,
-  useRadioInputs, CurrencyInput, QuantityInput
+  useRadioInputs, CurrencyInput, QuantityInput,
+  inputNames
 };
