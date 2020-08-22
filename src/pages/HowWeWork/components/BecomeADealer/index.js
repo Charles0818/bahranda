@@ -1,11 +1,6 @@
 import React from 'react';
-import event from '../../assets/event.png';
-import purchase from '../../assets/purchase.svg'
-import register from '../../assets/register.svg'
-import sell from '../../assets/sell.svg'
 
-
-const BecomeADealer  = () => {
+const BecomeADealer = () => {
   return (
     <section className="become-a-dealer padding-vertical-md padding-horizontal-xlg">
       <h2 className=" margin-bottom-sm text-center font-lg">How to become a dealer</h2>
@@ -15,7 +10,7 @@ const BecomeADealer  = () => {
       </p>
       <div className="d-flex">
         <div className="step d-flex column flex-equal align-items-center margin-bottom-md margin-right-md">
-          <img src={register} alt="register" className="margin-right-md margin-bottom-md" />
+          <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105481/Bahranda%20Assets/register_p6ixad.svg"} alt="register" className="margin-right-md margin-bottom-md" />
           <article className="margin-bottom-md">
             <p className="text-content font-md">
               <span className="font-weight-bold">Register and create a dealership account </span> 
@@ -25,7 +20,7 @@ const BecomeADealer  = () => {
           </article>
         </div>
         <div className="step d-flex column flex-equal align-items-center margin-bottom-md margin-right-md">
-          <img src={purchase} alt="purchase" className="margin-right-md margin-bottom-md" />
+          <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105473/Bahranda%20Assets/purchase_y3utrb.svg"} alt="purchase" className="margin-right-md margin-bottom-md" />
           <article className="margin-right-md margin-bottom-md">
             <p className="text-content font-md"> <span className="font-weight-bold">
             Purchase commodity (in bags) </span> with as little as #60,000 and it gets warehoused by a
@@ -34,7 +29,7 @@ const BecomeADealer  = () => {
           </article>
         </div>
         <div className="step d-flex column flex-equal align-items-center margin-bottom-md">
-          <img src={sell} alt="sell" className="margin-right-md margin-bottom-md" />
+          <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105471/Bahranda%20Assets/sell_kpqrza.svg"} alt="sell" className="margin-right-md margin-bottom-md" />
           <article className="margin-top-sm">
             <p className="text-content font-md">
              <span className="font-weight-bold">Sell and make profit </span> once that target market price is reached.

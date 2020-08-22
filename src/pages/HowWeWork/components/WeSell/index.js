@@ -1,6 +1,4 @@
 import React from 'react';
-import soyabean from '../../assets/soyabean.png'
-import rice from '../../assets/rice.png';
 import { Animation } from '../../../components';
 const { ScrollToBottom } = Animation;
 const WeSell = () => {
@@ -20,8 +18,8 @@ const WeSell = () => {
         </p>
       </article>
       <div className="flex-equal">
-        <img src={rice} alt="farmers" />
-        <img src={soyabean} alt="farmers" />
+        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105475/Bahranda%20Assets/rice_ottvpy.png"} alt="farmers" />
+        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105473/Bahranda%20Assets/soyabean_sctgl8.png"} alt="farmers" />
       </div>
     </section>
   )

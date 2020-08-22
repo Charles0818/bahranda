@@ -6,7 +6,6 @@ import { FaTwitter, FaFacebookF, FaInstagram } from 'react-icons/fa';
 import { actions } from '../../helpers';
 import { useFormInput, SubmitButton } from '../Form';
 import HttpStatusNotification from '../HttpStatus';
-import deliveryTruck from '../../assets/delivery-truck.png';
 import logo from '../../assets/baranda.png';
 const { otherActions: { newsletterRequest } } = actions;
 const Footer = () => {
@@ -17,7 +16,7 @@ const Footer = () => {
           <h3 className="color-white font-xlg margin-bottom-md">Become a Dealer</h3>
           <Link to="/auth/register" className="btn bg-white font-weight-600 color1 font-sm">Get started</Link>
         </div>
-        <img className="truck" src={deliveryTruck} alt="Bahranda van" />
+        <img className="truck" src={"https://res.cloudinary.com/bahranda/image/upload/v1598104890/Bahranda%20Assets/delivery-truck_qh04j3.png"} alt="Bahranda van" />
       </section>
       <footer className="padding-horizontal-xlg padding-vertical-lg bg-dark">
         <div className="d-flex justify-content-s-between">

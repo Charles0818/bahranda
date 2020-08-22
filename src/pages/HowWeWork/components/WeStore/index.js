@@ -1,14 +1,12 @@
 import React from 'react';
-import store from '../../assets/store.png';
-import storeworkers from '../../assets/storeworkers.png';
 import { Animation } from '../../../components';
 const { ScrollToBottom } = Animation;
 const WeStore = () => {
   return (
     <section className="we-store d-flex padding-vertical-md padding-horizontal-xlg">
       <div className="flex-equal margin-right-md">
-        <img src={storeworkers} alt="farmers" />
-        <img src={store} alt="farmers"/>
+        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105472/Bahranda%20Assets/storeworkers_fc3nym.png"} alt="farmers" />
+        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105471/Bahranda%20Assets/store_hyp3dg.png"} alt="farmers"/>
       </div>
       <article className="flex-equal">
         <ScrollToBottom duration={.1}>

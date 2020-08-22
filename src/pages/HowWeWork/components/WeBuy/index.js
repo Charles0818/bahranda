@@ -1,6 +1,4 @@
 import React from 'react';
-import mansquat from "../../assets/mansquat.png";
-import lady from "../../assets/lady.png";
 import { Animation } from '../../../components';
 const { ScrollToBottom } = Animation;
 const WeBuy = () => {
@@ -17,8 +15,8 @@ const WeBuy = () => {
         </p>
       </article>
       <div className="flex-equal">
-        <img src={mansquat} alt="farmers" />
-        <img src={lady} alt="farmers" />
+        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105476/Bahranda%20Assets/mansquat_yfmzuf.png"} alt="farmers" />
+        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105486/Bahranda%20Assets/lady_invyfb.png"} alt="farmers" />
       </div>
     </section>
   )
