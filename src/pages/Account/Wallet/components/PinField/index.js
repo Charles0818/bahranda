@@ -55,12 +55,12 @@ const PinFields = ({ pinArray, setPinArray, label }) => {
         ].map((textInputRef, index) => (
           <div className="pin-field margin-right-sm" key={index}>
             <input
-            style={{width: '100%'}}
+              style={{width: '100%'}}
               className="text-center border-r-5 slim-border padding-vertical-xsm"
               value={pinArray[index]}
               onKeyPress={onOtpKeyPress(index)}
               onChange={onOtpChange(index)}
-              type="numeric"
+              type="number"
               name={walletPin}
               maxLength={1}
               autoFocus={index === 0 ? true : undefined}
