@@ -21,9 +21,9 @@ const ProtectedRoute = memo(({
         <Comp {...props} token={token} />
         ) :  (
         <Redirect to={{
-          pathname: `${redirectPath}/?redir=${location.pathname}`,
+          pathname: redirectPath,
           state: {
-            prevLocation: path,
+            prevLocation: location.pathname,
             error: "UnAuthorized Access!",
           }
         }}
