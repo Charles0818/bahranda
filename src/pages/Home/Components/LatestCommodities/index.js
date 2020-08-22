@@ -8,6 +8,7 @@ const { PortraitCommodityCard } = Cards;
 const { SectionSpinner } = Spinners;
 const { PaddedCarousel } = Carousels;
 const LatestCommodities = ({ loading, getLatestCommoditiesRequest, latestCommodities }) => {
+  console.log('latestCommodities', latestCommodities)
   useEffect(() => {
     if(latestCommodities.length === 0) getLatestCommoditiesRequest()
   }, [latestCommodities.length, getLatestCommoditiesRequest]);

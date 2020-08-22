@@ -12,7 +12,7 @@ const Home = ({ token }) => {
         <HeaderSlides />
         <WhatWeDo />
         <WhoWeAre />
-        {/* <LatestCommodities /> */}
+        <LatestCommodities />
         <TeamSlider />
       </main>
     </PageWrapper>

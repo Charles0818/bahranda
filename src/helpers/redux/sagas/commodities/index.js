@@ -39,7 +39,7 @@ const commodityDBCalls = {
     return commodity;
   },
   getLatestCommodities: async () => {
-    const commodities = await getData(`${apiKey}/user/commodities/show`);
+    const commodities = await getData(`${apiKey}/front/commodities`);
     return commodities;
   }
 }
@@ -121,7 +121,7 @@ function* getSingleCommodity ({ payload: { token, setDetails, id } }) {
 function* getLatestCommodities () {
   try {
     yield put({ type: GET_LATEST_COMMODITIES_INDICATOR })
-    const commodities = yield call(commodityDBCalls.getLatestCommodities);
+    const { commodities } = yield call(commodityDBCalls.getLatestCommodities);
     yield put(getLatestCommoditiesSuccess(commodities))
   } catch (err) {
     const { status, title } = err;
