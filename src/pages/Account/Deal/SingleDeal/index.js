@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spinners, SectionTitle, NotFound } from '../../components'
 import { actions, utils } from '../../helpers';
-import image from '../../../../assets/rice.png';
 import { DataRow } from '../../../CommodityPages/components/FillInvestment';
 const { dealActions: { getSingleDealRequest, getSingleDealIndicator } } = actions;
 const { formatting: { formatCurrency, formatDate } } = utils;
@@ -29,6 +28,7 @@ const dealProp = {
 }
 const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: { params } }) => {
   const [deal, setDeal] = useState(dealProp);
+  console.log('deal', deal)
   useLayoutEffect(() => {
     setLoading()
   }, [setLoading])
@@ -44,7 +44,7 @@ const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: 
     />
   )
   const {
-    commodity: { commodity_name },
+    commodity: { commodity_name, commodity_image },
     deal_end_date, deal_start_date,
     duration, expected_return,
     price_break_down: {
@@ -71,7 +71,7 @@ console.log('warehouse image', warehouse_image)
         </div>
         <div className="d-flex margin-bottom-sm padding-bottom-sm slim-border-bottom">
           <div className="thumbnail margin-right-md">
-            <img src={image} alt='Commodity thumbnail' />
+            <img src={commodity_image} alt='Commodity thumbnail' />
           </div>
           <div className="d-flex column flex-equal">
             <DataRow tag="Start Date">
