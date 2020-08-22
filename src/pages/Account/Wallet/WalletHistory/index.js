@@ -10,7 +10,8 @@ const { history: historySorts } = sorts;
 const { history: historyStatuses } = statuses;
 const { walletActions: { getWalletHistoryRequest, incrementWalletHistoryPageNum } } = actions;
 const WalletHistory = ({getWalletHistoryRequest, sortHistory, token, loading, history, hasNextPage, pageNum, incrementPageNum }) => {
-  const [sortResult, setSortResult] = useState(History);
+  const [sortResult, setSortResult] = useState(history);
+  console.log('sortResult', sortResult)
   const { SortDropdown, value: sortValue } = useSort(historySorts.MOST_RECENT);
   const { SortDropdown: StatusDropdown, value: statusValue } = useSort(historyStatuses.COMPLETED);
   const { value: min, handleUserInput: setMin } = useFormInput();
@@ -39,7 +40,7 @@ const WalletHistory = ({getWalletHistoryRequest, sortHistory, token, loading, hi
     if(sortValue && sortValue.value === historySorts.MOST_RECENT) {
       setSortResult(sortHistory(historySorts.MOST_RECENT))
     }
-  }, [sortValue, statusValue, sortHistory, min, max])
+  }, [sortValue, statusValue, sortHistory, min, max]);
   return (
     <section className="overflow-h slim-border-2 padding-horizontal-md bg-white activity">
       <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm margin-bottom-md">
@@ -57,28 +58,30 @@ const WalletHistory = ({getWalletHistoryRequest, sortHistory, token, loading, hi
           <StatusDropdown label="Status" options={Object.values(historyStatuses)} className="margin-right-sm" />
         )}
       </div>
-      {sortResult.length === 0 && !loading
+      <div style={{overflowX: 'auto'}}>
+        {sortResult.length === 0 && !loading
         ? <EmptyDataRender message="You have no history record" />
         : <table className="margin-bottom-md">
-          <thead>
-            <tr className="slim-border-bottom padding-vertical-sm">
-              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">description</th>
-              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">date</th>
-              <th className="font-weight-500 font-style-normal font-sm margin-right-sm">amount</th>
-              <th className="font-weight-500 font-style-normal font-sm margin-right-sm hide-sm">status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortResult.map((el, index) => {
-            if(index + 1 === sortResult.length) {
-              return <div key={el.id} ref={lastHistory}><History.HistoryRow history={el} /></div>
-            } else {
-              return <History.HistoryRow key={el.id} history={el} />
-            }
-          })}
-          </tbody>
-        </table>
-      }
+            <thead>
+              <tr className="slim-border-bottom padding-vertical-sm">
+                <th className="font-weight-500 font-style-normal font-sm margin-right-sm uppercase">description</th>
+                <th className="font-weight-500 font-style-normal font-sm margin-right-sm uppercase">date</th>
+                <th className="font-weight-500 font-style-normal font-sm margin-right-sm uppercase">amount</th>
+                <th className="font-weight-500 font-style-normal font-sm margin-right-sm uppercase">status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortResult.map((el, index) => {
+              if(index + 1 === sortResult.length) {
+                return <History.LastHistoryRow ref={lastHistory} history={el} />
+              } else {
+                return <History.HistoryRow key={el.id} history={el} />
+              }
+            })}
+            </tbody>
+          </table>
+        }
+      </div>
       <div className="margin-bottom-sm d-flex justify-content-center">
         <SyncLoader size={15} color={"#069801"} loading={loading} />
       </div>

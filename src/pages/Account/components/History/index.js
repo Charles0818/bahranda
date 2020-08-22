@@ -1,4 +1,4 @@
-import React, { memo, useLayoutEffect, useEffect, useState } from 'react';
+import React, { memo, useLayoutEffect, useEffect, useState, forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -82,6 +82,20 @@ export const HistoryRow = memo(({history }) => {
   const { amount, created_at, remark, status } = history
   return (
     <tr className="padding-vertical-sm" >
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{remark}</td>
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatDate(created_at)}</td>
+      <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatCurrency(amount)}</td>
+      <td className={`font-weight-600 font-style-normal font-sm margin-right-sm capitalize`}>
+        <span className={`capitalize ${status !== 'debit' ? 'color1' : 'danger-text'}`}>{status}</span>
+      </td>
+    </tr>
+  )
+})
+
+export const LastHistoryRow = forwardRef(({history }, ref) => {
+  const { amount, created_at, remark, status } = history
+  return (
+    <tr ref={ref} className="padding-vertical-sm" >
       <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{remark}</td>
       <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatDate(created_at)}</td>
       <td className="font-weight-500 font-style-normal font-sm margin-right-sm">{formatCurrency(amount)}</td>
