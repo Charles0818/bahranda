@@ -11,7 +11,6 @@ const { history: historyStatuses } = statuses;
 const { walletActions: { getWalletHistoryRequest, incrementWalletHistoryPageNum } } = actions;
 const WalletHistory = ({getWalletHistoryRequest, sortHistory, token, loading, history, hasNextPage, pageNum, incrementPageNum }) => {
   const [sortResult, setSortResult] = useState(history);
-  console.log('sortResult', sortResult)
   const { SortDropdown, value: sortValue } = useSort(historySorts.MOST_RECENT);
   const { SortDropdown: StatusDropdown, value: statusValue } = useSort(historyStatuses.COMPLETED);
   const { value: min, handleUserInput: setMin } = useFormInput();

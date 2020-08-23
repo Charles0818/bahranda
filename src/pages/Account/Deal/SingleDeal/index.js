@@ -28,7 +28,6 @@ const dealProp = {
 }
 const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: { params } }) => {
   const [deal, setDeal] = useState(dealProp);
-  console.log('deal', deal)
   useLayoutEffect(() => {
     setLoading()
   }, [setLoading])
@@ -60,7 +59,6 @@ const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: 
       warehouse_name, warehouse_image
     }
 } = deal;
-console.log('warehouse image', warehouse_image)
   return (
     <div className="single-deal slim-border-2 padding-horizontal-md bg-white">
       <section className="overflow-h">
