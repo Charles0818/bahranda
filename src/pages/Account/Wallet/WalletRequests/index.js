@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import SyncLoader from 'react-spinners/SyncLoader'
 import { Request, RequestTableHead, LastWalletRequest } from '../components/WalletRequests';
 import { actions } from '../../helpers';
-import { Form, sorts, statuses, useSort } from '../../components'
+import { Form, sorts, statuses, useSort, EmptyDataRender } from '../../components'
 const { walletActions: { getWalletRequests, incrementWalletRequestsPageNum } } = actions;
 const { useFormInput, QuantityInput } = Form;
 const { walletRequest: walletRequestSorts } = sorts;
@@ -45,31 +45,36 @@ const WalletRequests = ({
   }, [sortValue, statusValue, min, max, sortWalletRequests])
   return (
     <section className="overflow-h slim-border-2 padding-horizontal-md bg-white margin-bottom-md">
-      <h2 className="slim-border-bottom padding-vertical-sm margin-bottom-md font-weight-500 font-style-normal font-lg">Wallet Requests</h2>
-        <div className="sort margin-bottom-md d-flex justify-content-end">
-          <SortDropdown options={Object.values(walletRequestSorts)} className="margin-right-sm" />
-          {sortValue && sortValue.value === walletRequestSorts.AMOUNT && (
-          <div className="d-flex" style={{maxWidth: '200px'}}>
-            <QuantityInput value={min} onChange={setMin} autoFocus={true} name="amount" className="flex-equal margin-right-sm" placeholder="Min" />
-            <QuantityInput value={max} onChange={setMax} name="amount" className="flex-equal" placeholder="Max" />
-          </div>
-          )}
-          {sortValue && sortValue.value === walletRequestSorts.STATUS && (
-            <StatusDropdown label="Status" options={Object.values(walletRequestStatuses)} className="margin-right-sm" />
-          )}
+    <h2 className="slim-border-bottom padding-vertical-sm margin-bottom-md font-weight-500 font-style-normal font-lg">Wallet Requests</h2>
+      <div className="sort margin-bottom-md d-flex justify-content-end">
+        <SortDropdown options={Object.values(walletRequestSorts)} className="margin-right-sm" />
+        {sortValue && sortValue.value === walletRequestSorts.AMOUNT && (
+        <div className="d-flex" style={{maxWidth: '200px'}}>
+          <QuantityInput value={min} onChange={setMin} autoFocus={true} name="amount" className="flex-equal margin-right-sm" placeholder="Min" />
+          <QuantityInput value={max} onChange={setMax} name="amount" className="flex-equal" placeholder="Max" />
         </div>
-      <table className="margin-bottom-sm">
-        <RequestTableHead />
-        <tbody>
-          {sortResult.map((request, index) => {
-            if(index + 1 === walletRequests.length) {
-              return <LastWalletRequest key={request.id} ref={lastWalletRequest} request={request} />
-            } else {
-              return <Request request={request} key={request.id} />
-            }
-          })}
-        </tbody>
-      </table>
+        )}
+        {sortValue && sortValue.value === walletRequestSorts.STATUS && (
+          <StatusDropdown label="Status" options={Object.values(walletRequestStatuses)} className="margin-right-sm" />
+        )}
+      </div>
+      <div style={{overflowX: 'auto'}}>
+        {sortResult.length === 0 
+        ? <EmptyDataRender message="You have no current Wallet Request" />
+        : <table className="margin-bottom-sm">
+            <RequestTableHead />
+            <tbody>
+              {sortResult.map((request, index) => {
+                if(index + 1 === walletRequests.length) {
+                  return <LastWalletRequest key={request.id} ref={lastWalletRequest} request={request} />
+                } else {
+                  return <Request request={request} key={request.id} />
+                }
+              })}
+            </tbody>
+          </table>
+        }
+      </div>
       <div className="margin-bottom-sm d-flex justify-content-center">
         <SyncLoader size={15} color={"#069801"} loading={loading} />
       </div>
