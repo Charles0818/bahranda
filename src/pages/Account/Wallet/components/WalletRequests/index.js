@@ -53,15 +53,17 @@ const WalletRequests = ({ walletRequests, sortWalletRequests, getWalletRequests,
           <StatusDropdown label="Status" options={Object.values(walletRequestStatuses)} className="margin-right-sm" />
         )}
       </div>
-      {sortResult.length === 0 
-      ? <EmptyDataRender message="You have no current Wallet Request" />
-      : <table>
-          <RequestTableHead />
-          <tbody>
-            {sortResult.map((el) => <Request request={el} key={el.id} />)}
-          </tbody>
-        </table>
-      }
+      <div style={{overflowX: 'auto'}}>
+        {sortResult.length === 0 
+        ? <EmptyDataRender message="You have no current Wallet Request" />
+        : <table>
+            <RequestTableHead />
+            <tbody>
+              {sortResult.map((el) => <Request request={el} key={el.id} />)}
+            </tbody>
+          </table>
+        }
+      </div>
     </section>
   )
 }

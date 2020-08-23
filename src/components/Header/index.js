@@ -20,9 +20,9 @@ const Header = () => {
           </div>
         </div>
         <div className="d-flex align-items-center">
-          <a target="_blank" className="margin-right-md font-md" href="https://twitter.com/Bahranda1"><FaTwitter className="color-white"/></a> 
-          <a target="_blank" className="margin-right-md font-md" href="https://www.instagram.com/bahranda1"><FaInstagram  className="color-white" /></a>
-          <a target="_blank" className="margin-right-md font-md" href="https://facebook.com/Bahranda-101958331628679"><FaFacebookF className="color-white" /></a>
+          <a target="_blank" rel="noopener noreferrer" className="margin-right-md font-md" href="https://twitter.com/Bahranda1"><FaTwitter className="color-white"/></a> 
+          <a target="_blank" rel="noopener noreferrer" className="margin-right-md font-md" href="https://www.instagram.com/bahranda1"><FaInstagram  className="color-white" /></a>
+          <a target="_blank" rel="noopener noreferrer" className="margin-right-md font-md" href="https://facebook.com/Bahranda-101958331628679"><FaFacebookF className="color-white" /></a>
         </div>
       </div>
       <NavBar />

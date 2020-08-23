@@ -94,7 +94,7 @@ const Deal = ({ deal }) => {
       <td className="font-weight-500 font-style-normal font-sm margin-right-sm hide-sm">{formatDate(deal_end_date)}</td>
       <td className={`font-weight-600 font-style-normal font-sm margin-right-sm capitalize`}>
         <div className={`padding-xsm border-r-10 ${status === 'on-going' ? 'bg-color1-opacity' : 'bg-danger-opacity'}`}>
-          <span className={`capitalize ${status === 'on-going' ? 'color1' : 'danger-text'}`}>{status}</span>
+          <span className={`capitalize font-sm ${status === 'on-going' ? 'color1' : 'danger-text'}`}>{status}</span>
         </div>
       </td>
     </tr>
