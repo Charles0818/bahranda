@@ -9,7 +9,8 @@ const { useCenterModal } = Modal;
 const { commodityActions: { purchaseCommodityRequest, purchaseCommodityFailure } } = actions;
 const { SubmitButton } = Form;
 
-const PaystackPayment = ({ token, purchase, amount, email, success, firstname, lastname, loading, commodityDetails }) => {
+const PaystackPayment = ({ isValid, token, purchase, amount, email, success, firstname, lastname, loading, commodityDetails }) => {
+  const { qty: quantity, id: commodity_id } = commodityDetails
   const { openModal, CenterModal } = useCenterModal()
   const config = {
     reference: (new Date()).getTime(),
@@ -24,10 +25,9 @@ const PaystackPayment = ({ token, purchase, amount, email, success, firstname, l
   });
   const onSuccess = useCallback(res => {
     const { reference: transaction_ref } = res;
-    const { qty: quantity, id: commodity_id } = commodityDetails
     purchase({ transaction_ref, quantity, commodity_id }, token)
   }, [commodityDetails, purchase, token]);
-  const onClose = useCallback(res => {
+  const onClose = useCallback(() => {
   }, []);
   useEffect(() => {
     if(success) openModal()
@@ -35,7 +35,7 @@ const PaystackPayment = ({ token, purchase, amount, email, success, firstname, l
   return (
     <Fragment>
       <SubmitButton
-        disabled={loading}
+        disabled={loading || !isValid}
         isLoading={loading}
         action={() => initializePayment(onSuccess, onClose)}
         text="Purchase"

@@ -6,8 +6,11 @@ export const useFormInput = (initialValue = '') => {
   const [isValid, setIsValid] = useState(value && value.length > 0 ? true : false)
   const handleUserInput = (min, max) => event => {
     const { target: { name, value } } = event;
-    if(max && value.length > max) return
     const isValid = validateInput(name, value);
+    if(name.toLowerCase() === inputNames.quantity) {
+      if(value !== '' && (max && value > max )) return;
+    }
+    if(max && value.length > max) return
     if(name.toLowerCase() === inputNames.password || name.toLowerCase() === inputNames.email) {
       setValue(value);
       setIsValid(isValid);

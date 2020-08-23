@@ -10,10 +10,10 @@ const FillInvestment = ({ details, id }) => {
     price_break_down, price,
     duration, commodity_name,
     profit_percentage, quantity_left_for_deal,
-    unit
+    unit, user_quantity
   } = details;
   const { SelectInput } = useSelectInput(duration)
-  const { value: qty, handleUserInput: setQty } = useFormInput(1);
+  const { value: qty, handleUserInput: setQty } = useFormInput(user_quantity);
   const [priceBreakdown, setPriceBreakdown] = useState(price_break_down);
   const calculateDealCost = useCallback(obj => {
     const newObj = { ...obj }
@@ -43,7 +43,7 @@ const FillInvestment = ({ details, id }) => {
           </DataRow>
           <DataRow tag="Quantity">
             <div className="" style={{width: '50px'}}>
-              <QuantityInput type="numeric" name="quantity" placeholder="Qty" value={qty} onChange={setQty} max={parseInt(quantity_left_for_deal, 10)} />
+              <QuantityInput type="numeric" name="quantity" placeholder="Qty" value={qty} onChange={setQty} min={parseInt(user_quantity, 10)} max={parseInt(quantity_left_for_deal, 10)} />
             </div>
           </DataRow>
           <DataRow tag="Profit %">
@@ -56,7 +56,7 @@ const FillInvestment = ({ details, id }) => {
             </div>
           </div>
         </div>
-        <PriceBreakDown priceBreakdown={priceBreakdown} commodityDetails={{id, qty }} />
+        <PriceBreakDown isValid={qty >= user_quantity} priceBreakdown={priceBreakdown} commodityDetails={{id, qty }} />
       </div>
     </section>
   )
@@ -71,7 +71,7 @@ export const DataRow = ({ children, tag, className="" }) => {
   )
 }
 
-const PriceBreakDown = ({ priceBreakdown = {}, commodityDetails }) => {
+const PriceBreakDown = ({ isValid, priceBreakdown = {}, commodityDetails }) => {
   const { commodity_cost, expected_return, other_costs, state_tax, total_deal_cost, transportation, warehousing } = priceBreakdown;
   const { isLoading, setIsLoading, LoadingSpinner } = useSectionSpinner();
   useLayoutEffect(() => {
@@ -110,7 +110,7 @@ const PriceBreakDown = ({ priceBreakdown = {}, commodityDetails }) => {
           <span className="font-weight-600 font-sm color1">{formatCurrency(expected_return)}</span>
         </div>
         <div className="d-flex justify-content-end" style={{width: '100%'}}>
-          <PaystackPayment amount={total_deal_cost} commodityDetails={commodityDetails} />
+          <PaystackPayment isValid={isValid} amount={total_deal_cost} commodityDetails={commodityDetails} />
         </div>
       </div>
   )
