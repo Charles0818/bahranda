@@ -20,7 +20,7 @@ const SetPin = ({ setPinRequest, token, loading, success, error }) => {
       </div>
       <PinFields setPinArray={setPin} pinArray={pin} />
       <SubmitButton action={() => setPinRequest({ pin: pin.join('') }, token)}
-        text="Set Pin" isLoading={loading} disabled={!pin.includes('' || undefined)} />
+        text="Set Pin" isLoading={loading} disabled={pin.includes('')} />
         {(error || success) && <HttpStatusNotification  message={error || success} status={error ? 'error' : 'success'}  />}
     </section>
   )

@@ -14,7 +14,7 @@ const PinFields = ({ pinArray, setPinArray, label }) => {
     return e => {
       const { value } = e.target
       const pinArrayCopy = pinArray.concat();
-      pinArrayCopy[index] = value;
+      pinArrayCopy[index] = value.toString().slice(0, 1);
       setPinArray(pinArrayCopy);
 
       // auto focus to next InputText if value is not blank
