@@ -333,9 +333,6 @@ header {
   }
 }
 .footer-links {
-  @extend .d-flex;
-  @extend .slim-border-bottom;
-  @extend .padding-bottom-md;
   .footer-link {
     @extend .d-flex.column;
     flex: 1;
@@ -351,7 +348,11 @@ header {
     // }
   }
 }
-
+.sticky-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+}
 .product-card {
   flex-basis: 200px;
   min-width: 200px;

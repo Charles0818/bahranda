@@ -17,7 +17,7 @@ const Account = ({ match: { path } }) => {
     <Fragment>
       <section className="account d-flex">
         <LeftSideBar ref={sidebarRef} />
-        <div className="wrapper d-flex column align-items-center padding-horizontal-xlg">
+        <div className="wrapper d-flex column position-relative align-items-center padding-horizontal-xlg">
           <HorizontalNavbar toggleSidebar={toggleSidebar} />
           <main className="main padding-bottom-lg">
             <Suspense fallback={<Spinners.FullScreenSpinner isLoading={true} />}>

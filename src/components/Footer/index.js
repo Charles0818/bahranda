@@ -23,7 +23,7 @@ const Footer = () => {
           <Link to="/"><img src={logo} alt="Bahranda logo" className="margin-bottom-md logo-lg" /></Link>
           <NewsLetter />
         </div>
-        <div className="footer-links">
+        <div className="footer-links d-flex align-items-center padding-bottom-md slim-border-bottom">
           <div className="footer-link">
             <h4 className="color-white title">Company</h4>
             <div className="d-flex column">
@@ -68,43 +68,27 @@ const Footer = () => {
 }
 
 export const AccountFooter = () => (
-  <footer className="padding-horizontal-xlg padding-vertical-lg bg-dark" style={{width: '100%'}}>
-    <div className="footer-links">
-      <div className="footer-link">
-        <h4 className="color-white title">Company</h4>
-        <div className="d-flex column">
-          <Link className="font-sm color-white" to="/how-we-work">About us</Link>
-          <Link className="font-sm color-white" to="/reviews">Reviews</Link>
-          <Link className="font-sm color-white" to="/commodities">Store</Link>
-          <Link className="font-sm color-white" to="/faqs">Frequently asked questions</Link>
-        </div>
-      </div>
-      <div className="footer-link">
-        <h4 className="color-white title">Resources</h4>
-        <div className="d-flex column">
-          <Link className="font-sm color-white" to="/contact">Help</Link>
-          <Link className="font-sm color-white" to="/privacy-policy">Privacy and policy</Link>
-          <Link className="font-sm color-white" to="/terms">Terms and conditions</Link>
-          <Link className="font-sm color-white" to="/vacancy">Vacancy</Link>
-        </div>
-      </div>
-      <div className="footer-link">
-        <h4 className="color-white title">Get in touch</h4>
-        <div className="d-flex column">
-          <span className="font-sm color-white">+234 60 345 67890</span>
-          <span className="font-sm color-white margin-bottom-sm">enquiries@bahranda.com</span>
-          <div className="d-flex align-items-center">
-            <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/Bahranda1" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
-              <FaTwitter className="color-white font-sm" />
-            </a>
-            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/bahranda1" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
-              <FaInstagram className="color-white font-sm" />
-            </a>
-            <a target="_blank" rel="noopener noreferrer" href="https://facebook.com/Bahranda-101958331628679" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
-              <FaFacebookF className="color-white font-sm" />
-            </a>
-          </div>
-        </div>
+  <footer className="padding-horizontal-lg padding-vertical-md bg-dark sticky-footer" style={{width: '100%'}}>
+    <div className="footer-links d-flex align-items-center padding-bottom-sm margin-bottom-sm slim-border-bottom">
+      <Link className="font-sm font-weight-600 color-white margin-right-sm flex-equal" to="/how-we-work">About us</Link>
+      <Link className="font-sm font-weight-600 color-white margin-right-sm flex-equal" to="/faqs">FAQs</Link>
+      <Link className="font-sm font-weight-600 color-white margin-right-sm flex-equal" to="/contact">Help</Link>
+      <Link className="font-sm font-weight-600 color-white margin-right-sm flex-equal" to="/privacy-policy">Privacy</Link>
+      <Link className="font-sm font-weight-600 color-white margin-right-sm flex-equal" to="/terms">Terms</Link>
+    </div>
+    <div className="d-flex align-items-center">
+      <span className="font-sm font-weight-600 color-white margin-right-sm flex-equal margin-bottom-sm">+234 60 345 67890</span>
+      <span className="font-sm font-weight-600 color-white margin-right-sm flex-equal margin-bottom-sm">enquiries@bahranda.com</span> */}
+      <div className="d-flex align-items-center margin-bottom-sm">
+        <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/Bahranda1" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
+          <FaTwitter className="color-white font-sm" />
+        </a>
+        <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/bahranda1" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
+          <FaInstagram className="color-white font-sm" />
+        </a>
+        <a target="_blank" rel="noopener noreferrer" href="https://facebook.com/Bahranda-101958331628679" className="d-flex flex-center bg-color1-opacity round-icon border-r-circle margin-right-sm cursor-pointer">
+          <FaFacebookF className="color-white font-sm" />
+        </a>
       </div>
     </div>
   </footer>
