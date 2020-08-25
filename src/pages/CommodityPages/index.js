@@ -2,7 +2,7 @@ import React, { Fragment, lazy, Suspense, useRef, useCallback } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Commodities from './Commodities';
 import { HorizontalNavbar, LeftSideBar } from '../Account/components';
-import { AccountFooter, Spinners } from '../../components';
+import { Spinners } from '../../components';
 import './product.scss';
 const CommodityDetails = lazy(() => import('./CommodityDetails'));
 const CommodityPages = ({ match: { path } }) => {
@@ -22,7 +22,6 @@ const CommodityPages = ({ match: { path } }) => {
               </Switch>
             </Suspense>
           </main>
-          <AccountFooter />
         </div>
       </section>
     </Fragment>

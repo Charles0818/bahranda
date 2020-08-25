@@ -1,5 +1,5 @@
 import {
-  ProtectedRoute, Header, Footer, AccountFooter, Cards,
+  ProtectedRoute, Header, Footer, Cards,
   Carousels, Form, Modal, Spinners, Accordion,
   Error404, HttpStatusNotification, Animation
 } from '../../components';
@@ -8,5 +8,5 @@ import NotFound from './NotFound';
 export {
   ProtectedRoute, Header, Footer, Cards,
   Carousels, PageWrapper, Form, Modal, Spinners, Accordion,
-  Error404, HttpStatusNotification, Animation, NotFound, AccountFooter
+  Error404, HttpStatusNotification, Animation, NotFound
 };

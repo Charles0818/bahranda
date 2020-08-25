@@ -2,7 +2,7 @@ import React, { Fragment, useRef, lazy, Suspense, useCallback } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import { HorizontalNavbar, LeftSideBar } from './components';
-import { Error404, AccountFooter, Spinners } from '../components';
+import { Error404, Spinners } from '../components';
 import './account.scss';
 const Wallet = lazy(() => import('./Wallet'));
 const Settings = lazy(() => import('./Settings'));
@@ -30,7 +30,6 @@ const Account = ({ match: { path } }) => {
               </Switch>
             </Suspense>
           </main>
-          <AccountFooter />
         </div>
       </section>
     </Fragment>

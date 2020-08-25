@@ -6,6 +6,7 @@
     flex: .15;
     height: 100%;
     position: fixed;
+    overflow-y: auto;
     left: 0;
     transition: transform .5s;
     z-index: 99;
