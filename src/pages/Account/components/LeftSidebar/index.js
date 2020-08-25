@@ -13,14 +13,13 @@ const { authActions: { signOut } } = actions;
 const { useConfirmation } = Modal;
 const LeftSidebar = forwardRef(({}, ref) => {
   useEffect(() => {
-    const event = window.addEventListener('click', e => {
-      e.preventDefault();
+    let event = null;
       if(ref.current) {
-        if(e.target.classList.contains('sidebar') || e.target.classList.contains('bar-icon')) return;
-        ref.current.classList.remove('toggle')
+        event = ref.current.nextElementSibling.addEventListener('click', () => {
+          ref.current.classList.remove('toggle')
+        })
       }
-    });
-    return () => window.removeEventListener('click', event);
+    return () => ref.current.nextElementSibling.removeEventListener('click', event);
   }, [ref])
   return (
     <aside ref={ref} className="sidebar bg-color1 padding-horizontal-sm padding-vertical-md">
@@ -53,7 +52,7 @@ const QuickLinks = () => {
   const toggleAccordion = () => setActive(prev => !prev) 
   return (
     <div>
-      <div className="d-flex align-items-center color-white sidebar-item margin-bottom-sm padding-vertical-xsm padding-horizontal-sm cursor-pointer"
+      <div className="other-links-toggler d-flex align-items-center color-white sidebar-item margin-bottom-sm padding-vertical-xsm padding-horizontal-sm cursor-pointer"
         onClick={toggleAccordion}>
         <div ref={chevronRef} className="chevron-icon margin-right-sm">
           <MdKeyboardArrowDown className="font-lg color-white"/>
