@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SyncLoader from 'react-spinners/SyncLoader'
 import { actions } from '../helpers';
 import { Cards, Spinners } from '../../components';
+import { EmptyShop } from'../components';
 const { CommodityCard } = Cards;
 const { SectionSpinner } = Spinners;
 const { commodityActions: { getCommoditiesRequest,  incrementPageNum } } = actions;
@@ -28,7 +29,9 @@ const Commodities = ({
   return (
     <div>
       <main className="d-flex justify-items-self padding-vertical-lg">
-        {commodities.map((commodity, index) => {
+        {commodities.length === 0 && !isLoading
+        ? <EmptyShop />
+        : commodities.map((commodity, index) => {
           if(index + 1 === commodities.length) {
             return <div key={commodity.id} ref={lastCommodity}><CommodityCard commodity={commodity} key={commodity.id} /></div>
           } else {
