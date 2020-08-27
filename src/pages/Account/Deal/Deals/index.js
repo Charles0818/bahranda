@@ -46,7 +46,7 @@ const DealStatus = memo(({ statuses }) => {
         <div className="d-flex align-items-stretch padding-vertical-md">
           <div className="d-flex column flex-center padding-horizontal-md padding-vertical-xsm margin-bottom-sm slim-border-right slim-border-bottom statement">
             <p className="font-lg font-weight-500 uppercase">{formatCurrency(total_investment)}</p>
-            <span className="uppercase font-sm font-weight-300 text-center">Total investments</span>
+            <span className="uppercase font-sm font-weight-300 text-center">Total Deals</span>
           </div>
           <div className="d-flex column flex-center padding-horizontal-md padding-vertical-xsm margin-bottom-sm slim-border-right slim-border-bottom statement">
             <p className="font-lg font-weight-500 uppercase">{formatCurrency(total_profit)}</p>

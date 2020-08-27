@@ -57,7 +57,7 @@ const MonthlyExpenditure = ({ expenditures }) => {
           <div className="d-flex align-items-center">
             <div className="d-flex align-items-center margin-right-sm">
               <div className="indicator green margin-right-sm" />
-              <span className="font-sm font-weight-500">Invested</span>
+              <span className="font-sm font-weight-500">Deposited</span>
             </div>
             <div className="d-flex align-items-center">
               <div className="indicator orange margin-right-sm" />
