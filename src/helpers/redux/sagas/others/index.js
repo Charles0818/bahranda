@@ -161,9 +161,11 @@ function* newsletter({ payload }) {
     yield call(delay, 3000)
     yield put(newsletterSuccess(''))
   } catch (err) {
-    const { status, title } = err;
-    const errorMessage = status
-      ? title
+    const { errors, message } = err;
+    const errorMessage = errors
+      ? errors.email
+      ? errors.email[0]
+      : message
       : networkErrorMessage
     yield put(newsletterFailure(errorMessage))
     yield call(delay, 3000);

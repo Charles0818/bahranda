@@ -78,15 +78,17 @@ const mapStateToProps = state => {
   return { loading, success, error }
 }
 const NewsLetter = connect(mapStateToProps, mapDispatchToProps)(({ newsletterRequest, loading, success, error }) => {
-  const { value: email, handleUserInput } = useFormInput();
-  const { value: name, handleUserInput: setName } = useFormInput();
+  const { value: email, handleUserInput, isValid: emailIsValid } = useFormInput();
+  const { value: name, handleUserInput: setName , isValid: nameIsValid } = useFormInput();
+  const validateFields = emailIsValid && nameIsValid
   return (
     <form className="d-flex column padding-horizontal-lg padding-vertical-md newsletter bg-white">
       <span className="font-md margin-bottom-md">Subscribe to our mailing list</span>
-      <input name="name" value={name} placeholder="Full name" onChange={setName} className=" padding-md margin-bottom-sm" />
-      <input name="email" value={email} placeholder="Email address" onChange={handleUserInput} className=" padding-md margin-bottom-sm" />
+      <input name="name" value={name} placeholder="Full name" onChange={setName(null, null)} className=" padding-md margin-bottom-sm" />
+      <input name="email" type="email" value={email} placeholder="Email address" onChange={handleUserInput(1, null)} className=" padding-md margin-bottom-sm" />
       <SubmitButton
         isLoading={loading}
+        disabled={!validateFields}
         text="Subscribe"
         action={() => newsletterRequest({ email, name })}
       />
