@@ -1,11 +1,17 @@
-import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
-import { Form, Spinners } from '../../../components';
-import { utils } from '../../helpers';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Spinners, HttpStatusNotification } from '../../../components';
+import { EmptyDataRender } from '../../../Account/components'
+import { utils, actions } from '../../helpers';
 import PaystackPayment from '../PaystackPayment';
+import { connect, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
 const { formatting: { formatCurrency } } = utils;
-const { useSectionSpinner } = Spinners;
+const { SectionSpinner } = Spinners;
+const {
+  commodityActions: { calculatePriceRequest }
+} = actions;
 const { useFormInput, QuantityInput, useSelectInput } = Form;
-const FillInvestment = ({ details, id }) => {
+const FillInvestment = ({ details, id, token, calculatePriceRequest }) => {
   const {
     price_break_down, price,
     duration, commodity_name,
@@ -24,9 +30,12 @@ const FillInvestment = ({ details, id }) => {
     }
     setPriceBreakdown(newObj)
   }, [qty]);
+  // useEffect(() => {
+  //   calculateDealCost(price_break_down);
+  // }, [qty, calculateDealCost, price_break_down]);
   useEffect(() => {
-    calculateDealCost(price_break_down);
-  }, [qty, calculateDealCost, price_break_down]);
+    qty && parseInt(qty, 10) >= 1 && calculatePriceRequest(qty, id, token, setPriceBreakdown)
+  }, [qty])
   return (
     <section className="">
       <div className="d-flex justify-content-s-between" style={{width: '100%'}}>
@@ -73,16 +82,20 @@ export const DataRow = ({ children, tag, className="" }) => {
 
 const PriceBreakDown = ({ isValid, priceBreakdown = {}, commodityDetails }) => {
   const { commodity_cost, expected_return, other_costs, state_tax, total_deal_cost, transportation, warehousing } = priceBreakdown;
-  const { isLoading, setIsLoading, LoadingSpinner } = useSectionSpinner();
-  useLayoutEffect(() => {
-    setIsLoading(true)
-    const timeout = setTimeout(() => setIsLoading(false), 500);
-    return () => clearTimeout(timeout)
-  }, [priceBreakdown, setIsLoading]);
-  if(isLoading) return (
+  const { loading, error } = useSelector(state => {
+    const {
+      loadingIndicators: { calculatePrice: loading },
+      error: { calculatePrice: error }
+    } = state.commodityReducer;
+    return { loading, error }
+  })
+  if(loading) return (
     <section className="details flex-equal">
-      {LoadingSpinner}
+      <SectionSpinner isLoading={loading} />
     </section>
+  )
+  if(!isValid) return (
+    <EmptyDataRender message="Quantity is invalid" />
   )
   return (
       <div className="d-flex column flex-equal fadeIn-animation">
@@ -112,8 +125,15 @@ const PriceBreakDown = ({ isValid, priceBreakdown = {}, commodityDetails }) => {
         <div className="d-flex justify-content-end" style={{width: '100%'}}>
           <PaystackPayment isValid={isValid} amount={total_deal_cost} commodityDetails={commodityDetails} />
         </div>
+        {error && <HttpStatusNotification  message={error} status={'error'} />}
       </div>
   )
 }
 
-export default FillInvestment;
+const mapStateToProps = state => {
+  const { token } = state.authReducer;
+  return { token }
+}
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ calculatePriceRequest }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(FillInvestment);

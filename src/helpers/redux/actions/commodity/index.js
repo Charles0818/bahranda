@@ -8,7 +8,8 @@ const {
   PURCHASE_COMMODITY_REQUEST, PURCHASE_COMMODITY_SUCCESS,
   GET_RELATED_COMMODITIES_FAILURE, GET_RELATED_COMMODITIES_SUCCESS,
   GET_LATEST_COMMODITIES_REQUEST, GET_LATEST_COMMODITIES_FAILURE,
-  GET_LATEST_COMMODITIES_SUCCESS
+  GET_LATEST_COMMODITIES_SUCCESS, CALCULATE_PRICE_REQUEST,
+  CALCULATE_PRICE_FAILURE, CALCULATE_PRICE_SUCCESS
 } = commodity;
 
 export const getCommoditiesRequest = (pageNum, token) => {
@@ -117,10 +118,29 @@ export const getLatestCommoditiesSuccess = (commodities) => {
   }
 }
 
-
 export const getLatestCommoditiesFailure = (error) => {
   return {
     type: GET_LATEST_COMMODITIES_FAILURE,
+    payload: { error }
+  }
+}
+
+export const calculatePriceRequest = ( qty, id, token, setPrice) => {
+  return {
+    type: CALCULATE_PRICE_REQUEST,
+    payload: { qty, id, setPrice, token }
+  }
+}
+
+export const calculatePriceSuccess = () => {
+  return {
+    type: CALCULATE_PRICE_SUCCESS
+  }
+}
+
+export const calculatePriceFailure = (error) => {
+  return {
+    type: CALCULATE_PRICE_FAILURE,
     payload: { error }
   }
 }

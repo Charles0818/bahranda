@@ -7,7 +7,8 @@ const {
   GET_RELATED_COMMODITIES_FAILURE, PURCHASE_COMMODITY_INDICATOR,
   PURCHASE_COMMODITY_SUCCESS, PURCHASE_COMMODITY_FAILURE,
   GET_LATEST_COMMODITIES_FAILURE, GET_LATEST_COMMODITIES_SUCCESS,
-  GET_LATEST_COMMODITIES_INDICATOR
+  GET_LATEST_COMMODITIES_INDICATOR, CALCULATE_PRICE_FAILURE,
+  CALCULATE_PRICE_SUCCESS, CALCULATE_PRICE_INDICATOR
 
 } = commodity;
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
   hasNextPage: true,
   error: {
     singleCommodity: '',
-    commodities: ''
+    commodities: '',
+    calculatePrice: ''
   },
   success: {
     purchaseCommodity: ''
@@ -81,6 +83,16 @@ const commodityReducer = (prevState = initialState, { type, payload }) => {
       return { ...prevState }
     case GET_LATEST_COMMODITIES_FAILURE:
       prevState.loadingIndicators.getLatestCommodities = false;
+      return { ...prevState }
+    case CALCULATE_PRICE_INDICATOR:
+      prevState.loadingIndicators.calculatePrice = true;
+      return { ...prevState }
+    case CALCULATE_PRICE_SUCCESS:
+      prevState.loadingIndicators.calculatePrice = false;
+      return { ...prevState }
+    case CALCULATE_PRICE_FAILURE:
+      prevState.error.calculatePrice = payload.error;
+      prevState.loadingIndicators.calculatePrice = false;
       return { ...prevState }
     default:
       return prevState;

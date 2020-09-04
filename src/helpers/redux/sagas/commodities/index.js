@@ -8,7 +8,8 @@ const {
   PURCHASE_COMMODITY_INDICATOR, PURCHASE_COMMODITY_REQUEST,
   GET_SINGLE_COMMODITY_REQUEST, GET_SINGLE_COMMODITY_INDICATOR,
   GET_RELATED_COMMODITIES_INDICATOR, GET_LATEST_COMMODITIES_REQUEST,
-  GET_LATEST_COMMODITIES_INDICATOR
+  GET_LATEST_COMMODITIES_INDICATOR, CALCULATE_PRICE_REQUEST,
+  CALCULATE_PRICE_INDICATOR
 } = commodity;
 
 const {
@@ -17,7 +18,8 @@ const {
   purchaseCommodityFailure, purchaseCommoditySuccess,
   getRelatedCommoditiesFailure, getRelatedCommoditiesSuccess,
   getLatestCommoditiesSuccess, getLatestCommoditiesFailure,
-  purchaseCommodityRequest, getSingleCommodityRequest
+  purchaseCommodityRequest, getSingleCommodityRequest,
+  calculatePriceFailure, calculatePriceSuccess
 } = commodityActions;
 
 const networkErrorMessage = 'No internet connection detected';
@@ -41,7 +43,11 @@ const commodityDBCalls = {
   getLatestCommodities: async () => {
     const commodities = await getData(`${apiKey}/front/commodities`);
     return commodities;
-  }
+  },
+  calculatePrice: async ({ qty, id, token }) => {
+    const response = await getData(`${apiKey}/user/commodities/${id}/${qty}/calculate`, token);
+    return response
+  },
 }
 
 // All generators*
@@ -132,6 +138,23 @@ function* getLatestCommodities () {
   }
 }
 
+function* calculatePrice({ payload: { setPrice, token, qty, id } }) {
+  try {
+    yield put({ type: CALCULATE_PRICE_INDICATOR })
+    const { price_break_down } = yield call(commodityDBCalls.calculatePrice, { qty, id, token });
+    console.log('price', price_break_down)
+    setPrice(price_break_down);
+    yield put(calculatePriceSuccess())
+  } catch (err) {
+    console.log('priceErr', err)
+    const { status, title } = err;
+    const errorMessage = status
+      ? title
+      : networkErrorMessage
+    yield put(calculatePriceFailure(errorMessage))
+  }
+}
+
 function* getCommoditiesRequest() {
   yield takeLatest(GET_COMMODITIES_REQUEST, getCommodities)
 }
@@ -151,10 +174,16 @@ function* getSingeCommodityWatcher() {
 function* getLatestCommoditiesWatcher() {
   yield takeLatest(GET_LATEST_COMMODITIES_REQUEST, getLatestCommodities)
 }
+
+function* calculatePriceWatcher() {
+  yield takeLatest(CALCULATE_PRICE_REQUEST, calculatePrice)
+}
+
 export default function* commoditySagas() {
   yield spawn(getCommoditiesRequest)
   yield spawn(getRelatedCommoditiesWatcher)
   yield spawn(purchaseCommodityWatcher)
   yield spawn(getSingeCommodityWatcher)
   yield spawn(getLatestCommoditiesWatcher)
+  yield spawn(calculatePriceWatcher)
 }
