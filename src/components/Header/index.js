@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { FaTwitter, FaFacebookF, FaInstagram, FaBars } from 'react-icons/fa';
@@ -36,10 +36,18 @@ const mapStateToProps = state => {
 }
 const NavBar = connect(mapStateToProps, null)(({ isLoggedIn }) => {
   const navRef = useRef(null);
+  useEffect(() => {
+    const listener = window.addEventListener('scroll', () => {
+      window.scrollY > 0
+      ? navRef.current.classList.add('sticky_nav')
+      : navRef.current.classList.remove('sticky_nav')
+    });
+    return window.removeEventListener('scroll', listener)
+  }, [])
   return (
-    <nav className="d-flex align-items-center justify-content-s-between padding-horizontal-xlg padding-vertical-md bg-white">
+    <nav ref={navRef} className="d-flex align-items-center justify-content-s-between padding-horizontal-xlg padding-vertical-md bg-white">
       <Link to="/"><img src={logo} className="logo-md margin-right-md" alt="bahranda logo" /></Link>
-      <div ref={navRef} className="d-flex nav-links toggle align-items-center justify-content-s-between">
+      <div className="d-flex nav-links toggle align-items-center justify-content-s-between">
         <NavLink exact  activeClassName="color1 font-weight-500" to="/" className="color-dark padding-md">Home</NavLink>
         <NavLink  activeClassName="color1 font-weight-500" to="/how-we-work" className="color-dark font-md padding-md">How we work</NavLink>
         <NavLink  activeClassName="color1 font-weight-500" to="/commodities" className="color-dark font-md padding-md">Commodities</NavLink>
