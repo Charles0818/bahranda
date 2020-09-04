@@ -92,7 +92,7 @@ export const TextArea = ({
 }) => {
   return (
     <label className={`d-flex column margin-bottom-sm ${className}`} style={{width: '100%'}}>
-      <span className="font-md font-weight">{label}</span>
+      <span className="font-md font-weight-500">{label}</span>
       <textarea value={value} {...rest} placeholder={placeholder} onChange={onChange(min, max)}
         className={`border-r-5 padding-md padding-horizontal-md font-weight-500 ${!disabled ? 'bg-white' : 'bg-gray'} slim-border font-sm`} {...rest} />
     </label>
