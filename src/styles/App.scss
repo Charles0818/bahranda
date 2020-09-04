@@ -233,6 +233,8 @@ header {
 .sticky_nav {
   position: fixed;
   top: 0;
+  right: 0;
+  left: 0
 }
 
 .btn {
@@ -358,6 +360,10 @@ header {
   min-width: 200px;
   max-width: 200px;
   flex: 1;
+  box-shadow: 1px 1px 2px #dbdbdb;
+  &:hover {
+    box-shadow: 2px 2px 4px #dbdbdb, -2px -2px 4px #dbdbdb;
+  }
   @include media-breakpoint-down(sm) { 
     min-width: 100px;
     max-width: 150px;
