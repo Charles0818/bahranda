@@ -12,9 +12,9 @@ const WeSell = () => {
         Since Manufacturers cannot purchase all the necessary raw materials they need all the year
         round at the beginning of the harvest season, Bahranda provides a method that evens out their
         timely demand with timely supply.
-        Thus, the Sourcing, Psychological and Logistics challenges that come along with the
-        Manufacturer supply chain is mitigated by the Bahranda model. We sell the right quantity and
-        quality at the best rate.
+        Thus the Sourcing, Psychological and Logistics challenges that come along with the
+        Manufacturer supply chain are mitigated by the Bahranda model. We sell the right quantity and
+        quality at the best price.
         </p>
       </article>
       <div className="flex-equal">
