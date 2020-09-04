@@ -21,7 +21,7 @@ const Wallet = ({ getWalletRequest, token, loading, walletExists, hasPin, pinSuc
           <h1 className="padding-bottom-sm font-lg">Wallet</h1>
           <WalletStatus />
           <AccountInformation />
-         {!hasPin || pinSuccess && <SetPin />}
+         {(!hasPin || pinSuccess) && <SetPin />}
           <Requests />
           <History.default />
         </div>
