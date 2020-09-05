@@ -16,7 +16,7 @@ const Header = () => {
           </div>
           <div className="d-flex align-items-center phone">
             <MdPhoneIphone color="#fff" className="font-lg" />
-            <span className="font-sm">0706 245 3802</span>
+            <a href="tel:07062453802"className="font-sm color-white">+234-70-624-53802</a>
           </div>
         </div>
         <div className="d-flex align-items-center">

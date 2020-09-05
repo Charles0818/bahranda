@@ -45,7 +45,7 @@ const Footer = () => {
           <div className="footer-link">
             <h4 className="color-white title">Get in touch</h4>
             <div className="d-flex column">
-              <span className="font-sm color-white">+234 706 245 3802</span>
+            <a href="tel:07062453802"className="font-sm color-white">+234-70-624-53802</a>
               <span className="font-sm color-white">clarify@bahranda.com</span>
               <span className="font-sm color-white"></span>
               <div className="d-flex align-items-center">
@@ -64,6 +64,7 @@ const Footer = () => {
         </div>
       </footer>
     </div>
+    
   )
 }
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../helpers';
 import { Form } from '../../../components';
+import { others } from '../../../helpers/redux/types';
 
 const { authActions: { signUpRequest } } = actions;
 const { FormField, PasswordField, useFormInput, useSelectInput, SubmitButton, useCheckbox } = Form;
