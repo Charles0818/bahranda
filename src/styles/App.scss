@@ -354,7 +354,9 @@ header {
   position: sticky;
   bottom: 0;
   left: 0;
+
 }
+
 .reach-us {
   width: 250px ;
   height: auto;
@@ -362,14 +364,15 @@ header {
   background-color: $color1;
   border-radius: 15px;
   color: $white;
-  position: fixed;
   text-align: center;
   font-size: 12px;
-
-// p {
-//   margin: 10px;
-// }
 }
+
+  .decorate {
+  text-decoration: underline;
+  color: $white;
+}
+
 
 
 .product-card {
