@@ -39,9 +39,11 @@ const NavBar = connect(mapStateToProps, null)(({ isLoggedIn }) => {
   const navBar = useRef(null)
   useEffect(() => {
     const listener = window.addEventListener('scroll', () => {
-      window.scrollY > 0
+      if(navBar.current) {
+        window.scrollY > 0
       ? navBar.current.classList.add('sticky_nav')
       : navBar.current.classList.remove('sticky_nav')
+      }
     });
     return window.removeEventListener('scroll', listener)
   }, [])

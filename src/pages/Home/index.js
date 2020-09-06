@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 const Home = ({ token }) => {
   if(token) return <Redirect to="/account" />
   return (
-    <PageWrapper>
+      <PageWrapper>
       <main>
         <HeaderSlides />
         <WhatWeDo />
