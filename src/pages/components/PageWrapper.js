@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
 import { Header, Footer } from '../../components';
-import { Link} from 'react-router-dom';
 
 
 const PageWrapper = ({ children }) => {
@@ -12,10 +11,6 @@ const PageWrapper = ({ children }) => {
       <Header />
       {children}
       <Footer />
-      <div className="sticky-footer reach-us bg-color1">
-     <p>Are you a manufacturer in need of commodities? <span><Link to="/contact" className="decorate">Contact Us</Link>
-</span></p>
-   </div>
     </Fragment>
   )
 }

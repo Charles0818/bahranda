@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageWrapper } from '../components'
+import { PageWrapper, StickyElement } from '../components'
 import { WhoWeAre, WhatWeDo, HeaderSlides, TeamSlider, LatestCommodities } from './Components';
 import './home.scss';
 import { connect } from 'react-redux';
@@ -15,6 +15,7 @@ const Home = ({ token }) => {
         <LatestCommodities />
         <TeamSlider />
       </main>
+      <StickyElement />
     </PageWrapper>
   )
 }
