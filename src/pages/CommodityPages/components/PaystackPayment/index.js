@@ -14,9 +14,7 @@ const PaystackPayment = ({ isValid, token, purchase, amount, email, success, fir
   const { openModal, CenterModal } = useCenterModal()
   const config = {
     reference: (new Date()).getTime(),
-    publicKey: process.env.NODE_ENV === 'development'
-    ? process.env.REACT_APP_PAYSTACK_DEV
-    : process.env.REACT_APP_PAYSTACK_PROD,
+    publicKey: process.env.REACT_APP_PAYSTACK_DEV
   };
   const initializePayment = usePaystackPayment({
     email, metadata: { firstname, lastname },
