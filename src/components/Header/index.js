@@ -16,7 +16,7 @@ const Header = () => {
           </div>
           <div className="d-flex align-items-center phone">
             <MdPhoneIphone color="#fff" className="font-lg" />
-            <span className="font-sm">0706 245 3802</span>
+            <a href="tel:07062453802"className="font-sm color-white">+234-70-624-53802</a>
           </div>
         </div>
         <div className="d-flex align-items-center">
@@ -39,9 +39,11 @@ const NavBar = connect(mapStateToProps, null)(({ isLoggedIn }) => {
   const navBar = useRef(null)
   useEffect(() => {
     const listener = window.addEventListener('scroll', () => {
-      window.scrollY > 0
+      if(navBar.current) {
+        window.scrollY > 0
       ? navBar.current.classList.add('sticky_nav')
       : navBar.current.classList.remove('sticky_nav')
+      }
     });
     return window.removeEventListener('scroll', listener)
   }, [])

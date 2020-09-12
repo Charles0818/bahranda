@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { Header, Footer } from '../../components';
 
+
 const PageWrapper = ({ children }) => {
   useEffect(() => {
     window.scrollTo(0, 0)

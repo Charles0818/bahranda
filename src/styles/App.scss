@@ -354,7 +354,28 @@ header {
   position: sticky;
   bottom: 0;
   left: 0;
+
 }
+
+.reach-us {
+  width: 250px ;
+  height: auto;
+  border: 1px solid white;
+  background-color: $color1;
+  border-radius: 15px;
+  color: $white;
+  text-align: center;
+  font-size: 12px;
+  position: fixed;
+}
+
+  .decorate {
+  text-decoration: underline;
+  color: $white;
+}
+
+
+
 .product-card {
   flex-basis: 200px;
   min-width: 200px;

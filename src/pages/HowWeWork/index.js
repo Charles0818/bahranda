@@ -1,6 +1,6 @@
 import React from 'react';
 import { BahrandaModel, WeBuy, WeSell, WeStore, FAQ, BecomeADealer } from './components';
-import { PageWrapper } from '../components';
+import { PageWrapper, StickyElement } from '../components';
 const HowWeWork = () => {
   return (
     <PageWrapper>
@@ -15,9 +15,9 @@ const HowWeWork = () => {
         <WeSell />
         <BahrandaModel />
         <BecomeADealer />
-
         <FAQ />
       </div>
+      <StickyElement />
     </PageWrapper>
   )
 }

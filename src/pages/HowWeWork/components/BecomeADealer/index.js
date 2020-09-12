@@ -1,5 +1,4 @@
 import React from 'react';
-
 const BecomeADealer = () => {
   return (
     <section className="become-a-dealer padding-vertical-md padding-horizontal-xlg">
@@ -23,7 +22,7 @@ const BecomeADealer = () => {
           <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105473/Bahranda%20Assets/purchase_y3utrb.svg"} alt="purchase" className="margin-right-md margin-bottom-md" />
           <article className="margin-right-md margin-bottom-md">
             <p className="text-content font-md"> <span className="font-weight-bold">
-            Purchase commodity (in bags) </span> with as little as #60,000 and it gets warehoused by a
+            Purchase commodity (in bags) </span> with as low as #14,000 and it gets warehoused by a
             third-party agent under the control of Bahranda.
             </p>
           </article>

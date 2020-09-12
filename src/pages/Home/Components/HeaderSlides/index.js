@@ -30,7 +30,7 @@ const Slide1 = () => {
       <div className="d-flex column justify-content-center slide-content position-absolute-overlay bg-dark-opacity">
         <div className="padding-horizontal-sm">
           <p className="font-lg color-white font-weight-300 margin-bottom-sm">Bridging the gap between</p>
-          <h2 className="color-white font-weight-500 margin-bottom-sm">The Agricultural and Manufacturing Sector</h2>
+          <h2 className="color-white font-weight-500 margin-bottom-sm">The Agricultural and Manufacturing Sectors</h2>
           <Stagger duration={.5} repeat={true}>
             <button onClick={() => push('/auth/register')} className="ripple cursor-pointer padding-md bg-color1 border-r-10 color-white font-sm font-weight-600">Get started</button>
           </Stagger>
