@@ -16,7 +16,7 @@ const PaystackPayment = ({ isValid, token, purchase, amount, email, success, fir
     reference: (new Date()).getTime(),
     publicKey: process.env.NODE_ENV === 'development'
     ? process.env.REACT_APP_PAYSTACK_DEV
-    : process.env.REACT_APP_PAYSTACK_DEV,
+    : process.env.REACT_APP_PAYSTACK_PROD,
   };
   const initializePayment = usePaystackPayment({
     email, metadata: { firstname, lastname },
