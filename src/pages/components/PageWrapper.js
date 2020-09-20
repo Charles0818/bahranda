@@ -1,5 +1,9 @@
 import React, { Fragment, useEffect } from 'react';
 import { Header, Footer } from '../../components';
+import { customerly } from 'react-customerly';
+
+customerly.initialize("0afa5813",{ widget_position: "right" ,widget_color:'#41943b'});
+
 
 
 const PageWrapper = ({ children }) => {
