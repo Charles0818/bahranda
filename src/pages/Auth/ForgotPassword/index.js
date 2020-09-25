@@ -17,7 +17,7 @@ const ForgotPassword = ({ isLoading, error, forgotPasswordRequest }) => {
         <form className="d-flex column fadeIn-animation" style={{width: '100%'}}>
           <div className="margin-bottom-md">
             <h1 className="font-weight-normal">Forgot Password</h1>
-            <p className="font-weight-300">Please provide your email to help us find you account</p>
+            <p className="font-weight-300">Please provide your email to help us find your account</p>
           </div>
           <FormField type="email" name="email" value={email} onChange={setEmail} placeholder="Email address" err={emailErr} isValid={emailIsValid} />
           <div className="margin-bottom-sm">

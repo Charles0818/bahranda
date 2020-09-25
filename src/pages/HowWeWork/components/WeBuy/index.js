@@ -15,8 +15,8 @@ const WeBuy = () => {
         </p>
       </article>
       <div className="flex-equal">
-        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105476/Bahranda%20Assets/mansquat_yfmzuf.png"} alt="farmers" />
-        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105486/Bahranda%20Assets/lady_invyfb.png"} alt="farmers" />
+        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1600896278/Bahranda%20Assets/we-buy2_1_eqngah.png"} alt="farmers" />
+        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1600895766/Bahranda%20Assets/we-buy1_11_g5taln.png"} alt="farmers" />
       </div>
     </section>
   )
