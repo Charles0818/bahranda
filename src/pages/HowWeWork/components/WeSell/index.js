@@ -18,8 +18,9 @@ const WeSell = () => {
         </p>
       </article>
       <div className="flex-equal">
-        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1600896527/Bahranda%20Assets/we-sell-1_1_wd6e4i.png"} alt="farmers" />
         <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105473/Bahranda%20Assets/soyabean_sctgl8.png"} alt="farmers" />
+        <img src={"https://res.cloudinary.com/bahranda/image/upload/v1600896527/Bahranda%20Assets/we-sell-1_1_wd6e4i.png"} alt="farmers" />
+
       </div>
     </section>
   )
