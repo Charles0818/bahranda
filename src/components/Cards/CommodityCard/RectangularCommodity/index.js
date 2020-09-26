@@ -4,14 +4,14 @@ import { utils } from '../../../../helpers';
 
 const { formatting: { formatCurrency } } = utils;
 const CommodityCard = memo(({ commodity }) => {
-  const { image, commodity_name, price, id, profit_percentage } = commodity;
+  const { image, commodity_name, price, id, profit_percentage, availability } = commodity;
   return (
     <div className="product-card margin-bottom-md margin-right-md cursor-pointer">
       <div className="thumbnail position-relative margin-bottom-sm">
         <Link to={`/commodities/${id}`}><img src={image} alt="product thumbnail" /></Link>
-        <span className={`font-sm bg-yellow in-stock color-white font-weight-600 padding-xsm uppercase position-absolute`}>
-          { 'SALE'}
-        </span>
+        <div className={`padding-sm d-inline-block status ${availability >= 1 ? 'bg-yellow' : 'bg-danger'}`}>
+          <span className="color-white font-weight-600 font-xsm capitalize">{availability >= 1 ? 'now selling' : 'sold out'}</span>
+        </div>
       </div>
       <div className="d-flex column details padding-horizontal-sm overflow-h">
         <h3 className="product-title font-md capitalize">{commodity_name}</h3>

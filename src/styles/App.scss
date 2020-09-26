@@ -385,14 +385,16 @@ header {
   &:hover {
     box-shadow: 2px 2px 4px #dbdbdb, -2px -2px 4px #dbdbdb;
   }
-  @include media-breakpoint-down(sm) { 
-    min-width: 100px;
-    max-width: 150px;
-    .in-stock {
-      padding: 2px;
+  
+  .status {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    @include media-breakpoint-down(sm) {
       font-size: .67em;
     }
   }
+
   @include media-breakpoint-down(xs) { margin-right: 10px; }
   .thumbnail {
     &, img { width: 100% };
