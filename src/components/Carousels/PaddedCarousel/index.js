@@ -17,7 +17,7 @@ const PaddedCarousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bu
   return (
     slides.length !== 0 && (
       <Swipeable {...handlers} className="padded-carousel padding-horizontal-xlg slider position-relative overflow-h margin-bottom-sm">
-        <div className="d-flex nowrap align-items-center overflow-h position-relative" style={{width: '100%'}}>
+        <div className="d-flex nowrap align-items-stretch overflow-h position-relative" style={{width: '100%'}}>
           {slides.map((Slide, index) => {
              if(index + 1 === slides.length) {
               return (

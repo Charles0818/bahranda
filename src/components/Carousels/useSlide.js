@@ -1,13 +1,13 @@
 import { useState, useRef, useCallback } from 'react';
 import './carousel.scss';
-const useSlide = (length, slideWidth) => {
+const useSlide = (length, slideWidth, autoSlide) => {
   const [distance, setDistance] = useState(0);
   const slideLeft = () => {
     if (distance === 0) return
     setDistance(distance + slideWidth)
   }
   const slideRight = () => {
-    if(distance === -slideWidth * (length - 1)) return
+    if(distance === -slideWidth * (length - 1) && autoSlide) return setDistance(0)
     setDistance(distance - slideWidth);
   }
 

@@ -6,7 +6,7 @@ import '../carousel.scss';
 import useSlide, { useControl } from '../useSlide';
 
 const Carousel = ({ slides, slideWidth, duration, autoSlide, cardAlign, bullet, controls }) => {
-  const { slideLeft, handlers, distance, slideRight, bulletSlide } = useSlide(slides.length, slideWidth);
+  const { slideLeft, handlers, distance, slideRight, bulletSlide } = useSlide(slides.length, slideWidth, autoSlide);
   const { lastElement, rightControl } = useControl(controls);
   useEffect(() => {
     if(autoSlide) {
