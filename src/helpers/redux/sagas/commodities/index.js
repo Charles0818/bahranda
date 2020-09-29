@@ -42,11 +42,14 @@ const commodityDBCalls = {
   },
   getLatestCommodities: async () => {
     const commodities = await getData(`${apiKey}/front/commodities`);
+    
+    console.log('commodities', commodities)
     return commodities;
   },
   calculatePrice: async ({ qty, id, token }) => {
     const response = await getData(`${apiKey}/user/commodities/${id}/${qty}/calculate`, token);
     return response
+
   },
 }
 
