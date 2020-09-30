@@ -13,7 +13,8 @@ const { commodityActions: { getRelatedCommoditiesRequest, getSingleCommodityRequ
 const CommodityDetails = ({
   getSingleCommodityRequest, token, error, loading, match: { params }
 }) => {
-  const [details, setDetails] = useState({})
+  const [details, setDetails] = useState({});
+  console.log('details', details)
   useEffect(() => {
     getSingleCommodityRequest(token, setDetails, params.id)
   }, [token, setDetails, params.id, getSingleCommodityRequest]);
@@ -23,6 +24,13 @@ const CommodityDetails = ({
       message="The commodity you tried to access is currently out of stock. Please check back later or kindly check others"
       link="/commodities"
       linkTitle="Available Commodities"
+    />
+  )
+  if(details.availability === 0) return (
+    <NotFound
+      message="The commodity you tried to access is out of stock. Please kindly check others"
+      link="/commodities"
+      linkTitle="More Commodities"
     />
   )
   const { image, description, ...rest } = details;

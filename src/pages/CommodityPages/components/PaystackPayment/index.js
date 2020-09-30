@@ -10,7 +10,6 @@ const { useCenterModal } = Modal;
 const { commodityActions: { purchaseCommodityRequest, purchaseCommodityFailure } } = actions;
 const { SubmitButton } = Form;
 
-
 const PaystackPayment = ({ isValid, token, purchase, amount, email, success, firstname, lastname, loading, commodityDetails }) => {
   const { qty: quantity, id: commodity_id } = commodityDetails
   const { openModal, CenterModal } = useCenterModal()
