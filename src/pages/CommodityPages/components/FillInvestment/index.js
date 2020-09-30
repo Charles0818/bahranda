@@ -16,23 +16,11 @@ const FillInvestment = ({ details, id, token, calculatePriceRequest }) => {
     price_break_down, price,
     duration, commodity_name,
     profit_percentage, quantity_left_for_deal,
-    unit, user_quantity
+    unit, minimum_quantity
   } = details;
   const { SelectInput } = useSelectInput(duration)
-  const { value: qty, handleUserInput: setQty } = useFormInput(user_quantity);
+  const { value: qty, handleUserInput: setQty } = useFormInput(minimum_quantity);
   const [priceBreakdown, setPriceBreakdown] = useState(price_break_down);
-  const calculateDealCost = useCallback(obj => {
-    const newObj = { ...obj }
-    for (let key in newObj) {
-      if (!isNaN(newObj[key])) {
-        newObj[key] *= qty
-      };
-    }
-    setPriceBreakdown(newObj)
-  }, [qty]);
-  // useEffect(() => {
-  //   calculateDealCost(price_break_down);
-  // }, [qty, calculateDealCost, price_break_down]);
   useEffect(() => {
     qty && parseInt(qty, 10) >= 1 && calculatePriceRequest(qty, id, token, setPriceBreakdown)
   }, [qty])
@@ -50,9 +38,12 @@ const FillInvestment = ({ details, id, token, calculatePriceRequest }) => {
           <DataRow tag="Quantity left">
             <span className="font-weight-500 font-sm color1">{parseInt(quantity_left_for_deal, 10)}</span>
           </DataRow>
+          <DataRow tag="Minimum Purchase Quantity">
+            <span className="font-weight-500 font-sm color1">{parseInt(minimum_quantity, 10)}</span>
+          </DataRow>
           <DataRow tag="Quantity">
             <div className="" style={{width: '50px'}}>
-              <QuantityInput type="numeric" name="quantity" placeholder="Qty" value={qty} onChange={setQty} min={parseInt(user_quantity, 10)} max={parseInt(quantity_left_for_deal, 10)} />
+              <QuantityInput type="numeric" name="quantity" placeholder="Qty" value={qty} onChange={setQty} min={parseInt(minimum_quantity, 10)} max={parseInt(quantity_left_for_deal, 10)} />
             </div>
           </DataRow>
           <DataRow tag="Profit %">
@@ -65,7 +56,7 @@ const FillInvestment = ({ details, id, token, calculatePriceRequest }) => {
             </div>
           </div>
         </div>
-        <PriceBreakDown isValid={qty >= user_quantity} priceBreakdown={priceBreakdown} commodityDetails={{id, qty }} />
+        <PriceBreakDown isValid={qty >= minimum_quantity} priceBreakdown={priceBreakdown} commodityDetails={{id, qty }} />
       </div>
     </section>
   )
