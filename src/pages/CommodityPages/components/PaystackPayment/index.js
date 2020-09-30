@@ -12,10 +12,13 @@ const { SubmitButton } = Form;
 
 const PaystackPayment = ({ isValid, token, purchase, amount, email, success, firstname, lastname, loading, commodityDetails }) => {
   const { qty: quantity, id: commodity_id } = commodityDetails
-  const { openModal, CenterModal } = useCenterModal()
+  const { openModal, CenterModal } = useCenterModal();
+  const publicKey = process.env.NODE_ENV === 'development'
+    ? process.env.REACT_APP_PAYSTACK_DEV
+    : process.env.REACT_APP_PAYSTACK_PROD
   const config = {
     reference: (new Date()).getTime(),
-    publicKey: process.env.REACT_APP_PAYSTACK_DEV
+    publicKey
   };
   const initializePayment = usePaystackPayment({
     email, metadata: { firstname, lastname },
