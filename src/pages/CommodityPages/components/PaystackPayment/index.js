@@ -5,9 +5,11 @@ import { Form, Modal } from '../../../components'
 import { usePaystackPayment } from 'react-paystack';
 import { actions } from '../../helpers'
 import { IoMdCheckmark } from 'react-icons/io';
+import { commodity } from '../../../../helpers/redux/types';
 const { useCenterModal } = Modal;
 const { commodityActions: { purchaseCommodityRequest, purchaseCommodityFailure } } = actions;
 const { SubmitButton } = Form;
+
 
 const PaystackPayment = ({ isValid, token, purchase, amount, email, success, firstname, lastname, loading, commodityDetails }) => {
   const { qty: quantity, id: commodity_id } = commodityDetails
@@ -30,6 +32,7 @@ const PaystackPayment = ({ isValid, token, purchase, amount, email, success, fir
   useEffect(() => {
     if(success) openModal()
   }, [success, openModal])
+
   return (
     <Fragment>
       <SubmitButton

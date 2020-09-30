@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 const PortraitCommodityCard = ({ commodity }) => {
-  const { image, commodity_name, availability, id } = commodity;
+const { image, commodity_name, availability, id } = commodity;
   console.log('commodity data', commodity )
   return (
     <div className="portrait-commodity-card padding-horizontal-sm padding-vertical-sm bg-white margin-right-sm margin-bottom-sm">

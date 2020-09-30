@@ -510,7 +510,16 @@ header {
     list-style-type: disc;
   }
 }
-
+#customerly-main-message-context {
+  color: #000000 !important
+}
+#customerly-main-message-context::placeholder {
+  color: #069801;
+}
+#customerly-launcher-button-icon {
+  background-color: #069801 !important;
+  border-radius: 50% !important;
+}
 .http-status {
   @extend .position-fixed;
   top: 12px;

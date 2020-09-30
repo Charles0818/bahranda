@@ -20,7 +20,7 @@ const CommodityDetails = ({
   if(loading) return <SectionSpinner isLoading={loading} />;
   if(error && error === 404) return (
     <NotFound
-      message="The commodity you tried to access does not exist. Please kindly check others"
+      message="The commodity you tried to access is currently out of stock. Please check back later or kindly check others"
       link="/commodities"
       linkTitle="Available Commodities"
     />
