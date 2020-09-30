@@ -20,7 +20,7 @@ const TeamCard = ({ member }) => {
     <div className="team-card d-flex column bg-white padding-md border-r-10 margin-right-sm margin-bottom-sm overflow-h card">
       <div className="text-center margin-bottom-sm">
         <h2 className="font-md">{member_name}</h2>
-        <span className="font-sm">{member_role}</span>
+        <span className="font-sm font-weight-600">{member_role}</span>
       </div>
       <div className="">
         <p className="text-content font-xsm">{details}</p>

@@ -7,6 +7,7 @@ const { otherActions: { getTeamMembersRequest } } = actions;
 const { TeamCard } = Cards;
 const { PaddedCarousel } = Carousels;
 const TeamSlider = ({ getTeamMembersRequest, teamMembers, hasFetchedTeam }) => {
+
   useEffect(() => {
     if(!hasFetchedTeam) getTeamMembersRequest()
   }, [hasFetchedTeam, getTeamMembersRequest])
@@ -15,7 +16,6 @@ const TeamSlider = ({ getTeamMembersRequest, teamMembers, hasFetchedTeam }) => {
       <h3 className="font-xlg text-center font-weight-normal margin-bottom-md">Our Team</h3>
       {teamMembers.length === 0
         ? <div className="d-flex flex-center padding-vertical-md">
-            <span className="font-lg capitalize">No Data</span>
           </div>
       : <PaddedCarousel
           slides={teamMembers.map(member => <TeamCard member={member} />)}

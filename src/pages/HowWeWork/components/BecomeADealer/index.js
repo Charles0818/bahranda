@@ -22,8 +22,8 @@ const BecomeADealer = () => {
           <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105473/Bahranda%20Assets/purchase_y3utrb.svg"} alt="purchase" className="margin-right-md margin-bottom-md" />
           <article className="margin-right-md margin-bottom-md">
             <p className="text-content font-md"> <span className="font-weight-bold">
-            Purchase commodity (in bags) </span> with as low as #14,000 and it gets warehoused by a
-            third-party agent under the control of Bahranda.
+            Purchase commodity </span> with as little as 5 bags while we warehouse for you with a
+            third-party warehouse manager under Bahranda's control.
             </p>
           </article>
         </div>
@@ -31,7 +31,7 @@ const BecomeADealer = () => {
           <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105471/Bahranda%20Assets/sell_kpqrza.svg"} alt="sell" className="margin-right-md margin-bottom-md" />
           <article className="margin-top-sm">
             <p className="text-content font-md">
-             <span className="font-weight-bold">Sell and make profit </span> once that target market price is reached.
+             <span className="font-weight-bold">Sell and make your target profit </span> of up to 15% within a 6 month trading period. This is equivalent to 30% for a year of trading
             </p>
           </article>
         </div>
