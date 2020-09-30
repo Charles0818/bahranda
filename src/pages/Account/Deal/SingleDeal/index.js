@@ -37,7 +37,7 @@ const Deal = ({ getSingleDealRequest, setLoading, loading, error, token, match: 
   if(loading) return <SectionSpinner isLoading={loading} />;
   if(error && error === 404) return (
     <NotFound
-      message="The deal you tried to view does not exist. Please kindly check available deals from your account"
+      message="The commodity you tried to access is currently out of stock. Please check back later or kindly check others"
       link="/account/deals"
       linkTitle="Your Deals"
     />
