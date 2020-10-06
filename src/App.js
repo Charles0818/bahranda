@@ -1,5 +1,7 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history'
 import Home, { Auth, ContactUs, HowWeWork, FAQs } from './pages';
 import { IconContext } from "react-icons";
 import { ProtectedRoute, Spinners, Error404 } from './components';
@@ -9,7 +11,13 @@ const Account = lazy(() => import('./pages/Account'));
 const CommodityPages = lazy(() => import('./pages/CommodityPages'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfServices = lazy(() => import('./pages/TermsOfServices'));
+
 function App() {
+  useEffect(() => {
+    ReactGA.initialize('UA-179562010-1');
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, [])
+
   return (
     <IconContext.Provider value={{ className: "global-class-name" }}>
       <Router>
