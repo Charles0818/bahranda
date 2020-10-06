@@ -22,7 +22,7 @@ const BecomeADealer = () => {
           <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105473/Bahranda%20Assets/purchase_y3utrb.svg"} alt="purchase" className="margin-right-md margin-bottom-md" />
           <article className="margin-right-md margin-bottom-md">
             <p className="text-content font-md"> <span className="font-weight-bold">
-            Purchase commodity </span> with as little as 5 bags while we warehouse for you with a
+            Purchase commodity </span> with as little as 3 bags while we warehouse for you with a
             third-party warehouse manager under Bahranda's control.
             </p>
           </article>
