@@ -164,18 +164,6 @@ export const useRadioInputs = (initialValue) => {
   return { RadioInputs, selectedValue }
 }
 
-export const CustomSelect = ({ onChange, value ='hello world', placeholder }) => {
-  return (
-    <div className="custom-select position-relative">
-      <select value={value} onChange={onChange} placeholder={placeholder}>
-        <option className="select-item" label="Option 1 label" value="Option 1 value">Option 1</option>
-        <option className="select-item">Option 2</option>
-        <option className="select-item">Option 3</option>
-      </select>
-    </div>
-  )
-}
-
 export const CurrencyInput = ({
   className = '',
   max = Number.MAX_SAFE_INTEGER,

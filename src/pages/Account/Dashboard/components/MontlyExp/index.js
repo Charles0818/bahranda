@@ -51,7 +51,7 @@ const MonthlyExpenditure = ({ expenditures }) => {
     <section className="overflow-h slim-border-2 padding-horizontal-md margin-bottom-md bg-white expenditure overflow-h">
       <div className="d-flex justify-content-s-between slim-border-bottom padding-vertical-sm">
         <FadeInLeft duration={.1}>
-          <h2 className="font-weight-500 font-style-normal font-lg">Montly Expenditure</h2>
+          <h2 className="font-weight-500 font-style-normal font-lg">Monthly Expenditure</h2>
         </FadeInLeft>
         <FadeInRight>
           <div className="d-flex align-items-center">

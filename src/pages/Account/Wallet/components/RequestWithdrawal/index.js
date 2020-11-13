@@ -31,7 +31,7 @@ const RequestWithdrawal = ({
   }, [setActive])
   const handleWithdrawal = useCallback(() => {
     if(setActive) {
-      requestWithdrawal({ pin: pin.join(''), amount }, token)
+      requestWithdrawal({ pin: pin.join(''), amount: amount / 100 }, token)
     } else toggleAccordion()
   }, [setActive, pin, amount, token, requestWithdrawal, toggleAccordion])
   return (
