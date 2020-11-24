@@ -26,7 +26,7 @@ const Slide1 = () => {
   const { push } = useHistory()
   return (
     <div className="header-slide position-relative">
-      <img src={"https://res.cloudinary.com/bahranda/image/upload/v1606139517/Bahranda%20Assets/banner_hd_depfgm.jpg"} alt="slide" />
+      <img src={"https://res.cloudinary.com/bahranda/image/upload/v1606223494/Bahranda%20Assets/banner_hd_depfgm21_1_wcvnok.png"} alt="slide" />
       <div className="d-flex column justify-content-center slide-content position-absolute-overlay bg-dark-opacity">
         <div className="padding-horizontal-sm">
           {/* <p className="font-lg color-white font-weight-300 margin-bottom-sm">Bridging the gap between</p>
