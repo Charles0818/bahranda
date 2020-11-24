@@ -26,11 +26,11 @@ const Slide1 = () => {
   const { push } = useHistory()
   return (
     <div className="header-slide position-relative">
-      <img src={"https://res.cloudinary.com/bahranda/image/upload/v1598105413/Bahranda%20Assets/banner_hd_depfgm.jpg"} alt="slide" />
+      <img src={"https://res.cloudinary.com/bahranda/image/upload/v1606139517/Bahranda%20Assets/banner_hd_depfgm.jpg"} alt="slide" />
       <div className="d-flex column justify-content-center slide-content position-absolute-overlay bg-dark-opacity">
         <div className="padding-horizontal-sm">
-          <p className="font-lg color-white font-weight-300 margin-bottom-sm">Bridging the gap between</p>
-          <h2 className="color-white font-weight-500 margin-bottom-sm">The Agricultural and Manufacturing Sectors</h2>
+          {/* <p className="font-lg color-white font-weight-300 margin-bottom-sm">Bridging the gap between</p>
+          <h2 className="color-white font-weight-500 margin-bottom-sm">The Agricultural and Manufacturing Sectors</h2> */}
           <Stagger duration={.5} repeat={true}>
             <button onClick={() => push('/auth/register')} className="ripple cursor-pointer padding-md bg-color1 border-r-10 color-white font-sm font-weight-600">Get started</button>
           </Stagger>
