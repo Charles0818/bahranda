@@ -43,7 +43,6 @@ const commodityDBCalls = {
   getLatestCommodities: async () => {
     const commodities = await getData(`${apiKey}/front/commodities`);
     
-    console.log('commodities', commodities)
     return commodities;
   },
   calculatePrice: async ({ qty, id, token }) => {
@@ -145,11 +144,9 @@ function* calculatePrice({ payload: { setPrice, token, qty, id } }) {
   try {
     yield put({ type: CALCULATE_PRICE_INDICATOR })
     const { price_break_down } = yield call(commodityDBCalls.calculatePrice, { qty, id, token });
-    console.log('price', price_break_down)
     setPrice(price_break_down);
     yield put(calculatePriceSuccess())
   } catch (err) {
-    console.log('priceErr', err)
     const { status, title } = err;
     const errorMessage = status
       ? title

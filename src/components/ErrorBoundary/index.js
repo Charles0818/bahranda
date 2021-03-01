@@ -10,7 +10,6 @@ export default class ErrorBoundary extends React.Component {
   }
   componentDidCatch(error, errorInfo) {  // You can also log the error to an error reporting service
     // logErrorToMyService(error, errorInfo); //a function call to an error-reporting service
-    console.log('logging error info', error, errorInfo)
     this.setState({ error, errorInfo, hasError: true })
   }
   render() {

@@ -10,7 +10,7 @@ const CommodityCard = memo(({ commodity }) => {
       <div className="thumbnail position-relative margin-bottom-sm">
         <Link to={`/commodities/${id}`}><img src={image} alt="product thumbnail" /></Link>
         <div className={`padding-sm d-inline-block status ${availability >= 1 ? 'bg-yellow' : 'bg-danger'}`}>
-          <span className="color-white font-weight-600 font-xsm capitalize">{availability >= 1 ? 'now selling' : 'sold out'}</span>
+          <span className="color-white font-weight-600 font-xsm capitalize">{availability >= 1 ? 'now selling' : 'No Orders'}</span>
         </div>
       </div>
       <div className="d-flex column details padding-horizontal-sm overflow-h">

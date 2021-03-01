@@ -14,7 +14,6 @@ const CommodityDetails = ({
   getSingleCommodityRequest, token, error, loading, match: { params }
 }) => {
   const [details, setDetails] = useState({});
-  console.log('details', details)
   useEffect(() => {
     getSingleCommodityRequest(token, setDetails, params.id)
   }, [token, setDetails, params.id, getSingleCommodityRequest]);
