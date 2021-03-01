@@ -114,7 +114,7 @@ const PriceBreakDown = ({ isValid, priceBreakdown = {}, commodityDetails }) => {
           <span className="font-weight-600 font-sm color1">{formatCurrency(expected_return)}</span>
         </div>
         <div className="d-flex justify-content-end" style={{width: '100%'}}>
-          <PaystackPayment isValid={isValid} amount={total_deal_cost} commodityDetails={commodityDetails} />
+          <PaystackPayment isValid={isValid} amount={+total_deal_cost} commodityDetails={commodityDetails} />
         </div>
         {error && <HttpStatusNotification  message={error} status={'error'} />}
       </div>

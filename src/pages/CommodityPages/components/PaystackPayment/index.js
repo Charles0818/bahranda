@@ -23,12 +23,12 @@ const PaystackPayment = ({ isValid, token, purchase, amount, email, success, fir
   const initializePayment = usePaystackPayment({
     email, metadata: { firstname, lastname },
     ...config,
-    amount: amount * 100
+    amount: +amount.toFixed(2) * 100
   });
   const onSuccess = useCallback(res => {
     const { reference: transaction_ref } = res;
     purchase({ transaction_ref, quantity, commodity_id }, token)
-  }, [commodityDetails, purchase, token]);
+  }, [commodityDetails, purchase, token, commodity_id]);
   const onClose = useCallback(() => {
   }, []);
   useEffect(() => {
