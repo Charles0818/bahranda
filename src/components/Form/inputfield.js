@@ -251,8 +251,8 @@ export const SubmitButton = ({ isLoading, text, action, disabled, className = ''
     <button disabled={disabled} ref={buttonRef} onClick={e => preventBeforeFire(e)} style={{minWidth: '100px'}} {...rest}
       className={`submit d-flex flex-center btn margin-bottom-md ${disabled ? 'cursor-not-allowed bg-color1-opacity-2' : 'bg-color1 ripple'} ${className}`}>
      {!isLoading
-      ? <span className="btn-text font-sm color-white font-weight-600">{text}</span>
-      : <ClipLoader size={20} color="#fff" loading={isLoading} />}
+      ? <span className="font-sm color-white font-weight-600">{text}</span>
+      : <ClipLoader size={22} color="#fff" loading={isLoading} />}
     </button>
   )
 }

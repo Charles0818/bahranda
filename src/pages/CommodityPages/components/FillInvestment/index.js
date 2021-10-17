@@ -5,6 +5,7 @@ import { utils, actions } from '../../helpers';
 import PaystackPayment from '../PaystackPayment';
 import { connect, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ChoosePaymentMethod from '../ChoosePaymentMethod';
 const { formatting: { formatCurrency } } = utils;
 const { SectionSpinner } = Spinners;
 const {
@@ -23,7 +24,7 @@ const FillInvestment = ({ details, id, token, calculatePriceRequest }) => {
   const [priceBreakdown, setPriceBreakdown] = useState(price_break_down);
   useEffect(() => {
     qty && parseInt(qty, 10) >= 1 && calculatePriceRequest(qty, id, token, setPriceBreakdown)
-  }, [qty])
+  }, [calculatePriceRequest, id, qty, token])
   return (
     <section className="">
       <div className="d-flex justify-content-s-between" style={{width: '100%'}}>
@@ -79,7 +80,8 @@ const PriceBreakDown = ({ isValid, priceBreakdown = {}, commodityDetails }) => {
       error: { calculatePrice: error }
     } = state.commodityReducer;
     return { loading, error }
-  })
+  });
+  console.log('error', error)
   if(loading) return (
     <section className="details flex-equal">
       <SectionSpinner isLoading={loading} />
@@ -114,7 +116,8 @@ const PriceBreakDown = ({ isValid, priceBreakdown = {}, commodityDetails }) => {
           <span className="font-weight-600 font-sm color1">{formatCurrency(expected_return)}</span>
         </div>
         <div className="d-flex justify-content-end" style={{width: '100%'}}>
-          <PaystackPayment isValid={isValid} amount={+total_deal_cost} commodityDetails={commodityDetails} />
+          <ChoosePaymentMethod isValid={isValid} amount={+total_deal_cost} commodityDetails={commodityDetails} />
+          {/* <PaystackPayment isValid={isValid} amount={+total_deal_cost} commodityDetails={commodityDetails} /> */}
         </div>
         {error && <HttpStatusNotification  message={error} status={'error'} />}
       </div>
